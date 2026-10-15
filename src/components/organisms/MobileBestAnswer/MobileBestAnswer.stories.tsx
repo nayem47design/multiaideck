@@ -20,17 +20,20 @@ const meta = {
     ideas: [
       {
         name: "Golpo Coffee",
-        source: "· from Claude",
+        model: "claude",
+        source: "from Claude",
         text: "“Golpo” means story: a place to sit and talk.",
       },
       {
         name: "Bean Bari",
-        source: "· from Gemini",
+        model: "gemini",
+        source: "from Gemini",
         text: "“Bari” means home: warm and local.",
       },
       {
         name: "Cha & Crema",
-        source: "· from GPT-5",
+        model: "gpt",
+        source: "from GPT-5",
         text: "Dhaka’s tea culture meets espresso.",
       },
     ],

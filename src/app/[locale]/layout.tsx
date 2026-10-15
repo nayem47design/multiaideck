@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { routing } from "@/lib/i18n/routing";
 import { SIDEBAR_SCRIPT } from "@/lib/sidebar";
+import { TEXT_SIZE_SCRIPT } from "@/lib/text-size";
 import { THEME_SCRIPT } from "@/lib/theme";
 
 import { fontVariables } from "../fonts";
@@ -27,6 +28,7 @@ export default async function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: SIDEBAR_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: TEXT_SIZE_SCRIPT }} />
       </head>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>

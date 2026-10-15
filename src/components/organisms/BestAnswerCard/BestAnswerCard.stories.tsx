@@ -32,16 +32,19 @@ const meta = {
       {
         lead: "Golpo Coffee:",
         text: '"golpo" means story: a place to sit and talk.',
+        model: "claude",
         source: "from Claude",
       },
       {
         lead: "Bean Bari:",
         text: '"bari" means home: warm and local.',
+        model: "gemini",
         source: "from Gemini",
       },
       {
         lead: "Cha & Crema:",
         text: "Dhaka’s tea culture meets espresso.",
+        model: "gpt",
         source: "from GPT",
       },
     ],

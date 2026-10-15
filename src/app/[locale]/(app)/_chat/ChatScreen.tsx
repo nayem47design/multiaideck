@@ -15,6 +15,7 @@ import { ModelTabs, type ModelTab } from "@/components/molecules/ModelTabs";
 import { PromptBubble } from "@/components/molecules/PromptBubble";
 import { PromptReceipt } from "@/components/molecules/PromptReceipt";
 import { PromptSummary } from "@/components/molecules/PromptSummary";
+import { ModelOrb } from "@/components/atoms/ModelOrb";
 import { ThinkingStatusBar } from "@/components/molecules/ThinkingStatusBar";
 import {
   AnswerCard,
@@ -269,7 +270,10 @@ export function ChatScreen({
         retry: t("card.retry"),
         helpful: t("card.helpful"),
         notHelpful: t("card.notHelpful"),
-        continue: t("card.continue", { name: m.short }),
+        continue: t.rich("card.continue", {
+          logo: () => <ModelOrb model={a.model} size="md" aria-hidden />,
+        }),
+        continueLabel: t("card.continueLabel", { name: m.short }),
         swapModel: t("card.swapModel"),
         retryWithCost: t("card.retryWithCost", {
           credits: cr(retryCredits(a.model)),
@@ -452,52 +456,99 @@ export function ChatScreen({
     };
   })();
 
-  // ---- Earlier prompts, folded (desktop).
+  /** The Best answer card of a prompt (the current one, or an earlier one in the thread). */
+  const bestCard = (p: Prompt, onSeeAll: () => void) => {
+    const b = p.best!;
+    const pAnswers = visibleAnswers(p);
+    const models = pAnswers
+      .filter((a) => a.status === "done")
+      .map((a) => a.model);
+    return (
+      <BestAnswerCard
+        className="mx-auto mt-4 max-w-chat-column"
+        models={models}
+        title={t("best.title")}
+        builtFrom={t("best.builtFrom", {
+          names: list(models.map((m) => MODELS[m].name)),
+        })}
+        intro={b.intro}
+        points={b.points.map((pt) => ({
+          lead: t("best.lead", { name: pt.lead }),
+          text: pt.text,
+          model: pt.model,
+          source: t("best.source", { name: MODELS[pt.model].name }),
+        }))}
+        metrics={
+          b.status === "done"
+            ? [
+                t("metric.seconds", {
+                  value: secs((b.durationMs ?? 0) / 1000),
+                }),
+                tc("creditsShort", { amount: cr(b.credits) }),
+                tc("money", { amount: money(b.credits) }),
+              ]
+            : []
+        }
+        seeAllLabel={t("best.seeAll", { count: n(pAnswers.length) })}
+        whyLabel={t("best.why")}
+        onSeeAll={onSeeAll}
+      />
+    );
+  };
+
+  // ---- Earlier prompts (desktop): a scrolling thread. Each turn is open by default (its prompt and
+  // its answer: the Best answer card or the answer cards) and folds to Figma's Prompt summary row.
+  // Figma folds earlier prompts; the product owner asked to feel a 2–4 prompt conversation and its
+  // scrolling, so they start open.
   const grid =
     "flex snap-x gap-4 overflow-x-auto pb-1 xl:grid xl:grid-cols-3 xl:overflow-visible";
-  const [shown, setShown] = useState<string[]>([]);
-  const summaries =
-    !thinking &&
-    earlier.map((p) => {
-      const open = shown.includes(p.id);
-      const pAnswers = visibleAnswers(p);
-      return (
-        <div key={p.id} className="flex flex-col gap-3">
-          <PromptSummary
-            label={t("summary.label", { n: n(p.seq) })}
-            prompt={p.text}
-            results={tabOrder(pAnswers).map((a) => ({
-              model: a.model,
-              label:
-                a.status === "done"
-                  ? t("summary.result", {
-                      name: spec(a.model).short,
-                      credits: cr(a.credits),
-                    })
-                  : t("summary.refunded", { name: spec(a.model).short }),
-              refunded: a.status !== "done",
-            }))}
-            toggleLabel={open ? t("summary.hide") : t("summary.show")}
-            expanded={open}
-            onToggle={() =>
-              setShown((s) =>
-                open ? s.filter((x) => x !== p.id) : [...s, p.id],
-              )
-            }
-          />
-          {open && (
-            <>
-              <PromptBubble className="self-end">{p.text}</PromptBubble>
+  const [folded, setFolded] = useState<string[]>([]);
+  const [allFor, setAllFor] = useState<string[]>([]);
+  const summaries = earlier.map((p) => {
+    const open = !folded.includes(p.id);
+    const pAnswers = visibleAnswers(p);
+    const asBest = p.mode === "best" && !!p.best && !allFor.includes(p.id);
+    return (
+      <div key={p.id} className="flex flex-col gap-3">
+        <PromptSummary
+          label={t("summary.label", { n: n(p.seq) })}
+          prompt={p.text}
+          results={tabOrder(pAnswers).map((a) => ({
+            model: a.model,
+            label:
+              a.status === "done"
+                ? t("summary.result", {
+                    name: spec(a.model).short,
+                    credits: cr(a.credits),
+                  })
+                : t("summary.refunded", { name: spec(a.model).short }),
+            refunded: a.status !== "done",
+          }))}
+          toggleLabel={open ? t("summary.hide") : t("summary.show")}
+          expanded={open}
+          onToggle={() =>
+            setFolded((s) =>
+              open ? [...s, p.id] : s.filter((x) => x !== p.id),
+            )
+          }
+        />
+        {open && (
+          <>
+            <PromptBubble className="self-end">{p.text}</PromptBubble>
+            {asBest ? (
+              bestCard(p, () => setAllFor((s) => [...s, p.id]))
+            ) : (
               <div className={grid}>
                 {pAnswers.map((a) => (
                   <AnswerCard key={a.id} {...cardProps(a, "h-chat-card")} />
                 ))}
               </div>
-            </>
-          )}
-        </div>
-      );
-    });
+            )}
+          </>
+        )}
+      </div>
+    );
+  });
 
   const showRecipients =
     !!current && !running && missed.length > 0 && answered.length > 0;
@@ -510,98 +561,94 @@ export function ChatScreen({
 
   const best = current?.best;
   const bestModels = answered.map((a) => a.model);
-  const bestMetrics =
-    best?.status === "done"
-      ? [
-          t("metric.seconds", { value: secs((best.durationMs ?? 0) / 1000) }),
-          tc("creditsShort", { amount: cr(best.credits) }),
-          tc("money", { amount: money(best.credits) }),
-        ]
-      : [];
+
   const bestThinking = current?.mode === "best" && mode === "best" && thinking;
+
+  // A new prompt in a conversation scrolls into view (the thread above stays reachable).
+  const currentRef = useRef<HTMLDivElement>(null);
+  const lastScrolled = useRef<string | null>(null);
+  useEffect(() => {
+    if (!current || current.seq < 2 || lastScrolled.current === current.id)
+      return;
+    lastScrolled.current = current.id;
+    currentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [current]);
 
   // ======================================================================== Desktop
   const desktop = current && (
-    <div
-      className={cx(
-        "flex flex-col max-md:hidden",
-        current.seq > 1 ? "gap-3" : "gap-4",
-      )}
-    >
+    <div className="flex flex-col gap-10 max-md:hidden">
       {summaries}
-      <PromptBubble className="self-end">{current.text}</PromptBubble>
-      {bestThinking && (
-        <ThinkingPanel
-          className="mx-auto mt-4 max-w-chat-column"
-          title={thinkingTitle}
-          body={t("thinking.body")}
-          rows={rows(false)}
-          stopLabel={t("thinking.stop")}
-          stopNote={t("thinking.stopNote")}
-          onStop={onStop}
-        />
-      )}
-      {showBest && !bestThinking && best && (
-        <BestAnswerCard
-          className="mx-auto mt-4 max-w-chat-column"
-          models={bestModels}
-          title={t("best.title")}
-          builtFrom={t("best.builtFrom", {
-            names: list(bestModels.map((m) => MODELS[m].name)),
-          })}
-          intro={best.intro}
-          points={best.points.map((p) => ({
-            lead: t("best.lead", { name: p.lead }),
-            text: p.text,
-            source: t("best.source", { name: MODELS[p.model].name }),
-          }))}
-          metrics={bestMetrics}
-          seeAllLabel={t("best.seeAll", { count: n(answers.length) })}
-          whyLabel={t("best.why")}
-          onSeeAll={() => setMode("compare")}
-        />
-      )}
-      {thinking && !bestThinking && (
-        <>
-          <ThinkingStatusBar
-            className="self-start"
+      <div
+        ref={currentRef}
+        className={cx(
+          "scroll-mt-24 flex flex-col",
+          current.seq > 1 ? "gap-3" : "gap-4",
+        )}
+      >
+        <PromptBubble className="self-end">{current.text}</PromptBubble>
+        {bestThinking && (
+          <ThinkingPanel
+            className="mx-auto mt-4 max-w-chat-column"
             title={thinkingTitle}
-            message={statusMessage}
+            body={t("thinking.body")}
+            rows={rows(false)}
             stopLabel={t("thinking.stop")}
+            stopNote={t("thinking.stopNote")}
             onStop={onStop}
           />
-          <div className={grid}>
-            {answers.map((a) => {
-              const row = rowsData.find((r) => r.answer.id === a.id)!;
-              return row.status === "done" || isFailed(a) ? (
-                <AnswerCard key={a.id} {...cardProps(a, "h-chat-card-tall")} />
-              ) : (
-                <WritingCard
-                  key={a.id}
-                  model={a.model}
-                  modelName={spec(a.model).name}
-                  provider={spec(a.model).provider}
-                  status={rowLabel(row.status)}
-                  sizeClassName="h-chat-card-tall w-answer-card-width shrink-0 snap-start xl:w-auto"
-                />
-              );
-            })}
-          </div>
-        </>
-      )}
-      {!thinking && !showBest && (
-        <>
-          {suggestion && <div className="flex">{suggestion}</div>}
-          <div className={grid}>
-            {answers.map((a) => (
-              <AnswerCard key={a.id} {...cardProps(a, cardHeight)} />
-            ))}
-          </div>
-          {!running && (
-            <PromptReceipt summary={receipt.summary} detail={receipt.detail} />
-          )}
-        </>
-      )}
+        )}
+        {showBest &&
+          !bestThinking &&
+          best &&
+          bestCard(current, () => setMode("compare"))}
+        {thinking && !bestThinking && (
+          <>
+            <ThinkingStatusBar
+              className="self-start"
+              title={thinkingTitle}
+              message={statusMessage}
+              stopLabel={t("thinking.stop")}
+              onStop={onStop}
+            />
+            <div className={grid}>
+              {answers.map((a) => {
+                const row = rowsData.find((r) => r.answer.id === a.id)!;
+                return row.status === "done" || isFailed(a) ? (
+                  <AnswerCard
+                    key={a.id}
+                    {...cardProps(a, "h-chat-card-tall")}
+                  />
+                ) : (
+                  <WritingCard
+                    key={a.id}
+                    model={a.model}
+                    modelName={spec(a.model).name}
+                    provider={spec(a.model).provider}
+                    status={rowLabel(row.status)}
+                    sizeClassName="h-chat-card-tall w-answer-card-width shrink-0 snap-start xl:w-auto"
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
+        {!thinking && !showBest && (
+          <>
+            {suggestion && <div className="flex">{suggestion}</div>}
+            <div className={grid}>
+              {answers.map((a) => (
+                <AnswerCard key={a.id} {...cardProps(a, cardHeight)} />
+              ))}
+            </div>
+            {!running && (
+              <PromptReceipt
+                summary={receipt.summary}
+                detail={receipt.detail}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 
@@ -766,7 +813,8 @@ export function ChatScreen({
           intro={best.intro}
           ideas={best.points.map((p) => ({
             name: p.lead,
-            source: t("best.sourceMobile", { name: spec(p.model).short }),
+            model: p.model,
+            source: t("best.source", { name: spec(p.model).short }),
             text: p.text,
           }))}
           cost={t("best.cost", { credits: cr(best.credits) })}

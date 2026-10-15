@@ -158,6 +158,7 @@ export function WalletDialogs() {
       >
         {pending && (
           <CheckoutDialogPanel
+            method={method}
             head={sandbox ? t("dialog.head") : t("dialog.headLive")}
             title={t("dialog.title", {
               kind: method,

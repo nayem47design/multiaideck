@@ -388,17 +388,24 @@ const themeCss = [
 // ---------------------------------------------------------------------------
 // Write typography.css
 
+// Sizes are Figma's pixels times --type-scale (1 by default; the reader's Text size setting in
+// Settings › Profile sets it on <html>, see src/lib/type-scale.ts).
+const scaled = (v) =>
+  /^-?[\d.]+px$/.test(v) && v !== "0px"
+    ? `calc(${v} * var(--type-scale, 1))`
+    : v;
+
 const typographyCss = [
   HEADER,
-  "/* Line heights are absolute pixels, as in Figma. */",
+  "/* Line heights are absolute pixels, as in Figma, times --type-scale (the Text size setting). */",
   ...typography.map(
     (t) => `/* ${t.name} · ${t.figmaFont} · ${t.fontSize}/${t.lineHeight} */
 @utility ${t.utility} {
   font-family: ${t.fontFamily};
-  font-size: ${t.fontSize};
-  line-height: ${t.lineHeight};
+  font-size: ${scaled(t.fontSize)};
+  line-height: ${scaled(t.lineHeight)};
   font-weight: ${t.fontWeight};
-  letter-spacing: ${t.letterSpacing};
+  letter-spacing: ${scaled(t.letterSpacing)};
 }
 `,
   ),

@@ -267,14 +267,15 @@
       "retry": "আবার চেষ্টা",
       "helpful": "কাজে লেগেছে",
       "notHelpful": "কাজে লাগেনি",
-      "continue": "{name} দিয়ে চালিয়ে যান",
+      "continue": "<logo></logo> দিয়ে চালিয়ে যান",
       "swapModel": "মডেল বদলান",
       "retryWithCost": "আবার চেষ্টা · ≈ {credits} ক্রে",
       "refunded": "ফেরত · {credits} ক্রে",
       "timeout": "৩০ সেকেন্ডেও উত্তর আসেনি।\n{provider} সাড়া দিতে দেরি করেছে। কোনো টাকা কাটা হয়নি।",
       "unavailable": "{name} বন্ধ ছিল।\n{provider} সমস্যার কথা জানিয়েছে। কোনো টাকা কাটা হয়নি।",
       "error": "{name} উত্তর দিতে পারেনি।\n{provider}-এ একটি সমস্যা হয়েছে। কোনো টাকা কাটা হয়নি।",
-      "stopped": "{name} শেষ করার আগেই আপনি থামিয়েছেন।\nকোনো টাকা কাটা হয়নি।"
+      "stopped": "{name} শেষ করার আগেই আপনি থামিয়েছেন।\nকোনো টাকা কাটা হয়নি।",
+      "continueLabel": "{name} দিয়ে চালিয়ে যান"
     },
     "metric": {
       "seconds": "{value} সে",
@@ -289,8 +290,8 @@
     },
     "summary": {
       "label": "প্রশ্ন {n}",
-      "result": "{name} · {credits} ক্রে",
-      "refunded": "{name} · ফেরত",
+      "result": "{credits} ক্রে",
+      "refunded": "ফেরত",
       "show": "দেখুন",
       "hide": "লুকান"
     },
@@ -302,7 +303,6 @@
       "lead": "{name}:",
       "source": "{name} থেকে",
       "fromCount": "{count}টি AI থেকে",
-      "sourceMobile": "· {name} থেকে",
       "cost": "{credits} ক্রেডিট",
       "money": "(৳{amount})",
       "seeAllMobile": "{count}টি উত্তরই দেখুন"
@@ -1026,6 +1026,13 @@
           "system": "সিস্টেম",
           "light": "লাইট",
           "dark": "ডার্ক"
+        },
+        "textSize": "লেখার আকার",
+        "textSizeHelp": "সব লেখা বড় হবে: উত্তর, মেনু আর বোতাম। এই ডিভাইসে সেভ থাকবে।",
+        "textSizes": {
+          "normal": "সাধারণ",
+          "large": "বড়",
+          "larger": "আরও বড়"
         }
       },
       "account": {

@@ -23,34 +23,9 @@
   --orb-lg: var(--size-control-sm); /* Model orb › Model=GPT, Size=lg */
   --orb-md: var(--size-icon-md); /* Model orb › Model=GPT, Size=md */
   --orb-sm: var(--space-3); /* Model orb › Model=GPT, Size=sm */
-  --orb-ring-width: 1.5px; /* Model orb › Model=GPT, Size=lg */
-  --orb-ring-color: #ffffff; /* Model orb › Model=GPT, Size=lg */
+  --orb-ring-width: 1px; /* Model orb › Model=GPT, Size=lg */
+  --orb-ring-color: var(--lum-line); /* Model orb › Model=GPT, Size=lg */
   --orb-initial-color: #ffffff; /* Model orb › Model=GPT, Size=lg › Initial */
-  --orb-gpt-fill: linear-gradient(
-    135deg,
-    #3ed6a5 8.33%,
-    #0e8f6a 91.67%
-  ); /* Model orb › Model=GPT, Size=lg */
-  --orb-claude-fill: linear-gradient(
-    135deg,
-    #f3b08f 8.33%,
-    #c8643f 91.67%
-  ); /* Model orb › Model=Claude, Size=lg */
-  --orb-gemini-fill: linear-gradient(
-    135deg,
-    #8fb8ff 8.33%,
-    #3d6fe8 91.67%
-  ); /* Model orb › Model=Gemini, Size=lg */
-  --orb-deepseek-fill: linear-gradient(
-    135deg,
-    #93c5fd 8.33%,
-    #3b5bdb 91.67%
-  ); /* Model orb › Model=DeepSeek, Size=lg */
-  --orb-grok-fill: linear-gradient(
-    135deg,
-    #d1d5db 8.33%,
-    #374151 91.67%
-  ); /* Model orb › Model=Grok, Size=lg */
   --avatar-size: 34px; /* Avatar */
   --input-height: 46px; /* Input › State=Default */
   --input-border-width: 1px; /* Input › State=Default */
@@ -73,6 +48,7 @@
   --skeleton-line-radius: var(--radius-xs); /* Skeleton › line */
   --shortcut-chip-radius: 5px; /* Shortcut chip */
   --payment-logo-icon: 18px; /* Payment logo slot › Method=Card › Icon/credit-card */
+  --payment-logo-tile-color: #ffffff; /* Payment logo slot › Method=bKash */
   --segmented-option-height: 30px; /* Segmented control › Selected=First › Option 1 */
   --segmented-option-shadow: 0px 1px 3px 0px #1f33611f; /* Segmented control › Selected=First › Option 1 */
   --nav-item-trailing-icon: 14px; /* Nav item › State=Default, Trailing=External › Icon/link-square-02 */
@@ -280,26 +256,6 @@
     --space-1-5
   ); /* Model picker modal › Model list (scrolls) › Row/GPT-5 › c#4 › bar */
   --picker-row-height: 60px; /* Model picker modal › Model list (scrolls) › Row/GPT-5 */
-  --orb-o3-fill: linear-gradient(
-    135deg,
-    #a5b4fc 8.33%,
-    #4f46e5 91.67%
-  ); /* Model picker modal › Model list (scrolls) › Row/o3 › c#1 › Model orb */
-  --orb-perplexity-fill: linear-gradient(
-    135deg,
-    #99f6e4 8.33%,
-    #0f766e 91.67%
-  ); /* Model picker modal › Model list (scrolls) › Row/Perplexity › c#1 › Model orb */
-  --orb-llama-fill: linear-gradient(
-    135deg,
-    #bfdbfe 8.33%,
-    #1d4ed8 91.67%
-  ); /* Model picker modal › Model list (scrolls) › Row/Llama › c#1 › Model orb */
-  --orb-qwen-fill: linear-gradient(
-    135deg,
-    #ddd6fe 8.33%,
-    #6d28d9 91.67%
-  ); /* Model picker modal › Model list (scrolls) › Row/Qwen › c#1 › Model orb */
   --starter-card-shadow: var(
     --shadow-float
   ); /* Home hero › Starters › Card/Compare three models */
@@ -778,7 +734,6 @@
   --spacing-orb-lg: var(--orb-lg);
   --spacing-orb-md: var(--orb-md);
   --spacing-orb-sm: var(--orb-sm);
-  --color-orb-ring: var(--orb-ring-color);
   --color-orb-initial: var(--orb-initial-color);
   --spacing-avatar-size: var(--avatar-size);
   --spacing-input-height: var(--input-height);
@@ -791,6 +746,7 @@
   --radius-skeleton-line: var(--skeleton-line-radius);
   --radius-shortcut-chip: var(--shortcut-chip-radius);
   --spacing-payment-logo-icon: var(--payment-logo-icon);
+  --color-payment-logo-tile: var(--payment-logo-tile-color);
   --spacing-segmented-option-height: var(--segmented-option-height);
   --shadow-segmented-option: var(--segmented-option-shadow);
   --spacing-nav-item-trailing-icon: var(--nav-item-trailing-icon);
@@ -1288,8 +1244,8 @@
 /* Model orb › Model=GPT, Size=lg › Initial: Geist SemiBold 13/16 ls 0 */
 @utility type-orb-lg {
   font-family: var(--font-sans);
-  font-size: 13px;
-  line-height: 16px;
+  font-size: calc(13px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1));
   font-weight: 600;
   letter-spacing: 0px;
 }
@@ -1297,8 +1253,8 @@
 /* Model orb › Model=GPT, Size=md › Initial: Geist SemiBold 9/12 ls 0 */
 @utility type-orb-md {
   font-family: var(--font-sans);
-  font-size: 9px;
-  line-height: 12px;
+  font-size: calc(9px * var(--type-scale, 1));
+  line-height: calc(12px * var(--type-scale, 1));
   font-weight: 600;
   letter-spacing: 0px;
 }
@@ -1506,10 +1462,10 @@
 /* Sidebar › State=Expanded › Brand row › brand › MultiAI: Geist SemiBold 17/22 ls -0.4 */
 @utility type-sidebar-brand {
   font-family: var(--font-sans);
-  font-size: 17px;
-  line-height: 22px;
+  font-size: calc(17px * var(--type-scale, 1));
+  line-height: calc(22px * var(--type-scale, 1));
   font-weight: 600;
-  letter-spacing: -0.4px;
+  letter-spacing: calc(-0.4px * var(--type-scale, 1));
 }
 
 /* Sidebar › State=Expanded › Today header › Label: Luminous/Section */
@@ -1595,8 +1551,8 @@
 /* Order summary › line › BDT 699: Geist Medium 20/26 ls 0 */
 @utility type-order-summary-total {
   font-family: var(--font-sans);
-  font-size: 20px;
-  line-height: 26px;
+  font-size: calc(20px * var(--type-scale, 1));
+  line-height: calc(26px * var(--type-scale, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
@@ -1639,8 +1595,8 @@
 /* Delete dialog › Confirm field › input › DELETE: Geist Mono Regular 15/20 ls 0 */
 @utility type-dialog-confirm-input {
   font-family: var(--font-mono);
-  font-size: 15px;
-  line-height: 20px;
+  font-size: calc(15px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -1703,10 +1659,10 @@
 /* Usage card › Insight › Gemini cost about half as much as GPT-5 on the same prompt.: Geist Light 20/27 ls -0.4 */
 @utility type-usage-insight-title {
   font-family: var(--font-sans);
-  font-size: 20px;
-  line-height: 27px;
+  font-size: calc(20px * var(--type-scale, 1));
+  line-height: calc(27px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.4px;
+  letter-spacing: calc(-0.4px * var(--type-scale, 1));
 }
 
 /* Usage card › Insight › If quality is close, picking Gemini for quick questions makes your credits last longer.: Luminous/Body Small */
@@ -1722,17 +1678,17 @@
 /* Best answer card › Merged answer › Here are the strongest name ideas from all three models:: Geist Regular 16/26 ls -0.1 */
 @utility type-best-answer-text {
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 26px;
+  font-size: calc(16px * var(--type-scale, 1));
+  line-height: calc(26px * var(--type-scale, 1));
   font-weight: 400;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* Identity card › avatar row › Avatar › AH: Geist Medium 20/24 ls 0 */
 @utility type-identity-initials {
   font-family: var(--font-sans);
-  font-size: 20px;
-  line-height: 24px;
+  font-size: calc(20px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
@@ -1745,19 +1701,19 @@
 /* Sign-in methods card › Set password (expanded) › Field/New password › input › ••••••••••: Geist Medium 18/20 ls 2 */
 @utility type-password {
   font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 20px;
+  font-size: calc(18px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: calc(2px * var(--type-scale, 1));
 }
 
 /* Home hero › Ask once. Get the best answer from up to three models.: Geist Light 22/30 ls -0.5 */
 @utility type-hero-subtitle {
   font-family: var(--font-sans);
-  font-size: 22px;
-  line-height: 30px;
+  font-size: calc(22px * var(--type-scale, 1));
+  line-height: calc(30px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.5px;
+  letter-spacing: calc(-0.5px * var(--type-scale, 1));
 }
 
 /* Home hero › Starters › Card/Compare three models › t › See GPT, Claude and Gemini by side: Luminous/Body Small */
@@ -1770,10 +1726,10 @@ Three AIs.
 The best answer: Geist Light 48/56 ls -1.6 */
 @utility type-auth-hero {
   font-family: var(--font-sans);
-  font-size: 48px;
-  line-height: 56px;
+  font-size: calc(48px * var(--type-scale, 1));
+  line-height: calc(56px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -1.6px;
+  letter-spacing: calc(-1.6px * var(--type-scale, 1));
 }
 
 /* M1 · Welcome & language › Content › One question.
@@ -1781,64 +1737,64 @@ Three AIs.
 The best answer: Geist Light 30/38 ls -0.8 */
 @utility type-auth-hero-mobile {
   font-family: var(--font-sans);
-  font-size: 30px;
-  line-height: 38px;
+  font-size: calc(30px * var(--type-scale, 1));
+  line-height: calc(38px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* Desktop · Sign in › Sign in card › Sign in or create an account: Geist SemiBold 22/28 ls -0.2 */
 @utility type-auth-card-title {
   font-family: var(--font-sans);
-  font-size: 22px;
-  line-height: 28px;
+  font-size: calc(22px * var(--type-scale, 1));
+  line-height: calc(28px * var(--type-scale, 1));
   font-weight: 600;
-  letter-spacing: -0.2px;
+  letter-spacing: calc(-0.2px * var(--type-scale, 1));
 }
 
 /* M16 · Sign in: phone number › Content › Sign in with your phone: Geist Light 28/36 ls -0.8 */
 @utility type-auth-mobile-title {
   font-family: var(--font-sans);
-  font-size: 28px;
-  line-height: 36px;
+  font-size: calc(28px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* Desktop · Sign in › Sign in card › Phone field › Country › +880: Geist Medium 15/20 ls -0.1 */
 @utility type-auth-country {
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 20px;
+  font-size: calc(15px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* M16 · Sign in: phone number › Content › Phone field › Country › +880: Geist Medium 17/20 ls -0.1 */
 @utility type-auth-country-mobile {
   font-family: var(--font-sans);
-  font-size: 17px;
-  line-height: 20px;
+  font-size: calc(17px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* Desktop · Sign in › Sign in card › Phone field › 1712 345 214: Geist Regular 17/27 ls -0.1 */
 @utility type-auth-phone {
   font-family: var(--font-sans);
-  font-size: 17px;
-  line-height: 27px;
+  font-size: calc(17px * var(--type-scale, 1));
+  line-height: calc(27px * var(--type-scale, 1));
   font-weight: 400;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* M16 · Sign in: phone number › Content › Phone field › 1712 345 214: Geist Regular 19/27 ls -0.1 */
 @utility type-auth-phone-mobile {
   font-family: var(--font-sans);
-  font-size: 19px;
-  line-height: 27px;
+  font-size: calc(19px * var(--type-scale, 1));
+  line-height: calc(27px * var(--type-scale, 1));
   font-weight: 400;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* Desktop · Sign in › Sign in card › Button · Send code › Send code: Geist Medium 15/20 ls -0.1, same as type-auth-country */
@@ -1849,10 +1805,10 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* M16 · Sign in: phone number › Bottom › Button · Send code › Send code: Geist Medium 16/20 ls -0.1 */
 @utility type-auth-button-mobile {
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 20px;
+  font-size: calc(16px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* M17 · Enter the code › Wrong number? Change it: Geist Medium 15/20 ls -0.1, same as type-auth-country */
@@ -1863,28 +1819,28 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Desktop · Enter code › Code card › Code boxes › Digit 1 › 4: Geist Light 24/36 ls -0.8 */
 @utility type-code-digit {
   font-family: var(--font-sans);
-  font-size: 24px;
-  line-height: 36px;
+  font-size: calc(24px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* M17 · Enter the code › Content › Code boxes › Digit 1 › 4: Geist Light 26/36 ls -0.8 */
 @utility type-code-digit-mobile {
   font-family: var(--font-sans);
-  font-size: 26px;
-  line-height: 36px;
+  font-size: calc(26px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* M1 · Welcome & language › Bottom › Language › Option · English › English: Geist Medium 18/20 ls -0.1 */
 @utility type-language-option {
   font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 20px;
+  font-size: calc(18px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* Chats › Main › Filters › Filter · All › All: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
@@ -1900,10 +1856,10 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Chats › Main › List › Group · Today › Today: Geist Medium 13/20 ls -0.1 */
 @utility type-chats-group {
   font-family: var(--font-sans);
-  font-size: 13px;
-  line-height: 20px;
+  font-size: calc(13px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* Chats › Main › List › Chat · Coffee shop names › Coffee shop names: Geist Medium 15/20 ls -0.1, same as type-auth-country */
@@ -1929,19 +1885,19 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Image studio · Picture ready › Main › Body › Picture (generated image placeholder) › Golpo Coffee: Geist Light 44/36 ls -0.8 */
 @utility type-images-picture-caption {
   font-family: var(--font-sans);
-  font-size: 44px;
-  line-height: 36px;
+  font-size: calc(44px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* M22 · Picture ready › Golpo Coffee: Geist Light 34/36 ls -0.8 */
 @utility type-images-picture-caption-mobile {
   font-family: var(--font-sans);
-  font-size: 34px;
-  line-height: 36px;
+  font-size: calc(34px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* Image studio · Picture ready › Main › Head › Golpo Coffee sign: Geist SemiBold 22/28 ls -0.2, same as type-auth-card-title */
@@ -1962,10 +1918,10 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Presets › Main › Grid › Preset · Recommended › top › tag › In use: Geist Medium 12/20 ls -0.1 */
 @utility type-preset-tag {
   font-family: var(--font-sans);
-  font-size: 12px;
-  line-height: 20px;
+  font-size: calc(12px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* Presets › Main › Grid › Preset · Recommended › actions › Button · Use › Use: Geist Medium 13/20 ls -0.1, same as type-chats-group */
@@ -2026,19 +1982,19 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* M4 · Voice: listening › Listening › Transcript › Give me coffee shop names that feel loca: Geist Regular 18/28 ls -0.1 */
 @utility type-chat-m-transcript {
   font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 28px;
+  font-size: calc(18px * var(--type-scale, 1));
+  line-height: calc(28px * var(--type-scale, 1));
   font-weight: 400;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* Overlay · New project › Sign out of MultiAI?: Geist SemiBold 20/28 ls -0.2 */
 @utility type-new-project-title {
   font-family: var(--font-sans);
-  font-size: 20px;
-  line-height: 28px;
+  font-size: calc(20px * var(--type-scale, 1));
+  line-height: calc(28px * var(--type-scale, 1));
   font-weight: 600;
-  letter-spacing: -0.2px;
+  letter-spacing: calc(-0.2px * var(--type-scale, 1));
 }
 
 /* Overlay · New project › Actions › Button · Cancel › Stay signed in: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
@@ -2054,8 +2010,8 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Settings · Profile › How you appear, and how MultiAI talks to you.: Geist Regular 15/22 ls 0 */
 @utility type-settings-subtitle {
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 22px;
+  font-size: calc(15px * var(--type-scale, 1));
+  line-height: calc(22px * var(--type-scale, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -2063,17 +2019,17 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Settings · Usage › Where your credits went: Geist Light 28/34 ls -0.6 */
 @utility type-settings-section-title {
   font-family: var(--font-sans);
-  font-size: 28px;
-  line-height: 34px;
+  font-size: calc(28px * var(--type-scale, 1));
+  line-height: calc(34px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.6px;
+  letter-spacing: calc(-0.6px * var(--type-scale, 1));
 }
 
 /* Settings · Profile › Content › Account row › Account: Geist Medium 14/20 ls 0 */
 @utility type-settings-account-label {
   font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 20px;
+  font-size: calc(14px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
@@ -2121,10 +2077,10 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Larger › Extra large: Geist Medium 19/20 ls -0.1 */
 @utility type-acct-text-size-larger {
   font-family: var(--font-sans);
-  font-size: 19px;
-  line-height: 20px;
+  font-size: calc(19px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 500;
-  letter-spacing: -0.1px;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
 /* M13 · Usage › Content › Total › t › 26 credits: Geist Light 30/36 ls -0.8, same as type-title */
@@ -2150,10 +2106,10 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Wallet › Wallet: Geist Light 40/46 ls -1.2 */
 @utility type-wallet-title {
   font-family: var(--font-sans);
-  font-size: 40px;
-  line-height: 46px;
+  font-size: calc(40px * var(--type-scale, 1));
+  line-height: calc(46px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -1.2px;
+  letter-spacing: calc(-1.2px * var(--type-scale, 1));
 }
 
 /* Wallet › Your balance, top-ups and payments. Spending detail is in Settings → Usage.: Geist Regular 15/22 ls 0, same as type-settings-subtitle */
@@ -2169,8 +2125,8 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Wallet › Pay in taka with bKash, Nagad or card. Bigger packs include bonus credits.: Geist Regular 14/20 ls 0 */
 @utility type-wallet-section-lede {
   font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 20px;
+  font-size: calc(14px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -2198,10 +2154,10 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* Overlay · Go Pro › price › ৳1,599: Geist Light 36/36 ls -0.8 */
 @utility type-go-pro-price {
   font-family: var(--font-sans);
-  font-size: 36px;
-  line-height: 36px;
+  font-size: calc(36px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* Overlay · Go Pro › Compare plans › Plan · Pay as you go › Pay as you go: Geist Medium 15/20 ls -0.1, same as type-auth-country */
@@ -2222,10 +2178,10 @@ The best answer: Geist Light 30/38 ls -0.8 */
 /* M10 · Wallet › Content › Balance › 10,684 credits: Geist Light 32/36 ls -0.8 */
 @utility type-m-balance-value {
   font-family: var(--font-sans);
-  font-size: 32px;
-  line-height: 36px;
+  font-size: calc(32px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1));
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
 /* M10 · Wallet › Content › Balance › Never expire › Credits never expire: Geist Medium 13/20 ls -0.1, same as type-chats-group */

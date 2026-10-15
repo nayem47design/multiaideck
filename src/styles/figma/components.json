@@ -2517,7 +2517,7 @@
    "id": "28:8269",
    "name": "Model orb",
    "type": "COMPONENT_SET",
-   "w": 578,
+   "w": 1026,
    "h": 66,
    "layout": "HORIZONTAL",
    "pad": [
@@ -2554,7 +2554,11 @@
       "Claude",
       "Gemini",
       "DeepSeek",
-      "Grok"
+      "Grok",
+      "o3",
+      "Perplexity",
+      "Qwen",
+      "Llama"
      ]
     },
     "Size": {
@@ -2592,40 +2596,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 16,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#3ed6a5ff"
-        },
-        {
-         "pos": 1,
-         "color": "#0e8f6aff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -2641,9 +2619,10 @@
        "type": "TEXT",
        "w": 10,
        "h": 16,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -2671,6 +2650,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41863",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41128",
+        "name": "Brand=ChatGPT, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -2698,40 +2700,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 16,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#f3b08fff"
-        },
-        {
-         "pos": 1,
-         "color": "#c8643fff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -2747,9 +2723,10 @@
        "type": "TEXT",
        "w": 10,
        "h": 16,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -2777,6 +2754,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41866",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#f0eee5ff"
+        }
+       ],
+       "main": {
+        "id": "268:41126",
+        "name": "Brand=Claude, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -2804,40 +2804,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 16,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#8fb8ffff"
-        },
-        {
-         "pos": 1,
-         "color": "#3d6fe8ff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -2853,9 +2827,10 @@
        "type": "TEXT",
        "w": 10,
        "h": 16,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -2883,6 +2858,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41869",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41146",
+        "name": "Brand=Gemini, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -2910,40 +2908,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 16,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#93c5fdff"
-        },
-        {
-         "pos": 1,
-         "color": "#3b5bdbff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -2959,9 +2931,10 @@
        "type": "TEXT",
        "w": 10,
        "h": 16,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -2989,6 +2962,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41879",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41124",
+        "name": "Brand=DeepSeek, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3016,40 +3012,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 16,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#d1d5dbff"
-        },
-        {
-         "pos": 1,
-         "color": "#374151ff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3065,9 +3035,10 @@
        "type": "TEXT",
        "w": 10,
        "h": 16,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -3095,6 +3066,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41882",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#000000ff"
+        }
+       ],
+       "main": {
+        "id": "268:41122",
+        "name": "Brand=Grok, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3122,40 +3116,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 10,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#3ed6a5ff"
-        },
-        {
-         "pos": 1,
-         "color": "#0e8f6aff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3171,9 +3139,10 @@
        "type": "TEXT",
        "w": 7,
        "h": 12,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -3201,6 +3170,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41887",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41128",
+        "name": "Brand=ChatGPT, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3228,40 +3220,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 6,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#3ed6a5ff"
-        },
-        {
-         "pos": 1,
-         "color": "#0e8f6aff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3308,6 +3274,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41890",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41128",
+        "name": "Brand=ChatGPT, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3335,40 +3324,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 10,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#f3b08fff"
-        },
-        {
-         "pos": 1,
-         "color": "#c8643fff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3384,9 +3347,10 @@
        "type": "TEXT",
        "w": 7,
        "h": 12,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -3414,6 +3378,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41893",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#f0eee5ff"
+        }
+       ],
+       "main": {
+        "id": "268:41126",
+        "name": "Brand=Claude, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3441,40 +3428,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 6,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#f3b08fff"
-        },
-        {
-         "pos": 1,
-         "color": "#c8643fff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3521,6 +3482,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41896",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#f0eee5ff"
+        }
+       ],
+       "main": {
+        "id": "268:41126",
+        "name": "Brand=Claude, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3548,40 +3532,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 10,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#8fb8ffff"
-        },
-        {
-         "pos": 1,
-         "color": "#3d6fe8ff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3597,9 +3555,10 @@
        "type": "TEXT",
        "w": 7,
        "h": 12,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -3627,6 +3586,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41899",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41146",
+        "name": "Brand=Gemini, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3654,40 +3636,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 6,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#8fb8ffff"
-        },
-        {
-         "pos": 1,
-         "color": "#3d6fe8ff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3734,6 +3690,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41909",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41146",
+        "name": "Brand=Gemini, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3761,40 +3740,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 10,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#93c5fdff"
-        },
-        {
-         "pos": 1,
-         "color": "#3b5bdbff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3810,9 +3763,10 @@
        "type": "TEXT",
        "w": 7,
        "h": 12,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -3840,6 +3794,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41919",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41124",
+        "name": "Brand=DeepSeek, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3867,40 +3844,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 6,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#93c5fdff"
-        },
-        {
-         "pos": 1,
-         "color": "#3b5bdbff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -3947,6 +3898,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41922",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41124",
+        "name": "Brand=DeepSeek, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -3974,40 +3948,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 10,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#d1d5dbff"
-        },
-        {
-         "pos": 1,
-         "color": "#374151ff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -4023,9 +3971,10 @@
        "type": "TEXT",
        "w": 7,
        "h": 12,
+       "hidden": true,
        "sizing": [
-        "HUG",
-        "HUG"
+        "FIXED",
+        "FIXED"
        ],
        "fills": [
         {
@@ -4053,6 +4002,29 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41925",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#000000ff"
+        }
+       ],
+       "main": {
+        "id": "268:41122",
+        "name": "Brand=Grok, Style=App icon",
+        "set": "AI logo"
+       }
       }
      ]
     },
@@ -4080,40 +4052,14 @@
      ],
      "wrap": "NO_WRAP",
      "radius": 6,
-     "fills": [
-      {
-       "type": "GRADIENT_LINEAR",
-       "transform": [
-        [
-         0.6000000238418579,
-         0.6000000238418579,
-         -0.10000000149011612
-        ],
-        [
-         -0.6000000238418579,
-         0.6000000238418579,
-         0.5
-        ]
-       ],
-       "stops": [
-        {
-         "pos": 0,
-         "color": "#d1d5dbff"
-        },
-        {
-         "pos": 1,
-         "color": "#374151ff"
-        }
-       ]
-      }
-     ],
      "strokes": [
       {
        "type": "SOLID",
-       "color": "#ffffffff"
+       "var": "lum/line",
+       "color": "#e1e6efff"
       }
      ],
-     "strokeWeight": 1.5,
+     "strokeWeight": 1,
      "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
@@ -4160,6 +4106,1280 @@
        },
        "align": "LEFT",
        "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "268:41930",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#000000ff"
+        }
+       ],
+       "main": {
+        "id": "268:41122",
+        "name": "Brand=Grok, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51254",
+     "name": "Model=o3, Size=lg",
+     "type": "COMPONENT",
+     "w": 32,
+     "h": 32,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 16,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51255",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 8,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "o",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51259",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41128",
+        "name": "Brand=ChatGPT, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51262",
+     "name": "Model=o3, Size=md",
+     "type": "COMPONENT",
+     "w": 20,
+     "h": 20,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 10,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51263",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 6,
+       "h": 12,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "o",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 9,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 12
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51267",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41128",
+        "name": "Brand=ChatGPT, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51270",
+     "name": "Model=o3, Size=sm",
+     "type": "COMPONENT",
+     "w": 12,
+     "h": 12,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 6,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51271",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 8,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "o",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51275",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41128",
+        "name": "Brand=ChatGPT, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51278",
+     "name": "Model=Perplexity, Size=lg",
+     "type": "COMPONENT",
+     "w": 32,
+     "h": 32,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 16,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51279",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 9,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "P",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51283",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#202222ff"
+        }
+       ],
+       "main": {
+        "id": "268:41108",
+        "name": "Brand=Perplexity, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51293",
+     "name": "Model=Perplexity, Size=md",
+     "type": "COMPONENT",
+     "w": 20,
+     "h": 20,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 10,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51294",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 6,
+       "h": 12,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "P",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 9,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 12
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51298",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#202222ff"
+        }
+       ],
+       "main": {
+        "id": "268:41108",
+        "name": "Brand=Perplexity, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51308",
+     "name": "Model=Perplexity, Size=sm",
+     "type": "COMPONENT",
+     "w": 12,
+     "h": 12,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 6,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51309",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 9,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "P",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51313",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#202222ff"
+        }
+       ],
+       "main": {
+        "id": "268:41108",
+        "name": "Brand=Perplexity, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51323",
+     "name": "Model=Qwen, Size=lg",
+     "type": "COMPONENT",
+     "w": 32,
+     "h": 32,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 16,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51324",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 10,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "Q",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51328",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 32,
+       "h": 32,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 8,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41120",
+        "name": "Brand=Qwen, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51331",
+     "name": "Model=Qwen, Size=md",
+     "type": "COMPONENT",
+     "w": 20,
+     "h": 20,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 10,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51332",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 7,
+       "h": 12,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "Q",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 9,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 12
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51336",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 20,
+       "h": 20,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 5,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41120",
+        "name": "Brand=Qwen, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51339",
+     "name": "Model=Qwen, Size=sm",
+     "type": "COMPONENT",
+     "w": 12,
+     "h": 12,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 6,
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51340",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 10,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "Q",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51344",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 12,
+       "h": 12,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 3,
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "main": {
+        "id": "268:41120",
+        "name": "Brand=Qwen, Style=App icon",
+        "set": "AI logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51347",
+     "name": "Model=Llama, Size=lg",
+     "type": "COMPONENT",
+     "w": 32,
+     "h": 32,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 16,
+     "fills": [
+      {
+       "type": "SOLID",
+       "var": "lum/surface",
+       "color": "#ffffffff"
+      }
+     ],
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51348",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 8,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "L",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51352",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 22.399999618530273,
+       "h": 22.399999618530273,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 0,
+       "main": {
+        "id": "255:40933",
+        "name": "Model=Llama, Tone=Brand",
+        "set": "Model logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51368",
+     "name": "Model=Llama, Size=md",
+     "type": "COMPONENT",
+     "w": 20,
+     "h": 20,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 10,
+     "fills": [
+      {
+       "type": "SOLID",
+       "var": "lum/surface",
+       "color": "#ffffffff"
+      }
+     ],
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51369",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 6,
+       "h": 12,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "L",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 9,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 12
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51373",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 14.000000953674316,
+       "h": 14.000000953674316,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 0,
+       "main": {
+        "id": "255:40933",
+        "name": "Model=Llama, Tone=Brand",
+        "set": "Model logo"
+       }
+      }
+     ]
+    },
+    {
+     "id": "272:51389",
+     "name": "Model=Llama, Size=sm",
+     "type": "COMPONENT",
+     "w": 12,
+     "h": 12,
+     "layout": "HORIZONTAL",
+     "pad": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "gap": 0,
+     "align": [
+      "CENTER",
+      "CENTER"
+     ],
+     "sizing": [
+      "FIXED",
+      "FIXED"
+     ],
+     "wrap": "NO_WRAP",
+     "radius": 6,
+     "fills": [
+      {
+       "type": "SOLID",
+       "var": "lum/surface",
+       "color": "#ffffffff"
+      }
+     ],
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
+     "vars": {
+      "itemSpacing": "space/0",
+      "paddingLeft": "space/0",
+      "paddingTop": "space/0",
+      "paddingRight": "space/0",
+      "paddingBottom": "space/0"
+     },
+     "children": [
+      {
+       "id": "272:51390",
+       "name": "Initial",
+       "type": "TEXT",
+       "w": 8,
+       "h": 16,
+       "hidden": true,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "fills": [
+        {
+         "type": "SOLID",
+         "color": "#ffffffff"
+        }
+       ],
+       "chars": "L",
+       "textStyle": null,
+       "font": {
+        "family": "Geist",
+        "style": "SemiBold",
+        "variationSettings": {
+         "wght": 600
+        }
+       },
+       "fontSize": 13,
+       "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+       },
+       "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+       },
+       "align": "LEFT",
+       "autoResize": "WIDTH_AND_HEIGHT"
+      },
+      {
+       "id": "272:51394",
+       "name": "Logo",
+       "type": "INSTANCE",
+       "w": 8.399999618530273,
+       "h": 8.399999618530273,
+       "sizing": [
+        "FIXED",
+        "FIXED"
+       ],
+       "radius": 0,
+       "main": {
+        "id": "255:40933",
+        "name": "Model=Llama, Tone=Brand",
+        "set": "Model logo"
+       }
       }
      ]
     }
@@ -5678,10 +6898,18 @@
      "fills": [
       {
        "type": "SOLID",
-       "var": "lum/canvas",
-       "color": "#f4f6faff"
+       "color": "#ffffffff"
       }
      ],
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
       "paddingLeft": "space/0",
@@ -5695,20 +6923,20 @@
      },
      "children": [
       {
-       "id": "103:20593",
-       "name": "Icon/smart-phone-01",
+       "id": "276:52025",
+       "name": "Logo",
        "type": "INSTANCE",
-       "w": 18,
-       "h": 18,
+       "w": 30,
+       "h": 13.725320816040039,
        "sizing": [
         "FIXED",
         "FIXED"
        ],
        "radius": 0,
        "main": {
-        "id": "65:17150",
-        "name": "Icon/smart-phone-01",
-        "set": null
+        "id": "276:52022",
+        "name": "Method=bKash",
+        "set": "Payment logo"
        }
       }
      ]
@@ -5740,10 +6968,18 @@
      "fills": [
       {
        "type": "SOLID",
-       "var": "lum/canvas",
-       "color": "#f4f6faff"
+       "color": "#ffffffff"
       }
      ],
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1,
+     "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
       "paddingLeft": "space/0",
@@ -5757,20 +6993,20 @@
      },
      "children": [
       {
-       "id": "103:20598",
-       "name": "Icon/smart-phone-01",
+       "id": "276:52048",
+       "name": "Logo",
        "type": "INSTANCE",
-       "w": 18,
-       "h": 18,
+       "w": 30,
+       "h": 13.103327751159668,
        "sizing": [
         "FIXED",
         "FIXED"
        ],
        "radius": 0,
        "main": {
-        "id": "65:17150",
-        "name": "Icon/smart-phone-01",
-        "set": null
+        "id": "276:52023",
+        "name": "Method=Nagad",
+        "set": "Payment logo"
        }
       }
      ]
@@ -30410,9 +31646,9 @@
      },
      "children": [
       {
-       "id": "28:8625",
+       "id": "268:42758",
        "name": "Model orb",
-       "type": "FRAME",
+       "type": "INSTANCE",
        "w": 22,
        "h": 22,
        "layout": "HORIZONTAL",
@@ -30433,40 +31669,14 @@
        ],
        "wrap": "NO_WRAP",
        "radius": 11,
-       "fills": [
-        {
-         "type": "GRADIENT_LINEAR",
-         "transform": [
-          [
-           0.6000000238418579,
-           0.6000000238418579,
-           -0.10000000149011612
-          ],
-          [
-           -0.6000000238418579,
-           0.6000000238418579,
-           0.5
-          ]
-         ],
-         "stops": [
-          {
-           "pos": 0,
-           "color": "#3ed6a5ff"
-          },
-          {
-           "pos": 1,
-           "color": "#0e8f6aff"
-          }
-         ]
-        }
-       ],
        "strokes": [
         {
          "type": "SOLID",
-         "color": "#ffffffe5"
+         "var": "lum/line",
+         "color": "#e1e6efff"
         }
        ],
-       "strokeWeight": 1,
+       "strokeWeight": 0.6875,
        "strokeAlign": "INSIDE",
        "vars": {
         "itemSpacing": "space/0",
@@ -30475,12 +31685,79 @@
         "paddingRight": "space/0",
         "paddingBottom": "space/0"
        },
-       "children": []
+       "main": {
+        "id": "28:8257",
+        "name": "Model=GPT, Size=lg",
+        "set": "Model orb"
+       },
+       "children": [
+        {
+         "id": "I268:42758;28:8258",
+         "name": "Initial",
+         "type": "TEXT",
+         "w": 7,
+         "h": 11,
+         "hidden": true,
+         "sizing": [
+          "FIXED",
+          "FIXED"
+         ],
+         "fills": [
+          {
+           "type": "SOLID",
+           "color": "#ffffffff"
+          }
+         ],
+         "chars": "G",
+         "textStyle": null,
+         "font": {
+          "family": "Geist",
+          "style": "SemiBold",
+          "variationSettings": {
+           "wght": 600
+          }
+         },
+         "fontSize": 8.9375,
+         "lineHeight": {
+          "unit": "PIXELS",
+          "value": 11
+         },
+         "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+         },
+         "align": "LEFT",
+         "autoResize": "WIDTH_AND_HEIGHT"
+        },
+        {
+         "id": "I268:42758;268:41863",
+         "name": "Logo",
+         "type": "INSTANCE",
+         "w": 22,
+         "h": 22,
+         "sizing": [
+          "FIXED",
+          "FIXED"
+         ],
+         "radius": 5.5,
+         "fills": [
+          {
+           "type": "SOLID",
+           "color": "#ffffffff"
+          }
+         ],
+         "main": {
+          "id": "268:41128",
+          "name": "Brand=ChatGPT, Style=App icon",
+          "set": "AI logo"
+         }
+        }
+       ]
       },
       {
-       "id": "28:8626",
+       "id": "268:42763",
        "name": "Model orb",
-       "type": "FRAME",
+       "type": "INSTANCE",
        "w": 22,
        "h": 22,
        "layout": "HORIZONTAL",
@@ -30501,40 +31778,14 @@
        ],
        "wrap": "NO_WRAP",
        "radius": 11,
-       "fills": [
-        {
-         "type": "GRADIENT_LINEAR",
-         "transform": [
-          [
-           0.6000000238418579,
-           0.6000000238418579,
-           -0.10000000149011612
-          ],
-          [
-           -0.6000000238418579,
-           0.6000000238418579,
-           0.5
-          ]
-         ],
-         "stops": [
-          {
-           "pos": 0,
-           "color": "#9be6ffff"
-          },
-          {
-           "pos": 1,
-           "color": "#7c6bffff"
-          }
-         ]
-        }
-       ],
        "strokes": [
         {
          "type": "SOLID",
-         "color": "#ffffffe5"
+         "var": "lum/line",
+         "color": "#e1e6efff"
         }
        ],
-       "strokeWeight": 1,
+       "strokeWeight": 0.6875,
        "strokeAlign": "INSIDE",
        "vars": {
         "itemSpacing": "space/0",
@@ -30543,12 +31794,79 @@
         "paddingRight": "space/0",
         "paddingBottom": "space/0"
        },
-       "children": []
+       "main": {
+        "id": "28:8259",
+        "name": "Model=Claude, Size=lg",
+        "set": "Model orb"
+       },
+       "children": [
+        {
+         "id": "I268:42763;28:8260",
+         "name": "Initial",
+         "type": "TEXT",
+         "w": 7,
+         "h": 11,
+         "hidden": true,
+         "sizing": [
+          "FIXED",
+          "FIXED"
+         ],
+         "fills": [
+          {
+           "type": "SOLID",
+           "color": "#ffffffff"
+          }
+         ],
+         "chars": "C",
+         "textStyle": null,
+         "font": {
+          "family": "Geist",
+          "style": "SemiBold",
+          "variationSettings": {
+           "wght": 600
+          }
+         },
+         "fontSize": 8.9375,
+         "lineHeight": {
+          "unit": "PIXELS",
+          "value": 11
+         },
+         "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+         },
+         "align": "LEFT",
+         "autoResize": "WIDTH_AND_HEIGHT"
+        },
+        {
+         "id": "I268:42763;268:41866",
+         "name": "Logo",
+         "type": "INSTANCE",
+         "w": 22,
+         "h": 22,
+         "sizing": [
+          "FIXED",
+          "FIXED"
+         ],
+         "radius": 5.5,
+         "fills": [
+          {
+           "type": "SOLID",
+           "color": "#f0eee5ff"
+          }
+         ],
+         "main": {
+          "id": "268:41126",
+          "name": "Brand=Claude, Style=App icon",
+          "set": "AI logo"
+         }
+        }
+       ]
       },
       {
-       "id": "28:8627",
+       "id": "268:42768",
        "name": "Model orb",
-       "type": "FRAME",
+       "type": "INSTANCE",
        "w": 22,
        "h": 22,
        "layout": "HORIZONTAL",
@@ -30569,40 +31887,14 @@
        ],
        "wrap": "NO_WRAP",
        "radius": 11,
-       "fills": [
-        {
-         "type": "GRADIENT_LINEAR",
-         "transform": [
-          [
-           0.6000000238418579,
-           0.6000000238418579,
-           -0.10000000149011612
-          ],
-          [
-           -0.6000000238418579,
-           0.6000000238418579,
-           0.5
-          ]
-         ],
-         "stops": [
-          {
-           "pos": 0,
-           "color": "#f3b08fff"
-          },
-          {
-           "pos": 1,
-           "color": "#c8643fff"
-          }
-         ]
-        }
-       ],
        "strokes": [
         {
          "type": "SOLID",
-         "color": "#ffffffe5"
+         "var": "lum/line",
+         "color": "#e1e6efff"
         }
        ],
-       "strokeWeight": 1,
+       "strokeWeight": 0.6875,
        "strokeAlign": "INSIDE",
        "vars": {
         "itemSpacing": "space/0",
@@ -30611,7 +31903,74 @@
         "paddingRight": "space/0",
         "paddingBottom": "space/0"
        },
-       "children": []
+       "main": {
+        "id": "28:8261",
+        "name": "Model=Gemini, Size=lg",
+        "set": "Model orb"
+       },
+       "children": [
+        {
+         "id": "I268:42768;28:8262",
+         "name": "Initial",
+         "type": "TEXT",
+         "w": 7,
+         "h": 11,
+         "hidden": true,
+         "sizing": [
+          "FIXED",
+          "FIXED"
+         ],
+         "fills": [
+          {
+           "type": "SOLID",
+           "color": "#ffffffff"
+          }
+         ],
+         "chars": "G",
+         "textStyle": null,
+         "font": {
+          "family": "Geist",
+          "style": "SemiBold",
+          "variationSettings": {
+           "wght": 600
+          }
+         },
+         "fontSize": 8.9375,
+         "lineHeight": {
+          "unit": "PIXELS",
+          "value": 11
+         },
+         "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+         },
+         "align": "LEFT",
+         "autoResize": "WIDTH_AND_HEIGHT"
+        },
+        {
+         "id": "I268:42768;268:41869",
+         "name": "Logo",
+         "type": "INSTANCE",
+         "w": 22,
+         "h": 22,
+         "sizing": [
+          "FIXED",
+          "FIXED"
+         ],
+         "radius": 5.5,
+         "fills": [
+          {
+           "type": "SOLID",
+           "color": "#ffffffff"
+          }
+         ],
+         "main": {
+          "id": "268:41146",
+          "name": "Brand=Gemini, Style=App icon",
+          "set": "AI logo"
+         }
+        }
+       ]
       }
      ]
     },
@@ -33437,9 +34796,9 @@
        },
        "children": [
         {
-         "id": "28:8750",
+         "id": "272:51780",
          "name": "Model orb",
-         "type": "FRAME",
+         "type": "INSTANCE",
          "w": 22,
          "h": 22,
          "layout": "HORIZONTAL",
@@ -33460,40 +34819,14 @@
          ],
          "wrap": "NO_WRAP",
          "radius": 11,
-         "fills": [
-          {
-           "type": "GRADIENT_LINEAR",
-           "transform": [
-            [
-             0.6000000238418579,
-             0.6000000238418579,
-             -0.10000000149011612
-            ],
-            [
-             -0.6000000238418579,
-             0.6000000238418579,
-             0.5
-            ]
-           ],
-           "stops": [
-            {
-             "pos": 0,
-             "color": "#3ed6a5ff"
-            },
-            {
-             "pos": 1,
-             "color": "#0e8f6aff"
-            }
-           ]
-          }
-         ],
          "strokes": [
           {
            "type": "SOLID",
-           "color": "#ffffffff"
+           "var": "lum/line",
+           "color": "#e1e6efff"
           }
          ],
-         "strokeWeight": 1.5,
+         "strokeWeight": 0.6875,
          "strokeAlign": "INSIDE",
          "vars": {
           "itemSpacing": "space/0",
@@ -33502,16 +34835,22 @@
           "paddingRight": "space/0",
           "paddingBottom": "space/0"
          },
+         "main": {
+          "id": "28:8257",
+          "name": "Model=GPT, Size=lg",
+          "set": "Model orb"
+         },
          "children": [
           {
-           "id": "28:8751",
-           "name": "G",
+           "id": "I272:51780;28:8258",
+           "name": "Initial",
            "type": "TEXT",
            "w": 7,
            "h": 11,
+           "hidden": true,
            "sizing": [
-            "HUG",
-            "HUG"
+            "FIXED",
+            "FIXED"
            ],
            "fills": [
             {
@@ -33528,7 +34867,7 @@
              "wght": 600
             }
            },
-           "fontSize": 9,
+           "fontSize": 8.9375,
            "lineHeight": {
             "unit": "PIXELS",
             "value": 11
@@ -33539,6 +34878,29 @@
            },
            "align": "LEFT",
            "autoResize": "WIDTH_AND_HEIGHT"
+          },
+          {
+           "id": "I272:51780;268:41863",
+           "name": "Logo",
+           "type": "INSTANCE",
+           "w": 22,
+           "h": 22,
+           "sizing": [
+            "FIXED",
+            "FIXED"
+           ],
+           "radius": 5.5,
+           "fills": [
+            {
+             "type": "SOLID",
+             "color": "#ffffffff"
+            }
+           ],
+           "main": {
+            "id": "268:41128",
+            "name": "Brand=ChatGPT, Style=App icon",
+            "set": "AI logo"
+           }
           }
          ]
         },
@@ -33690,9 +35052,9 @@
        },
        "children": [
         {
-         "id": "28:8757",
+         "id": "272:51785",
          "name": "Model orb",
-         "type": "FRAME",
+         "type": "INSTANCE",
          "w": 22,
          "h": 22,
          "layout": "HORIZONTAL",
@@ -33713,40 +35075,14 @@
          ],
          "wrap": "NO_WRAP",
          "radius": 11,
-         "fills": [
-          {
-           "type": "GRADIENT_LINEAR",
-           "transform": [
-            [
-             0.6000000238418579,
-             0.6000000238418579,
-             -0.10000000149011612
-            ],
-            [
-             -0.6000000238418579,
-             0.6000000238418579,
-             0.5
-            ]
-           ],
-           "stops": [
-            {
-             "pos": 0,
-             "color": "#f3b08fff"
-            },
-            {
-             "pos": 1,
-             "color": "#c8643fff"
-            }
-           ]
-          }
-         ],
          "strokes": [
           {
            "type": "SOLID",
-           "color": "#ffffffff"
+           "var": "lum/line",
+           "color": "#e1e6efff"
           }
          ],
-         "strokeWeight": 1.5,
+         "strokeWeight": 0.6875,
          "strokeAlign": "INSIDE",
          "vars": {
           "itemSpacing": "space/0",
@@ -33755,16 +35091,22 @@
           "paddingRight": "space/0",
           "paddingBottom": "space/0"
          },
+         "main": {
+          "id": "28:8259",
+          "name": "Model=Claude, Size=lg",
+          "set": "Model orb"
+         },
          "children": [
           {
-           "id": "28:8758",
-           "name": "C",
+           "id": "I272:51785;28:8260",
+           "name": "Initial",
            "type": "TEXT",
            "w": 7,
            "h": 11,
+           "hidden": true,
            "sizing": [
-            "HUG",
-            "HUG"
+            "FIXED",
+            "FIXED"
            ],
            "fills": [
             {
@@ -33781,7 +35123,7 @@
              "wght": 600
             }
            },
-           "fontSize": 9,
+           "fontSize": 8.9375,
            "lineHeight": {
             "unit": "PIXELS",
             "value": 11
@@ -33792,6 +35134,29 @@
            },
            "align": "LEFT",
            "autoResize": "WIDTH_AND_HEIGHT"
+          },
+          {
+           "id": "I272:51785;268:41866",
+           "name": "Logo",
+           "type": "INSTANCE",
+           "w": 22,
+           "h": 22,
+           "sizing": [
+            "FIXED",
+            "FIXED"
+           ],
+           "radius": 5.5,
+           "fills": [
+            {
+             "type": "SOLID",
+             "color": "#f0eee5ff"
+            }
+           ],
+           "main": {
+            "id": "268:41126",
+            "name": "Brand=Claude, Style=App icon",
+            "set": "AI logo"
+           }
           }
          ]
         },
@@ -33943,9 +35308,9 @@
        },
        "children": [
         {
-         "id": "28:8764",
+         "id": "272:51790",
          "name": "Model orb",
-         "type": "FRAME",
+         "type": "INSTANCE",
          "w": 22,
          "h": 22,
          "layout": "HORIZONTAL",
@@ -33966,40 +35331,14 @@
          ],
          "wrap": "NO_WRAP",
          "radius": 11,
-         "fills": [
-          {
-           "type": "GRADIENT_LINEAR",
-           "transform": [
-            [
-             0.6000000238418579,
-             0.6000000238418579,
-             -0.10000000149011612
-            ],
-            [
-             -0.6000000238418579,
-             0.6000000238418579,
-             0.5
-            ]
-           ],
-           "stops": [
-            {
-             "pos": 0,
-             "color": "#8fb8ffff"
-            },
-            {
-             "pos": 1,
-             "color": "#3d6fe8ff"
-            }
-           ]
-          }
-         ],
          "strokes": [
           {
            "type": "SOLID",
-           "color": "#ffffffff"
+           "var": "lum/line",
+           "color": "#e1e6efff"
           }
          ],
-         "strokeWeight": 1.5,
+         "strokeWeight": 0.6875,
          "strokeAlign": "INSIDE",
          "vars": {
           "itemSpacing": "space/0",
@@ -34008,16 +35347,22 @@
           "paddingRight": "space/0",
           "paddingBottom": "space/0"
          },
+         "main": {
+          "id": "28:8261",
+          "name": "Model=Gemini, Size=lg",
+          "set": "Model orb"
+         },
          "children": [
           {
-           "id": "28:8765",
-           "name": "G",
+           "id": "I272:51790;28:8262",
+           "name": "Initial",
            "type": "TEXT",
            "w": 7,
            "h": 11,
+           "hidden": true,
            "sizing": [
-            "HUG",
-            "HUG"
+            "FIXED",
+            "FIXED"
            ],
            "fills": [
             {
@@ -34034,7 +35379,7 @@
              "wght": 600
             }
            },
-           "fontSize": 9,
+           "fontSize": 8.9375,
            "lineHeight": {
             "unit": "PIXELS",
             "value": 11
@@ -34045,6 +35390,29 @@
            },
            "align": "LEFT",
            "autoResize": "WIDTH_AND_HEIGHT"
+          },
+          {
+           "id": "I272:51790;268:41869",
+           "name": "Logo",
+           "type": "INSTANCE",
+           "w": 22,
+           "h": 22,
+           "sizing": [
+            "FIXED",
+            "FIXED"
+           ],
+           "radius": 5.5,
+           "fills": [
+            {
+             "type": "SOLID",
+             "color": "#ffffffff"
+            }
+           ],
+           "main": {
+            "id": "268:41146",
+            "name": "Brand=Gemini, Style=App icon",
+            "set": "AI logo"
+           }
           }
          ]
         },
@@ -36263,9 +37631,9 @@
          },
          "children": [
           {
-           "id": "28:8832",
+           "id": "272:51410",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -36286,40 +37654,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#3ed6a5ff"
-              },
-              {
-               "pos": 1,
-               "color": "#0e8f6aff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -36328,16 +37670,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "28:8257",
+            "name": "Model=GPT, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:8833",
-             "name": "G",
+             "id": "I272:51410;28:8258",
+             "name": "Initial",
              "type": "TEXT",
              "w": 10,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -36365,6 +37713,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51410;268:41863",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#ffffffff"
+              }
+             ],
+             "main": {
+              "id": "268:41128",
+              "name": "Brand=ChatGPT, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -37177,9 +38548,9 @@
          },
          "children": [
           {
-           "id": "28:8860",
+           "id": "272:51415",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -37200,40 +38571,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#f3b08fff"
-              },
-              {
-               "pos": 1,
-               "color": "#c8643fff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -37242,16 +38587,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "28:8259",
+            "name": "Model=Claude, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:8861",
-             "name": "C",
+             "id": "I272:51415;28:8260",
+             "name": "Initial",
              "type": "TEXT",
              "w": 10,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -37279,6 +38630,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51415;268:41866",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#f0eee5ff"
+              }
+             ],
+             "main": {
+              "id": "268:41126",
+              "name": "Brand=Claude, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -38091,9 +39465,9 @@
          },
          "children": [
           {
-           "id": "28:8888",
+           "id": "272:51420",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -38114,40 +39488,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#8fb8ffff"
-              },
-              {
-               "pos": 1,
-               "color": "#3d6fe8ff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -38156,16 +39504,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "28:8261",
+            "name": "Model=Gemini, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:8889",
-             "name": "G",
+             "id": "I272:51420;28:8262",
+             "name": "Initial",
              "type": "TEXT",
              "w": 10,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -38193,6 +39547,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51420;268:41869",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#ffffffff"
+              }
+             ],
+             "main": {
+              "id": "268:41146",
+              "name": "Brand=Gemini, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -39061,9 +40438,9 @@
          },
          "children": [
           {
-           "id": "28:8916",
+           "id": "272:51432",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -39084,40 +40461,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#a5b4fcff"
-              },
-              {
-               "pos": 1,
-               "color": "#4f46e5ff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -39126,16 +40477,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "272:51254",
+            "name": "Model=o3, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:8917",
-             "name": "o",
+             "id": "I272:51432;272:51255",
+             "name": "Initial",
              "type": "TEXT",
              "w": 8,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -39163,6 +40520,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51432;272:51259",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#ffffffff"
+              }
+             ],
+             "main": {
+              "id": "268:41128",
+              "name": "Brand=ChatGPT, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -39959,9 +41339,9 @@
          },
          "children": [
           {
-           "id": "28:8942",
+           "id": "272:51437",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -39982,40 +41362,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#93c5fdff"
-              },
-              {
-               "pos": 1,
-               "color": "#3b5bdbff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -40024,16 +41378,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "28:8263",
+            "name": "Model=DeepSeek, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:8943",
-             "name": "D",
+             "id": "I272:51437;28:8264",
+             "name": "Initial",
              "type": "TEXT",
              "w": 10,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -40061,6 +41421,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51437;268:41879",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#ffffffff"
+              }
+             ],
+             "main": {
+              "id": "268:41124",
+              "name": "Brand=DeepSeek, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -40857,9 +42240,9 @@
          },
          "children": [
           {
-           "id": "28:8968",
+           "id": "272:51442",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -40880,40 +42263,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#99f6e4ff"
-              },
-              {
-               "pos": 1,
-               "color": "#0f766eff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -40922,16 +42279,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "272:51278",
+            "name": "Model=Perplexity, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:8969",
-             "name": "P",
+             "id": "I272:51442;272:51279",
+             "name": "Initial",
              "type": "TEXT",
              "w": 9,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -40959,6 +42322,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51442;272:51283",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#202222ff"
+              }
+             ],
+             "main": {
+              "id": "268:41108",
+              "name": "Brand=Perplexity, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -41755,9 +43141,9 @@
          },
          "children": [
           {
-           "id": "28:8994",
+           "id": "272:51454",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -41778,40 +43164,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#d1d5dbff"
-              },
-              {
-               "pos": 1,
-               "color": "#374151ff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -41820,16 +43180,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "28:8265",
+            "name": "Model=Grok, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:8995",
-             "name": "G",
+             "id": "I272:51454;28:8266",
+             "name": "Initial",
              "type": "TEXT",
              "w": 10,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -41857,6 +43223,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51454;268:41882",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#000000ff"
+              }
+             ],
+             "main": {
+              "id": "268:41122",
+              "name": "Brand=Grok, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -42570,9 +43959,9 @@
          },
          "children": [
           {
-           "id": "28:9018",
+           "id": "272:51461",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -42595,38 +43984,19 @@
            "radius": 16,
            "fills": [
             {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#bfdbfeff"
-              },
-              {
-               "pos": 1,
-               "color": "#1d4ed8ff"
-              }
-             ]
+             "type": "SOLID",
+             "var": "lum/surface",
+             "color": "#ffffffff"
             }
            ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -42635,16 +44005,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "272:51347",
+            "name": "Model=Llama, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:9019",
-             "name": "L",
+             "id": "I272:51461;272:51348",
+             "name": "Initial",
              "type": "TEXT",
              "w": 8,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -42672,6 +44048,23 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51461;272:51352",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 22.399999618530273,
+             "h": 22.399999618530273,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 0,
+             "main": {
+              "id": "255:40933",
+              "name": "Model=Llama, Tone=Brand",
+              "set": "Model logo"
+             }
             }
            ]
           },
@@ -43468,9 +44861,9 @@
          },
          "children": [
           {
-           "id": "28:9044",
+           "id": "272:51479",
            "name": "Model orb",
-           "type": "FRAME",
+           "type": "INSTANCE",
            "w": 32,
            "h": 32,
            "layout": "HORIZONTAL",
@@ -43491,40 +44884,14 @@
            ],
            "wrap": "NO_WRAP",
            "radius": 16,
-           "fills": [
-            {
-             "type": "GRADIENT_LINEAR",
-             "transform": [
-              [
-               0.6000000238418579,
-               0.6000000238418579,
-               -0.10000000149011612
-              ],
-              [
-               -0.6000000238418579,
-               0.6000000238418579,
-               0.5
-              ]
-             ],
-             "stops": [
-              {
-               "pos": 0,
-               "color": "#ddd6feff"
-              },
-              {
-               "pos": 1,
-               "color": "#6d28d9ff"
-              }
-             ]
-            }
-           ],
            "strokes": [
             {
              "type": "SOLID",
-             "color": "#ffffffff"
+             "var": "lum/line",
+             "color": "#e1e6efff"
             }
            ],
-           "strokeWeight": 1.5,
+           "strokeWeight": 1,
            "strokeAlign": "INSIDE",
            "vars": {
             "itemSpacing": "space/0",
@@ -43533,16 +44900,22 @@
             "paddingRight": "space/0",
             "paddingBottom": "space/0"
            },
+           "main": {
+            "id": "272:51323",
+            "name": "Model=Qwen, Size=lg",
+            "set": "Model orb"
+           },
            "children": [
             {
-             "id": "28:9045",
-             "name": "Q",
+             "id": "I272:51479;272:51324",
+             "name": "Initial",
              "type": "TEXT",
              "w": 10,
              "h": 16,
+             "hidden": true,
              "sizing": [
-              "HUG",
-              "HUG"
+              "FIXED",
+              "FIXED"
              ],
              "fills": [
               {
@@ -43570,6 +44943,29 @@
              },
              "align": "LEFT",
              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            {
+             "id": "I272:51479;272:51328",
+             "name": "Logo",
+             "type": "INSTANCE",
+             "w": 32,
+             "h": 32,
+             "sizing": [
+              "FIXED",
+              "FIXED"
+             ],
+             "radius": 8,
+             "fills": [
+              {
+               "type": "SOLID",
+               "color": "#ffffffff"
+              }
+             ],
+             "main": {
+              "id": "268:41120",
+              "name": "Brand=Qwen, Style=App icon",
+              "set": "AI logo"
+             }
             }
            ]
           },
@@ -49288,9 +50684,9 @@
        },
        "children": [
         {
-         "id": "103:20871",
-         "name": "logo slot",
-         "type": "FRAME",
+         "id": "276:52095",
+         "name": "Payment logo slot",
+         "type": "INSTANCE",
          "w": 36,
          "h": 36,
          "layout": "HORIZONTAL",
@@ -49314,10 +50710,18 @@
          "fills": [
           {
            "type": "SOLID",
-           "var": "lum/canvas",
-           "color": "#f4f6faff"
+           "color": "#ffffffff"
           }
          ],
+         "strokes": [
+          {
+           "type": "SOLID",
+           "var": "lum/line",
+           "color": "#e1e6efff"
+          }
+         ],
+         "strokeWeight": 1,
+         "strokeAlign": "INSIDE",
          "vars": {
           "itemSpacing": "space/0",
           "paddingLeft": "space/0",
@@ -49329,22 +50733,27 @@
           "bottomLeftRadius": "radius/sm",
           "bottomRightRadius": "radius/sm"
          },
+         "main": {
+          "id": "103:20592",
+          "name": "Method=bKash",
+          "set": "Payment logo slot"
+         },
          "children": [
           {
-           "id": "103:20872",
-           "name": "Icon/smart-phone-01",
+           "id": "I276:52095;276:52025",
+           "name": "Logo",
            "type": "INSTANCE",
-           "w": 18,
-           "h": 18,
+           "w": 30,
+           "h": 13.725320816040039,
            "sizing": [
             "FIXED",
             "FIXED"
            ],
            "radius": 0,
            "main": {
-            "id": "65:17150",
-            "name": "Icon/smart-phone-01",
-            "set": null
+            "id": "276:52022",
+            "name": "Method=bKash",
+            "set": "Payment logo"
            }
           }
          ]
@@ -49550,9 +50959,9 @@
        },
        "children": [
         {
-         "id": "103:20878",
-         "name": "logo slot",
-         "type": "FRAME",
+         "id": "276:52119",
+         "name": "Payment logo slot",
+         "type": "INSTANCE",
          "w": 36,
          "h": 36,
          "layout": "HORIZONTAL",
@@ -49576,10 +50985,18 @@
          "fills": [
           {
            "type": "SOLID",
-           "var": "lum/canvas",
-           "color": "#f4f6faff"
+           "color": "#ffffffff"
           }
          ],
+         "strokes": [
+          {
+           "type": "SOLID",
+           "var": "lum/line",
+           "color": "#e1e6efff"
+          }
+         ],
+         "strokeWeight": 1,
+         "strokeAlign": "INSIDE",
          "vars": {
           "itemSpacing": "space/0",
           "paddingLeft": "space/0",
@@ -49591,22 +51008,27 @@
           "bottomLeftRadius": "radius/sm",
           "bottomRightRadius": "radius/sm"
          },
+         "main": {
+          "id": "103:20597",
+          "name": "Method=Nagad",
+          "set": "Payment logo slot"
+         },
          "children": [
           {
-           "id": "103:20879",
-           "name": "Icon/smart-phone-01",
+           "id": "I276:52119;276:52048",
+           "name": "Logo",
            "type": "INSTANCE",
-           "w": 18,
-           "h": 18,
+           "w": 30,
+           "h": 13.103327751159668,
            "sizing": [
             "FIXED",
             "FIXED"
            ],
            "radius": 0,
            "main": {
-            "id": "65:17150",
-            "name": "Icon/smart-phone-01",
-            "set": null
+            "id": "276:52023",
+            "name": "Method=Nagad",
+            "set": "Payment logo"
            }
           }
          ]
@@ -49812,9 +51234,9 @@
        },
        "children": [
         {
-         "id": "103:20885",
-         "name": "logo slot",
-         "type": "FRAME",
+         "id": "276:52132",
+         "name": "Payment logo slot",
+         "type": "INSTANCE",
          "w": 36,
          "h": 36,
          "layout": "HORIZONTAL",
@@ -49853,9 +51275,14 @@
           "bottomLeftRadius": "radius/sm",
           "bottomRightRadius": "radius/sm"
          },
+         "main": {
+          "id": "103:20602",
+          "name": "Method=Card",
+          "set": "Payment logo slot"
+         },
          "children": [
           {
-           "id": "103:20886",
+           "id": "I276:52132;103:20603",
            "name": "Icon/credit-card",
            "type": "INSTANCE",
            "w": 18,
@@ -60780,9 +62207,9 @@
      ]
     },
     {
-     "id": "103:21262",
+     "id": "276:52377",
      "name": "icon",
-     "type": "FRAME",
+     "type": "INSTANCE",
      "w": 56,
      "h": 56,
      "layout": "HORIZONTAL",
@@ -60802,41 +62229,54 @@
       "FIXED"
      ],
      "wrap": "NO_WRAP",
-     "radius": 28,
+     "radius": 15.55555534362793,
      "fills": [
       {
        "type": "SOLID",
-       "var": "lum/blue-soft",
-       "color": "#e3ebffff"
+       "color": "#ffffffff"
       }
      ],
+     "strokes": [
+      {
+       "type": "SOLID",
+       "var": "lum/line",
+       "color": "#e1e6efff"
+      }
+     ],
+     "strokeWeight": 1.5555555820465088,
+     "strokeAlign": "INSIDE",
      "vars": {
       "itemSpacing": "space/0",
       "paddingLeft": "space/0",
       "paddingTop": "space/0",
       "paddingRight": "space/0",
       "paddingBottom": "space/0",
-      "topLeftRadius": "radius/2xl",
-      "topRightRadius": "radius/2xl",
-      "bottomLeftRadius": "radius/2xl",
-      "bottomRightRadius": "radius/2xl"
+      "topLeftRadius": "radius/sm",
+      "topRightRadius": "radius/sm",
+      "bottomLeftRadius": "radius/sm",
+      "bottomRightRadius": "radius/sm"
+     },
+     "main": {
+      "id": "103:20592",
+      "name": "Method=bKash",
+      "set": "Payment logo slot"
      },
      "children": [
       {
-       "id": "103:21263",
-       "name": "Icon/smart-phone-01",
+       "id": "I276:52377;276:52025",
+       "name": "Logo",
        "type": "INSTANCE",
-       "w": 24,
-       "h": 24,
+       "w": 46.66666793823242,
+       "h": 21.350500106811523,
        "sizing": [
         "FIXED",
         "FIXED"
        ],
        "radius": 0,
        "main": {
-        "id": "65:17150",
-        "name": "Icon/smart-phone-01",
-        "set": null
+        "id": "276:52022",
+        "name": "Method=bKash",
+        "set": "Payment logo"
        }
       }
      ]

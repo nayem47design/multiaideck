@@ -72,7 +72,10 @@ test("ask → thinking → the Best answer streams in", async ({ page }) => {
   await expect(visible(page.getByText(/Golpo Coffee/)).first()).toBeVisible({
     timeout: ANSWER,
   });
-  await expect(visible(page.getByText(/from Claude/)).first()).toBeVisible();
+  // Each point shows the logo of the model it came from (labelled "from Claude").
+  await expect(
+    visible(page.getByRole("img", { name: /from Claude/ })).first(),
+  ).toBeVisible();
 });
 
 test("compare with a failure: refunded, then answered on retry", async ({

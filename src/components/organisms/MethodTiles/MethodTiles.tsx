@@ -7,8 +7,7 @@ import {
 import { cx, focusRing } from "@/components/atoms/states";
 
 // Figma: Prototype › M11 · Add credits › "Methods": three equal tiles, logo above the name.
-// Figma draws the logos as brand-coloured letters; this uses the Payment logo slot atom until the
-// real logos are in the design system.
+// Each tile shows the Payment logo slot (bKash and Nagad logos, the card icon), as in Figma.
 
 export interface MethodTilesProps {
   /** Accessible name, e.g. "2. Pay with". */

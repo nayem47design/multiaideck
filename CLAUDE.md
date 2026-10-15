@@ -27,6 +27,11 @@ Never create, rename, move, edit or delete anything in Figma. Do not use `figma_
 | --- | --- |
 | Composer set (Default `28:8564`, Voice listening `147:38927`, Attachment `147:39000`) | `147:39061` |
 | Composer "+" menu (Add photos & files) | `147:38907` |
+| Brand logos section (AI + payments) | `268:41859` |
+| AI logo set: 23 brands × Style (Color, App icon, Black, White) → `AiLogo`, `npm run ai-logos` | `268:41860` |
+| AI wordmark (21 products) · Company logo (11 companies) | `268:41861` · `268:41862` |
+| Payment logo (bKash, Nagad) → `public/logos/payment` · Payment logo slot (white tile, used by Wallet, Checkout dialog, M11, M34) | `276:52024` · `103:20611` |
+| Model orb (the model's App icon in a circle; 9 models × lg/md/sm) · Model logo (Brand/Mono) | `28:8269` · `255:40944` |
 | Answer card: Suggested / Default / Failed | `28:8619` / `103:25245` / `158:17872` |
 | Usage card · Activity table · Settings nav | `103:20960` · `103:21035` · `28:8735` |
 | Sidebar set (Expanded `28:8525`, Collapsed rail `227:32794`) — option A (R17) | `227:32985` |

@@ -115,6 +115,6 @@ export const DEMO_USAGE_SUMMARY = {
   limit: null as number | null,
 };
 
-/** "Easy reading" text size on mobile (M15). Stored per device. */
-export type TextSize = "normal" | "large" | "larger";
-export const TEXT_SIZE_STORAGE_KEY = "multiai-text-size";
+/** "Easy reading" text size (M15): see src/lib/text-size.ts. */
+export type { TextSize } from "@/lib/text-size";
+export { TEXT_SIZE_STORAGE_KEY } from "@/lib/text-size";

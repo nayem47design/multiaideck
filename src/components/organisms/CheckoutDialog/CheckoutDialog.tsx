@@ -1,11 +1,18 @@
 import { Button } from "@/components/atoms/Button";
+import {
+  PaymentLogoSlot,
+  type PaymentMethod,
+} from "@/components/atoms/PaymentLogoSlot";
 
 import { HeroDialogPanel } from "./HeroDialog";
 
 // Figma: Design system › Checkout dialog (103:21288): waiting for the person to approve the
-// payment in their bKash / Nagad app.
+// payment in their bKash / Nagad app. The provider's logo tile (Payment logo slot at 56px) heads it;
+// a card payment keeps the phone icon.
 
 export interface CheckoutDialogProps {
+  /** Which app the person approves in; bKash and Nagad show their logo. */
+  method?: PaymentMethod;
   head: string;
   title: string;
   body: string;
@@ -20,6 +27,7 @@ export interface CheckoutDialogProps {
 }
 
 export function CheckoutDialogPanel({
+  method,
   head,
   title,
   body,
@@ -35,6 +43,16 @@ export function CheckoutDialogPanel({
     <HeroDialogPanel
       head={{ icon: "square-lock-02", label: head }}
       icon="smart-phone-01"
+      media={
+        method && method !== "card" ? (
+          <PaymentLogoSlot
+            method={method}
+            label=""
+            sizeClassName="size-14"
+            className="rounded-md"
+          />
+        ) : undefined
+      }
       tone="info"
       title={title}
       body={body}

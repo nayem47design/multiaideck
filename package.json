@@ -25,7 +25,8 @@
     "test:screens": "playwright test --project=screens",
     "test:a11y": "playwright test --project=a11y",
     "lighthouse": "npx --yes lighthouse@12.8.2 http://localhost:3000/sign-in --form-factor=mobile --screenEmulation.mobile --throttling-method=simulate --output=html --output-path=./lighthouse-report.html --chrome-flags=--headless",
-    "logos": "node scripts/generate-model-logos.mjs"
+    "logos": "node scripts/generate-model-logos.mjs",
+    "ai-logos": "node scripts/generate-ai-logos.mjs"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.81",
@@ -44,6 +45,7 @@
     "radix-ui": "^1.8.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "thinking-orbs": "0.3.2",
     "zod": "^4.6.7"
   },
   "devDependencies": {

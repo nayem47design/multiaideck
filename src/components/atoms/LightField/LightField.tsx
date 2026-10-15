@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import { cx } from "../states";
+import { AuroraField } from "./AuroraField";
 
 // Figma: the "Light field" behind each Prototype screen: blurred ellipses at the top of the page.
 // Sizes, positions, blur and opacity are screen tokens read from Figma (field-<variant>-<n>-*).
@@ -45,8 +46,9 @@ export function LightField({
   if (responsive && variant !== "mobile")
     return (
       <>
-        <Field
-          variant={variant}
+        {/* From 768px: the animated Aurora (softer behind dense screens). */}
+        <AuroraField
+          strength={variant === "app" || variant === "auth" ? "full" : "soft"}
           fixed={fixed}
           className={cx("max-md:hidden", className)}
         />
@@ -55,9 +57,25 @@ export function LightField({
           fixed={fixed}
           className={cx("md:hidden", className)}
         />
+        <Grain />
       </>
     );
-  return <Field variant={variant} fixed={fixed} className={className} />;
+  return (
+    <>
+      <Field variant={variant} fixed={fixed} className={className} />
+      <Grain />
+    </>
+  );
+}
+
+/** Subtle noise over the whole screen's background, just above the field (effects.css). */
+function Grain() {
+  return (
+    <div
+      aria-hidden
+      className="bg-grain pointer-events-none fixed inset-0 -z-[9]"
+    />
+  );
 }
 
 function Field({

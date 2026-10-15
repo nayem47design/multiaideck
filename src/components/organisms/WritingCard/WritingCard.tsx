@@ -48,7 +48,7 @@ export function WritingCard({
         </div>
       </header>
       <p className="flex items-center gap-2 type-ui text-ink-2">
-        <ThinkingDots label="" aria-hidden role={undefined} />
+        <ThinkingDots label="" state="composing" aria-hidden role={undefined} />
         <span role="status">{status}</span>
       </p>
       <div aria-hidden className="flex flex-col gap-chat-writing-gap">

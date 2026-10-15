@@ -4,12 +4,14 @@ import { cx, focusRing, stateLayer } from "@/components/atoms/states";
 import type { ModelId } from "@/lib/ai/models";
 
 // Not a Figma component yet: the merged answer on M5 · Best answer. The mobile counterpart of the
-// Best answer card: each idea names the AI it came from; this view combines answers for display
+// Best answer card: each idea shows the logo of the AI it came from; this view combines answers for display
 // only and never sends one AI's answer to another.
 
 export interface MobileBestIdea {
   name: string;
-  /** e.g. "· from Claude". */
+  /** The AI it came from: its logo is shown. */
+  model: ModelId;
+  /** e.g. "from Claude": read by screen readers. */
   source: string;
   text: string;
 }
@@ -85,9 +87,9 @@ export function MobileBestAnswer({
         <p className="type-body text-ink">{intro}</p>
         {ideas.map((idea) => (
           <div key={idea.name} className="flex flex-col gap-1">
-            <p className="flex flex-wrap items-baseline gap-x-2">
+            <p className="flex flex-wrap items-center gap-x-2">
               <span className="type-chat-m-name text-ink">{idea.name}</span>
-              <span className="type-ui text-ink-2">{idea.source}</span>
+              <ModelOrb model={idea.model} size="md" aria-label={idea.source} />
             </p>
             <p className="type-ui text-ink-2">{idea.text}</p>
           </div>

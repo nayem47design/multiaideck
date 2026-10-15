@@ -4,15 +4,18 @@ import { Button } from "@/components/atoms/Button";
 import { ReceiptStrip } from "@/components/molecules/ReceiptStrip";
 import type { ModelId } from "@/lib/ai/models";
 
-// Figma: Design system › Best answer card (103:21254): the merged best answer. Each point names
-// the model it came from; this view combines answers for display only, it never sends one
-// model's answer to another.
+// Figma: Design system › Best answer card (103:21254): the merged best answer. Each point shows the
+// logo of the model it came from (the product owner asked for logos, not written names; the name
+// is the logo's accessible label and tooltip). This view combines answers for display only, it
+// never sends one model's answer to another.
 
 export interface BestAnswerPoint {
   /** Bold lead-in, e.g. "Golpo Coffee:". */
   lead: string;
   text: string;
-  /** e.g. "from Claude". */
+  /** The model it came from: its logo is shown. */
+  model: ModelId;
+  /** e.g. "from Claude": read by screen readers and shown on hover. */
   source: string;
 }
 
@@ -71,9 +74,12 @@ export function BestAnswerCard({
               <span className="flex-1 type-best-answer-text text-ink">
                 <strong className="font-semibold">{p.lead}</strong> {p.text}
               </span>
-              <span className="rounded-pill bg-canvas px-2 py-0-5 type-model-list-row-tag text-ink-3">
-                {p.source}
-              </span>
+              <ModelOrb
+                model={p.model}
+                size="md"
+                aria-label={p.source}
+                title={p.source}
+              />
             </li>
           ))}
         </ul>

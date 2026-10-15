@@ -267,14 +267,15 @@
       "retry": "Retry",
       "helpful": "Helpful",
       "notHelpful": "Not helpful",
-      "continue": "Continue with {name}",
+      "continue": "Continue with <logo></logo>",
       "swapModel": "Swap model",
       "retryWithCost": "Retry · ≈ {credits} cr",
       "refunded": "Refunded · {credits} cr",
       "timeout": "Timed out after 30 s.\n{provider} was slow to respond. Nothing was charged.",
       "unavailable": "{name} was unavailable.\n{provider} reported an outage. Nothing was charged.",
       "error": "{name} couldn’t answer.\nSomething went wrong at {provider}. Nothing was charged.",
-      "stopped": "You stopped {name} before it finished.\nNothing was charged."
+      "stopped": "You stopped {name} before it finished.\nNothing was charged.",
+      "continueLabel": "Continue with {name}"
     },
     "metric": {
       "seconds": "{value} s",
@@ -289,8 +290,8 @@
     },
     "summary": {
       "label": "Prompt {n}",
-      "result": "{name} · {credits} cr",
-      "refunded": "{name} · refunded",
+      "result": "{credits} cr",
+      "refunded": "refunded",
       "show": "Show",
       "hide": "Hide"
     },
@@ -302,7 +303,6 @@
       "lead": "{name}:",
       "source": "from {name}",
       "fromCount": "from {count} AIs",
-      "sourceMobile": "· from {name}",
       "cost": "{credits} credits",
       "money": "(৳{amount})",
       "seeAllMobile": "See all {count} answers"
@@ -1026,6 +1026,13 @@
           "system": "System",
           "light": "Light",
           "dark": "Dark"
+        },
+        "textSize": "Text size",
+        "textSizeHelp": "Makes all text bigger: answers, menus and buttons. Saved on this device.",
+        "textSizes": {
+          "normal": "Normal",
+          "large": "Large",
+          "larger": "Larger"
         }
       },
       "account": {

@@ -1,6 +1,7 @@
 // Generates src/components/atoms/ModelLogo/logos.generated.ts: each model's provider logo, brand
-// colour and mono (currentColor), from @lobehub/icons-static-svg (MIT, github.com/lobehub/lobe-icons).
-// The same SVGs are placed in Figma as Design system › Model logo. Run `npm run logos`.
+// colour and mono (currentColor), from @lobehub/icons-static-svg (MIT, github.com/lobehub/lobe-icons),
+// for models the AI logo library lacks (Llama). The same SVG is Figma's Model logo › Model=Llama.
+// Run `npm run logos`.
 //
 // Logos are the providers' trademarks, used to identify which model answered (nominative use).
 // Check each brand's guidelines before launch.
@@ -19,17 +20,10 @@ const { version } = JSON.parse(
   readFileSync(join(pkgDir, "package.json"), "utf8"),
 );
 
-// ModelId → [mono icon, colour icon] (OpenAI and xAI only publish one-colour marks).
+// ModelId → [mono icon, colour icon]. Only models without artwork in Figma's AI logo library
+// (scripts/generate-ai-logos.mjs) are drawn from here.
 const MAP = {
-  gpt: ["openai", "openai"],
-  o3: ["openai", "openai"],
-  claude: ["claude", "claude-color"],
-  gemini: ["gemini", "gemini-color"],
-  deepseek: ["deepseek", "deepseek-color"],
-  grok: ["grok", "grok"],
-  perplexity: ["perplexity", "perplexity-color"],
   llama: ["meta", "meta-color"],
-  qwen: ["qwen", "qwen-color"],
 };
 
 /** The SVG's inner markup (no <svg>, no <title>), and its viewBox. */
@@ -70,7 +64,7 @@ export interface ModelLogoArt {
   brand: string;
 }
 
-export const MODEL_LOGOS: Record<ModelId, ModelLogoArt> = ${JSON.stringify(logos, null, 2)};
+export const MODEL_LOGOS: Partial<Record<ModelId, ModelLogoArt>> & Record<"llama", ModelLogoArt> = ${JSON.stringify(logos, null, 2)};
 `;
 writeFileSync(
   join(root, "src/components/atoms/ModelLogo/logos.generated.ts"),

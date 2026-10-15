@@ -33,6 +33,12 @@ const screens = {
 //   kind: size (Tailwind spacing), radius, stroke, opacity, text, gradient, color
 
 const T = (name, kind, path, prop) => ({ name, kind, path, prop });
+
+// Text sizes are Figma's pixels times --type-scale (1 by default; the Text size setting).
+const scaled = (v) =>
+  /^-?[\d.]+px$/.test(v) && v !== "0px"
+    ? `calc(${v} * var(--type-scale, 1))`
+    : v;
 /** A layout size measured from the template snapshot: fn(template children) at Figma's scale. */
 const TL = (name, path, fn) => ({ name, kind: "size", template: path[0], fn });
 /** A value read from a screen layer (screens.json / screens-mobile.json); path starts with the screen name. */
@@ -106,14 +112,7 @@ const TOKENS = [
   ),
   T("orb-lg", "text", ["Model orb", "Model=GPT, Size=lg", "Initial"]),
   T("orb-md", "text", ["Model orb", "Model=GPT, Size=md", "Initial"]),
-  ...["GPT", "Claude", "Gemini", "DeepSeek", "Grok"].map((m) =>
-    T(
-      `orb-${m.toLowerCase()}`,
-      "gradient",
-      ["Model orb", `Model=${m}, Size=lg`],
-      "fill",
-    ),
-  ),
+  // The orb's fill is the model's App icon (AI logo set), not a token: see ModelOrb.
 
   T("avatar-size", "size", ["Avatar"], "w"),
   T("avatar", "text", ["Avatar", "Initials"]),
@@ -155,6 +154,13 @@ const TOKENS = [
     "size",
     ["Payment logo slot", "Method=Card", "Icon/credit-card"],
     "w",
+  ),
+  // bKash and Nagad sit on a white tile in both themes, so their artwork stays legible.
+  T(
+    "payment-logo-tile",
+    "color",
+    ["Payment logo slot", "Method=bKash"],
+    "fill",
   ),
   // ---- Molecules
   T(
@@ -904,19 +910,6 @@ const TOKENS = [
     ["Model picker modal", "Model list (scrolls)", "Row/GPT-5"],
     "h",
   ),
-  ...[
-    ["o3", "Row/o3"],
-    ["perplexity", "Row/Perplexity"],
-    ["llama", "Row/Llama"],
-    ["qwen", "Row/Qwen"],
-  ].map(([m, row]) =>
-    T(
-      `orb-${m}`,
-      "gradient",
-      ["Model picker modal", "Model list (scrolls)", row, "c#1", "Model orb"],
-      "fill",
-    ),
-  ),
 
   T("hero-subtitle", "text", [
     "Home hero",
@@ -1241,10 +1234,10 @@ for (const t of TOKENS) {
     utilities.push(`/* ${where}: ${spec} */
 @utility type-${t.name} {
   font-family: ${FAMILY[node.font.family]};
-  font-size: ${px(node.fontSize)};
-  line-height: ${px(node.lineHeight.value)};
+  font-size: ${scaled(px(node.fontSize))};
+  line-height: ${scaled(px(node.lineHeight.value))};
   font-weight: ${WEIGHT[node.font.style]};
-  letter-spacing: ${px(ls)};
+  letter-spacing: ${scaled(px(ls))};
 }
 `);
     continue;

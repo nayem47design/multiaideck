@@ -10,6 +10,8 @@ export interface HeroDialogProps {
   /** Small line above the icon, e.g. "Secure checkout · PayStation". */
   head?: { icon: IconName; label: string };
   icon: IconName;
+  /** Replaces the icon circle, e.g. the payment provider's logo tile. */
+  media?: ReactNode;
   tone: "info" | "success" | "error";
   title: string;
   body: string;
@@ -28,6 +30,7 @@ const tones = {
 export function HeroDialogPanel({
   head,
   icon,
+  media,
   tone,
   title,
   body,
@@ -42,14 +45,16 @@ export function HeroDialogPanel({
           {head.label}
         </p>
       )}
-      <span
-        className={cx(
-          "flex size-14 items-center justify-center rounded-pill",
-          tones[tone],
-        )}
-      >
-        <Icon name={icon} className="size-6" />
-      </span>
+      {media ?? (
+        <span
+          className={cx(
+            "flex size-14 items-center justify-center rounded-pill",
+            tones[tone],
+          )}
+        >
+          <Icon name={icon} className="size-6" />
+        </span>
+      )}
       <h2 className="text-center type-dialog-hero-title text-ink">{title}</h2>
       <p className="w-full text-center type-dialog-hero-body text-ink-2">
         {body}

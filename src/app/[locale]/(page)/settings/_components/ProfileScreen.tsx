@@ -13,11 +13,13 @@ import { PreferencesCard } from "@/components/organisms/PreferencesCard";
 import { api } from "@/lib/api-client";
 import { usePathname, useRouter } from "@/lib/i18n/navigation";
 import { initialsOf, me, useMe } from "@/lib/me";
+import { TEXT_SIZES, type TextSize } from "@/lib/text-size";
 import type { ThemePreference } from "@/lib/theme";
 import { useThemePreference } from "@/lib/use-theme";
 
 import { useOverlay } from "../../../_shell/overlays";
 import { useDeleteAccount } from "./DeleteAccount";
+import { useTextSize } from "./textSize";
 import { MobileHeader, ScreenBody } from "./ScreenParts";
 import { type Preferences, useSettings } from "./SettingsState";
 
@@ -28,6 +30,7 @@ import { type Preferences, useSettings } from "./SettingsState";
 export function ProfileScreen({ className }: { className?: string }) {
   const t = useTranslations("settings.profile");
   const [theme, setTheme] = useThemePreference();
+  const [textSize, setTextSize] = useTextSize();
   const ta = useTranslations("account");
   const locale = useLocale();
   const router = useRouter();
@@ -143,6 +146,19 @@ export function ProfileScreen({ className }: { className?: string }) {
                     label: t(`preferences.themes.${v}`),
                   })),
                   (v) => setTheme(v as ThemePreference),
+                ),
+              },
+              {
+                title: t("preferences.textSize"),
+                help: t("preferences.textSizeHelp"),
+                control: segmented(
+                  t("preferences.textSize"),
+                  textSize,
+                  TEXT_SIZES.map((v) => ({
+                    value: v,
+                    label: t(`preferences.textSizes.${v}`),
+                  })),
+                  (v) => setTextSize(v as TextSize),
                 ),
               },
               {

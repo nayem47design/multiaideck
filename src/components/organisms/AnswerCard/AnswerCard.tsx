@@ -21,8 +21,10 @@ export interface AnswerCardLabels {
   retry: string;
   helpful: string;
   notHelpful: string;
-  /** e.g. "Continue with Claude". */
-  continue: string;
+  /** e.g. "Continue with" and the model's logo (rich text). */
+  continue: ReactNode;
+  /** The button's accessible name when `continue` isn't plain text, e.g. "Continue with Claude". */
+  continueLabel?: string;
   /** Failed only, e.g. "Swap model". */
   swapModel?: string;
   /** Failed only, e.g. "Retry · ≈ 0.9 cr". */
@@ -198,6 +200,7 @@ export function AnswerCard({
             variant={state === "suggested" ? "tinted" : "secondary"}
             size="sm"
             onClick={onContinue}
+            aria-label={labels.continueLabel}
           >
             {labels.continue}
           </Button>

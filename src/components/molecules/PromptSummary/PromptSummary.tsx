@@ -3,11 +3,12 @@ import { cx, focusRing } from "@/components/atoms/states";
 import type { ModelId } from "@/lib/ai/models";
 
 // Not a Figma component yet: "Prompt 1 (collapsed)" on the Prompt 2 / Prompt 3 Compare screens.
-// An earlier prompt folded to one row: its number, text, what each model returned, and Show.
+// An earlier prompt folded to one row: its number, text, what each model returned (its logo and
+// cost), and Show / Hide.
 
 export interface PromptSummaryResult {
   model: ModelId;
-  /** e.g. "Claude · 1.4 cr" or "GPT-5 · refunded". */
+  /** e.g. "1.4 cr" or "refunded": the model is shown by its logo (whose label is its name). */
   label: string;
   /** Refunded results are drawn in ink-2. */
   refunded?: boolean;

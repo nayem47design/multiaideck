@@ -6,6 +6,7 @@ import { Suspense, useEffect, useRef, type ReactNode } from "react";
 
 import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
+import { PaymentLogoSlot } from "@/components/atoms/PaymentLogoSlot";
 import { cx, focusRing, stateLayer } from "@/components/atoms/states";
 import { ChecklistCard } from "@/components/molecules/ChecklistCard";
 import { Field } from "@/components/molecules/Field";
@@ -396,12 +397,18 @@ function MobilePayScreen() {
         }}
       />
       <div className="flex flex-col items-center gap-go-pro-gap px-mobile-gutter pt-6 text-center">
-        <span className="flex size-m-logo items-center justify-center rounded-lg bg-blue-soft text-blue">
-          <Icon
-            name={method === "card" ? "credit-card" : "smart-phone-01"}
-            className="size-10"
+        {method === "card" ? (
+          <span className="flex size-m-logo items-center justify-center rounded-lg bg-blue-soft text-blue">
+            <Icon name="credit-card" className="size-10" />
+          </span>
+        ) : (
+          <PaymentLogoSlot
+            method={method}
+            label=""
+            sizeClassName="size-m-logo"
+            className="rounded-lg"
           />
-        </span>
+        )}
         <h2 className="type-heading text-ink">
           {t("finishTitle", { method: name })}
         </h2>

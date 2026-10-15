@@ -2,21 +2,16 @@
 
 import { useSyncExternalStore } from "react";
 
-import { TEXT_SIZE_STORAGE_KEY, type TextSize } from "@/lib/mock/settings";
+import {
+  readTextSize,
+  TEXT_SIZE_STORAGE_KEY,
+  type TextSize,
+} from "@/lib/text-size";
 
-// "Easy reading" text size (M15), stored per device like the theme and mirrored on
-// <html data-text-size>. The type scale for Large and Larger is not in Figma yet, so nothing reads
-// the attribute so far.
+// The text size preference as React state, shared by every control on the page (Account's Easy
+// reading card and Settings › Profile). See src/lib/text-size.ts.
 
 const EVENT = "multiai-text-size";
-
-function read(): TextSize {
-  try {
-    const v = localStorage.getItem(TEXT_SIZE_STORAGE_KEY);
-    if (v === "large" || v === "larger") return v;
-  } catch {}
-  return "normal";
-}
 
 function subscribe(onChange: () => void) {
   window.addEventListener(EVENT, onChange);
@@ -28,12 +23,17 @@ function subscribe(onChange: () => void) {
 }
 
 export function useTextSize() {
-  const size = useSyncExternalStore(subscribe, read, () => "normal" as const);
+  const size = useSyncExternalStore(
+    subscribe,
+    readTextSize,
+    () => "normal" as const,
+  );
   const setSize = (next: TextSize) => {
     try {
       localStorage.setItem(TEXT_SIZE_STORAGE_KEY, next);
     } catch {}
-    document.documentElement.dataset.textSize = next;
+    if (next === "normal") delete document.documentElement.dataset.textSize;
+    else document.documentElement.dataset.textSize = next;
     window.dispatchEvent(new Event(EVENT));
   };
   return [size, setSize] as const;
