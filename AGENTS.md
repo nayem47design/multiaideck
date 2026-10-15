@@ -34,7 +34,7 @@ tests/
 2. **Tokens only.** Never hard-code a colour, size, spacing, radius, shadow, duration or font. Use `src/styles/tokens.css` via Tailwind theme classes.
 3. **Reuse before creating.** Check `src/components` first. Build bottom-up: atoms → molecules → organisms → templates → screens.
 4. **Props mirror Figma variants** (`variant`, `size`, `state`). Add hover, focus, pressed, disabled and loading states even if Figma lacks them, and list them in the PR for the designer.
-5. **Done means visually verified.** Every component has a Storybook story per state, in Light and Dark, and a visual test against its Figma screenshot (< 0.5% pixel difference).
+5. **Done means visually verified.** Every component has a Storybook story per state, in Light and Dark, and a visual test against its Figma screenshot (< 3% pixel difference; raised from 0.5% because Figma and Chrome render text differently).
 6. **No text in components.** All copy goes through `messages/en.json` and `messages/bn.json`.
 7. **Each answer is independent.** Never send one model's answer to another model, including in follow-ups and retries after a failure.
 8. **Credits use an append-only ledger.** Never update or delete ledger rows; write corrections as new entries.
