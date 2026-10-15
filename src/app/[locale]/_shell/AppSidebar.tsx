@@ -12,7 +12,17 @@ import { useOverlay } from "./overlays";
 // The Figma Sidebar with real links, the current route selected, and the prototype's actions:
 // search opens ⌘K, Top up goes to Wallet, Go Pro opens the Go Pro overlay (prototype-flows.json).
 
-export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
+export function AppSidebar({
+  onNavigate,
+  collapsed = false,
+  onToggle,
+}: {
+  onNavigate?: () => void;
+  /** "auto" in the shell (rail when collapsed or under 1024px); false in the drawer. */
+  collapsed?: boolean | "auto";
+  /** Collapse or expand (desktop), or close or open the drawer (768–1023px). */
+  onToggle?: () => void;
+}) {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   const format = useFormatter();
@@ -51,7 +61,11 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
     <Sidebar
       brand={tc("brand")}
       collapseLabel={t("collapse")}
-      onCollapse={onNavigate}
+      onCollapse={onToggle ?? onNavigate}
+      collapsed={collapsed}
+      expandLabel={t("expand")}
+      onExpand={onToggle}
+      toggleShortcut={t("toggleShortcut")}
       newChat={{
         label: t("newChat"),
         shortcut: t("newChatShortcut"),

@@ -44,7 +44,8 @@ tests/
 ## Responsive
 
 - Below 768px: bottom tabs, full-screen sheets, Compare shows one answer at a time with tabs and swipe.
-- 768 to 1024px: collapsible sidebar (a drawer), Compare shows two columns. Not designed in Figma yet; needs designer sign-off.
+- 768 to 1024px: the collapsed sidebar rail (Figma: Sidebar State=Collapsed); Expand opens the full sidebar as a drawer. Compare shows two columns (not designed in Figma yet; needs designer sign-off).
+- 1024px and up, the user can collapse the sidebar to the rail (⌘\); the choice is remembered per device.
 - 1024px and up: full desktop layout, Compare shows three columns.
 - Touch targets at least 48px on touch screens; body text never below 16px on mobile.
 - Screen conventions (routes, locale, copy, screen tokens): `docs/SCREENS.md`.

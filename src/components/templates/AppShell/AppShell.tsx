@@ -4,8 +4,8 @@ import { cx } from "@/components/atoms/states";
 
 // Figma: Design system › Template/App shell (28:9266), drawn at 0.75 scale of 1440×900.
 // Sidebar on the left; the main area holds the hero or answer thread, with the Composer docked
-// at the bottom, centred. Below 1024px the sidebar is hidden (the app shows it as a drawer, and
-// below 768px uses the mobile tab bar) and the main area runs edge to edge.
+// at the bottom, centred. From 768px the sidebar region shows (the collapsed rail up to 1024px);
+// below 768px the app uses the mobile tab bar and the main area runs edge to edge.
 
 export interface AppShellProps {
   sidebar: ReactNode;
@@ -26,11 +26,11 @@ export function AppShell({
       className={cx(
         "relative isolate flex h-dvh bg-canvas",
         // Figma: the main area keeps the sidebar gap on its right too.
-        "lg:gap-shell-gap lg:py-shell-pad lg:pr-shell-gap lg:pl-shell-pad",
+        "md:gap-shell-gap md:py-shell-pad md:pr-shell-gap md:pl-shell-pad",
         className,
       )}
     >
-      <div data-region="sidebar" className="hidden shrink-0 lg:flex">
+      <div data-region="sidebar" className="hidden shrink-0 md:flex">
         {sidebar}
       </div>
       <main className="relative flex min-w-0 flex-1 flex-col">

@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { routing } from "@/lib/i18n/routing";
+import { SIDEBAR_SCRIPT } from "@/lib/sidebar";
 import { THEME_SCRIPT } from "@/lib/theme";
 
 import { fontVariables } from "../fonts";
@@ -25,6 +26,7 @@ export default async function RootLayout({
     <html lang={locale} className={fontVariables} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: SIDEBAR_SCRIPT }} />
       </head>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>

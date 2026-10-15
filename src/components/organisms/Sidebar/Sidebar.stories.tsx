@@ -2,15 +2,16 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import { Sidebar } from "./Sidebar";
 
-// Figma's Sidebar frame is 876px tall.
-function frame(width: number, height?: number) {
-  return function Frame(Story: () => React.JSX.Element) {
-    return (
-      <div style={{ width, height }}>
-        <Story />
-      </div>
-    );
-  };
+// Figma's Sidebar frames are 876px tall: 268px wide expanded, 66px collapsed (the rail).
+function Frame(
+  Story: () => React.JSX.Element,
+  { args }: { args: { collapsed?: boolean | "auto" } },
+) {
+  return (
+    <div style={{ width: args.collapsed === true ? 66 : 268, height: 876 }}>
+      <Story />
+    </div>
+  );
 }
 
 const chat = (
@@ -33,7 +34,10 @@ const meta = {
   component: Sidebar,
   parameters: {
     docs: {
-      description: { component: "Figma: Design system › Sidebar (28:8525)." },
+      description: {
+        component:
+          "Figma: Design system › Sidebar (227:32985): State=Expanded and State=Collapsed.",
+      },
     },
   },
   args: {
@@ -82,10 +86,19 @@ const meta = {
       menuLabel: "Account menu",
     },
   },
-  decorators: [frame(268, 876)],
+  decorators: [Frame],
 } satisfies Meta<typeof Sidebar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/** Figma: Sidebar State=Collapsed (227:32794), the 66px rail. Hover an icon for its label. */
+export const Collapsed: Story = {
+  args: {
+    collapsed: true,
+    expandLabel: "Expand sidebar",
+    toggleShortcut: "⌘\\",
+  },
+};

@@ -36,7 +36,8 @@ src/app/[locale]/                 locale segment: English at /, Bangla at /bn (p
 ## Responsive
 
 - ≥ 1024px: the desktop frame, sidebar shown.
-- 768–1023px: the sidebar is a drawer (button top-left); content flexes.
+- 768–1023px: the collapsed sidebar rail (Figma: Sidebar State=Collapsed); its Expand button opens the full sidebar as a drawer. Content flexes.
+- ≥ 1024px the user can collapse the sidebar to the rail with its button or ⌘\; the choice is stored in localStorage and applied as `<html data-sidebar>` before first paint (`src/lib/sidebar.ts`). Style rail-only states with the `rail:` variant (`src/styles/effects.css`).
 - < 768px: the M-screen layout. The bottom tab bar (Ask, Chats, Wallet, Account) shows only on `/`, `/chats`, `/wallet` and `/settings`; other screens use `MobileTopBar` with a back link. Sheets are full-width bottom sheets. Touch targets are at least 48px; body text is at least 16px.
 - Build desktop and mobile from one component tree: switch layout with `md:` and `lg:` classes, not separate pages. Check 360, 412, 768, 1024 and 1440px.
 - `<LightField>` swaps to the mobile field below 768px by itself.

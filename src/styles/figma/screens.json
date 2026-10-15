@@ -128924,6 +128924,1774 @@
      ]
     }
    ]
+  },
+  "Home · Sidebar collapsed": {
+   "n": "Home · Sidebar collapsed",
+   "t": "FRAME",
+   "x": 0,
+   "y": 20910,
+   "w": 1440,
+   "h": 900,
+   "f": [
+    "lum/canvas"
+   ],
+   "k": [
+    {
+     "n": "Light field",
+     "t": "FRAME",
+     "x": 0,
+     "y": 0,
+     "w": 1440,
+     "h": 900,
+     "k": [
+      {
+       "n": "light field",
+       "t": "ELLIPSE",
+       "x": 380,
+       "y": -420,
+       "w": 980,
+       "h": 600,
+       "op": 0.4,
+       "f": [
+        "field/blue"
+       ],
+       "fx": "LAYER_BLUR:200"
+      },
+      {
+       "n": "light field",
+       "t": "ELLIPSE",
+       "x": 560,
+       "y": -260,
+       "w": 620,
+       "h": 380,
+       "op": 0.7,
+       "f": [
+        "field/sky"
+       ],
+       "fx": "LAYER_BLUR:150"
+      },
+      {
+       "n": "light field",
+       "t": "ELLIPSE",
+       "x": 1060,
+       "y": -200,
+       "w": 420,
+       "h": 320,
+       "op": 0.2,
+       "f": [
+        "iris/violet"
+       ],
+       "fx": "LAYER_BLUR:170"
+      }
+     ]
+    },
+    {
+     "n": "Sidebar",
+     "t": "INSTANCE",
+     "x": 12,
+     "y": 12,
+     "w": 66,
+     "h": 876,
+     "al": [
+      "V",
+      16,
+      12,
+      16,
+      12,
+      2,
+      "MIN",
+      "CENTER"
+     ],
+     "r": 24,
+     "sw": 1,
+     "f": [
+      "glass/fill"
+     ],
+     "s": [
+      "glass/rim"
+     ],
+     "fx": "Glass/Default",
+     "m": "Sidebar/State=Collapsed",
+     "k": [
+      {
+       "n": "Brand row",
+       "t": "FRAME",
+       "x": 13,
+       "y": 17,
+       "w": 40,
+       "h": 40,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        0,
+        "CENTER",
+        "CENTER"
+       ],
+       "k": [
+        {
+         "n": "Expand",
+         "t": "INSTANCE",
+         "x": 2,
+         "y": 2,
+         "w": 36,
+         "h": 36,
+         "al": [
+          "H",
+          0,
+          0,
+          0,
+          0,
+          0,
+          "CENTER",
+          "CENTER"
+         ],
+         "r": 999,
+         "m": "Icon button/Style=Plain",
+         "k": [
+          {
+           "n": "Icon/sidebar-left",
+           "t": "INSTANCE",
+           "x": 9,
+           "y": 9,
+           "w": 18,
+           "h": 18,
+           "m": "Icon/sidebar-left"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 31,
+       "y": 59,
+       "w": 4,
+       "h": 12,
+       "k": []
+      },
+      {
+       "n": "New chat",
+       "t": "FRAME",
+       "x": 13,
+       "y": 73,
+       "w": 40,
+       "h": 40,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        8,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 999,
+       "sw": 1,
+       "f": [
+        "glass/fill-strong"
+       ],
+       "s": [
+        "glass/rim"
+       ],
+       "fx": "Glass/Default",
+       "k": [
+        {
+         "n": "Icon/pencil-edit-02",
+         "t": "INSTANCE",
+         "x": 12,
+         "y": 12,
+         "w": 16,
+         "h": 16,
+         "m": "Icon/pencil-edit-02"
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 31,
+       "y": 115,
+       "w": 4,
+       "h": 4,
+       "k": []
+      },
+      {
+       "n": "Search",
+       "t": "FRAME",
+       "x": 13,
+       "y": 121,
+       "w": 40,
+       "h": 40,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        8,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 999,
+       "sw": 1,
+       "s": [
+        "lum/line"
+       ],
+       "k": [
+        {
+         "n": "Icon/search-01",
+         "t": "INSTANCE",
+         "x": 12,
+         "y": 12,
+         "w": 16,
+         "h": 16,
+         "m": "Icon/search-01"
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 31,
+       "y": 163,
+       "w": 4,
+       "h": 12,
+       "k": []
+      },
+      {
+       "n": "Nav · bubble-chat",
+       "t": "FRAME",
+       "x": 13,
+       "y": 177,
+       "w": 40,
+       "h": 36,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        8,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 999,
+       "k": [
+        {
+         "n": "Icon/bubble-chat",
+         "t": "INSTANCE",
+         "x": 12,
+         "y": 10,
+         "w": 16,
+         "h": 16,
+         "m": "Icon/bubble-chat"
+        }
+       ]
+      },
+      {
+       "n": "Nav · image-01",
+       "t": "FRAME",
+       "x": 13,
+       "y": 215,
+       "w": 40,
+       "h": 36,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        8,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 999,
+       "k": [
+        {
+         "n": "Icon/image-01",
+         "t": "INSTANCE",
+         "x": 12,
+         "y": 10,
+         "w": 16,
+         "h": 16,
+         "m": "Icon/image-01"
+        }
+       ]
+      },
+      {
+       "n": "Nav · bookmark-02",
+       "t": "FRAME",
+       "x": 13,
+       "y": 253,
+       "w": 40,
+       "h": 36,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        8,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 999,
+       "k": [
+        {
+         "n": "Icon/bookmark-02",
+         "t": "INSTANCE",
+         "x": 12,
+         "y": 10,
+         "w": 16,
+         "h": 16,
+         "m": "Icon/bookmark-02"
+        }
+       ]
+      },
+      {
+       "n": "spacer",
+       "t": "FRAME",
+       "x": 32.5,
+       "y": 291,
+       "w": 1,
+       "h": 422,
+       "k": []
+      },
+      {
+       "n": "Credits",
+       "t": "FRAME",
+       "x": 13,
+       "y": 715,
+       "w": 40,
+       "h": 40,
+       "al": [
+        "V",
+        0,
+        0,
+        0,
+        0,
+        0,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 20,
+       "sw": 1,
+       "f": [
+        "glass/fill-strong"
+       ],
+       "s": [
+        "glass/rim"
+       ],
+       "fx": "Glass/Default",
+       "k": [
+        {
+         "n": "tile",
+         "t": "FRAME",
+         "x": 4,
+         "y": 4,
+         "w": 32,
+         "h": 32,
+         "al": [
+          "H",
+          0,
+          0,
+          0,
+          0,
+          0,
+          "CENTER",
+          "CENTER"
+         ],
+         "r": 999,
+         "f": [
+          "lum/blue-soft"
+         ],
+         "k": [
+          {
+           "n": "Icon/flash",
+           "t": "INSTANCE",
+           "x": 8,
+           "y": 8,
+           "w": 16,
+           "h": 16,
+           "m": "Icon/flash"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 31,
+       "y": 757,
+       "w": 4,
+       "h": 8,
+       "k": []
+      },
+      {
+       "n": "Go Pro",
+       "t": "FRAME",
+       "x": 13,
+       "y": 767,
+       "w": 40,
+       "h": 36,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        0,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 999,
+       "k": [
+        {
+         "n": "Icon/crown",
+         "t": "INSTANCE",
+         "x": 13,
+         "y": 11,
+         "w": 14,
+         "h": 14,
+         "m": "Icon/crown"
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 31,
+       "y": 805,
+       "w": 4,
+       "h": 8,
+       "k": []
+      },
+      {
+       "n": "User",
+       "t": "FRAME",
+       "x": 13,
+       "y": 815,
+       "w": 40,
+       "h": 44,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        0,
+        "CENTER",
+        "CENTER"
+       ],
+       "r": 999,
+       "k": [
+        {
+         "n": "Avatar",
+         "t": "INSTANCE",
+         "x": 3,
+         "y": 5,
+         "w": 34,
+         "h": 34,
+         "al": [
+          "H",
+          0,
+          0,
+          0,
+          0,
+          0,
+          "CENTER",
+          "CENTER"
+         ],
+         "r": 17,
+         "f": [
+          "lum/blue-soft"
+         ],
+         "m": "Avatar",
+         "p": [
+          "Initials=AH"
+         ],
+         "k": [
+          {
+           "n": "Initials",
+           "t": "TEXT",
+           "x": 8.5,
+           "y": 9,
+           "w": 17,
+           "h": 16,
+           "f": [
+            "lum/blue"
+           ],
+           "c": "AH",
+           "ts": "Luminous/Caption Strong"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": "Home hero",
+     "t": "INSTANCE",
+     "x": 359,
+     "y": 143,
+     "w": 800,
+     "h": 528,
+     "al": [
+      "V",
+      0,
+      0,
+      0,
+      0,
+      0,
+      "MIN",
+      "CENTER"
+     ],
+     "m": "Home hero",
+     "p": [
+      "Subline=Ask once. Get the best answer from up to three models.",
+      "Greeting=Good evening, Imam"
+     ],
+     "k": [
+      {
+       "n": "Model constellation",
+       "t": "FRAME",
+       "x": 325,
+       "y": 0,
+       "w": 150,
+       "h": 80,
+       "k": [
+        {
+         "n": "AI orb",
+         "t": "FRAME",
+         "x": 0,
+         "y": 16,
+         "w": 56,
+         "h": 56,
+         "k": [
+          {
+           "n": "light field",
+           "t": "ELLIPSE",
+           "x": -11.2,
+           "y": -2.8,
+           "w": 78.4,
+           "h": 67.2,
+           "op": 0.25,
+           "f": [
+            "iris/violet"
+           ],
+           "fx": "LAYER_BLUR:22"
+          },
+          {
+           "n": "core",
+           "t": "FRAME",
+           "x": 0,
+           "y": 0,
+           "w": 56,
+           "h": 56,
+           "r": 28,
+           "sw": 2,
+           "f": [
+            "GRADIENT_LINEAR"
+           ],
+           "s": [
+            "#ffffffe5"
+           ],
+           "k": [
+            {
+             "n": "light field",
+             "t": "ELLIPSE",
+             "x": 2.8,
+             "y": 1.1,
+             "w": 34.7,
+             "h": 28,
+             "op": 0.85,
+             "f": [
+              "lum/surface"
+             ],
+             "fx": "LAYER_BLUR:8"
+            },
+            {
+             "n": "light field",
+             "t": "ELLIPSE",
+             "x": 25.2,
+             "y": 28,
+             "w": 33.6,
+             "h": 30.8,
+             "op": 0.7,
+             "f": [
+              "#b7f5e0ff"
+             ],
+             "fx": "LAYER_BLUR:9"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "n": "AI orb",
+         "t": "FRAME",
+         "x": 94,
+         "y": 16,
+         "w": 56,
+         "h": 56,
+         "k": [
+          {
+           "n": "light field",
+           "t": "ELLIPSE",
+           "x": -11.2,
+           "y": -2.8,
+           "w": 78.4,
+           "h": 67.2,
+           "op": 0.25,
+           "f": [
+            "iris/violet"
+           ],
+           "fx": "LAYER_BLUR:22"
+          },
+          {
+           "n": "core",
+           "t": "FRAME",
+           "x": 0,
+           "y": 0,
+           "w": 56,
+           "h": 56,
+           "r": 28,
+           "sw": 2,
+           "f": [
+            "GRADIENT_LINEAR"
+           ],
+           "s": [
+            "#ffffffe5"
+           ],
+           "k": [
+            {
+             "n": "light field",
+             "t": "ELLIPSE",
+             "x": 2.8,
+             "y": 1.1,
+             "w": 34.7,
+             "h": 28,
+             "op": 0.85,
+             "f": [
+              "lum/surface"
+             ],
+             "fx": "LAYER_BLUR:8"
+            },
+            {
+             "n": "light field",
+             "t": "ELLIPSE",
+             "x": 25.2,
+             "y": 28,
+             "w": 33.6,
+             "h": 30.8,
+             "op": 0.7,
+             "f": [
+              "#ffc2d6ff"
+             ],
+             "fx": "LAYER_BLUR:9"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "n": "AI orb",
+         "t": "FRAME",
+         "x": 39,
+         "y": 4,
+         "w": 72,
+         "h": 72,
+         "k": [
+          {
+           "n": "light field",
+           "t": "ELLIPSE",
+           "x": -14.4,
+           "y": -3.6,
+           "w": 100.8,
+           "h": 86.4,
+           "op": 0.25,
+           "f": [
+            "iris/violet"
+           ],
+           "fx": "LAYER_BLUR:29"
+          },
+          {
+           "n": "core",
+           "t": "FRAME",
+           "x": 0,
+           "y": 0,
+           "w": 72,
+           "h": 72,
+           "r": 36,
+           "sw": 2,
+           "f": [
+            "GRADIENT_LINEAR"
+           ],
+           "s": [
+            "#ffffffe5"
+           ],
+           "k": [
+            {
+             "n": "light field",
+             "t": "ELLIPSE",
+             "x": 3.6,
+             "y": 1.4,
+             "w": 44.6,
+             "h": 36,
+             "op": 0.85,
+             "f": [
+              "lum/surface"
+             ],
+             "fx": "LAYER_BLUR:10"
+            },
+            {
+             "n": "light field",
+             "t": "ELLIPSE",
+             "x": 32.4,
+             "y": 36,
+             "w": 43.2,
+             "h": 39.6,
+             "op": 0.7,
+             "f": [
+              "#ffa8ddff"
+             ],
+             "fx": "LAYER_BLUR:12"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 398,
+       "y": 80,
+       "w": 4,
+       "h": 24,
+       "k": []
+      },
+      {
+       "n": "Good evening, Imam",
+       "t": "TEXT",
+       "x": 194,
+       "y": 104,
+       "w": 412,
+       "h": 54,
+       "f": [
+        "lum/ink"
+       ],
+       "c": "Good evening, Imam",
+       "ts": "Luminous/Display"
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 398,
+       "y": 158,
+       "w": 4,
+       "h": 8,
+       "k": []
+      },
+      {
+       "n": "Ask once. Get the best answer from up to three models.",
+       "t": "TEXT",
+       "x": 137.5,
+       "y": 166,
+       "w": 525,
+       "h": 30,
+       "f": [
+        "lum/ink-3"
+       ],
+       "c": "Ask once. Get the best answer from up to three models.",
+       "ts": "raw Geist Light 22/30 ls-0.5"
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 398,
+       "y": 196,
+       "w": 4,
+       "h": 32,
+       "k": []
+      },
+      {
+       "n": "Composer",
+       "t": "INSTANCE",
+       "x": 0,
+       "y": 228,
+       "w": 800,
+       "h": 112,
+       "al": [
+        "V",
+        16,
+        16,
+        12,
+        20,
+        16,
+        "MIN",
+        "MIN"
+       ],
+       "r": 26,
+       "sw": 1,
+       "f": [
+        "glass/fill-strong"
+       ],
+       "s": [
+        "glass/rim"
+       ],
+       "fx": "Glass/Strong",
+       "m": "Composer/State=Default",
+       "p": [
+        "Placeholder=Ask anything, in English or Bangla…"
+       ],
+       "k": [
+        {
+         "n": "Placeholder",
+         "t": "TEXT",
+         "x": 21,
+         "y": 17,
+         "w": 762,
+         "h": 22,
+         "f": [
+          "lum/ink-3"
+         ],
+         "c": "Ask anything, in English or Bangla…",
+         "ts": "Luminous/Body Compact"
+        },
+        {
+         "n": "Toolbar",
+         "t": "FRAME",
+         "x": 21,
+         "y": 55,
+         "w": 762,
+         "h": 44,
+         "al": [
+          "H",
+          0,
+          0,
+          0,
+          0,
+          8,
+          "MIN",
+          "CENTER"
+         ],
+         "k": [
+          {
+           "n": "Attach",
+           "t": "INSTANCE",
+           "x": 0,
+           "y": 4,
+           "w": 36,
+           "h": 36,
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            0,
+            "CENTER",
+            "CENTER"
+           ],
+           "r": 999,
+           "sw": 1,
+           "s": [
+            "lum/line"
+           ],
+           "m": "Icon button/Style=Outline",
+           "k": [
+            {
+             "n": "Icon/add-01",
+             "t": "INSTANCE",
+             "x": 9,
+             "y": 9,
+             "w": 18,
+             "h": 18,
+             "m": "Icon/add-01"
+            }
+           ]
+          },
+          {
+           "n": "Mode switch",
+           "t": "INSTANCE",
+           "x": 44,
+           "y": 3,
+           "w": 190,
+           "h": 38,
+           "al": [
+            "H",
+            4,
+            4,
+            4,
+            4,
+            2,
+            "MIN",
+            "CENTER"
+           ],
+           "r": 999,
+           "f": [
+            "lum/canvas-deep"
+           ],
+           "m": "Segmented control/Selected=First",
+           "k": [
+            {
+             "n": "Option 1",
+             "t": "FRAME",
+             "x": 4,
+             "y": 4,
+             "w": 100,
+             "h": 30,
+             "al": [
+              "H",
+              0,
+              12,
+              0,
+              12,
+              0,
+              "MIN",
+              "CENTER"
+             ],
+             "r": 999,
+             "f": [
+              "lum/surface"
+             ],
+             "fx": "DROP_SHADOW:3:#1f33611f",
+             "k": [
+              {
+               "n": "Label",
+               "t": "TEXT",
+               "x": 12,
+               "y": 6,
+               "w": 76,
+               "h": 18,
+               "f": [
+                "lum/ink"
+               ],
+               "c": "Best answer",
+               "ts": "Luminous/Label"
+              }
+             ]
+            },
+            {
+             "n": "Option 2",
+             "t": "FRAME",
+             "x": 106,
+             "y": 4,
+             "w": 80,
+             "h": 30,
+             "al": [
+              "H",
+              0,
+              12,
+              0,
+              12,
+              0,
+              "MIN",
+              "CENTER"
+             ],
+             "r": 999,
+             "k": [
+              {
+               "n": "Label",
+               "t": "TEXT",
+               "x": 12,
+               "y": 6,
+               "w": 56,
+               "h": 18,
+               "f": [
+                "lum/ink-2"
+               ],
+               "c": "Compare",
+               "ts": "Luminous/Label"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "n": "Model picker",
+           "t": "FRAME",
+           "x": 242,
+           "y": 4,
+           "w": 222,
+           "h": 36,
+           "al": [
+            "H",
+            0,
+            12,
+            0,
+            8,
+            8,
+            "MIN",
+            "CENTER"
+           ],
+           "r": 999,
+           "sw": 1,
+           "s": [
+            "lum/line"
+           ],
+           "k": [
+            {
+             "n": "model dots",
+             "t": "FRAME",
+             "x": 9,
+             "y": 8,
+             "w": 48,
+             "h": 20,
+             "al": [
+              "H",
+              0,
+              0,
+              0,
+              0,
+              -6,
+              "MIN",
+              "CENTER"
+             ],
+             "k": [
+              {
+               "n": "Model orb",
+               "t": "INSTANCE",
+               "x": 0,
+               "y": 0,
+               "w": 20,
+               "h": 20,
+               "al": [
+                "H",
+                0,
+                0,
+                0,
+                0,
+                0,
+                "CENTER",
+                "CENTER"
+               ],
+               "r": 10,
+               "sw": 1.5,
+               "f": [
+                "GRADIENT_LINEAR"
+               ],
+               "s": [
+                "#ffffffff"
+               ],
+               "m": "Model orb/Model=GPT, Size=md",
+               "k": [
+                {
+                 "n": "Initial",
+                 "t": "TEXT",
+                 "x": 6.5,
+                 "y": 4,
+                 "w": 7,
+                 "h": 12,
+                 "f": [
+                  "#ffffffff"
+                 ],
+                 "c": "G",
+                 "ts": "raw Geist SemiBold 9/12 ls0"
+                }
+               ]
+              },
+              {
+               "n": "Model orb",
+               "t": "INSTANCE",
+               "x": 14,
+               "y": 0,
+               "w": 20,
+               "h": 20,
+               "al": [
+                "H",
+                0,
+                0,
+                0,
+                0,
+                0,
+                "CENTER",
+                "CENTER"
+               ],
+               "r": 10,
+               "sw": 1.5,
+               "f": [
+                "GRADIENT_LINEAR"
+               ],
+               "s": [
+                "#ffffffff"
+               ],
+               "m": "Model orb/Model=Claude, Size=md",
+               "k": [
+                {
+                 "n": "Initial",
+                 "t": "TEXT",
+                 "x": 6.5,
+                 "y": 4,
+                 "w": 7,
+                 "h": 12,
+                 "f": [
+                  "#ffffffff"
+                 ],
+                 "c": "C",
+                 "ts": "raw Geist SemiBold 9/12 ls0"
+                }
+               ]
+              },
+              {
+               "n": "Model orb",
+               "t": "INSTANCE",
+               "x": 28,
+               "y": 0,
+               "w": 20,
+               "h": 20,
+               "al": [
+                "H",
+                0,
+                0,
+                0,
+                0,
+                0,
+                "CENTER",
+                "CENTER"
+               ],
+               "r": 10,
+               "sw": 1.5,
+               "f": [
+                "GRADIENT_LINEAR"
+               ],
+               "s": [
+                "#ffffffff"
+               ],
+               "m": "Model orb/Model=Gemini, Size=md",
+               "k": [
+                {
+                 "n": "Initial",
+                 "t": "TEXT",
+                 "x": 6.5,
+                 "y": 4,
+                 "w": 7,
+                 "h": 12,
+                 "f": [
+                  "#ffffffff"
+                 ],
+                 "c": "G",
+                 "ts": "raw Geist SemiBold 9/12 ls0"
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "n": "3 models",
+             "t": "TEXT",
+             "x": 65,
+             "y": 9,
+             "w": 122,
+             "h": 18,
+             "f": [
+              "lum/ink"
+             ],
+             "c": "GPT, Claude, Gemini",
+             "ts": "Luminous/Label"
+            },
+            {
+             "n": "Icon/add-01",
+             "t": "INSTANCE",
+             "x": 195,
+             "y": 11,
+             "w": 14,
+             "h": 14,
+             "m": "Icon/add-01"
+            }
+           ]
+          },
+          {
+           "n": "spacer",
+           "t": "FRAME",
+           "x": 472,
+           "y": 21.5,
+           "w": 81,
+           "h": 1,
+           "k": []
+          },
+          {
+           "n": "estimate",
+           "t": "INSTANCE",
+           "x": 561,
+           "y": 14,
+           "w": 105,
+           "h": 16,
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            4,
+            "MIN",
+            "CENTER"
+           ],
+           "m": "Cost estimate",
+           "p": [
+            "Value=≈ 6 to 14 cr"
+           ],
+           "k": [
+            {
+             "n": "Value",
+             "t": "TEXT",
+             "x": 0,
+             "y": 0,
+             "w": 87,
+             "h": 16,
+             "f": [
+              "lum/ink-3"
+             ],
+             "c": "≈ 6 to 14 cr",
+             "ts": "Luminous/Mono Caption"
+            },
+            {
+             "n": "Icon/information-circle",
+             "t": "INSTANCE",
+             "x": 91,
+             "y": 1,
+             "w": 14,
+             "h": 14,
+             "m": "Icon/information-circle"
+            }
+           ]
+          },
+          {
+           "n": "Voice",
+           "t": "INSTANCE",
+           "x": 674,
+           "y": 4,
+           "w": 36,
+           "h": 36,
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            0,
+            "CENTER",
+            "CENTER"
+           ],
+           "r": 999,
+           "m": "Icon button/Style=Plain",
+           "k": [
+            {
+             "n": "Icon/mic-01",
+             "t": "INSTANCE",
+             "x": 9,
+             "y": 9,
+             "w": 18,
+             "h": 18,
+             "m": "Icon/mic-01"
+            }
+           ]
+          },
+          {
+           "n": "Send (black pill)",
+           "t": "INSTANCE",
+           "x": 718,
+           "y": 0,
+           "w": 44,
+           "h": 44,
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            0,
+            "CENTER",
+            "CENTER"
+           ],
+           "r": 999,
+           "f": [
+            "lum/cta"
+           ],
+           "m": "Icon button/Style=Send",
+           "k": [
+            {
+             "n": "Icon/arrow-up-02",
+             "t": "INSTANCE",
+             "x": 13,
+             "y": 13,
+             "w": 18,
+             "h": 18,
+             "m": "Icon/arrow-up-02"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 398,
+       "y": 340,
+       "w": 4,
+       "h": 12,
+       "k": []
+      },
+      {
+       "n": "Mode explainer",
+       "t": "FRAME",
+       "x": 94,
+       "y": 352,
+       "w": 612,
+       "h": 18,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        6,
+        "MIN",
+        "CENTER"
+       ],
+       "k": [
+        {
+         "n": "Icon/git-merge",
+         "t": "INSTANCE",
+         "x": 0,
+         "y": 2,
+         "w": 14,
+         "h": 14,
+         "m": "Icon/git-merge"
+        },
+        {
+         "n": "Best answer asks 3 models in parallel and merges the strongest reply. You pay only for tokens used.",
+         "t": "TEXT",
+         "x": 20,
+         "y": 0,
+         "w": 592,
+         "h": 18,
+         "f": [
+          "lum/ink-3"
+         ],
+         "c": "Best answer asks 3 models in parallel and merges the strongest reply. You pay only for tokens used.",
+         "ts": "Luminous/Body Small"
+        }
+       ]
+      },
+      {
+       "n": "g",
+       "t": "FRAME",
+       "x": 398,
+       "y": 370,
+       "w": 4,
+       "h": 32,
+       "k": []
+      },
+      {
+       "n": "Starters",
+       "t": "FRAME",
+       "x": 0,
+       "y": 402,
+       "w": 800,
+       "h": 126,
+       "al": [
+        "H",
+        0,
+        0,
+        0,
+        0,
+        12,
+        "MIN",
+        "MIN"
+       ],
+       "k": [
+        {
+         "n": "Card/Compare three models",
+         "t": "FRAME",
+         "x": 0,
+         "y": 0,
+         "w": 258.7,
+         "h": 126,
+         "al": [
+          "V",
+          16,
+          16,
+          16,
+          16,
+          12,
+          "MIN",
+          "MIN"
+         ],
+         "r": 22,
+         "sw": 1,
+         "f": [
+          "glass/fill"
+         ],
+         "s": [
+          "glass/rim"
+         ],
+         "fx": "BACKGROUND_BLUR:28,DROP_SHADOW:40:#1f336114,DROP_SHADOW:2:#1f33610a",
+         "k": [
+          {
+           "n": "tile",
+           "t": "FRAME",
+           "x": 17,
+           "y": 17,
+           "w": 40,
+           "h": 40,
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            0,
+            "CENTER",
+            "CENTER"
+           ],
+           "r": 12,
+           "f": [
+            "lum/blue-soft"
+           ],
+           "k": [
+            {
+             "n": "Icon/layers-01",
+             "t": "INSTANCE",
+             "x": 11,
+             "y": 11,
+             "w": 18,
+             "h": 18,
+             "m": "Icon/layers-01"
+            }
+           ]
+          },
+          {
+           "n": "t",
+           "t": "FRAME",
+           "x": 17,
+           "y": 69,
+           "w": 224.7,
+           "h": 40,
+           "al": [
+            "V",
+            0,
+            0,
+            0,
+            0,
+            2,
+            "MIN",
+            "MIN"
+           ],
+           "k": [
+            {
+             "n": "Compare three models",
+             "t": "TEXT",
+             "x": 0,
+             "y": 0,
+             "w": 224.7,
+             "h": 20,
+             "f": [
+              "lum/ink"
+             ],
+             "c": "Compare three models",
+             "ts": "Luminous/UI Strong"
+            },
+            {
+             "n": "See GPT, Claude and Gemini by side",
+             "t": "TEXT",
+             "x": 0,
+             "y": 22,
+             "w": 224.7,
+             "h": 18,
+             "f": [
+              "lum/ink-2"
+             ],
+             "c": "See GPT, Claude and Gemini by side",
+             "ts": "Luminous/Body Small"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "n": "Card/Write in Bangla",
+         "t": "FRAME",
+         "x": 270.7,
+         "y": 0,
+         "w": 258.7,
+         "h": 126,
+         "al": [
+          "V",
+          16,
+          16,
+          16,
+          16,
+          12,
+          "MIN",
+          "MIN"
+         ],
+         "r": 22,
+         "sw": 1,
+         "f": [
+          "glass/fill"
+         ],
+         "s": [
+          "glass/rim"
+         ],
+         "fx": "BACKGROUND_BLUR:28,DROP_SHADOW:40:#1f336114,DROP_SHADOW:2:#1f33610a",
+         "k": [
+          {
+           "n": "tile",
+           "t": "FRAME",
+           "x": 17,
+           "y": 17,
+           "w": 40,
+           "h": 40,
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            0,
+            "CENTER",
+            "CENTER"
+           ],
+           "r": 12,
+           "f": [
+            "lum/blue-soft"
+           ],
+           "k": [
+            {
+             "n": "Icon/globe-02",
+             "t": "INSTANCE",
+             "x": 11,
+             "y": 11,
+             "w": 18,
+             "h": 18,
+             "m": "Icon/globe-02"
+            }
+           ]
+          },
+          {
+           "n": "t",
+           "t": "FRAME",
+           "x": 17,
+           "y": 69,
+           "w": 224.7,
+           "h": 40,
+           "al": [
+            "V",
+            0,
+            0,
+            0,
+            0,
+            2,
+            "MIN",
+            "MIN"
+           ],
+           "k": [
+            {
+             "n": "Write in Bangla",
+             "t": "TEXT",
+             "x": 0,
+             "y": 0,
+             "w": 224.7,
+             "h": 20,
+             "f": [
+              "lum/ink"
+             ],
+             "c": "Write in Bangla",
+             "ts": "Luminous/UI Strong"
+            },
+            {
+             "n": "Draft, translate or polish বাংলা text",
+             "t": "TEXT",
+             "x": 0,
+             "y": 22,
+             "w": 224.7,
+             "h": 18,
+             "f": [
+              "lum/ink-2"
+             ],
+             "c": "Draft, translate or polish বাংলা text",
+             "ts": "Luminous/Body Small"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "n": "Card/Create an image",
+         "t": "FRAME",
+         "x": 541.3,
+         "y": 0,
+         "w": 258.7,
+         "h": 126,
+         "al": [
+          "V",
+          16,
+          16,
+          16,
+          16,
+          12,
+          "MIN",
+          "MIN"
+         ],
+         "r": 22,
+         "sw": 1,
+         "f": [
+          "glass/fill"
+         ],
+         "s": [
+          "glass/rim"
+         ],
+         "fx": "BACKGROUND_BLUR:28,DROP_SHADOW:40:#1f336114,DROP_SHADOW:2:#1f33610a",
+         "k": [
+          {
+           "n": "tile",
+           "t": "FRAME",
+           "x": 17,
+           "y": 17,
+           "w": 40,
+           "h": 40,
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            0,
+            "CENTER",
+            "CENTER"
+           ],
+           "r": 12,
+           "f": [
+            "lum/blue-soft"
+           ],
+           "k": [
+            {
+             "n": "Icon/image-01",
+             "t": "INSTANCE",
+             "x": 11,
+             "y": 11,
+             "w": 18,
+             "h": 18,
+             "m": "Icon/image-01"
+            }
+           ]
+          },
+          {
+           "n": "t",
+           "t": "FRAME",
+           "x": 17,
+           "y": 69,
+           "w": 224.7,
+           "h": 40,
+           "al": [
+            "V",
+            0,
+            0,
+            0,
+            0,
+            2,
+            "MIN",
+            "MIN"
+           ],
+           "k": [
+            {
+             "n": "Create an image",
+             "t": "TEXT",
+             "x": 0,
+             "y": 0,
+             "w": 224.7,
+             "h": 20,
+             "f": [
+              "lum/ink"
+             ],
+             "c": "Create an image",
+             "ts": "Luminous/UI Strong"
+            },
+            {
+             "n": "Open Image studio with a prompt",
+             "t": "TEXT",
+             "x": 0,
+             "y": 22,
+             "w": 224.7,
+             "h": 18,
+             "f": [
+              "lum/ink-2"
+             ],
+             "c": "Open Image studio with a prompt",
+             "ts": "Luminous/Body Small"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": "MultiAI can make mistakes. Compare answers for important decisions.",
+     "t": "TEXT",
+     "x": 439,
+     "y": 866,
+     "w": 640,
+     "h": 16,
+     "f": [
+      "lum/ink-3"
+     ],
+     "c": "MultiAI can make mistakes. Compare answers for important decisions.",
+     "ts": "raw Geist Regular 12/16 ls0"
+    },
+    {
+     "n": "Tooltip · New chat (hover)",
+     "t": "INSTANCE",
+     "x": 86,
+     "y": 91,
+     "w": 101,
+     "h": 28,
+     "al": [
+      "V",
+      6,
+      12,
+      6,
+      12,
+      4,
+      "MIN",
+      "MIN"
+     ],
+     "r": 10,
+     "f": [
+      "lum/cta"
+     ],
+     "m": "Tooltip/Size=Label",
+     "k": [
+      {
+       "n": "Body",
+       "t": "TEXT",
+       "x": 12,
+       "y": 6,
+       "w": 77,
+       "h": 16,
+       "f": [
+        "lum/on-cta"
+       ],
+       "c": "New chat  ⌘N",
+       "ts": "Luminous/Caption"
+      }
+     ]
+    }
+   ]
   }
  }
 }

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
+import { Icon } from "@/components/atoms/Icon";
+
 import { CostEstimate } from "../CostEstimate";
 import { Tooltip, TooltipBox } from "./Tooltip";
 
@@ -29,6 +31,29 @@ export const OnTrigger: Story = {
       <Tooltip {...args} open>
         <button type="button">
           <CostEstimate>≈ 2 to 4 cr</CostEstimate>
+        </button>
+      </Tooltip>
+    </div>
+  ),
+};
+
+/** Size=Label: one line for icon-only controls (the collapsed sidebar). */
+export const Label: Story = {
+  args: { size: "label", title: undefined, body: "New chat", shortcut: "⌘N" },
+};
+
+/** Size=Label beside its trigger, as on "Home · Sidebar collapsed". */
+export const LabelOnTrigger: Story = {
+  args: { size: "label", title: undefined, body: "New chat", shortcut: "⌘N" },
+  render: (args) => (
+    <div className="p-16">
+      <Tooltip {...args} side="right" open>
+        <button
+          type="button"
+          aria-label="New chat"
+          className="flex size-rail-tile items-center justify-center rounded-pill bg-surface"
+        >
+          <Icon name="pencil-edit-02" className="size-icon-sm" />
         </button>
       </Tooltip>
     </div>

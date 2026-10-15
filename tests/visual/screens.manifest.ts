@@ -16,6 +16,8 @@ export interface ScreenCase {
   element?: string;
   /** Capture the whole page (frames taller than the viewport). */
   fullPage?: boolean;
+  /** localStorage entries set before the page loads (device preferences). */
+  storage?: Record<string, string>;
   /** Why this frame can't be compared yet. */
   todo?: string;
 }
@@ -48,6 +50,18 @@ export const SCREENS: Record<string, ScreenCase> = {
   "home-voice-listening": { url: "/?composer=voice" },
   "home-voice-text-ready": { url: "/?composer=voice-ready" },
   "home-files-attached": { url: "/?composer=files" },
+  "home-sidebar-collapsed": {
+    url: "/",
+    storage: { "multiai-sidebar": "collapsed" },
+    // The frame shows the New chat tooltip, as on hover.
+    setup: async (page) => {
+      await page
+        .getByRole("link", { name: "New chat" })
+        .filter({ visible: true })
+        .hover();
+      await page.getByRole("tooltip").waitFor();
+    },
+  },
   "m2-home": { url: "/" },
   "m3-sheet-add-photos-files": { url: "/?composer=menu" },
   "m4-voice-listening": { url: "/?composer=voice" },

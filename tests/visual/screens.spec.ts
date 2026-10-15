@@ -81,9 +81,13 @@ for (const [file, frame] of Object.entries(frames)) {
       reducedMotion: "reduce",
       locale: "en-US",
     });
-    await context.addInitScript((theme) => {
-      localStorage.setItem("multiai-theme", theme);
-    }, frame.theme);
+    await context.addInitScript(
+      (entries) => {
+        for (const [k, v] of Object.entries(entries))
+          localStorage.setItem(k, v);
+      },
+      { "multiai-theme": frame.theme, ...screen.storage },
+    );
 
     // Signed in as the demo user with the prototype's data (dev-only endpoint).
     const signIn = await context.request.post("/api/dev/sign-in-demo");

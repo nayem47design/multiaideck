@@ -63,6 +63,37 @@ const screenTokens = (TS) => [
   TS("mobile-gutter", "size", ["M5 · Best answer", "Answer"], "x"),
   TS("screen-desktop", "size", ["Home"], "w"),
   TS("screen-mobile", "size", ["M2 · Home"], "w"),
+
+  // Collapsed sidebar (Figma: Sidebar State=Collapsed, shown on "Home · Sidebar collapsed").
+  ...(() => {
+    const rail = ["Home · Sidebar collapsed", "Sidebar"];
+    return [
+      TS("sidebar-rail-width", "size", rail, "w"),
+      TS("rail-tile", "size", [...rail, "New chat"], "w"),
+      TS("rail-nav-height", "size", [...rail, "Nav · bubble-chat"], "h"),
+      TS("rail-user-height", "size", [...rail, "User"], "h"),
+      TS("rail-credits-icon", "size", [...rail, "Credits", "tile"], "w"),
+      TS("rail-crown", "size", [...rail, "Go Pro", "Icon/crown"], "w"),
+      TS(
+        "rail-tooltip-pad-x",
+        "size",
+        ["Home · Sidebar collapsed", "Tooltip · New chat (hover)"],
+        "padX",
+      ),
+      TS(
+        "rail-tooltip-pad-y",
+        "size",
+        ["Home · Sidebar collapsed", "Tooltip · New chat (hover)"],
+        "padY",
+      ),
+      TS(
+        "rail-tooltip",
+        "radius",
+        ["Home · Sidebar collapsed", "Tooltip · New chat (hover)"],
+        "radius",
+      ),
+    ];
+  })(),
 ];
 
 export default screenTokens;

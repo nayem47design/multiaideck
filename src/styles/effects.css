@@ -67,3 +67,29 @@
     display: block;
   }
 }
+
+/*
+ * Collapsed sidebar (Figma: Sidebar State=Collapsed). `rail:` styles apply inside a sidebar whose
+ * data-sidebar-state is "collapsed", or "auto" while the user has collapsed it (<html
+ * data-sidebar="collapsed", set before first paint) or the window is under 1024px, where the rail
+ * is the default. Driven by CSS so the server render and first paint already match.
+ */
+@custom-variant rail {
+  &:where(
+    [data-sidebar-state="collapsed"],
+    [data-sidebar-state="collapsed"] *
+  ) {
+    @slot;
+  }
+  &:where(
+    :root[data-sidebar="collapsed"] [data-sidebar-state="auto"],
+    :root[data-sidebar="collapsed"] [data-sidebar-state="auto"] *
+  ) {
+    @slot;
+  }
+  @media (width < 64rem) {
+    &:where([data-sidebar-state="auto"], [data-sidebar-state="auto"] *) {
+      @slot;
+    }
+  }
+}

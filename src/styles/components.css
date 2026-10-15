@@ -571,6 +571,29 @@
   --mobile-gutter: var(--size-icon-sm); /* M5 · Best answer › Answer */
   --screen-desktop: 1440px; /* Home */
   --screen-mobile: 360px; /* M2 · Home */
+  --sidebar-rail-width: 66px; /* Home · Sidebar collapsed › Sidebar */
+  --rail-tile: var(
+    --space-10
+  ); /* Home · Sidebar collapsed › Sidebar › New chat */
+  --rail-nav-height: var(
+    --size-control-md
+  ); /* Home · Sidebar collapsed › Sidebar › Nav · bubble-chat */
+  --rail-user-height: var(
+    --size-control-lg
+  ); /* Home · Sidebar collapsed › Sidebar › User */
+  --rail-credits-icon: var(
+    --size-control-sm
+  ); /* Home · Sidebar collapsed › Sidebar › Credits › tile */
+  --rail-crown: 14px; /* Home · Sidebar collapsed › Sidebar › Go Pro › Icon/crown */
+  --rail-tooltip-pad-x: var(
+    --space-3
+  ); /* Home · Sidebar collapsed › Tooltip · New chat (hover) */
+  --rail-tooltip-pad-y: var(
+    --space-1-5
+  ); /* Home · Sidebar collapsed › Tooltip · New chat (hover) */
+  --rail-tooltip-radius: var(
+    --radius-sm
+  ); /* Home · Sidebar collapsed › Tooltip · New chat (hover) */
   --pro-compare-row-h: var(
     --size-control-sm
   ); /* Wallet › B · Order summary + Pro › Pro comparison › compare › row */
@@ -1028,6 +1051,15 @@
   --spacing-mobile-gutter: var(--mobile-gutter);
   --spacing-screen-desktop: var(--screen-desktop);
   --spacing-screen-mobile: var(--screen-mobile);
+  --spacing-sidebar-rail-width: var(--sidebar-rail-width);
+  --spacing-rail-tile: var(--rail-tile);
+  --spacing-rail-nav-height: var(--rail-nav-height);
+  --spacing-rail-user-height: var(--rail-user-height);
+  --spacing-rail-credits-icon: var(--rail-credits-icon);
+  --spacing-rail-crown: var(--rail-crown);
+  --spacing-rail-tooltip-pad-x: var(--rail-tooltip-pad-x);
+  --spacing-rail-tooltip-pad-y: var(--rail-tooltip-pad-y);
+  --radius-rail-tooltip: var(--rail-tooltip-radius);
   --spacing-pro-compare-row-h: var(--pro-compare-row-h);
   --spacing-pro-compare-col-1: var(--pro-compare-col-1);
   --spacing-pro-compare-col-2: var(--pro-compare-col-2);

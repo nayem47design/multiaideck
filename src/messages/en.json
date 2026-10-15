@@ -51,6 +51,86 @@
     },
     "languageFailed": "Couldn’t save your language. It’s changed on this device only."
   },
+  "admin": {
+    "title": "Admin",
+    "backToChat": "Back to chat",
+    "error": "Something went wrong. Please try again.",
+    "forbidden": {
+      "title": "Admins only",
+      "body": "This page is for the support team. Ask an admin to give your account access."
+    },
+    "search": {
+      "label": "Find a user",
+      "help": "Phone number, email or name",
+      "button": "Search",
+      "empty": "No users match.",
+      "open": "Open",
+      "columns": {
+        "name": "NAME",
+        "phone": "PHONE",
+        "email": "EMAIL",
+        "plan": "PLAN",
+        "balance": "BALANCE"
+      }
+    },
+    "user": {
+      "back": "Back to results",
+      "noName": "No name",
+      "balance": "Balance",
+      "plan": "Plan",
+      "plans": {
+        "payg": "Pay as you go",
+        "pro": "Pro"
+      },
+      "credits": "{amount} credits"
+    },
+    "refund": {
+      "title": "Refund credits",
+      "credits": "Credits",
+      "reason": "Reason",
+      "reasonHelp": "At least 5 characters. Saved with the refund.",
+      "submit": "Refund",
+      "done": "Refunded {credits} credits.",
+      "failed": "The refund didn’t go through. Nothing changed."
+    },
+    "payments": {
+      "title": "Payments",
+      "empty": "No payments.",
+      "amount": "BDT {amount} · {method}",
+      "columns": {
+        "date": "DATE",
+        "amount": "AMOUNT",
+        "credits": "CREDITS",
+        "status": "STATUS",
+        "invoice": "INVOICE"
+      },
+      "status": {
+        "pending": "Pending",
+        "paid": "Paid",
+        "failed": "Failed",
+        "cancelled": "Cancelled"
+      }
+    },
+    "ledger": {
+      "title": "Ledger",
+      "empty": "No entries.",
+      "columns": {
+        "date": "DATE",
+        "kind": "KIND",
+        "credits": "CREDITS",
+        "note": "NOTE"
+      },
+      "byAdmin": "{note} (by an admin)"
+    },
+    "reconcile": {
+      "title": "Ledger check",
+      "body": "Compares paid payments with the credits they added to the ledger.",
+      "run": "Check now",
+      "ok": "{payments, plural, one {# payment} other {# payments}} checked. No mismatches.",
+      "found": "{count, plural, one {# mismatch} other {# mismatches}} in {payments, plural, one {# payment} other {# payments}}.",
+      "row": "{kind} · {invoice} · expected {expected}, ledger {ledger}"
+    }
+  },
   "auth": {
     "promise": {
       "title": "One question.\nThree AIs.\nThe best answer.",
@@ -150,7 +230,10 @@
       "retryBoth": "Retry both · ≈ {credits} cr",
       "stillUnavailable": "{name} is still unavailable and was refunded.",
       "swap": "Swap {name}",
-      "independent": "Each answer is independent: {names} only saw your prompts. MultiAI suggests {name}."
+      "independent": "Each answer is independent: {names} only saw your prompts. MultiAI suggests {name}.",
+      "failedOne": "{name} couldn’t answer and was refunded.",
+      "failedMany": "{names} couldn’t answer. All refunded.",
+      "retryAll": "Retry all · ≈ {credits} cr"
     },
     "badge": {
       "suggested": "Suggested",
@@ -171,7 +254,9 @@
       "retryWithCost": "Retry · ≈ {credits} cr",
       "refunded": "Refunded · {credits} cr",
       "timeout": "Timed out after 30 s.\n{provider} was slow to respond. Nothing was charged.",
-      "unavailable": "{name} was unavailable.\n{provider} reported an outage. Nothing was charged."
+      "unavailable": "{name} was unavailable.\n{provider} reported an outage. Nothing was charged.",
+      "error": "{name} couldn’t answer.\nSomething went wrong at {provider}. Nothing was charged.",
+      "stopped": "You stopped {name} before it finished.\nNothing was charged."
     },
     "metric": {
       "seconds": "{value} s",
@@ -256,10 +341,17 @@
         "notCharged": "You were not charged for this.",
         "tryAgain": "Try again · about {credits} credits",
         "tryLater": "Try again later",
-        "askDifferent": "Ask a different AI"
+        "askDifferent": "Ask a different AI",
+        "errorTitle": "{name} couldn’t answer this time",
+        "errorBody": "Something went wrong at {provider}. Trying again usually helps.",
+        "stoppedTitle": "You stopped {name}",
+        "stoppedBody": "It stopped before it finished, so you weren’t charged."
       }
     },
-    "and": "{rest} and {last}"
+    "and": "{rest} and {last}",
+    "loadError": "Couldn’t load this chat",
+    "loadErrorBody": "Check your connection and try again.",
+    "tryAgain": "Try again"
   },
   "chats": {
     "title": "Chats",
@@ -301,7 +393,8 @@
       "title": "Nothing here yet",
       "body": "Chats of this kind will show up here.",
       "action": "New chat"
-    }
+    },
+    "earlier": "Earlier"
   },
   "checkout": {
     "dialog": {
@@ -315,7 +408,8 @@
       "method": "Method",
       "approved": "I approved it",
       "simulateFailure": "Simulate a failed payment",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "headLive": "Secure checkout · PayStation"
     },
     "received": {
       "title": "Payment received",
@@ -366,7 +460,8 @@
       "reasonClosed": "{kind, select, card {The card page was closed too early} other {The {method} app was closed too early}}",
       "tryAgain": "Try again",
       "payAnotherWay": "Pay another way",
-      "help": "Money was taken? Get help"
+      "help": "Money was taken? Get help",
+      "startFailed": "We couldn’t start the payment. Nothing was charged. Please try again."
     }
   },
   "common": {
@@ -556,7 +651,9 @@
       "chats": "Chats",
       "wallet": "Wallet",
       "account": "Account"
-    }
+    },
+    "expand": "Expand sidebar",
+    "toggleShortcut": "⌘\\"
   },
   "picker": {
     "title": "Choose models",
@@ -761,7 +858,8 @@
       "bodyMobile": "{credits} credits added. Your next payment of ৳{bdt} is on {date}. Cancel any time in Wallet.",
       "startAsking": "Start asking",
       "viewInWallet": "View in Wallet"
-    }
+    },
+    "startFailed": "We couldn’t start the payment. Nothing was charged. Please try again."
   },
   "search": {
     "title": "Search chats",
@@ -778,7 +876,8 @@
       "image": "Image"
     },
     "detail": "{text} · {day}",
-    "excerpt": "“…{text}”"
+    "excerpt": "“…{text}”",
+    "earlier": "Earlier"
   },
   "settings": {
     "topBar": {
@@ -1066,7 +1165,8 @@
         "itemMeta": "{when} · {count, plural, one {# AI} other {# AIs}}",
         "empty": "No questions in this period.",
         "refunds": "If an AI fails or you stop it, those credits come back and show here as “Refunded”."
-      }
+      },
+      "exportFailed": "Couldn’t export your usage. Please try again."
     },
     "help": {
       "title": "Help & support",
@@ -1156,7 +1256,8 @@
         "bkash": "Mobile wallet",
         "nagad": "Mobile wallet",
         "card": "Visa, Mastercard"
-      }
+      },
+      "customMaxError": "For more than BDT {max}, see the Teams plan."
     },
     "order": {
       "title": "ORDER SUMMARY",
@@ -1170,7 +1271,8 @@
       "chooseAmount": "Choose an amount",
       "secured": "Secured by PayStation",
       "neverCharged": "Failed payments are never charged.",
-      "bonusValue": "+ {credits}"
+      "bonusValue": "+ {credits}",
+      "startFailed": "We couldn’t start the payment. Nothing was charged. Please try again."
     },
     "proCard": {
       "title": "Use AI every day? Try Pro",

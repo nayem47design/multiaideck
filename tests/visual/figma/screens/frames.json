@@ -255,6 +255,14 @@
     "height": 900,
     "scale": 1
   },
+  "home-sidebar-collapsed__light__1440.png": {
+    "id": "227:32990",
+    "name": "Home · Sidebar collapsed",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
   "home-voice-listening__dark__1440.png": {
     "id": "147:40923",
     "name": "Dark · Home · Voice listening",
