@@ -262,7 +262,7 @@ export function useComposer({
   ];
 
   const desktopProps: ComposerProps = {
-    glow: true,
+    beam: true,
     state: listening ? "voice-listening" : "default",
     value,
     onValueChange: setValue,
@@ -332,7 +332,7 @@ export function useComposer({
 
   const mobileComposer: ReactNode = (
     <MobileComposer
-      glow
+      beam
       value={value}
       onValueChange={setValue}
       placeholder={files.length ? t("placeholder.file") : placeholder.mobile}

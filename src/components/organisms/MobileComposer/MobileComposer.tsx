@@ -1,6 +1,7 @@
 import type { TextareaHTMLAttributes } from "react";
 
 import { Icon } from "@/components/atoms/Icon";
+import { InputBeam } from "@/components/molecules/InputBeam";
 import { cx, focusRing, stateLayer } from "@/components/atoms/states";
 
 // Not a Figma component yet: the "Mobile composer" on the M-screens (M2, M5, M6, M18, M19…).
@@ -28,8 +29,8 @@ export interface MobileComposerProps extends Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   "onChange" | "value"
 > {
-  /** Animated glowing border (effects.css › glow-border): light travels around the border. */
-  glow?: boolean;
+  /** Animated border beam around the input (InputBeam, from the border-beam package). */
+  beam?: boolean;
   value: string;
   onValueChange: (value: string) => void;
   /** Current mode, e.g. "Best answer". */
@@ -64,18 +65,16 @@ export function MobileComposer({
   onSend,
   onRemoveFile,
   className,
-  glow = false,
+  beam = false,
   ...textarea
 }: MobileComposerProps) {
-  return (
+  const body = (
     <div
       className={cx(
         "flex w-full flex-col gap-chat-m-composer-gap rounded-xl border border-glass-rim glass-strong px-chat-m-composer-pad-x py-3 shadow-composer",
-        glow && "glow-border [--glow-radius:var(--radius-xl)]",
-        className,
+        !beam && className,
       )}
     >
-      {glow && <span className="glow-border__halo" aria-hidden />}
       {voiceNote && (
         <p className="flex min-h-chat-m-voice-note-h items-center gap-1-5 rounded-chat-m-file bg-blue-soft px-chat-m-voice-note-pad py-1 type-chat-m-voice-note text-blue">
           <Icon name="mic-01" className="size-select-icon shrink-0" />
@@ -169,4 +168,6 @@ export function MobileComposer({
       </div>
     </div>
   );
+  // With the beam, outer classes (e.g. a margin) go on the beam's wrapper, so it hugs the input.
+  return beam ? <InputBeam className={className}>{body}</InputBeam> : body;
 }

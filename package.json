@@ -35,6 +35,7 @@
     "@ai-sdk/xai": "^5.0.23",
     "@electric-sql/pglite": "^0.5.10",
     "ai": "^7.0.141",
+    "border-beam": "^1.4.1",
     "drizzle-orm": "^0.45.4",
     "motion": "^14.2.0",
     "next": "16.4.1",

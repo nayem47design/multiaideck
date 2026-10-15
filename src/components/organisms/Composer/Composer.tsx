@@ -4,6 +4,7 @@ import { Icon } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
 import { ModelOrb } from "@/components/atoms/ModelOrb";
 import { ProgressBar } from "@/components/atoms/ProgressBar";
+import { InputBeam } from "@/components/molecules/InputBeam";
 import { cx, focusRing, stateLayer } from "@/components/atoms/states";
 import { CostEstimate } from "@/components/molecules/CostEstimate";
 import {
@@ -56,8 +57,8 @@ export interface ComposerProps extends Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   "onChange" | "value"
 > {
-  /** Animated glowing border (effects.css › glow-border): light travels around the border. */
-  glow?: boolean;
+  /** Animated border beam around the input (InputBeam, from the border-beam package). */
+  beam?: boolean;
   state?: ComposerState;
   value: string;
   onValueChange: (value: string) => void;
@@ -107,19 +108,17 @@ export function Composer({
   onDoneVoice,
   onLanguage,
   className,
-  glow = false,
+  beam = false,
   ...textarea
 }: ComposerProps) {
   const listening = state === "voice-listening" && voice;
-  return (
+  const body = (
     <div
       className={cx(
         "flex w-full flex-col gap-4 rounded-composer border border-glass-rim glass-strong pt-4 pr-4 pb-3 pl-5 shadow-composer",
-        glow && "glow-border [--glow-radius:var(--composer-radius)]",
-        className,
+        !beam && className,
       )}
     >
-      {glow && <span className="glow-border__halo" aria-hidden />}
       {!listening && attachments.length > 0 && (
         <ul className="flex flex-wrap gap-2">
           {attachments.map((file) => (
@@ -274,4 +273,6 @@ export function Composer({
       </div>
     </div>
   );
+  // With the beam, outer classes (e.g. a margin) go on the beam's wrapper, so it hugs the input.
+  return beam ? <InputBeam className={className}>{body}</InputBeam> : body;
 }

@@ -35,3 +35,23 @@ export function useThemePreference(): [ThemePreference, typeof setTheme] {
   }, [preference]);
   return [preference, setTheme];
 }
+
+/**
+ * The theme on screen right now ("light" | "dark"): <html data-theme>, which follows the
+ * preference (and the device, for System). "light" on the server.
+ */
+export function useResolvedTheme(): "light" | "dark" {
+  return useSyncExternalStore(
+    (onChange) => {
+      const observer = new MutationObserver(onChange);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+      return () => observer.disconnect();
+    },
+    () =>
+      document.documentElement.dataset.theme === "dark" ? "dark" : "light",
+    () => "light" as const,
+  );
+}
