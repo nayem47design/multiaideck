@@ -176,7 +176,9 @@
       "autoFill": "The code fills in by itself on most phones.",
       "verify": "Verify and continue",
       "change": "Wrong number? Change it",
-      "back": "Back"
+      "back": "Back",
+      "devCode": "Development: your code is {code}",
+      "devCodeBody": "Codes are printed to the server log until an SMS gateway is set up. This note never appears in production."
     },
     "sms": {
       "code": "Your MultiAIDeck code is {code}. It expires in {minutes} minutes. Never share it with anyone."

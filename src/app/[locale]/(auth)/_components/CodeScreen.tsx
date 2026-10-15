@@ -22,6 +22,7 @@ import { MeResponse, SendCodeResponse } from "@/lib/contracts/auth";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 
 import { AuthFrame } from "./AuthFrame";
+import { DevCode } from "./DevCode";
 import { useClock, useCountdown } from "./useCountdown";
 
 // /sign-in/code. Desktop: Desktop · Enter code; mobile: M17 · Enter the code. Verify and continue →
@@ -156,6 +157,9 @@ export function CodeScreen() {
           title=""
           back={{ label: t("back"), link: <Link href={PHONE_STEP} /> }}
         />
+        <div className="px-4 pt-4 md:w-auth-card-w md:max-w-full md:px-0 md:pt-0 md:pb-4">
+          <DevCode phone={flow?.phone} sentAt={resendAt ?? flow?.resendAt} />
+        </div>
         <CodeCard
           className="max-md:flex-1 max-md:px-4 max-md:pt-4 max-md:pb-8"
           code={code}
