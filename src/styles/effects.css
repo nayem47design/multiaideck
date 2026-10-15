@@ -116,9 +116,9 @@
 }
 
 :root {
-  --glow-hue: 120;
-  --glow-hue-start: 80;
-  --glow-hue-end: 140;
+  --glow-hue: 224;
+  --glow-hue-start: 184;
+  --glow-hue-end: 264;
   --glow-sat: 85%;
   --glow-light: 60%;
   --glow-speed: 6s;
