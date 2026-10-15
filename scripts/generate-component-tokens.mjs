@@ -19,6 +19,7 @@ const { components } = read("figma/components.json");
 const variables = read("figma/luminous.tokens.json");
 const styles = read("figma/luminous.styles.json");
 const { textStyles } = styles;
+const templateSnapshot = read("figma/templates.json");
 
 // ---------------------------------------------------------------------------
 // Which values each component needs. Selectors name Figma layers; values come from Figma.
@@ -26,6 +27,8 @@ const { textStyles } = styles;
 //   kind: size (Tailwind spacing), radius, stroke, opacity, text, gradient, color
 
 const T = (name, kind, path, prop) => ({ name, kind, path, prop });
+/** A layout size measured from the template snapshot: fn(template children) at Figma's scale. */
+const TL = (name, path, fn) => ({ name, kind: "size", template: path[0], fn });
 
 const TOKENS = [
   T(
@@ -795,6 +798,63 @@ const TOKENS = [
   ]),
   T("hero-art-width", "size", ["Home hero", "Model constellation"], "w"),
   T("hero-art-height", "size", ["Home hero", "Model constellation"], "h"),
+  T("composer-width", "size", ["Composer", "State=Default"], "w"),
+  // ---- Templates (drawn at 0.75 scale in Figma; values are divided by the scale)
+  TL(
+    "page-width",
+    ["Template/Settings shell", "Slot/Page title + setting cards"],
+    (t) =>
+      t["Settings nav"].w +
+      (t["Slot/Page title + setting cards"].x -
+        t["Settings nav"].x -
+        t["Settings nav"].w) +
+      t["Slot/Page title + setting cards"].w,
+  ),
+  TL(
+    "checkout-main-width",
+    ["Template/Full page with checkout"],
+    (t) => t["Slot/Choose amount + pay with"].w,
+  ),
+  TL(
+    "app-main-top",
+    ["Template/App shell"],
+    (t) => t["Slot/Hero or answer thread"].y - t.Sidebar.y,
+  ),
+  TL(
+    "page-top",
+    ["Template/Settings shell"],
+    (t) => t["Settings nav"].y - t["Page top bar"].y - t["Page top bar"].h,
+  ),
+  TL("shell-pad", ["Template/App shell"], (t) => t.Sidebar.x),
+  TL(
+    "shell-gap",
+    ["Template/App shell"],
+    (t) => t["Slot/Hero or answer thread"].x - t.Sidebar.x - t.Sidebar.w,
+  ),
+  TL(
+    "settings-gap",
+    ["Template/Settings shell"],
+    (t) =>
+      t["Slot/Page title + setting cards"].x -
+      t["Settings nav"].x -
+      t["Settings nav"].w,
+  ),
+  TL(
+    "checkout-row-gap",
+    ["Template/Full page with checkout"],
+    (t) =>
+      t["Slot/Choose amount + pay with"].y -
+      t["Slot/Summary cards"].y -
+      t["Slot/Summary cards"].h,
+  ),
+  TL(
+    "checkout-col-gap",
+    ["Template/Full page with checkout"],
+    (t) =>
+      t["Order summary"].x -
+      t["Slot/Choose amount + pay with"].x -
+      t["Slot/Choose amount + pay with"].w,
+  ),
 ];
 
 // ---------------------------------------------------------------------------
@@ -901,6 +961,26 @@ const emittedText = new Map(); // text spec → first utility that has it
 const report = [];
 
 for (const t of TOKENS) {
+  if (t.template) {
+    const raw = round(
+      t.fn(templateSnapshot.templates[t.template]) / templateSnapshot.scale,
+    );
+    const alias = aliasFor("size", raw);
+    const cssVar = `--${t.name}`;
+    vars.push(
+      `  ${cssVar}: ${alias ? `var(${alias.cssVar})` : px(raw)}; /* ${t.template} (÷ ${templateSnapshot.scale}) */`,
+    );
+    theme.push(`  --spacing-${t.name}: var(${cssVar});`);
+    report.push({
+      token: cssVar,
+      where: t.template,
+      figma: px(raw),
+      result: alias
+        ? `= ${alias.cssVar.slice(2).replace("-", "/")}`
+        : "new size",
+    });
+    continue;
+  }
   const { node, where } = find(t.path);
 
   if (t.kind === "text") {

@@ -1,0 +1,26 @@
+{
+  "$source": {
+    "figmaFileKey": "fCrR78u1aj0DQjzpaEhrIY",
+    "readWith": "figma-console figma_execute: x, y, width, height of each template child (read-only)",
+    "note": "Templates are drawn at 0.75 scale (1080×675 = 1440×900). Values are as Figma reports them; the generator divides by scale."
+  },
+  "scale": 0.75,
+  "templates": {
+    "Template/App shell": {
+      "Sidebar": { "x": 9, "y": 9, "w": 201, "h": 657 },
+      "Slot/Hero or answer thread": { "x": 228, "y": 60, "w": 834, "h": 465 },
+      "Composer": { "x": 315, "y": 571.5, "w": 660, "h": 84.5 }
+    },
+    "Template/Settings shell": {
+      "Page top bar": { "x": 9, "y": 9, "w": 1062, "h": 42 },
+      "Settings nav": { "x": 120, "y": 78, "w": 186, "h": 219.75 },
+      "Slot/Page title + setting cards": { "x": 342, "y": 78, "w": 618, "h": 555 }
+    },
+    "Template/Full page with checkout": {
+      "Page top bar": { "x": 9, "y": 9, "w": 1062, "h": 42 },
+      "Slot/Summary cards": { "x": 120, "y": 78, "w": 840, "h": 135 },
+      "Slot/Choose amount + pay with": { "x": 120, "y": 228, "w": 546, "h": 420 },
+      "Order summary": { "x": 678, "y": 228, "w": 282, "h": 338 }
+    }
+  }
+}

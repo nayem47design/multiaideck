@@ -231,6 +231,20 @@
   ); /* Home hero › Starters › Card/Compare three models */
   --hero-art-width: 150px; /* Home hero › Model constellation */
   --hero-art-height: 80px; /* Home hero › Model constellation */
+  --composer-width: 880px; /* Composer › State=Default */
+  --page-width: 1120px; /* Template/Settings shell (÷ 0.75) */
+  --checkout-main-width: 728px; /* Template/Full page with checkout (÷ 0.75) */
+  --app-main-top: 68px; /* Template/App shell (÷ 0.75) */
+  --page-top: var(--size-control-md); /* Template/Settings shell (÷ 0.75) */
+  --shell-pad: var(--space-3); /* Template/App shell (÷ 0.75) */
+  --shell-gap: var(--space-6); /* Template/App shell (÷ 0.75) */
+  --settings-gap: var(--space-12); /* Template/Settings shell (÷ 0.75) */
+  --checkout-row-gap: var(
+    --size-icon-md
+  ); /* Template/Full page with checkout (÷ 0.75) */
+  --checkout-col-gap: var(
+    --size-icon-sm
+  ); /* Template/Full page with checkout (÷ 0.75) */
 }
 
 @theme inline reference {
@@ -382,6 +396,16 @@
   --shadow-starter-card: var(--starter-card-shadow);
   --spacing-hero-art-width: var(--hero-art-width);
   --spacing-hero-art-height: var(--hero-art-height);
+  --spacing-composer-width: var(--composer-width);
+  --spacing-page-width: var(--page-width);
+  --spacing-checkout-main-width: var(--checkout-main-width);
+  --spacing-app-main-top: var(--app-main-top);
+  --spacing-page-top: var(--page-top);
+  --spacing-shell-pad: var(--shell-pad);
+  --spacing-shell-gap: var(--shell-gap);
+  --spacing-settings-gap: var(--settings-gap);
+  --spacing-checkout-row-gap: var(--checkout-row-gap);
+  --spacing-checkout-col-gap: var(--checkout-col-gap);
 }
 
 /* Filter pill › State=Default › Label: Geist Medium 12/16 ls 0 */
