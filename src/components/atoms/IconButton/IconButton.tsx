@@ -27,7 +27,8 @@ const DEFAULT_ICON: Record<IconButtonVariant, IconName> = {
 const variants: Record<IconButtonVariant, string> = {
   plain: "size-control-md text-ink-2",
   outline: "size-control-md border border-line text-ink-2",
-  glass: "size-control-md border border-glass-rim text-ink-2 glass-strong",
+  glass:
+    "size-control-md border border-glass-rim text-ink-2 glass-strong shadow-glass-strong",
   send: "size-control-lg bg-cta text-on-cta",
   stop: "size-control-lg bg-cta text-on-cta",
 };

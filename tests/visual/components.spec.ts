@@ -4,17 +4,39 @@ import { expect, test } from "@playwright/test";
 
 import { compareWithFigma, MAX_DIFF_RATIO, openStory } from "./support/compare";
 
-// Every atom variant exported from Figma (tests/visual/figma/<component>/<variant>.png, plus
+// Every component variant exported from Figma (tests/visual/figma/<component>/<variant>.png, plus
 // <variant>.dark.png from the Figma Dark board) is compared with its Storybook story.
-// The story id is atoms-<component>--<variant>; Model orb uses one story with args.
+// The story id is <layer>-<component>--<variant>, where the layer is the src/components folder
+// that holds the component. Model orb uses one story with args.
 
 const ROOT = "tests/visual/figma";
 const SKIP = new Set(["button"]); // has its own spec
 
 // Glass is translucent and blurs what is behind it; Figma exports it over nothing, which Figma
-// renders almost opaque. Comparable only over a real background (needs a Figma frame for it).
-const NOT_COMPARABLE: Record<string, string> = {
-  "icon-button/glass": "glass needs a background behind it to compare",
+// renders almost opaque. Pixels are comparable only over a real background (needs a Figma frame
+// for it), so for these only the rendered size is checked.
+const GLASS = "glass blurs what is behind it; Figma exports it over nothing";
+const SIZE_ONLY: Record<string, string> = {
+  "icon-button/glass": GLASS,
+  "toast/success": GLASS,
+  "toast/error": GLASS,
+  "prompt-bubble/default": GLASS,
+  "chat-title-pill/default": GLASS,
+  "save-bar/default": GLASS,
+};
+
+const LAYERS = ["atoms", "molecules", "organisms", "templates"];
+const pascal = (slug: string) =>
+  slug.replace(/(^|-)([a-z0-9])/g, (_m, _d, c: string) => c.toUpperCase());
+const layerOf = (component: string) => {
+  const layer = LAYERS.find((l) =>
+    existsSync(`src/components/${l}/${pascal(component)}`),
+  );
+  if (!layer)
+    throw new Error(
+      `No component folder for ${component} (${pascal(component)})`,
+    );
+  return layer;
 };
 
 function storyFor(
@@ -25,7 +47,7 @@ function storyFor(
     const [model, size] = variant.split("-");
     return { id: "atoms-model-orb--orb", args: { model, size } };
   }
-  return { id: `atoms-${component}--${variant}` };
+  return { id: `${layerOf(component)}-${component}--${variant}` };
 }
 
 for (const component of readdirSync(ROOT).filter((d) => !SKIP.has(d))) {
@@ -42,7 +64,6 @@ for (const component of readdirSync(ROOT).filter((d) => !SKIP.has(d))) {
         page,
       }, testInfo) => {
         const key = `${component}/${variant}`;
-        test.skip(key in NOT_COMPARABLE, NOT_COMPARABLE[key]);
         const { id, args } = storyFor(component, variant);
         await openStory(page, id, args, theme);
         const result = await compareWithFigma(
@@ -55,6 +76,13 @@ for (const component of readdirSync(ROOT).filter((d) => !SKIP.has(d))) {
           description: `${(result.diffRatio * 100).toFixed(2)}% · figma ${result.size.figma} · code ${result.size.code}`,
         });
         expect(result.size.code, "rendered size").toEqual(result.size.figma);
+        if (key in SIZE_ONLY) {
+          testInfo.annotations.push({
+            type: "size only",
+            description: SIZE_ONLY[key],
+          });
+          return;
+        }
         expect(result.diffRatio, "pixel difference").toBeLessThan(
           MAX_DIFF_RATIO,
         );

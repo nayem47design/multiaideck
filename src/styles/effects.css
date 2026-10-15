@@ -3,10 +3,11 @@
  * Figma: "Glass = a glass/* fill token + a Glass/* effect style. Cards use solid surface + Elevation/Card."
  */
 
-/* Solid lum/surface first; glass only where blur is supported and transparency is allowed. */
+/* Solid lum/surface first; glass only where blur is supported and transparency is allowed.
+   Shadows are separate (shadow-glass, shadow-glass-strong or a component shadow): Figma's glass
+   components use several shadow strengths. */
 @utility glass {
   background-color: var(--lum-surface);
-  box-shadow: var(--shadow-glass);
 
   @supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0)) {
     background-color: var(--glass-fill);
@@ -23,7 +24,6 @@
 
 @utility glass-strong {
   background-color: var(--lum-surface);
-  box-shadow: var(--shadow-glass-strong);
 
   @supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0)) {
     background-color: var(--glass-fill-strong);

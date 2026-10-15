@@ -12,6 +12,11 @@ export type ModelOrbSize = "lg" | "md" | "sm";
 export interface ModelOrbProps extends HTMLAttributes<HTMLSpanElement> {
   model: ModelId;
   size?: ModelOrbSize;
+  /**
+   * Replaces the size's dimensions (a size-* class) but keeps its text style. For molecules
+   * where Figma resizes an orb instance, e.g. Model chip.
+   */
+  sizeClassName?: string;
 }
 
 const fills: Record<ModelId, string> = {
@@ -22,15 +27,21 @@ const fills: Record<ModelId, string> = {
   grok: "bg-(image:--orb-grok-fill)",
 };
 
-const sizes: Record<ModelOrbSize, string> = {
-  lg: "size-orb-lg type-orb-lg",
-  md: "size-orb-md type-orb-md",
+const dimensions: Record<ModelOrbSize, string> = {
+  lg: "size-orb-lg",
+  md: "size-orb-md",
   sm: "size-orb-sm",
+};
+const text: Record<ModelOrbSize, string> = {
+  lg: "type-orb-lg",
+  md: "type-orb-md",
+  sm: "",
 };
 
 export function ModelOrb({
   model,
   size = "lg",
+  sizeClassName,
   className,
   ...props
 }: ModelOrbProps) {
@@ -44,7 +55,8 @@ export function ModelOrb({
         // Inset ring, not a border: Chrome rounds 1.5px borders down to 1px.
         "ring-(length:--orb-ring-width) ring-orb-ring ring-inset",
         fills[model],
-        sizes[size],
+        sizeClassName ?? dimensions[size],
+        text[size],
         className,
       )}
       {...props}

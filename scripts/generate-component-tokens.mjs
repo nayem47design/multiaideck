@@ -127,6 +127,166 @@ const TOKENS = [
     ["Payment logo slot", "Method=Card", "Icon/credit-card"],
     "w",
   ),
+  // ---- Molecules
+  T(
+    "segmented-option-height",
+    "size",
+    ["Segmented control", "Selected=First", "Option 1"],
+    "h",
+  ),
+  T("segmented-option", "shadow", [
+    "Segmented control",
+    "Selected=First",
+    "Option 1",
+  ]),
+  T("segmented-option", "text", [
+    "Segmented control",
+    "Selected=First",
+    "Option 1",
+    "Label",
+  ]),
+
+  T("search-field", "text", ["Search field", "Placeholder"]),
+
+  T("nav-item", "text", ["Nav item", "State=Default, Trailing=None", "Label"]),
+  T("nav-item-selected", "text", [
+    "Nav item",
+    "State=Selected, Trailing=None",
+    "Label",
+  ]),
+  T(
+    "nav-item-trailing-icon",
+    "size",
+    ["Nav item", "State=Default, Trailing=External", "Icon/link-square-02"],
+    "w",
+  ),
+
+  T("model-chip-orb", "size", ["Model chip", "Model orb"], "w"),
+  T("model-chip-remove-icon", "size", ["Model chip", "Icon/cancel-01"], "w"),
+  T("model-chip", "text", ["Model chip", "Label"]),
+
+  T("stepper-icon", "size", ["Stepper", "minus", "Icon/minus-sign"], "w"),
+  T("stepper", "text", ["Stepper", "value", "Value"]),
+
+  T("field-label", "text", ["Field", "Label"]),
+  T("field-help", "text", ["Field", "Help"]),
+
+  T("setting-row-title", "text", ["Setting row", "t", "Title"]),
+  T("setting-row-help", "text", ["Setting row", "t", "Help"]),
+
+  T("pack-row-height", "size", ["Pack row"], "h"),
+  T("pack-row", "radius", ["Pack row"], "radius"),
+  T("pack-row-price", "text", ["Pack row", "Price"]),
+  T("pack-row-credits", "text", ["Pack row", "Credits"]),
+
+  T("toast", "shadow", ["Toast", "Tone=Success"]),
+  T("toast-icon", "size", ["Toast", "Tone=Success", "Icon/tick-02"], "w"),
+  T("toast", "text", ["Toast", "Tone=Success", "Message"]),
+
+  T("select-width", "size", ["Select", "State=Default"], "w"),
+  T(
+    "select-icon",
+    "size",
+    ["Select", "State=Default", "Icon/arrow-down-01"],
+    "w",
+  ),
+  T("select-border-open", "stroke", ["Select", "State=Open"], "strokeWeight"),
+  T("select", "text", ["Select", "State=Default", "Value"]),
+
+  T("citation-chip-height", "size", ["Citation chip"], "h"),
+  T("citation-chip-dot", "size", ["Citation chip", "dot"], "w"),
+  T("citation-chip", "text", ["Citation chip", "Label"]),
+
+  T("tooltip-width", "size", ["Tooltip"], "w"),
+  T("tooltip", "radius", ["Tooltip"], "radius"),
+  T("tooltip-title", "text", ["Tooltip", "Title"]),
+  T("tooltip-body", "text", ["Tooltip", "Body"]),
+
+  T(
+    "banner-icon",
+    "size",
+    ["Banner", "Tone=Info", "Icon/information-circle"],
+    "w",
+  ),
+  T("banner-title", "text", ["Banner", "Tone=Info", "t", "Title"]),
+  T("banner-body", "text", ["Banner", "Tone=Info", "t", "Body"]),
+
+  T("empty-state-icon-circle", "size", ["Empty state", "icon"], "w"),
+  T(
+    "empty-state-icon",
+    "size",
+    ["Empty state", "icon", "Icon/bubble-chat"],
+    "w",
+  ),
+  T("empty-state-title", "text", ["Empty state", "Title"]),
+  T("empty-state-body", "text", ["Empty state", "Body"]),
+
+  T("model-list-row-height", "size", ["Model list row", "State=Default"], "h"),
+  T(
+    "model-list-row-info",
+    "size",
+    ["Model list row", "State=Default", "t"],
+    "w",
+  ),
+  T("model-list-row-name", "text", [
+    "Model list row",
+    "State=Default",
+    "t",
+    "Name",
+  ]),
+  T("model-list-row-provider", "text", [
+    "Model list row",
+    "State=Default",
+    "t",
+    "Provider",
+  ]),
+  T("model-list-row-tag", "text", [
+    "Model list row",
+    "State=Default",
+    "tags",
+    "tag",
+    "Balanced",
+  ]),
+  T("model-list-row-cost", "text", ["Model list row", "State=Default", "Cost"]),
+
+  T(
+    "cost-estimate-icon",
+    "size",
+    ["Cost estimate", "Icon/information-circle"],
+    "w",
+  ),
+  T("cost-estimate", "text", ["Cost estimate", "Value"]),
+
+  T("prompt-bubble", "shadow", ["Prompt bubble"]),
+  T("prompt-bubble", "text", [
+    "Prompt bubble",
+    "Give me 3 name ideas for a small coffee shop in Dhaka",
+  ]),
+
+  T("chat-title-pill", "shadow", ["Chat title pill"]),
+  T(
+    "chat-title-pill-icon",
+    "size",
+    ["Chat title pill", "Icon/arrow-down-01"],
+    "w",
+  ),
+  T("chat-title-pill", "text", ["Chat title pill", "Coffee shop names"]),
+
+  T("prompt-receipt-height", "size", ["Prompt receipt"], "h"),
+  T("prompt-receipt", "text", [
+    "Prompt receipt",
+    "This prompt: 3 models · 2.6 credits · ≈ BDT 0.03",
+  ]),
+  T("prompt-receipt-secondary", "text", [
+    "Prompt receipt",
+    "Cheapest: Gemini (0.3 cr)",
+  ]),
+
+  T("save-bar", "shadow", ["Save bar"]),
+  T("save-bar-height", "size", ["Save bar"], "h"),
+  T("save-bar-discard-height", "size", ["Save bar", "Pill/Discard"], "h"),
+  T("save-bar-message", "text", ["Save bar", "You changed your display name"]),
+  T("save-bar-save", "text", ["Save bar", "Save (black pill)", "Save changes"]),
 ];
 
 // ---------------------------------------------------------------------------
@@ -229,6 +389,7 @@ const paint = (p) =>
 const vars = []; // { name, value, where, note }
 const theme = []; // Tailwind mapping lines
 const utilities = [];
+const emittedText = new Map(); // text spec → first utility that has it
 const report = [];
 
 for (const t of TOKENS) {
@@ -253,6 +414,26 @@ for (const t of TOKENS) {
       ),
     );
     const spec = `${node.font.family} ${node.font.style} ${node.fontSize}/${node.lineHeight.value} ls ${ls}`;
+    const key = textKey(
+      node.font.family,
+      node.font.style,
+      node.fontSize,
+      node.lineHeight.value,
+      ls,
+    );
+    const earlier = emittedText.get(key);
+    if (!same && earlier) {
+      report.push({
+        token: `type-${t.name}`,
+        where,
+        figma: spec,
+        result: `= ${earlier} (same component text style)`,
+      });
+      utilities.push(
+        `/* ${where}: ${spec}, same as ${earlier} */\n@utility type-${t.name} {\n  @apply ${earlier};\n}\n`,
+      );
+      continue;
+    }
     if (same) {
       report.push({
         token: `type-${t.name}`,
@@ -273,6 +454,7 @@ for (const t of TOKENS) {
       figma: spec,
       result: "new text style",
     });
+    emittedText.set(key, `type-${t.name}`);
     utilities.push(`/* ${where}: ${spec} */
 @utility type-${t.name} {
   font-family: ${FAMILY[node.font.family]};
@@ -287,7 +469,28 @@ for (const t of TOKENS) {
 
   let value;
   let cssVar = `--${t.name}`;
-  if (t.kind === "gradient") {
+  if (t.kind === "shadow") {
+    const shadows = (node.effects ?? []).filter(
+      (e) => e.type === "DROP_SHADOW",
+    );
+    if (!shadows.length) throw new Error(`${where}: no drop shadow`);
+    cssVar = `--${t.name}-shadow`;
+    value = shadows
+      .map(
+        (e) =>
+          `${e.offset.x}px ${e.offset.y}px ${e.radius}px ${e.spread ?? 0}px ${e.color}`,
+      )
+      .join(", ");
+    report.push({
+      token: cssVar,
+      where,
+      figma: value,
+      result: node.effectStyle
+        ? `= ${node.effectStyle}`
+        : "new shadow (no effect style)",
+    });
+    theme.push(`  --shadow-${t.name}: var(${cssVar});`);
+  } else if (t.kind === "gradient") {
     const fill = node.fills?.[0];
     if (!fill?.type?.startsWith("GRADIENT_LINEAR"))
       throw new Error(`${where}: expected a linear gradient`);

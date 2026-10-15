@@ -8,56 +8,118 @@ text styles) or snap the component to an existing token, then re-export.
 
 "= token (not bound in Figma)" means the value already equals a token: just bind the variable.
 
-| Code token                   | Figma layer                                        | Figma value                   | Status                                 |
-| ---------------------------- | -------------------------------------------------- | ----------------------------- | -------------------------------------- |
-| `--icon-button-icon`         | Icon button › Style=Plain › Icon/add-01            | 18px                          | new size                               |
-| `--filter-pill-height`       | Filter pill › State=Default                        | 30px                          | new size                               |
-| `type-filter-pill`           | Filter pill › State=Default › Label                | Geist Medium 12/16 ls 0       | new text style                         |
-| `--badge-dot`                | Badge › Tone=Neutral › dot                         | 6px                           | = space/1-5 (not bound in Figma)       |
-| `type-badge`                 | Badge › Tone=Neutral › Label                       | Geist Medium 11/15 ls 0       | new text style                         |
-| `--toggle-width`             | Toggle › State=On                                  | 40px                          | = space/10 (not bound in Figma)        |
-| `--toggle-height`            | Toggle › State=On                                  | 24px                          | = space/6 (not bound in Figma)         |
-| `--toggle-knob`              | Toggle › State=On › knob                           | 18px                          | new size                               |
-| `--toggle-inset`             | Toggle › State=Off › knob                          | 3px                           | new size                               |
-| `--checkbox-size`            | Checkbox › State=Unchecked                         | 22px                          | new size                               |
-| `--checkbox-radius`          | Checkbox › State=Unchecked                         | 7px                           | new radius                             |
-| `--checkbox-border-width`    | Checkbox › State=Unchecked                         | 1.5px                         | new stroke                             |
-| `--checkbox-icon`            | Checkbox › State=Checked › Icon/tick-02            | 14px                          | new size                               |
-| `--radio-size`               | Radio › State=Unselected                           | 20px                          | = size/icon-md (not bound in Figma)    |
-| `--radio-border-width`       | Radio › State=Unselected                           | 1.5px                         | new stroke                             |
-| `--radio-ring-width`         | Radio › State=Selected                             | 6px                           | new stroke                             |
-| `--orb-lg`                   | Model orb › Model=GPT, Size=lg                     | 32px                          | = size/control-sm (not bound in Figma) |
-| `--orb-md`                   | Model orb › Model=GPT, Size=md                     | 20px                          | = size/icon-md (not bound in Figma)    |
-| `--orb-sm`                   | Model orb › Model=GPT, Size=sm                     | 12px                          | = space/3 (not bound in Figma)         |
-| `--orb-ring-width`           | Model orb › Model=GPT, Size=lg                     | 1.5px                         | new stroke                             |
-| `--orb-ring-color`           | Model orb › Model=GPT, Size=lg                     | #ffffff                       | new colour (raw)                       |
-| `--orb-initial-color`        | Model orb › Model=GPT, Size=lg › Initial           | #ffffff                       | new colour (raw)                       |
-| `type-orb-lg`                | Model orb › Model=GPT, Size=lg › Initial           | Geist SemiBold 13/16 ls 0     | new text style                         |
-| `type-orb-md`                | Model orb › Model=GPT, Size=md › Initial           | Geist SemiBold 9/12 ls 0      | new text style                         |
-| `--orb-gpt-fill`             | Model orb › Model=GPT, Size=lg                     | #3ed6a5 → #0e8f6a             | new gradient (raw colours)             |
-| `--orb-claude-fill`          | Model orb › Model=Claude, Size=lg                  | #f3b08f → #c8643f             | new gradient (raw colours)             |
-| `--orb-gemini-fill`          | Model orb › Model=Gemini, Size=lg                  | #8fb8ff → #3d6fe8             | new gradient (raw colours)             |
-| `--orb-deepseek-fill`        | Model orb › Model=DeepSeek, Size=lg                | #93c5fd → #3b5bdb             | new gradient (raw colours)             |
-| `--orb-grok-fill`            | Model orb › Model=Grok, Size=lg                    | #d1d5db → #374151             | new gradient (raw colours)             |
-| `--avatar-size`              | Avatar                                             | 34px                          | new size                               |
-| `type-avatar`                | Avatar › Initials                                  | Geist Medium 12/16 ls 0       | new text style                         |
-| `--input-height`             | Input › State=Default                              | 46px                          | new size                               |
-| `--input-border-width`       | Input › State=Default                              | 1px                           | new stroke                             |
-| `--input-border-focus-width` | Input › State=Focus                                | 1.5px                         | new stroke                             |
-| `type-input`                 | Input › State=Default › Value                      | Geist Regular 15/20 ls 0      | new text style                         |
-| `type-metric-chip`           | Metric chip › Value                                | Geist Mono Regular 11/15 ls 0 | new text style                         |
-| `--ai-orb-size`              | AI orb                                             | 48px                          | = space/12 (not bound in Figma)        |
-| `--ai-orb-ring-width`        | AI orb                                             | 2px                           | new stroke                             |
-| `--ai-orb-ring-color`        | AI orb                                             | #ffffff                       | new colour (raw)                       |
-| `--ai-orb-fill`              | AI orb                                             | #9be6ff → #7c6bff → #ffa8dd   | new gradient (raw colours)             |
-| `--text-link-icon`           | Text link › Style=Default › Icon/link-square-02    | 14px                          | new size                               |
-| `type-text-link`             | Text link › Style=Default › Label                  | Geist Medium 13/18 ls 0       | = type-label (layer has no text style) |
-| `--thinking-dot`             | Thinking dots › dot                                | 7px                           | new size                               |
-| `--thinking-dot-2`           | Thinking dots › dot#1                              | 0.6                           | new opacity                            |
-| `--thinking-dot-3`           | Thinking dots › dot#2                              | 0.3                           | new opacity                            |
-| `--progress-height`          | Progress bar › State=In progress                   | 4px                           | = space/1 (not bound in Figma)         |
-| `--skeleton-line`            | Skeleton › line                                    | 12px                          | = space/3 (not bound in Figma)         |
-| `--skeleton-line-radius`     | Skeleton › line                                    | 6px                           | = radius/xs (not bound in Figma)       |
-| `--shortcut-chip-radius`     | Shortcut chip                                      | 5px                           | new radius                             |
-| `type-shortcut-chip`         | Shortcut chip › Keys                               | Geist Mono Regular 11/14 ls 0 | new text style                         |
-| `--payment-logo-icon`        | Payment logo slot › Method=Card › Icon/credit-card | 18px                          | new size                               |
+| Code token                      | Figma layer                                                           | Figma value                   | Status                                               |
+| ------------------------------- | --------------------------------------------------------------------- | ----------------------------- | ---------------------------------------------------- |
+| `--icon-button-icon`            | Icon button › Style=Plain › Icon/add-01                               | 18px                          | new size                                             |
+| `--filter-pill-height`          | Filter pill › State=Default                                           | 30px                          | new size                                             |
+| `type-filter-pill`              | Filter pill › State=Default › Label                                   | Geist Medium 12/16 ls 0       | new text style                                       |
+| `--badge-dot`                   | Badge › Tone=Neutral › dot                                            | 6px                           | = space/1-5 (not bound in Figma)                     |
+| `type-badge`                    | Badge › Tone=Neutral › Label                                          | Geist Medium 11/15 ls 0       | new text style                                       |
+| `--toggle-width`                | Toggle › State=On                                                     | 40px                          | = space/10 (not bound in Figma)                      |
+| `--toggle-height`               | Toggle › State=On                                                     | 24px                          | = space/6 (not bound in Figma)                       |
+| `--toggle-knob`                 | Toggle › State=On › knob                                              | 18px                          | new size                                             |
+| `--toggle-inset`                | Toggle › State=Off › knob                                             | 3px                           | new size                                             |
+| `--checkbox-size`               | Checkbox › State=Unchecked                                            | 22px                          | new size                                             |
+| `--checkbox-radius`             | Checkbox › State=Unchecked                                            | 7px                           | new radius                                           |
+| `--checkbox-border-width`       | Checkbox › State=Unchecked                                            | 1.5px                         | new stroke                                           |
+| `--checkbox-icon`               | Checkbox › State=Checked › Icon/tick-02                               | 14px                          | new size                                             |
+| `--radio-size`                  | Radio › State=Unselected                                              | 20px                          | = size/icon-md (not bound in Figma)                  |
+| `--radio-border-width`          | Radio › State=Unselected                                              | 1.5px                         | new stroke                                           |
+| `--radio-ring-width`            | Radio › State=Selected                                                | 6px                           | new stroke                                           |
+| `--orb-lg`                      | Model orb › Model=GPT, Size=lg                                        | 32px                          | = size/control-sm (not bound in Figma)               |
+| `--orb-md`                      | Model orb › Model=GPT, Size=md                                        | 20px                          | = size/icon-md (not bound in Figma)                  |
+| `--orb-sm`                      | Model orb › Model=GPT, Size=sm                                        | 12px                          | = space/3 (not bound in Figma)                       |
+| `--orb-ring-width`              | Model orb › Model=GPT, Size=lg                                        | 1.5px                         | new stroke                                           |
+| `--orb-ring-color`              | Model orb › Model=GPT, Size=lg                                        | #ffffff                       | new colour (raw)                                     |
+| `--orb-initial-color`           | Model orb › Model=GPT, Size=lg › Initial                              | #ffffff                       | new colour (raw)                                     |
+| `type-orb-lg`                   | Model orb › Model=GPT, Size=lg › Initial                              | Geist SemiBold 13/16 ls 0     | new text style                                       |
+| `type-orb-md`                   | Model orb › Model=GPT, Size=md › Initial                              | Geist SemiBold 9/12 ls 0      | new text style                                       |
+| `--orb-gpt-fill`                | Model orb › Model=GPT, Size=lg                                        | #3ed6a5 → #0e8f6a             | new gradient (raw colours)                           |
+| `--orb-claude-fill`             | Model orb › Model=Claude, Size=lg                                     | #f3b08f → #c8643f             | new gradient (raw colours)                           |
+| `--orb-gemini-fill`             | Model orb › Model=Gemini, Size=lg                                     | #8fb8ff → #3d6fe8             | new gradient (raw colours)                           |
+| `--orb-deepseek-fill`           | Model orb › Model=DeepSeek, Size=lg                                   | #93c5fd → #3b5bdb             | new gradient (raw colours)                           |
+| `--orb-grok-fill`               | Model orb › Model=Grok, Size=lg                                       | #d1d5db → #374151             | new gradient (raw colours)                           |
+| `--avatar-size`                 | Avatar                                                                | 34px                          | new size                                             |
+| `type-avatar`                   | Avatar › Initials                                                     | Geist Medium 12/16 ls 0       | = type-filter-pill (same component text style)       |
+| `--input-height`                | Input › State=Default                                                 | 46px                          | new size                                             |
+| `--input-border-width`          | Input › State=Default                                                 | 1px                           | new stroke                                           |
+| `--input-border-focus-width`    | Input › State=Focus                                                   | 1.5px                         | new stroke                                           |
+| `type-input`                    | Input › State=Default › Value                                         | Geist Regular 15/20 ls 0      | new text style                                       |
+| `type-metric-chip`              | Metric chip › Value                                                   | Geist Mono Regular 11/15 ls 0 | new text style                                       |
+| `--ai-orb-size`                 | AI orb                                                                | 48px                          | = space/12 (not bound in Figma)                      |
+| `--ai-orb-ring-width`           | AI orb                                                                | 2px                           | new stroke                                           |
+| `--ai-orb-ring-color`           | AI orb                                                                | #ffffff                       | new colour (raw)                                     |
+| `--ai-orb-fill`                 | AI orb                                                                | #9be6ff → #7c6bff → #ffa8dd   | new gradient (raw colours)                           |
+| `--text-link-icon`              | Text link › Style=Default › Icon/link-square-02                       | 14px                          | new size                                             |
+| `type-text-link`                | Text link › Style=Default › Label                                     | Geist Medium 13/18 ls 0       | = type-label (layer has no text style)               |
+| `--thinking-dot`                | Thinking dots › dot                                                   | 7px                           | new size                                             |
+| `--thinking-dot-2`              | Thinking dots › dot#1                                                 | 0.6                           | new opacity                                          |
+| `--thinking-dot-3`              | Thinking dots › dot#2                                                 | 0.3                           | new opacity                                          |
+| `--progress-height`             | Progress bar › State=In progress                                      | 4px                           | = space/1 (not bound in Figma)                       |
+| `--skeleton-line`               | Skeleton › line                                                       | 12px                          | = space/3 (not bound in Figma)                       |
+| `--skeleton-line-radius`        | Skeleton › line                                                       | 6px                           | = radius/xs (not bound in Figma)                     |
+| `--shortcut-chip-radius`        | Shortcut chip                                                         | 5px                           | new radius                                           |
+| `type-shortcut-chip`            | Shortcut chip › Keys                                                  | Geist Mono Regular 11/14 ls 0 | new text style                                       |
+| `--payment-logo-icon`           | Payment logo slot › Method=Card › Icon/credit-card                    | 18px                          | new size                                             |
+| `--segmented-option-height`     | Segmented control › Selected=First › Option 1                         | 30px                          | new size                                             |
+| `--segmented-option-shadow`     | Segmented control › Selected=First › Option 1                         | 0px 1px 3px 0px #1f33611f     | new shadow (no effect style)                         |
+| `type-segmented-option`         | Segmented control › Selected=First › Option 1 › Label                 | Geist Medium 13/18 ls 0       | = type-label (layer has no text style)               |
+| `type-search-field`             | Search field › Placeholder                                            | Geist Regular 14/20 ls 0      | new text style                                       |
+| `type-nav-item`                 | Nav item › State=Default, Trailing=None › Label                       | Geist Regular 14/20 ls 0      | = type-search-field (same component text style)      |
+| `type-nav-item-selected`        | Nav item › State=Selected, Trailing=None › Label                      | Geist Medium 14/20 ls 0       | new text style                                       |
+| `--nav-item-trailing-icon`      | Nav item › State=Default, Trailing=External › Icon/link-square-02     | 14px                          | new size                                             |
+| `--model-chip-orb`              | Model chip › Model orb                                                | 22px                          | new size                                             |
+| `--model-chip-remove-icon`      | Model chip › Icon/cancel-01                                           | 12px                          | = space/3 (not bound in Figma)                       |
+| `type-model-chip`               | Model chip › Label                                                    | Geist Medium 13/18 ls 0       | = type-label (layer has no text style)               |
+| `--stepper-icon`                | Stepper › minus › Icon/minus-sign                                     | 14px                          | new size                                             |
+| `type-stepper`                  | Stepper › value › Value                                               | Geist Mono Regular 13/18 ls 0 | new text style                                       |
+| `type-field-label`              | Field › Label                                                         | Geist Medium 13/18 ls 0       | = type-label (layer has no text style)               |
+| `type-field-help`               | Field › Help                                                          | Geist Regular 12/16 ls 0      | = type-caption (layer has no text style)             |
+| `type-setting-row-title`        | Setting row › t › Title                                               | Geist Medium 14/20 ls 0       | = type-nav-item-selected (same component text style) |
+| `type-setting-row-help`         | Setting row › t › Help                                                | Geist Regular 13/18 ls 0      | new text style                                       |
+| `--pack-row-height`             | Pack row                                                              | 56px                          | = space/14 (not bound in Figma)                      |
+| `--pack-row-radius`             | Pack row                                                              | 16px                          | new radius                                           |
+| `type-pack-row-price`           | Pack row › Price                                                      | Geist Medium 16/22 ls 0       | new text style                                       |
+| `type-pack-row-credits`         | Pack row › Credits                                                    | Geist Mono Regular 13/18 ls 0 | = type-stepper (same component text style)           |
+| `--toast-shadow`                | Toast › Tone=Success                                                  | 0px 12px 40px 0px #1f336124   | new shadow (no effect style)                         |
+| `--toast-icon`                  | Toast › Tone=Success › Icon/tick-02                                   | 18px                          | new size                                             |
+| `type-toast`                    | Toast › Tone=Success › Message                                        | Geist Medium 14/20 ls 0       | = type-nav-item-selected (same component text style) |
+| `--select-width`                | Select › State=Default                                                | 200px                         | new size                                             |
+| `--select-icon`                 | Select › State=Default › Icon/arrow-down-01                           | 14px                          | new size                                             |
+| `--select-border-open-width`    | Select › State=Open                                                   | 1.5px                         | new stroke                                           |
+| `type-select`                   | Select › State=Default › Value                                        | Geist Regular 13/18 ls 0      | = type-setting-row-help (same component text style)  |
+| `--citation-chip-height`        | Citation chip                                                         | 26px                          | new size                                             |
+| `--citation-chip-dot`           | Citation chip › dot                                                   | 8px                           | = space/2 (not bound in Figma)                       |
+| `type-citation-chip`            | Citation chip › Label                                                 | Geist Medium 12/16 ls 0       | = type-filter-pill (same component text style)       |
+| `--tooltip-width`               | Tooltip                                                               | 240px                         | new size                                             |
+| `--tooltip-radius`              | Tooltip                                                               | 12px                          | new radius                                           |
+| `type-tooltip-title`            | Tooltip › Title                                                       | Geist Medium 12/16 ls 0       | = type-filter-pill (same component text style)       |
+| `type-tooltip-body`             | Tooltip › Body                                                        | Geist Regular 12/16 ls 0      | = type-caption (layer has no text style)             |
+| `--banner-icon`                 | Banner › Tone=Info › Icon/information-circle                          | 18px                          | new size                                             |
+| `type-banner-title`             | Banner › Tone=Info › t › Title                                        | Geist Medium 14/20 ls 0       | = type-nav-item-selected (same component text style) |
+| `type-banner-body`              | Banner › Tone=Info › t › Body                                         | Geist Regular 13/18 ls 0      | = type-setting-row-help (same component text style)  |
+| `--empty-state-icon-circle`     | Empty state › icon                                                    | 48px                          | = space/12 (not bound in Figma)                      |
+| `--empty-state-icon`            | Empty state › icon › Icon/bubble-chat                                 | 22px                          | new size                                             |
+| `type-empty-state-title`        | Empty state › Title                                                   | Geist Medium 16/22 ls 0       | = type-pack-row-price (same component text style)    |
+| `type-empty-state-body`         | Empty state › Body                                                    | Geist Regular 13/19 ls 0      | new text style                                       |
+| `--model-list-row-height`       | Model list row › State=Default                                        | 60px                          | new size                                             |
+| `--model-list-row-info`         | Model list row › State=Default › t                                    | 180px                         | new size                                             |
+| `type-model-list-row-name`      | Model list row › State=Default › t › Name                             | Geist Medium 14/20 ls 0       | = type-nav-item-selected (same component text style) |
+| `type-model-list-row-provider`  | Model list row › State=Default › t › Provider                         | Geist Regular 12/16 ls 0      | = type-caption (layer has no text style)             |
+| `type-model-list-row-tag`       | Model list row › State=Default › tags › tag › Balanced                | Geist Medium 11/14 ls 0       | new text style                                       |
+| `type-model-list-row-cost`      | Model list row › State=Default › Cost                                 | Geist Mono Regular 13/18 ls 0 | = type-stepper (same component text style)           |
+| `--cost-estimate-icon`          | Cost estimate › Icon/information-circle                               | 14px                          | new size                                             |
+| `type-cost-estimate`            | Cost estimate › Value                                                 | Geist Mono Regular 12/16 ls 0 | new text style                                       |
+| `--prompt-bubble-shadow`        | Prompt bubble                                                         | 0px 12px 40px 0px #1f33610f   | new shadow (no effect style)                         |
+| `type-prompt-bubble`            | Prompt bubble › Give me 3 name ideas for a small coffee shop in Dhaka | Geist Regular 15/22 ls -0.1   | new text style                                       |
+| `--chat-title-pill-shadow`      | Chat title pill                                                       | 0px 12px 40px 0px #1f33610d   | new shadow (no effect style)                         |
+| `--chat-title-pill-icon`        | Chat title pill › Icon/arrow-down-01                                  | 14px                          | new size                                             |
+| `type-chat-title-pill`          | Chat title pill › Coffee shop names                                   | Geist Medium 13/18 ls 0       | = type-label (layer has no text style)               |
+| `--prompt-receipt-height`       | Prompt receipt                                                        | 28px                          | new size                                             |
+| `type-prompt-receipt`           | Prompt receipt › This prompt: 3 models · 2.6 credits · ≈ BDT 0.03     | Geist Medium 13/18 ls 0       | = type-label (layer has no text style)               |
+| `type-prompt-receipt-secondary` | Prompt receipt › Cheapest: Gemini (0.3 cr)                            | Geist Regular 13/18 ls 0      | = type-setting-row-help (same component text style)  |
+| `--save-bar-shadow`             | Save bar                                                              | 0px 12px 40px 0px #1f336129   | new shadow (no effect style)                         |
+| `--save-bar-height`             | Save bar                                                              | 60px                          | new size                                             |
+| `--save-bar-discard-height`     | Save bar › Pill/Discard                                               | 40px                          | = space/10 (not bound in Figma)                      |
+| `type-save-bar-message`         | Save bar › You changed your display name                              | Geist Medium 14/20 ls 0       | = type-nav-item-selected (same component text style) |
+| `type-save-bar-save`            | Save bar › Save (black pill) › Save changes                           | Geist Medium 14/20 ls 0       | = type-nav-item-selected (same component text style) |

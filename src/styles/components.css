@@ -73,6 +73,36 @@
   --skeleton-line-radius: var(--radius-xs); /* Skeleton › line */
   --shortcut-chip-radius: 5px; /* Shortcut chip */
   --payment-logo-icon: 18px; /* Payment logo slot › Method=Card › Icon/credit-card */
+  --segmented-option-height: 30px; /* Segmented control › Selected=First › Option 1 */
+  --segmented-option-shadow: 0px 1px 3px 0px #1f33611f; /* Segmented control › Selected=First › Option 1 */
+  --nav-item-trailing-icon: 14px; /* Nav item › State=Default, Trailing=External › Icon/link-square-02 */
+  --model-chip-orb: 22px; /* Model chip › Model orb */
+  --model-chip-remove-icon: var(--space-3); /* Model chip › Icon/cancel-01 */
+  --stepper-icon: 14px; /* Stepper › minus › Icon/minus-sign */
+  --pack-row-height: var(--space-14); /* Pack row */
+  --pack-row-radius: 16px; /* Pack row */
+  --toast-shadow: 0px 12px 40px 0px #1f336124; /* Toast › Tone=Success */
+  --toast-icon: 18px; /* Toast › Tone=Success › Icon/tick-02 */
+  --select-width: 200px; /* Select › State=Default */
+  --select-icon: 14px; /* Select › State=Default › Icon/arrow-down-01 */
+  --select-border-open-width: 1.5px; /* Select › State=Open */
+  --citation-chip-height: 26px; /* Citation chip */
+  --citation-chip-dot: var(--space-2); /* Citation chip › dot */
+  --tooltip-width: 240px; /* Tooltip */
+  --tooltip-radius: 12px; /* Tooltip */
+  --banner-icon: 18px; /* Banner › Tone=Info › Icon/information-circle */
+  --empty-state-icon-circle: var(--space-12); /* Empty state › icon */
+  --empty-state-icon: 22px; /* Empty state › icon › Icon/bubble-chat */
+  --model-list-row-height: 60px; /* Model list row › State=Default */
+  --model-list-row-info: 180px; /* Model list row › State=Default › t */
+  --cost-estimate-icon: 14px; /* Cost estimate › Icon/information-circle */
+  --prompt-bubble-shadow: 0px 12px 40px 0px #1f33610f; /* Prompt bubble */
+  --chat-title-pill-shadow: 0px 12px 40px 0px #1f33610d; /* Chat title pill */
+  --chat-title-pill-icon: 14px; /* Chat title pill › Icon/arrow-down-01 */
+  --prompt-receipt-height: 28px; /* Prompt receipt */
+  --save-bar-shadow: 0px 12px 40px 0px #1f336129; /* Save bar */
+  --save-bar-height: 60px; /* Save bar */
+  --save-bar-discard-height: var(--space-10); /* Save bar › Pill/Discard */
 }
 
 @theme inline reference {
@@ -103,6 +133,35 @@
   --radius-skeleton-line: var(--skeleton-line-radius);
   --radius-shortcut-chip: var(--shortcut-chip-radius);
   --spacing-payment-logo-icon: var(--payment-logo-icon);
+  --spacing-segmented-option-height: var(--segmented-option-height);
+  --shadow-segmented-option: var(--segmented-option-shadow);
+  --spacing-nav-item-trailing-icon: var(--nav-item-trailing-icon);
+  --spacing-model-chip-orb: var(--model-chip-orb);
+  --spacing-model-chip-remove-icon: var(--model-chip-remove-icon);
+  --spacing-stepper-icon: var(--stepper-icon);
+  --spacing-pack-row-height: var(--pack-row-height);
+  --radius-pack-row: var(--pack-row-radius);
+  --shadow-toast: var(--toast-shadow);
+  --spacing-toast-icon: var(--toast-icon);
+  --spacing-select-width: var(--select-width);
+  --spacing-select-icon: var(--select-icon);
+  --spacing-citation-chip-height: var(--citation-chip-height);
+  --spacing-citation-chip-dot: var(--citation-chip-dot);
+  --spacing-tooltip-width: var(--tooltip-width);
+  --radius-tooltip: var(--tooltip-radius);
+  --spacing-banner-icon: var(--banner-icon);
+  --spacing-empty-state-icon-circle: var(--empty-state-icon-circle);
+  --spacing-empty-state-icon: var(--empty-state-icon);
+  --spacing-model-list-row-height: var(--model-list-row-height);
+  --spacing-model-list-row-info: var(--model-list-row-info);
+  --spacing-cost-estimate-icon: var(--cost-estimate-icon);
+  --shadow-prompt-bubble: var(--prompt-bubble-shadow);
+  --shadow-chat-title-pill: var(--chat-title-pill-shadow);
+  --spacing-chat-title-pill-icon: var(--chat-title-pill-icon);
+  --spacing-prompt-receipt-height: var(--prompt-receipt-height);
+  --shadow-save-bar: var(--save-bar-shadow);
+  --spacing-save-bar-height: var(--save-bar-height);
+  --spacing-save-bar-discard-height: var(--save-bar-discard-height);
 }
 
 /* Filter pill › State=Default › Label: Geist Medium 12/16 ls 0 */
@@ -141,13 +200,9 @@
   letter-spacing: 0px;
 }
 
-/* Avatar › Initials: Geist Medium 12/16 ls 0 */
+/* Avatar › Initials: Geist Medium 12/16 ls 0, same as type-filter-pill */
 @utility type-avatar {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 500;
-  letter-spacing: 0px;
+  @apply type-filter-pill;
 }
 
 /* Input › State=Default › Value: Geist Regular 15/20 ls 0 */
@@ -180,4 +235,200 @@
   line-height: 14px;
   font-weight: 400;
   letter-spacing: 0px;
+}
+
+/* Segmented control › Selected=First › Option 1 › Label: Geist Medium 13/18 ls 0, same as type-label */
+@utility type-segmented-option {
+  @apply type-label;
+}
+
+/* Search field › Placeholder: Geist Regular 14/20 ls 0 */
+@utility type-search-field {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Nav item › State=Default, Trailing=None › Label: Geist Regular 14/20 ls 0, same as type-search-field */
+@utility type-nav-item {
+  @apply type-search-field;
+}
+
+/* Nav item › State=Selected, Trailing=None › Label: Geist Medium 14/20 ls 0 */
+@utility type-nav-item-selected {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Model chip › Label: Geist Medium 13/18 ls 0, same as type-label */
+@utility type-model-chip {
+  @apply type-label;
+}
+
+/* Stepper › value › Value: Geist Mono Regular 13/18 ls 0 */
+@utility type-stepper {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Field › Label: Geist Medium 13/18 ls 0, same as type-label */
+@utility type-field-label {
+  @apply type-label;
+}
+
+/* Field › Help: Geist Regular 12/16 ls 0, same as type-caption */
+@utility type-field-help {
+  @apply type-caption;
+}
+
+/* Setting row › t › Title: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-setting-row-title {
+  @apply type-nav-item-selected;
+}
+
+/* Setting row › t › Help: Geist Regular 13/18 ls 0 */
+@utility type-setting-row-help {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Pack row › Price: Geist Medium 16/22 ls 0 */
+@utility type-pack-row-price {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Pack row › Credits: Geist Mono Regular 13/18 ls 0, same as type-stepper */
+@utility type-pack-row-credits {
+  @apply type-stepper;
+}
+
+/* Toast › Tone=Success › Message: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-toast {
+  @apply type-nav-item-selected;
+}
+
+/* Select › State=Default › Value: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+@utility type-select {
+  @apply type-setting-row-help;
+}
+
+/* Citation chip › Label: Geist Medium 12/16 ls 0, same as type-filter-pill */
+@utility type-citation-chip {
+  @apply type-filter-pill;
+}
+
+/* Tooltip › Title: Geist Medium 12/16 ls 0, same as type-filter-pill */
+@utility type-tooltip-title {
+  @apply type-filter-pill;
+}
+
+/* Tooltip › Body: Geist Regular 12/16 ls 0, same as type-caption */
+@utility type-tooltip-body {
+  @apply type-caption;
+}
+
+/* Banner › Tone=Info › t › Title: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-banner-title {
+  @apply type-nav-item-selected;
+}
+
+/* Banner › Tone=Info › t › Body: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+@utility type-banner-body {
+  @apply type-setting-row-help;
+}
+
+/* Empty state › Title: Geist Medium 16/22 ls 0, same as type-pack-row-price */
+@utility type-empty-state-title {
+  @apply type-pack-row-price;
+}
+
+/* Empty state › Body: Geist Regular 13/19 ls 0 */
+@utility type-empty-state-body {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 19px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Model list row › State=Default › t › Name: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-model-list-row-name {
+  @apply type-nav-item-selected;
+}
+
+/* Model list row › State=Default › t › Provider: Geist Regular 12/16 ls 0, same as type-caption */
+@utility type-model-list-row-provider {
+  @apply type-caption;
+}
+
+/* Model list row › State=Default › tags › tag › Balanced: Geist Medium 11/14 ls 0 */
+@utility type-model-list-row-tag {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Model list row › State=Default › Cost: Geist Mono Regular 13/18 ls 0, same as type-stepper */
+@utility type-model-list-row-cost {
+  @apply type-stepper;
+}
+
+/* Cost estimate › Value: Geist Mono Regular 12/16 ls 0 */
+@utility type-cost-estimate {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Prompt bubble › Give me 3 name ideas for a small coffee shop in Dhaka: Geist Regular 15/22 ls -0.1 */
+@utility type-prompt-bubble {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* Chat title pill › Coffee shop names: Geist Medium 13/18 ls 0, same as type-label */
+@utility type-chat-title-pill {
+  @apply type-label;
+}
+
+/* Prompt receipt › This prompt: 3 models · 2.6 credits · ≈ BDT 0.03: Geist Medium 13/18 ls 0, same as type-label */
+@utility type-prompt-receipt {
+  @apply type-label;
+}
+
+/* Prompt receipt › Cheapest: Gemini (0.3 cr): Geist Regular 13/18 ls 0, same as type-setting-row-help */
+@utility type-prompt-receipt-secondary {
+  @apply type-setting-row-help;
+}
+
+/* Save bar › You changed your display name: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-save-bar-message {
+  @apply type-nav-item-selected;
+}
+
+/* Save bar › Save (black pill) › Save changes: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-save-bar-save {
+  @apply type-nav-item-selected;
 }

@@ -203,13 +203,15 @@ export const Shadows: Story = {
               ))}
           </div>
           <div className="flex flex-wrap gap-8 rounded-xl bg-linear-to-br from-iris-violet via-iris-pink to-iris-cyan p-8">
-            <figure className="flex flex-col rounded-lg glass p-6">
+            <figure className="flex flex-col rounded-lg glass p-6 shadow-glass">
               <p className="type-ui-strong">Glass/Default</p>
-              <p className="type-mono text-ink-2">glass</p>
+              <p className="type-mono text-ink-2">glass shadow-glass</p>
             </figure>
-            <figure className="flex flex-col rounded-lg glass-strong p-6">
+            <figure className="flex flex-col rounded-lg glass-strong p-6 shadow-glass-strong">
               <p className="type-ui-strong">Glass/Strong</p>
-              <p className="type-mono text-ink-2">glass-strong</p>
+              <p className="type-mono text-ink-2">
+                glass-strong shadow-glass-strong
+              </p>
             </figure>
           </div>
           <Rows>
