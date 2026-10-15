@@ -114,6 +114,12 @@
   --easing-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --easing-out: cubic-bezier(0.22, 1, 0.36, 1);
   --easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Font stacks (the --font-geist-* variables come from next/font). Bangla falls back to
+     Noto Sans Bengali inside English text. */
+  --font-sans:
+    var(--font-geist-sans), var(--font-noto-sans-bengali), sans-serif;
+  --font-mono: var(--font-geist-mono), var(--font-noto-sans-bengali), monospace;
 }
 
 :root,

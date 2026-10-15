@@ -10,3 +10,5 @@ multiaideck-starter
 /*.md
 .agent
 src/styles/figma
+src/components/atoms/Icon/figma
+.claude/settings.local.json

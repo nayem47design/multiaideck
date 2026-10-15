@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, Ref } from "react";
 
+import { cx, focusRing, stateLayer } from "../states";
+
 // Figma: Design system › Button (28:8200). Variant × Size mirror the Figma properties.
 // Hover, pressed, focus, disabled and loading are not in Figma yet; they are built from
 // tokens here and listed for the designer.
@@ -17,14 +19,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const base = [
-  "relative isolate inline-flex shrink-0 items-center justify-center gap-1-5 overflow-hidden whitespace-nowrap",
+  "inline-flex shrink-0 items-center justify-center gap-1-5 whitespace-nowrap",
   "rounded-pill select-none",
   "transition-colors duration-fast ease-out",
-  // State layer: hover and pressed tint the button with its own label colour.
-  "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-current after:opacity-0",
-  "after:transition-opacity after:duration-fast after:ease-out",
-  "enabled:hover:after:opacity-8 enabled:active:after:opacity-14",
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue",
+  stateLayer,
+  focusRing,
   "disabled:cursor-not-allowed aria-busy:cursor-wait",
 ].join(" ");
 
@@ -64,16 +63,14 @@ export function Button({
       type={type}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
-      className={[
+      className={cx(
         base,
         variants[variant],
         disabledStyles,
         variant !== "ghost" && disabledFillStyles,
         sizes[size],
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      )}
       {...props}
     >
       <span className={loading ? "invisible" : "contents"}>{children}</span>

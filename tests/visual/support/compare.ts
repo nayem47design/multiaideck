@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
 import type { Locator, Page, TestInfo } from "@playwright/test";
@@ -17,20 +17,50 @@ export async function openStory(
   page: Page,
   id: string,
   args: Record<string, string> = {},
+  theme: "light" | "dark" = "light",
 ) {
   const argString = Object.entries(args)
     .map(([k, v]) => `${k}:${v}`)
     .join(";");
   await page.goto(
-    `/iframe.html?id=${id}&viewMode=story&globals=theme:light${argString ? `&args=${argString}` : ""}`,
+    `/iframe.html?id=${id}&viewMode=story&globals=theme:${theme}${argString ? `&args=${argString}` : ""}`,
   );
   await page.addStyleTag({
     content: `
       html, body { background: transparent !important; margin: 0 !important; padding: 0 !important; }
-      #storybook-root { position: absolute !important; inset: 0 auto auto 0 !important; padding: 0 !important; margin: 0 !important; }
+      #storybook-root { position: absolute !important; inset: 0 auto auto 0 !important; padding: 0 !important; margin: 0 !important; display: flex !important; align-items: flex-start !important; }
     `,
   });
+  await page.waitForSelector(`html[data-theme="${theme}"] #storybook-root > *`);
   await page.evaluate(() => document.fonts.ready);
+}
+
+/**
+ * Some Figma exports include effects (shadows) beyond the component, clipped by the parent frame.
+ * A sibling <variant>.crop.json gives the component's box inside the export, per theme (CSS px).
+ */
+function cropToNode(img: PNG, figmaPng: string): PNG {
+  const cropFile = figmaPng.replace(/(\.dark)?\.png$/, ".crop.json");
+  if (!existsSync(cropFile)) return img;
+  const crop = JSON.parse(readFileSync(cropFile, "utf8"))[
+    figmaPng.endsWith(".dark.png") ? "dark" : "light"
+  ];
+  const scale = 2;
+  const out = new PNG({
+    width: crop.width * scale,
+    height: crop.height * scale,
+  });
+  PNG.bitblt(
+    img,
+    out,
+    crop.x * scale,
+    crop.y * scale,
+    out.width,
+    out.height,
+    0,
+    0,
+  );
+  return out;
 }
 
 export interface Comparison {
@@ -45,7 +75,7 @@ export async function compareWithFigma(
   figmaPng: string,
   testInfo: TestInfo,
 ): Promise<Comparison> {
-  const figma = PNG.sync.read(readFileSync(figmaPng));
+  const figma = cropToNode(PNG.sync.read(readFileSync(figmaPng)), figmaPng);
   const code = PNG.sync.read(
     await locator.screenshot({ omitBackground: true, animations: "disabled" }),
   );
@@ -65,7 +95,7 @@ export async function compareWithFigma(
   const [a, b] = [pad(figma), pad(code)];
   const diff = new PNG({ width, height });
   const diffPixels = pixelmatch(a.data, b.data, diff.data, width, height, {
-    threshold: 0.1,
+    threshold: Number(process.env.VISUAL_COLOR_THRESHOLD ?? 0.1),
   });
   const diffRatio = diffPixels / (width * height);
 

@@ -291,6 +291,17 @@ const tokensCss = [
     "  /* Motion */",
     ...duration.map((t) => decl(t.cssVar, t.value)),
     ...easing.map((t) => decl(t.cssVar, t.value)),
+    "",
+    "  /* Font stacks (the --font-geist-* variables come from next/font). Bangla falls back to",
+    "     Noto Sans Bengali inside English text. */",
+    decl(
+      "--font-sans",
+      "var(--font-geist-sans), var(--font-noto-sans-bengali), sans-serif",
+    ),
+    decl(
+      "--font-mono",
+      "var(--font-geist-mono), var(--font-noto-sans-bengali), monospace",
+    ),
   ]),
   block(':root,\n[data-theme="light"]', [
     "  /* Semantic colour · Light (default) */",
@@ -347,15 +358,8 @@ const themeCss = [
   ...blur.map((t) => decl(`--blur-${t.key}`, `var(${t.cssVar})`)),
   ...easing.map((t) => decl(`--ease-${t.key}`, `var(${t.cssVar})`)),
   "",
-  "  /* Bangla falls back to Noto Sans Bengali inside English text. */",
-  decl(
-    "--font-sans",
-    "var(--font-geist-sans), var(--font-noto-sans-bengali), sans-serif",
-  ),
-  decl(
-    "--font-mono",
-    "var(--font-geist-mono), var(--font-noto-sans-bengali), monospace",
-  ),
+  decl("--font-sans", "var(--font-sans)"),
+  decl("--font-mono", "var(--font-mono)"),
   "}",
   "",
   "/* Motion durations (Tailwind has no theme namespace for these). */",

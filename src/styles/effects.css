@@ -37,3 +37,19 @@
     backdrop-filter: none;
   }
 }
+
+/* Thinking dots: a wave between the dots' own Figma opacities (100% → 30%). */
+@theme {
+  --animate-thinking-dot: thinking-dot var(--duration-ambient)
+    var(--easing-in-out) infinite;
+
+  @keyframes thinking-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: var(--thinking-dot-3);
+    }
+  }
+}
