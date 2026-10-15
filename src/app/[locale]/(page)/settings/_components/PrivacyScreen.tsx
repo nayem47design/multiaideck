@@ -1,8 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import {
   cloneElement,
+  Suspense,
+  useEffect,
   useLayoutEffect,
   useState,
   type ReactElement,
@@ -19,12 +22,13 @@ import {
   SignInMethodsCard,
   type SignInMethod,
 } from "@/components/organisms/SignInMethodsCard";
+import { api, ApiClientError } from "@/lib/api-client";
 import { Link } from "@/lib/i18n/navigation";
-import { DEMO_USER } from "@/lib/mock/demo";
+import { me, nationalPhone, useMe } from "@/lib/me";
 import { DEMO_SUPPORT } from "@/lib/mock/settings";
 
 import { useDeleteAccount } from "./DeleteAccount";
-import { downloadProfileData } from "./download";
+import { downloadAccountData } from "./download";
 import { MobileHeader, ScreenBody } from "./ScreenParts";
 import { useSettings } from "./SettingsState";
 
@@ -51,8 +55,9 @@ const LEVELS = ["weak", "weak", "fair", "good", "strong"] as const;
 export function PrivacyScreen() {
   const t = useTranslations("settings.privacy");
   const openDelete = useDeleteAccount();
-  const { profile, notifications, passwordSet, setPasswordSet, showToast } =
-    useSettings();
+  const { passwordSet, showToast } = useSettings();
+  const { user } = useMe();
+  const [submitting, setSubmitting] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [showMethods, setShowMethods] = useState(false);
@@ -68,17 +73,57 @@ export function PrivacyScreen() {
 
   const s = strength(password);
   const download = () => {
-    downloadProfileData(profile, { notifications });
     showToast(t("data.downloaded"));
+    downloadAccountData().catch(() =>
+      showToast(t("data.downloadFailed"), "error"),
+    );
   };
 
-  const google: SignInMethod = {
-    id: "google",
-    icon: "user",
-    title: t("signIn.google"),
-    help: t("signIn.googleHelp", { email: DEMO_USER.email }),
-    status: { label: t("signIn.connected"), connected: true },
+  const submitPassword = async () => {
+    if (!s.length || !s.symbol) return showToast(t("signIn.tooWeak"), "error");
+    if (password !== confirm) return showToast(t("signIn.mismatch"), "error");
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      await api("/api/me/password", { method: "POST", body: { password } });
+      await me.refresh();
+      setPassword("");
+      setConfirm("");
+      showToast(t("signIn.saved"));
+    } catch (e) {
+      const code = e instanceof ApiClientError ? e.code : undefined;
+      showToast(
+        t(
+          code === "conflict"
+            ? "signIn.emailInUse"
+            : code === "invalid_input" &&
+                e instanceof ApiClientError &&
+                e.details?.field === "email"
+              ? "signIn.needEmail"
+              : "signIn.failed",
+        ),
+        "error",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  const google: SignInMethod = user?.hasGoogle
+    ? {
+        id: "google",
+        icon: "user",
+        title: t("signIn.google"),
+        help: t("signIn.googleHelp", { email: user.email ?? "" }),
+        status: { label: t("signIn.connected"), connected: true },
+      }
+    : {
+        id: "google",
+        icon: "user",
+        title: t("signIn.google"),
+        help: t("signIn.googleNotConnected"),
+        status: { label: t("signIn.notConnected"), connected: false },
+      };
 
   const external = (href: string) => (
     <a href={href} target="_blank" rel="noopener noreferrer" />
@@ -86,6 +131,11 @@ export function PrivacyScreen() {
 
   return (
     <div className="flex flex-col">
+      <Suspense>
+        <GoogleLinkError
+          onError={() => showToast(t("signIn.googleInUse"), "error")}
+        />
+      </Suspense>
       <MobileHeader title={t("title")} />
       <ScreenBody>
         <SettingsHeading
@@ -103,7 +153,7 @@ export function PrivacyScreen() {
                 icon: "key-01",
                 title: t("signIn.password"),
                 help: passwordSet
-                  ? t("signIn.passwordSet", { email: DEMO_USER.email })
+                  ? t("signIn.passwordSet", { email: user?.email ?? "" })
                   : t("signIn.passwordNotSet"),
                 status: passwordSet
                   ? { label: t("signIn.isSet"), connected: true }
@@ -143,16 +193,7 @@ export function PrivacyScreen() {
                         setPassword("");
                         setConfirm("");
                       },
-                      onSubmit: () => {
-                        if (!s.length || !s.symbol)
-                          return showToast(t("signIn.tooWeak"), "error");
-                        if (password !== confirm)
-                          return showToast(t("signIn.mismatch"), "error");
-                        setPasswordSet(true);
-                        setPassword("");
-                        setConfirm("");
-                        showToast(t("signIn.saved"));
-                      },
+                      onSubmit: () => void submitPassword(),
                     },
                   }
             }
@@ -249,10 +290,14 @@ export function PrivacyScreen() {
                   id: "phone",
                   icon: "smart-phone-01",
                   title: t("signIn.phone"),
-                  help: t("signIn.phoneHelp", {
-                    phone: `+880 ${DEMO_USER.phone}`,
-                  }),
-                  status: { label: t("signIn.connected"), connected: true },
+                  help: user?.phone
+                    ? t("signIn.phoneHelp", {
+                        phone: `+880 ${nationalPhone(user.phone)}`,
+                      })
+                    : "",
+                  status: user?.phone
+                    ? { label: t("signIn.connected"), connected: true }
+                    : { label: t("signIn.notConnected"), connected: false },
                 },
                 google,
               ]}
@@ -295,4 +340,15 @@ function LegalLink({
     children,
     <Icon key="icon" name="link-square-02" className="size-3" />,
   );
+}
+
+/** ?error=google_in_use, from linking a Google account that belongs to someone else. */
+function GoogleLinkError({ onError }: { onError: () => void }) {
+  const error = useSearchParams().get("error");
+  useEffect(() => {
+    if (error === "google_in_use") onError();
+    // Once per arrival.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
+  return null;
 }

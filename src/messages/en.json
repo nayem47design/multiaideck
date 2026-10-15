@@ -46,8 +46,10 @@
       "confirmLabel": "Type {word} to confirm",
       "word": "DELETE",
       "cancel": "Keep my account",
-      "delete": "Delete account"
-    }
+      "delete": "Delete account",
+      "failed": "Couldn’t delete your account. Try again."
+    },
+    "languageFailed": "Couldn’t save your language. It’s changed on this device only."
   },
   "auth": {
     "promise": {
@@ -95,6 +97,22 @@
       "verify": "Verify and continue",
       "change": "Wrong number? Change it",
       "back": "Back"
+    },
+    "sms": {
+      "code": "Your MultiAIDeck code is {code}. It expires in {minutes} minutes. Never share it with anyone."
+    },
+    "errors": {
+      "rateLimited": "Too many codes. Try again in {time}.",
+      "resendWait": "Wait {time} before asking for another code.",
+      "wrongCode": "That code isn’t right. {count, plural, one {# try} other {# tries}} left.",
+      "wrongCodeLast": "That code isn’t right. Ask for a new code.",
+      "expired": "This code has expired. Ask for a new one.",
+      "locked": "Too many wrong codes. Try again in {time}.",
+      "network": "Couldn’t reach MultiAI. Check your connection and try again.",
+      "generic": "Something went wrong. Please try again.",
+      "googleNotConfigured": "Google sign-in isn’t available yet. Use your phone number instead.",
+      "google": "Google sign-in didn’t work. Try again or use your phone number.",
+      "googleCancelled": "Google sign-in was cancelled."
     }
   },
   "chat": {
@@ -793,7 +811,8 @@
         "verified": "Verified",
         "change": "Change",
         "emailHelp": "Used for sign-in and receipts.",
-        "emailSoon": "Changing your email is coming soon."
+        "emailSoon": "Changing your email is coming soon.",
+        "noEmail": "No email yet"
       },
       "preferences": {
         "title": "Preferences",
@@ -824,7 +843,8 @@
         "discard": "Discard",
         "save": "Save changes",
         "saved": "Changes saved",
-        "nameEmpty": "Your display name can’t be empty"
+        "nameEmpty": "Your display name can’t be empty",
+        "failed": "Couldn’t save your changes. Try again."
       }
     },
     "notifications": {
@@ -893,7 +913,8 @@
           "title": "Offers and news",
           "help": "New AIs and discounts"
         }
-      }
+      },
+      "saveFailed": "Couldn’t save that change. Try again."
     },
     "privacy": {
       "title": "Privacy & security",
@@ -927,7 +948,13 @@
         "ruleSymbol": "A number or symbol",
         "tooWeak": "Use 8 or more characters with a number or symbol.",
         "mismatch": "The two passwords don’t match.",
-        "saved": "Password set"
+        "saved": "Password set",
+        "notConnected": "Not connected",
+        "googleNotConnected": "Not connected. You sign in with your phone.",
+        "failed": "Couldn’t set the password. Try again.",
+        "needEmail": "Add an email to your account first.",
+        "emailInUse": "That email belongs to another account.",
+        "googleInUse": "That Google account is already linked to another MultiAI account."
       },
       "data": {
         "title": "Your data",
@@ -935,9 +962,10 @@
         "historyHelp": "Kept in your account until you delete it. Delete any chat from its menu.",
         "privacyPolicy": "Privacy policy",
         "download": "Download your data",
-        "downloadHelp": "Profile and preferences as a file. Full chat export is coming later.",
+        "downloadHelp": "Your profile, chats, payments and credit history in one file.",
         "downloadButton": "Download",
-        "downloaded": "Your data file is downloading"
+        "downloaded": "Your data file is downloading",
+        "downloadFailed": "Couldn’t download your data. Try again."
       },
       "legal": {
         "terms": "Terms of service",

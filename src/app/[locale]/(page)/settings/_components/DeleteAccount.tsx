@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormatter, useTranslations } from "next-intl";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import {
   createContext,
   useCallback,
@@ -11,14 +11,16 @@ import {
 } from "react";
 
 import { DeleteDialog } from "@/components/organisms/DeleteDialog";
-import { useRouter } from "@/lib/i18n/navigation";
-import { CREDIT_IN_BDT, DEMO_BALANCE, DEMO_CHATS } from "@/lib/mock/demo";
+import { api } from "@/lib/api-client";
+import { getPathname } from "@/lib/i18n/navigation";
+import { me, useMe } from "@/lib/me";
 
-import { downloadProfileData } from "./download";
+import { downloadAccountData } from "./download";
 import { useSettings } from "./SettingsState";
 
 // "Overlay · Delete account" (Figma 28:11138): opened from Profile's Delete account (desktop) and
-// M41's Delete account row. Typing the confirm word enables Delete; the demo then signs out.
+// M41's Delete account row. Typing the confirm word enables Delete → DELETE /api/me (the account is
+// closed and every session ends) → a full page load of /sign-in.
 
 const DeleteAccountContext = createContext<(() => void) | null>(null);
 
@@ -31,9 +33,11 @@ export function useDeleteAccount() {
 export function DeleteAccountProvider({ children }: { children: ReactNode }) {
   const t = useTranslations("account.deleteDialog");
   const tc = useTranslations("common");
+  const tp = useTranslations("settings.privacy.data");
   const format = useFormatter();
-  const router = useRouter();
-  const { profile, notifications } = useSettings();
+  const locale = useLocale();
+  const { balance, chatCount } = useMe();
+  const { showToast } = useSettings();
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState(0);
   const [deleting, setDeleting] = useState(false);
@@ -45,7 +49,7 @@ export function DeleteAccountProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const money = tc("money", {
-    amount: format.number(DEMO_BALANCE.credits * CREDIT_IN_BDT, {
+    amount: format.number(balance?.bdt ?? 0, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }),
@@ -62,24 +66,32 @@ export function DeleteAccountProvider({ children }: { children: ReactNode }) {
         open={open}
         onOpenChange={setOpen}
         deleting={deleting}
-        onDelete={() => {
+        onDelete={async () => {
           setDeleting(true);
-          // Demo: the account is gone, so the person is signed out. Close the dialog first: pages
-          // stay mounted (hidden) after navigation, but the dialog's portal would not.
-          setOpen(false);
-          router.replace("/sign-in");
+          try {
+            await api("/api/me", {
+              method: "DELETE",
+              body: { confirm: "DELETE" },
+            });
+          } catch {
+            setDeleting(false);
+            showToast(t("failed"), "error");
+            return;
+          }
+          me.clear();
+          location.replace(getPathname({ href: "/sign-in", locale }));
         }}
         title={t("title")}
         body={t("body")}
         losses={[
           {
             label: t("chatsLabel"),
-            value: t("chats", { count: DEMO_CHATS.length }),
+            value: t("chats", { count: chatCount ?? 0 }),
           },
           {
             label: t("creditsLabel"),
             value: t("credits", {
-              credits: format.number(DEMO_BALANCE.credits),
+              credits: format.number(Math.floor(balance?.credits ?? 0)),
               money,
             }),
             strong: true,
@@ -91,7 +103,11 @@ export function DeleteAccountProvider({ children }: { children: ReactNode }) {
           link: (
             <button
               type="button"
-              onClick={() => downloadProfileData(profile, { notifications })}
+              onClick={() =>
+                downloadAccountData().catch(() =>
+                  showToast(tp("downloadFailed"), "error"),
+                )
+              }
             />
           ),
         }}

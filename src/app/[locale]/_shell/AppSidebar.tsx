@@ -4,12 +4,8 @@ import { useFormatter, useTranslations } from "next-intl";
 
 import { Sidebar } from "@/components/organisms/Sidebar";
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
-import {
-  creditsToBdt,
-  DEMO_BALANCE,
-  DEMO_USER,
-  SIDEBAR_CHATS,
-} from "@/lib/mock/demo";
+import { displayName, initialsOf, useMe } from "@/lib/me";
+import { SIDEBAR_CHATS } from "@/lib/mock/demo";
 
 import { useOverlay } from "./overlays";
 
@@ -23,6 +19,7 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const { openOverlay } = useOverlay();
+  const { user, balance, topUpLeft } = useMe();
   const n = (v: number) => format.number(v);
 
   const go = (href: string) => {
@@ -77,11 +74,20 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
       }))}
       sections={sections}
       credits={{
-        amount: tc("credits", { amount: n(DEMO_BALANCE.credits) }),
-        money: tc("money", {
-          amount: n(Number(creditsToBdt(DEMO_BALANCE.credits))),
-        }),
-        progress: DEMO_BALANCE.progress,
+        // Until /api/me answers: no numbers rather than wrong ones.
+        amount: balance
+          ? tc("credits", { amount: n(Math.floor(balance.credits)) })
+          : "",
+        money: balance
+          ? tc("money", {
+              amount: format.number(balance.bdt, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }),
+            })
+          : "",
+        // Share of the last top-up left; full before the first top-up when there is a balance.
+        progress: topUpLeft ?? (balance && balance.credits > 0 ? 100 : 0),
         progressLabel: t("creditsLeft"),
         topUp: { label: t("topUp"), onClick: () => go("/wallet") },
         goPro: {
@@ -98,9 +104,9 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
         },
       }}
       user={{
-        name: DEMO_USER.name,
-        email: DEMO_USER.email,
-        initials: DEMO_USER.initials,
+        name: user ? displayName(user) : "",
+        email: user?.email ?? "",
+        initials: user ? initialsOf(user) : "",
         menuLabel: t("accountMenu"),
         // Prototype: the user row's "more" button opens Sign out.
         onMenu: () => openOverlay("sign-out"),

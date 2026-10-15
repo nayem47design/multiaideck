@@ -9,10 +9,12 @@ import { sessions, users } from "@/lib/db/schema";
 import { ApiError } from "@/lib/server/api";
 import { env } from "@/lib/server/env";
 
+import { SESSION_COOKIE } from "./cookies";
+
 // Sessions: a random token in an httpOnly cookie; the database stores only its SHA-256.
 // 30 days, extended on use. Signing out deletes the row.
 
-export const SESSION_COOKIE = "mai_session";
+export { SESSION_COOKIE };
 const SESSION_DAYS = 30;
 
 export type SessionUser = typeof users.$inferSelect;
@@ -85,4 +87,9 @@ export async function destroySession() {
 export async function destroyAllSessions(userId: string) {
   const db = await getDb();
   await db.delete(sessions).where(eq(sessions.userId, userId));
+}
+
+/** Drop a session cookie that no longer matches a session (expired, signed out elsewhere). */
+export async function clearSessionCookie() {
+  (await cookies()).delete(SESSION_COOKIE);
 }

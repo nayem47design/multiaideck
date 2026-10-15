@@ -4,10 +4,11 @@ import { IsoDate, ModelIdSchema, UserSchema } from "./common";
 
 // Account, settings, usage, presets, images, admin.
 //
-// PATCH  /api/me                      UpdateProfileRequest → { user }
+// PATCH  /api/me                      UpdateProfileRequest → MeResponse ({ user, balance, … })
 // DELETE /api/me                      DeleteAccountRequest → 204   (signs out everywhere)
 // GET    /api/me/export               → application/json download of the user's data
-// POST   /api/me/password             SetPasswordRequest → 204
+// POST   /api/me/password             SetPasswordRequest → 204  (409 conflict: email in use;
+//                                      400 invalid_input: no email; 403 forbidden: wrong current)
 // GET    /api/me/notifications        → NotificationPrefs
 // PUT    /api/me/notifications        NotificationPrefs → NotificationPrefs
 // GET    /api/usage?period=this-month|last-month → UsageResponse
@@ -34,13 +35,53 @@ export const UpdateProfileRequest = z.object({
 export const DeleteAccountRequest = z.object({ confirm: z.literal("DELETE") });
 
 export const SetPasswordRequest = z.object({
-  email: z.string().email().optional(),
-  password: z.string().min(10).max(200),
+  /** The sign-in email; defaults to the account's email. */
+  email: z.string().trim().toLowerCase().email().optional(),
+  /** 8+ characters with a number or symbol (Settings · Privacy rules). */
+  password: z
+    .string()
+    .min(8)
+    .max(200)
+    .regex(/[\d\W_]/, "Add a number or symbol"),
+  /** Required to change an existing password. */
+  currentPassword: z.string().max(200).optional(),
 });
 
+export const NOTIFICATION_TYPES = [
+  "lowBalance",
+  "receipts",
+  "weekly",
+  "failed",
+  "longAnswers",
+  "models",
+  "offers",
+] as const;
+export const NOTIFICATION_CHANNELS = ["app", "email"] as const;
+/** Payment receipts are always on, on every channel. */
+export const ALWAYS_ON_NOTIFICATIONS = ["receipts"] as const;
+
+/** What a new account starts with (Figma: Settings · Notifications, M40). */
+export const NOTIFICATION_DEFAULTS: Record<
+  (typeof NOTIFICATION_TYPES)[number],
+  Record<(typeof NOTIFICATION_CHANNELS)[number], boolean>
+> = {
+  lowBalance: { app: true, email: true },
+  receipts: { app: true, email: true },
+  weekly: { app: false, email: true },
+  failed: { app: true, email: false },
+  longAnswers: { app: true, email: false },
+  models: { app: true, email: false },
+  offers: { app: false, email: false },
+};
+
 export const NotificationPrefs = z.object({
-  /** type → channel → on. Types: payment-receipt (always on), low-balance, answer-ready, product. */
+  /**
+   * type → channel → on. Types: NOTIFICATION_TYPES (receipts = payment receipts, always on);
+   * channels: app, email. Unknown types or channels are rejected.
+   */
   prefs: z.record(z.string(), z.record(z.string(), z.boolean())),
+  /** Low-balance alert threshold in credits (same as PATCH /api/me lowBalanceAlert). */
+  lowBalanceAlert: z.number().int().min(0).max(1_000_000).optional(),
 });
 export type NotificationPrefs = z.infer<typeof NotificationPrefs>;
 
@@ -68,6 +109,8 @@ export const UsageResponse = z.object({
       promptId: z.string(),
       date: IsoDate,
       chat: z.string(),
+      /** Best answer, Compare, or a picture (Image studio). */
+      mode: z.enum(["best", "compare", "image"]).optional(),
       models: z.array(ModelIdSchema),
       credits: z.number(),
       bdt: z.number(),
@@ -110,6 +153,10 @@ export const ImageSchema = z.object({
   /** GET /api/images/:id/file when ready. */
   fileUrl: z.string().nullable(),
   createdAt: IsoDate,
+  /** The picture's chat title (user content), e.g. "Golpo Coffee sign". */
+  title: z.string().default(""),
+  /** True for the generated stand-in (no image provider configured): screens draw it themselves. */
+  placeholder: z.boolean().default(false),
 });
 export type Image = z.infer<typeof ImageSchema>;
 

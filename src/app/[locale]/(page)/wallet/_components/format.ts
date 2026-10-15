@@ -3,12 +3,15 @@
 import { useFormatter } from "next-intl";
 import { useSyncExternalStore } from "react";
 
-import { CREDIT_IN_BDT } from "@/lib/mock/demo";
 import {
   METHOD_NAMES,
+  reference,
   type Payment,
   type PaymentMethod,
-} from "@/lib/mock/wallet";
+} from "@/lib/payments/client";
+
+/** 1 credit = BDT 0.01. */
+const CREDIT_IN_BDT = 0.01;
 
 const TZ = "Asia/Dhaka";
 
@@ -65,12 +68,12 @@ export function usePaymentsCsv() {
     toCsv(
       header,
       payments.map((p) => [
-        `${f.date(p.at)} ${f.time(p.at)}`,
+        `${f.date(p.createdAt)} ${f.time(p.createdAt)}`,
         p.bdt,
         METHOD_NAMES[p.method],
         p.status,
-        p.credits,
-        p.reference,
+        p.status === "paid" ? p.credits : 0,
+        p.status === "paid" ? reference(p) : "",
       ]),
     );
 }

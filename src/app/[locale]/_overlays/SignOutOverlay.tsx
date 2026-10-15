@@ -1,11 +1,12 @@
 "use client";
 
-import { useFormatter, useTranslations } from "next-intl";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { SignOutPrompt } from "@/components/organisms/SignOutPrompt";
-import { useRouter } from "@/lib/i18n/navigation";
-import { DEMO_BALANCE } from "@/lib/mock/demo";
+import { api } from "@/lib/api-client";
+import { getPathname } from "@/lib/i18n/navigation";
+import { me, useMe } from "@/lib/me";
 
 import type { OverlayProps } from "../_shell/overlays";
 
@@ -15,7 +16,8 @@ import type { OverlayProps } from "../_shell/overlays";
 export function SignOutOverlay({ open, onOpenChange }: OverlayProps) {
   const t = useTranslations("account.signOutPrompt");
   const format = useFormatter();
-  const router = useRouter();
+  const locale = useLocale();
+  const { balance } = useMe();
   const [signingOut, setSigningOut] = useState(false);
 
   return (
@@ -26,16 +28,19 @@ export function SignOutOverlay({ open, onOpenChange }: OverlayProps) {
         onOpenChange(next);
       }}
       title={t("title")}
-      body={t("body", { credits: format.number(DEMO_BALANCE.credits) })}
+      body={t("body", {
+        credits: format.number(Math.floor(balance?.credits ?? 0)),
+      })}
       stayLabel={t("stay")}
       signOutLabel={t("confirm")}
       signingOut={signingOut}
-      onSignOut={() => {
+      onSignOut={async () => {
         setSigningOut(true);
-        // Close first: pages stay mounted (hidden) after navigation, but this dialog's portal would
-        // stay on screen. The demo has no session to end yet (Phase 6).
-        onOpenChange(false);
-        router.replace("/sign-in");
+        // End the session, then a full page load so no state of this user stays in memory. (If
+        // the request failed, the cookie is still there and the proxy sends the browser home.)
+        await api("/api/auth/sign-out", { method: "POST" }).catch(() => {});
+        me.clear();
+        location.replace(getPathname({ href: "/sign-in", locale }));
       }}
     />
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 import { Field } from "@/components/molecules/Field";
 import { Icon } from "@/components/atoms/Icon";
@@ -14,36 +14,35 @@ import { PaymentsTable } from "@/components/organisms/PaymentsTable";
 import { ProComparisonCard } from "@/components/organisms/ProComparisonCard";
 import { StatSummaryRow } from "@/components/organisms/StatSummaryRow";
 import { TopUpTable } from "@/components/organisms/TopUpTable";
+import { getPathname, Link, usePathname } from "@/lib/i18n/navigation";
 import {
-  getPathname,
-  Link,
-  usePathname,
-  useRouter,
-} from "@/lib/i18n/navigation";
-import {
-  AVG_CREDITS_PER_CHAT,
-  balanceOf,
   chatsFor,
-  DEMO_SPENT,
+  customProblem,
+  DEFAULT_AVG_CREDITS,
+  history,
+  MAX_CUSTOM_BDT,
   MIN_CUSTOM_BDT,
   PACKS,
+  packQuote,
   PAYMENT_METHODS,
-  paymentsNewestFirst,
   PRO_PLAN,
+  reference,
   selectionQuote,
   useWallet,
-  wallet,
+  walletActions,
   type Payment,
-} from "@/lib/mock/wallet";
+} from "@/lib/payments/client";
 
 import { useOverlay } from "../../../_shell/overlays";
 
 import { downloadText, usePaymentsCsv, useWalletFormat } from "./format";
+import { useBalance, useStartTopUp } from "./pay";
 import { WalletDialogs } from "./WalletDialogs";
 
 // Figma: Prototype › Wallet (28:9923), 1440×1808, and the checkout overlays over it. Shown from
 // 768px; the dialogs follow the route (/wallet/pay, /wallet/paid, /wallet/failed), so the M-screen
-// routes open the matching dialog on a wide window.
+// routes open the matching dialog on a wide window. Data: GET /api/wallet and /api/payments;
+// paying starts a payment on the server (POST /api/payments) and follows its redirect.
 
 /** Sub-routes that scroll the desktop wallet to a section. */
 const SECTIONS: Record<string, string> = {
@@ -56,20 +55,26 @@ export function WalletDesktop({ className }: { className?: string }) {
   const tc = useTranslations("common");
   const f = useWalletFormat();
   const s = useWallet();
-  const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
   const { openOverlay } = useOverlay();
   const csv = usePaymentsCsv();
+  const topUp = useStartTopUp();
 
-  const balance = balanceOf(s);
+  const { balance: known, plan } = useBalance(
+    s.wallet?.balance.credits ?? null,
+  );
+  const balance = known ?? 0;
+  const avg = s.wallet?.averagePromptCredits ?? null;
+  const pro = (s.wallet?.plan ?? plan) === "pro";
+  const spent = s.wallet?.spentThisMonth.credits ?? 0;
+  const chats = s.wallet?.chatsThisMonth ?? 0;
   const q = selectionQuote(s.selection);
   const credits = (v: number) => tc("credits", { amount: f.n(v) });
+  const loading = (v: string) => (known === null ? tc("loading") : v);
   const custom = s.selection.pack === "custom";
-  const customTooLow =
-    custom &&
-    s.selection.customBdt !== null &&
-    s.selection.customBdt < MIN_CUSTOM_BDT;
+  const problem = customProblem(s.selection);
+  const payments = history(s.payments);
 
   useEffect(() => {
     const id = SECTIONS[pathname];
@@ -77,11 +82,11 @@ export function WalletDesktop({ className }: { className?: string }) {
   }, [pathname]);
 
   const pay = () => {
-    if (wallet.startCheckout()) router.push("/wallet/pay", { scroll: false });
+    if (q) void topUp.start();
   };
   const retry = (p: Payment) => {
-    wallet.repeat(p);
-    pay();
+    walletActions.repeat(p);
+    void topUp.start();
   };
   const csvHeader = [
     t("payments.csv.date"),
@@ -116,29 +121,31 @@ export function WalletDesktop({ className }: { className?: string }) {
           stats={[
             {
               label: t("stats.balance"),
-              value: credits(balance),
+              value: loading(credits(balance)),
               caption: t("stats.balanceCaption", {
                 bdt: f.taka(balance),
-                chats: f.n(chatsFor(balance)),
+                chats: f.n(chatsFor(balance, avg)),
               }),
               chip: t("stats.neverExpire"),
             },
             {
               label: t("stats.spent"),
-              value: credits(DEMO_SPENT.credits),
+              value: loading(credits(spent)),
               caption: t("stats.spentCaption", {
-                bdt: f.taka(DEMO_SPENT.credits),
-                count: DEMO_SPENT.chats,
-                chats: f.n(DEMO_SPENT.chats),
+                bdt: f.taka(spent),
+                count: chats,
+                chats: f.n(chats),
               }),
             },
-            s.pro
+            pro
               ? {
                   label: t("stats.plan"),
                   value: t("stats.pro"),
                   caption: t("stats.proCaption", {
                     bdt: f.n(PRO_PLAN.bdt),
-                    date: f.date(PRO_PLAN.renews),
+                    date: s.wallet?.proRenewsAt
+                      ? f.date(s.wallet.proRenewsAt)
+                      : "",
                   }),
                 }
               : {
@@ -176,33 +183,32 @@ export function WalletDesktop({ className }: { className?: string }) {
                     chats: t("topUp.columns.chats"),
                   }}
                   packs={PACKS.map((p) => {
-                    const pq = selectionQuote({ ...s.selection, pack: p.id });
+                    const pq = packQuote(p.id);
                     return {
                       value: p.id,
                       price: t("topUp.price", { amount: f.n(p.bdt) }),
-                      credits: credits(pq?.credits ?? 0),
-                      bonus: p.bonusPct
-                        ? t("topUp.bonus", { pct: f.n(p.bonusPct) })
+                      credits: credits(pq.credits),
+                      bonus: p.bonusPercent
+                        ? t("topUp.bonus", { pct: f.n(p.bonusPercent) })
                         : undefined,
                       noBonusLabel: t("topUp.noBonus"),
-                      chats: f.n(chatsFor(pq?.credits ?? 0)),
-                      tag: p.popular ? t("topUp.mostChosen") : undefined,
+                      chats: f.n(chatsFor(pq.credits, avg)),
+                      tag: p.mostChosen ? t("topUp.mostChosen") : undefined,
                     };
                   })}
                   value={custom ? "" : s.selection.pack}
-                  onValueChange={wallet.selectPack}
+                  onValueChange={walletActions.selectPack}
                   custom={{
                     label: t("topUp.custom", { min: f.n(MIN_CUSTOM_BDT) }),
-                    onClick: () => wallet.setCustom(s.selection.customBdt),
+                    onClick: () =>
+                      walletActions.setCustom(s.selection.customBdt),
                   }}
                   teams={{
-                    label: t("topUp.teams", {
-                      max: f.n(PACKS[PACKS.length - 1].bdt),
-                    }),
+                    label: t("topUp.teams", { max: f.n(MAX_CUSTOM_BDT) }),
                     href: getPathname({ href: "/settings/help", locale }),
                   }}
                   footnote={t("topUp.footnote", {
-                    avg: f.n(AVG_CREDITS_PER_CHAT),
+                    avg: f.n(Math.round(avg ?? DEFAULT_AVG_CREDITS)),
                   })}
                 />
               </div>
@@ -214,9 +220,10 @@ export function WalletDesktop({ className }: { className?: string }) {
                     type="number"
                     inputMode="numeric"
                     min={MIN_CUSTOM_BDT}
+                    max={MAX_CUSTOM_BDT}
                     value={s.selection.customBdt ?? ""}
                     onChange={(e) =>
-                      wallet.setCustom(
+                      walletActions.setCustom(
                         e.target.value === ""
                           ? null
                           : Math.floor(Number(e.target.value)),
@@ -224,9 +231,13 @@ export function WalletDesktop({ className }: { className?: string }) {
                     }
                     help={t("topUp.customHelp", { min: f.n(MIN_CUSTOM_BDT) })}
                     error={
-                      customTooLow
+                      problem === "too_low"
                         ? t("topUp.customError", { min: f.n(MIN_CUSTOM_BDT) })
-                        : undefined
+                        : problem === "too_high"
+                          ? t("topUp.customMaxError", {
+                              max: f.n(MAX_CUSTOM_BDT),
+                            })
+                          : undefined
                     }
                   />
                 </div>
@@ -240,7 +251,7 @@ export function WalletDesktop({ className }: { className?: string }) {
                   description: t(`topUp.methods.${m}`),
                 }))}
                 value={s.selection.method}
-                onValueChange={wallet.selectMethod}
+                onValueChange={walletActions.selectMethod}
               />
             </div>
             <div className="flex w-full shrink-0 flex-col gap-4 lg:w-order-summary-width">
@@ -272,7 +283,7 @@ export function WalletDesktop({ className }: { className?: string }) {
                   [
                     {
                       label: t("order.newBalance"),
-                      value: credits(balance + (q?.credits ?? 0)),
+                      value: loading(credits(balance + (q?.credits ?? 0))),
                     },
                     {
                       value: tc("money", {
@@ -290,7 +301,7 @@ export function WalletDesktop({ className }: { className?: string }) {
                       })
                     : t("order.chooseAmount")
                 }
-                payDisabled={!q}
+                payDisabled={!q || topUp.busy}
                 onPay={pay}
                 trust={[
                   { icon: "square-lock-02", label: t("order.secured") },
@@ -301,7 +312,12 @@ export function WalletDesktop({ className }: { className?: string }) {
                   },
                 ]}
               />
-              {!s.pro && (
+              {topUp.failed && (
+                <p role="alert" className="type-ui text-error">
+                  {t("order.startFailed")}
+                </p>
+              )}
+              {!pro && (
                 <ProComparisonCard
                   title={t("proCard.title")}
                   columns={{ payg: t("proCard.payg"), pro: t("proCard.pro") }}
@@ -357,10 +373,7 @@ export function WalletDesktop({ className }: { className?: string }) {
             <button
               type="button"
               onClick={() =>
-                downloadText(
-                  t("payments.csv.file"),
-                  csv(paymentsNewestFirst(s), csvHeader),
-                )
+                downloadText(t("payments.csv.file"), csv(payments, csvHeader))
               }
               className={cx(
                 "inline-flex min-h-pro-compare-pill-h items-center gap-1-5 rounded-xs type-wallet-link text-blue hover:underline",
@@ -379,34 +392,34 @@ export function WalletDesktop({ className }: { className?: string }) {
                 topUp: t("payments.columns.topUp"),
                 status: t("payments.columns.status"),
               }}
-              rows={paymentsNewestFirst(s).map((p) => ({
+              rows={payments.map((p) => ({
                 id: p.id,
                 date: t("payments.date", {
-                  date: f.date(p.at),
-                  time: f.time(p.at),
+                  date: f.date(p.createdAt),
+                  time: f.time(p.createdAt),
                 }),
                 topUp: t(p.kind === "pro" ? "payments.pro" : "payments.topUp", {
                   amount: f.n(p.bdt),
                   method: f.method(p.method),
                 }),
                 status:
-                  p.status === "succeeded"
+                  p.status === "paid"
                     ? { label: t("payments.added"), tone: "success" }
                     : { label: t("payments.failed"), tone: "error" },
                 action:
-                  p.status === "succeeded"
+                  p.status === "paid"
                     ? {
                         label: t("payments.receipt"),
                         icon: "download-01",
                         onClick: () =>
                           downloadText(
                             t("payments.csv.receiptFile", {
-                              reference: p.reference,
+                              reference: reference(p),
                             }),
                             csv([p], csvHeader),
                           ),
                       }
-                    : p.kind === "top-up"
+                    : p.kind === "topup"
                       ? {
                           label: t("payments.tryAgain"),
                           onClick: () => retry(p),
@@ -418,7 +431,10 @@ export function WalletDesktop({ className }: { className?: string }) {
           </div>
         </section>
       </main>
-      <WalletDialogs />
+      {/* The dialogs read ?payment= from the URL. */}
+      <Suspense>
+        <WalletDialogs />
+      </Suspense>
     </div>
   );
 }

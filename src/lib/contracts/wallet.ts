@@ -32,6 +32,8 @@ export const PacksResponse = z.object({
   packs: z.array(PackSchema),
   /** Smallest custom amount, BDT. */
   minCustomBdt: z.number(),
+  /** Largest custom amount, BDT (more is the Teams plan). */
+  maxCustomBdt: z.number(),
   pro: z.object({ bdt: z.number(), credits: z.number() }),
 });
 export type PacksResponse = z.infer<typeof PacksResponse>;

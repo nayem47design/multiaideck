@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormatter, useLocale, useTranslations } from "next-intl";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import { Icon } from "@/components/atoms/Icon";
 import { cx, focusRing } from "@/components/atoms/states";
@@ -10,9 +10,11 @@ import { AccountMenuList } from "@/components/organisms/AccountMenuList";
 import { EasyReadingCard } from "@/components/organisms/EasyReadingCard";
 import { LanguageSheet } from "@/components/organisms/LanguageSheet";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
+import { api } from "@/lib/api-client";
+import { WalletResponse } from "@/lib/contracts/wallet";
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
-import { DEMO_USER } from "@/lib/mock/demo";
-import { DEMO_USAGE_SUMMARY, type TextSize } from "@/lib/mock/settings";
+import { displayName, initialsOf, me, nationalPhone, useMe } from "@/lib/me";
+import type { TextSize } from "@/lib/mock/settings";
 
 import { useOverlay } from "../../../_shell/overlays";
 import { useTextSize } from "./textSize";
@@ -20,9 +22,9 @@ import { useTextSize } from "./textSize";
 // Figma: M15 · Account & settings (the Account tab root, below 768px), with M39's language sheet.
 // The profile card goes to Privacy & security, as in the prototype.
 
-/** "1712 345 214" → "+880 17•• ••• 214", as on M15. */
+/** "+8801712345214" → "+880 17•• ••• 214", as on M15. */
 function maskPhone(phone: string) {
-  const groups = phone.split(" ");
+  const groups = nationalPhone(phone).split(" ");
   return [
     "+880",
     groups[0].slice(0, 2) + "••",
@@ -42,6 +44,20 @@ export function AccountHome({ className }: { className?: string }) {
   const [textSize, setTextSize] = useTextSize();
   const [sheetOpen, setSheetOpen] = useState(false);
   const [language, setLanguage] = useState(locale);
+  const { user } = useMe();
+  // "N credits this month" from the wallet summary; left blank until it answers.
+  const [spent, setSpent] = useState<number>();
+  useEffect(() => {
+    let live = true;
+    api("/api/wallet", { schema: WalletResponse })
+      .then((w) => {
+        if (live) setSpent(w.spentThisMonth.credits);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
 
   // Pages stay mounted (hidden) after navigation; don't come back to an open sheet.
   useLayoutEffect(() => () => setSheetOpen(false), []);
@@ -51,9 +67,9 @@ export function AccountHome({ className }: { className?: string }) {
       <MobileTopBar title={t("title")} />
       <div className="flex flex-col gap-3 px-mobile-gutter pt-1 pb-[calc(var(--tab-bar-height)+var(--space-6))]">
         <AccountProfileRow
-          initials={DEMO_USER.initials}
-          name={DEMO_USER.name}
-          detail={maskPhone(DEMO_USER.phone)}
+          initials={user ? initialsOf(user) : ""}
+          name={user ? displayName(user) : ""}
+          detail={user?.phone ? maskPhone(user.phone) : (user?.email ?? "")}
           link={<Link href="/settings/privacy" aria-label={t("openProfile")} />}
         />
         <EasyReadingCard
@@ -84,9 +100,12 @@ export function AccountHome({ className }: { className?: string }) {
               id: "usage",
               icon: "chart-histogram",
               label: t("rows.usage"),
-              value: t("rows.usageValue", {
-                credits: format.number(DEMO_USAGE_SUMMARY.credits),
-              }),
+              value:
+                spent === undefined
+                  ? undefined
+                  : t("rows.usageValue", {
+                      credits: format.number(Math.round(spent)),
+                    }),
               link: <Link href="/settings/usage" />,
             },
             {
@@ -148,8 +167,13 @@ export function AccountHome({ className }: { className?: string }) {
         doneLabel={t("language.done")}
         onDone={() => {
           setSheetOpen(false);
-          if (language !== locale)
+          if (language !== locale) {
+            // Saved to the account too, so sign-in and SMS use it.
+            api("/api/me", { method: "PATCH", body: { locale: language } })
+              .then(() => me.refresh())
+              .catch(() => {});
             router.replace(pathname, { locale: language });
+          }
         }}
       />
     </div>

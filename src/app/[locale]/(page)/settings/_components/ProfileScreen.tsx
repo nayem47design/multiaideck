@@ -10,8 +10,9 @@ import { Select } from "@/components/molecules/Select";
 import { SettingsHeading } from "@/components/molecules/SettingsHeading";
 import { IdentityCard } from "@/components/organisms/IdentityCard";
 import { PreferencesCard } from "@/components/organisms/PreferencesCard";
+import { api } from "@/lib/api-client";
 import { usePathname, useRouter } from "@/lib/i18n/navigation";
-import { DEMO_USER } from "@/lib/mock/demo";
+import { initialsOf, me, useMe } from "@/lib/me";
 
 import { useOverlay } from "../../../_shell/overlays";
 import { useDeleteAccount } from "./DeleteAccount";
@@ -24,16 +25,21 @@ import { type Preferences, useSettings } from "./SettingsState";
 
 export function ProfileScreen({ className }: { className?: string }) {
   const t = useTranslations("settings.profile");
+  const ta = useTranslations("account");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const { openOverlay } = useOverlay();
   const openDelete = useDeleteAccount();
   const { profile, saveProfile, showToast } = useSettings();
+  const { user } = useMe();
 
-  const [name, setName] = useState(profile.name);
-  const [prefs, setPrefs] = useState<Preferences>(profile.preferences);
+  // Unset = not edited: show what's saved (it arrives after the first render).
+  const [nameEdit, setName] = useState<string>();
+  const [prefsEdit, setPrefs] = useState<Preferences>();
   const [saving, setSaving] = useState(false);
+  const name = nameEdit ?? profile.name;
+  const prefs = prefsEdit ?? profile.preferences;
 
   const nameChanged = name !== profile.name;
   const prefsChanged = (Object.keys(prefs) as (keyof Preferences)[]).some(
@@ -44,7 +50,7 @@ export function ProfileScreen({ className }: { className?: string }) {
   const setPref = <K extends keyof Preferences>(
     key: K,
     value: Preferences[K],
-  ) => setPrefs((p) => ({ ...p, [key]: value }));
+  ) => setPrefs({ ...prefs, [key]: value });
 
   const segmented = (
     label: string,
@@ -74,7 +80,7 @@ export function ProfileScreen({ className }: { className?: string }) {
           <IdentityCard
             responsive
             title={t("identity.title")}
-            initials={DEMO_USER.initials}
+            initials={user ? initialsOf(user) : ""}
             name={name}
             changePhoto={{
               label: t("identity.changePhoto"),
@@ -89,8 +95,10 @@ export function ProfileScreen({ className }: { className?: string }) {
             }}
             email={{
               label: t("identity.email"),
-              value: DEMO_USER.email,
-              verifiedLabel: t("identity.verified"),
+              value: user?.email ?? (user ? t("identity.noEmail") : ""),
+              verifiedLabel: user?.emailVerified
+                ? t("identity.verified")
+                : undefined,
               change: {
                 label: t("identity.change"),
                 onClick: () => showToast(t("identity.emailSoon")),
@@ -112,7 +120,13 @@ export function ProfileScreen({ className }: { className?: string }) {
                     { value: "en", label: t("preferences.english") },
                     { value: "bn", label: t("preferences.bangla") },
                   ],
-                  (next) => router.replace(pathname, { locale: next }),
+                  (next) => {
+                    // Saved to the account too, so sign-in and SMS use it.
+                    api("/api/me", { method: "PATCH", body: { locale: next } })
+                      .then(() => me.refresh())
+                      .catch(() => showToast(ta("languageFailed"), "error"));
+                    router.replace(pathname, { locale: next });
+                  },
                 ),
               },
               {
@@ -211,8 +225,8 @@ export function ProfileScreen({ className }: { className?: string }) {
             discardLabel={t("save.discard")}
             saving={saving}
             onDiscard={() => {
-              setName(profile.name);
-              setPrefs(profile.preferences);
+              setName(undefined);
+              setPrefs(undefined);
             }}
             onSave={() => {
               const trimmed = name.trim();
@@ -221,13 +235,14 @@ export function ProfileScreen({ className }: { className?: string }) {
                 return;
               }
               setSaving(true);
-              // Demo: saving is instant; the backend lands in Phase 6.
-              setTimeout(() => {
-                saveProfile({ name: trimmed, preferences: prefs });
-                setName(trimmed);
-                setSaving(false);
-                showToast(t("save.saved"));
-              }, 400);
+              saveProfile({ name: trimmed, preferences: prefs })
+                .then(() => {
+                  setName(undefined);
+                  setPrefs(undefined);
+                  showToast(t("save.saved"));
+                })
+                .catch(() => showToast(t("save.failed"), "error"))
+                .finally(() => setSaving(false));
             }}
           />
         )}
