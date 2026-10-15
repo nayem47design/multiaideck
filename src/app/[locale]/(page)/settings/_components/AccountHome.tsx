@@ -8,6 +8,8 @@ import { cx, focusRing } from "@/components/atoms/states";
 import { AccountProfileRow } from "@/components/molecules/AccountProfileRow";
 import { AccountMenuList } from "@/components/organisms/AccountMenuList";
 import { EasyReadingCard } from "@/components/organisms/EasyReadingCard";
+import type { ThemePreference } from "@/lib/theme";
+import { useThemePreference } from "@/lib/use-theme";
 import { LanguageSheet } from "@/components/organisms/LanguageSheet";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
 import { api } from "@/lib/api-client";
@@ -35,6 +37,7 @@ function maskPhone(phone: string) {
 
 export function AccountHome({ className }: { className?: string }) {
   const t = useTranslations("account");
+  const [theme, setTheme] = useThemePreference();
   const tc = useTranslations("common.language");
   const format = useFormatter();
   const locale = useLocale();
@@ -82,6 +85,17 @@ export function AccountHome({ className }: { className?: string }) {
           value={textSize}
           onValueChange={(v) => setTextSize(v as TextSize)}
           help={t("reading.help")}
+        />
+        <EasyReadingCard
+          title={t("appearance.title")}
+          label={t("appearance.theme")}
+          options={(["system", "light", "dark"] as const).map((v) => ({
+            value: v,
+            label: t(`appearance.${v}`),
+          }))}
+          value={theme}
+          onValueChange={(v) => setTheme(v as ThemePreference)}
+          help={t("appearance.help")}
         />
         <AccountMenuList
           items={[

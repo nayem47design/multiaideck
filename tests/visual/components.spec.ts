@@ -14,7 +14,10 @@ const SKIP = new Set(["button", "screens"]); // own specs
 
 // Figma component frames that are narrower than their own content, so Figma's export overlaps
 // itself. They are checked inside their screens instead.
-const NOT_COMPARABLE: Record<string, string> = {};
+const NOT_COMPARABLE: Record<string, string> = {
+  "model-picker-modal/default":
+    "Intentionally smaller than Figma (product owner): 88% of its width, at most 85% of the window's height. Figma frame to be updated.",
+};
 
 // Variants whose pixels cannot be compared with their Figma export; only the size is checked.
 const SIZE_ONLY: Record<string, string> = {};

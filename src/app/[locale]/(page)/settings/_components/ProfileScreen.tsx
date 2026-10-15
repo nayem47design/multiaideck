@@ -13,6 +13,8 @@ import { PreferencesCard } from "@/components/organisms/PreferencesCard";
 import { api } from "@/lib/api-client";
 import { usePathname, useRouter } from "@/lib/i18n/navigation";
 import { initialsOf, me, useMe } from "@/lib/me";
+import type { ThemePreference } from "@/lib/theme";
+import { useThemePreference } from "@/lib/use-theme";
 
 import { useOverlay } from "../../../_shell/overlays";
 import { useDeleteAccount } from "./DeleteAccount";
@@ -25,6 +27,7 @@ import { type Preferences, useSettings } from "./SettingsState";
 
 export function ProfileScreen({ className }: { className?: string }) {
   const t = useTranslations("settings.profile");
+  const [theme, setTheme] = useThemePreference();
   const ta = useTranslations("account");
   const locale = useLocale();
   const router = useRouter();
@@ -127,6 +130,19 @@ export function ProfileScreen({ className }: { className?: string }) {
                       .catch(() => showToast(ta("languageFailed"), "error"));
                     router.replace(pathname, { locale: next });
                   },
+                ),
+              },
+              {
+                title: t("preferences.theme"),
+                help: t("preferences.themeHelp"),
+                control: segmented(
+                  t("preferences.theme"),
+                  theme,
+                  (["system", "light", "dark"] as const).map((v) => ({
+                    value: v,
+                    label: t(`preferences.themes.${v}`),
+                  })),
+                  (v) => setTheme(v as ThemePreference),
                 ),
               },
               {

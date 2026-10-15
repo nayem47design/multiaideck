@@ -49,7 +49,15 @@
       "delete": "Delete account",
       "failed": "Couldn’t delete your account. Try again."
     },
-    "languageFailed": "Couldn’t save your language. It’s changed on this device only."
+    "languageFailed": "Couldn’t save your language. It’s changed on this device only.",
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark",
+      "help": "System follows your phone’s light or dark setting."
+    }
   },
   "accountMenu": {
     "settings": "Settings",
@@ -1011,7 +1019,14 @@
         "density": "Text density",
         "densityHelp": "How much fits on screen.",
         "comfortable": "Comfortable",
-        "compact": "Compact"
+        "compact": "Compact",
+        "theme": "Theme",
+        "themeHelp": "System follows your device’s light or dark setting.",
+        "themes": {
+          "system": "System",
+          "light": "Light",
+          "dark": "Dark"
+        }
       },
       "account": {
         "label": "Account",

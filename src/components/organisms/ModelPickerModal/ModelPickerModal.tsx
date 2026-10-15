@@ -82,13 +82,14 @@ export interface ModelPickerPanelProps {
   inDialog?: boolean;
 }
 
+// Model and tags shrink (from their Figma widths) when the panel is narrower than Figma's 1000px.
 const COLS = {
-  check: "w-10",
-  model: "w-picker-col-model",
-  version: "w-picker-col-version",
-  tags: "w-picker-col-tags",
-  speed: "w-picker-col-speed",
-  cost: "w-picker-col-cost justify-end text-right",
+  check: "w-10 shrink-0",
+  model: "min-w-0 grow-0 shrink basis-picker-col-model",
+  version: "w-picker-col-version shrink-0",
+  tags: "min-w-0 grow-0 shrink basis-picker-col-tags flex-wrap",
+  speed: "w-picker-col-speed shrink-0",
+  cost: "w-picker-col-cost shrink-0 justify-end text-right",
 };
 
 function Row({
@@ -112,21 +113,21 @@ function Row({
         selected && "bg-blue-soft",
       )}
     >
-      <span className={cx("flex shrink-0", COLS.check)}>
+      <span className={cx("flex", COLS.check)}>
         <Checkbox
           checked={selected}
           onCheckedChange={(v) => onToggle(m.id, v === true)}
           aria-label={m.name}
         />
       </span>
-      <span className={cx("flex shrink-0 items-center gap-3", COLS.model)}>
+      <span className={cx("flex items-center gap-3", COLS.model)}>
         <ModelOrb model={m.model} />
         <span className="flex flex-col">
           <span className="type-nav-item-selected text-ink">{m.name}</span>
           <span className="type-caption text-ink-3">{m.provider}</span>
         </span>
       </span>
-      <span className={cx("flex shrink-0", COLS.version)}>
+      <span className={cx("flex", COLS.version)}>
         <Select
           label={labels.version(m.name)}
           options={m.versions}
@@ -135,7 +136,7 @@ function Row({
           className="w-picker-version-width"
         />
       </span>
-      <span className={cx("flex shrink-0 gap-1-5", COLS.tags)}>
+      <span className={cx("flex gap-1-5", COLS.tags)}>
         {m.tags.map((t) => (
           <span
             key={t}
@@ -148,7 +149,7 @@ function Row({
           </span>
         ))}
       </span>
-      <span aria-hidden className={cx("flex shrink-0 gap-1", COLS.speed)}>
+      <span aria-hidden className={cx("flex gap-1", COLS.speed)}>
         {[1, 2, 3].map((i) => (
           <span
             key={i}
@@ -159,7 +160,7 @@ function Row({
           />
         ))}
       </span>
-      <span className={cx("flex shrink-0 type-stepper text-ink", COLS.cost)}>
+      <span className={cx("flex type-stepper text-ink", COLS.cost)}>
         {m.cost}
       </span>
     </div>
@@ -205,7 +206,10 @@ export function ModelPickerPanel({
   );
 
   return (
-    <div className="flex h-picker-height w-picker-width flex-col overflow-hidden rounded-2xl bg-surface shadow-dialog">
+    // Smaller than Figma's 1000×820 at the product owner's request: at most 88% of Figma's width,
+    // 85% of the window's height, and the window's width minus a margin. The header and footer
+    // actions stay visible; only the model list scrolls.
+    <div className="flex max-h-[min(var(--picker-height),85dvh)] w-[min(calc(var(--picker-width)*0.88),calc(100vw-2*var(--space-6)))] flex-col overflow-hidden rounded-2xl bg-surface shadow-dialog">
       <header className="flex gap-3 pt-6 pr-5 pb-4 pl-6">
         <div className="flex flex-1 flex-col gap-1">
           <Title className="type-dialog-title text-ink">{labels.title}</Title>
@@ -297,15 +301,12 @@ export function ModelPickerPanel({
 
       <div role="table" className="min-h-0 flex-1 overflow-y-auto px-5">
         <div role="row" className="flex h-control-sm items-center px-3 py-2">
-          <span className={cx("shrink-0", COLS.check)} />
+          <span className={COLS.check} />
           {(["model", "version", "tags", "speed", "cost"] as const).map((k) => (
             <span
               key={k}
               role="columnheader"
-              className={cx(
-                "flex shrink-0 type-sidebar-section text-ink-3",
-                COLS[k],
-              )}
+              className={cx("flex type-sidebar-section text-ink-3", COLS[k])}
             >
               {labels.columns[k]}
             </span>
@@ -320,29 +321,33 @@ export function ModelPickerPanel({
           type="button"
           onClick={onReset}
           className={cx(
-            "rounded-xs type-label text-ink-2 hover:text-ink",
+            "shrink-0 rounded-xs type-label whitespace-nowrap text-ink-2 hover:text-ink",
             focusRing,
           )}
         >
           {labels.reset}
         </button>
-        <span className="flex items-center gap-1-5 pl-4 type-caption text-ink-3">
-          <Icon name="information-circle" className="size-select-icon" />
+        <span className="flex min-w-0 flex-1 items-center gap-1-5 pl-4 type-caption text-ink-3">
+          <Icon
+            name="information-circle"
+            className="size-select-icon shrink-0"
+          />
           {labels.hint}
         </span>
-        <span className="flex-1" />
         <button
           type="button"
           onClick={onSavePreset}
           className={cx(
-            "inline-flex h-10 items-center rounded-pill px-4 type-label text-ink ring-1 ring-line ring-inset",
+            "inline-flex h-10 shrink-0 items-center rounded-pill px-4 type-label whitespace-nowrap text-ink ring-1 ring-line ring-inset",
             stateLayer,
             focusRing,
           )}
         >
           {labels.savePreset}
         </button>
-        <Button onClick={onApply}>{labels.apply}</Button>
+        <Button onClick={onApply} className="shrink-0 whitespace-nowrap">
+          {labels.apply}
+        </Button>
       </footer>
     </div>
   );
