@@ -32,3 +32,6 @@ npm-debug.log*
 
 # personal Claude Code settings
 .claude/settings.local.json
+
+# local embedded database
+/.data
