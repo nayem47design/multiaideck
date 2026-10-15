@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "tokens": "node scripts/generate-tokens.mjs && prettier --write src/styles/*.css src/styles/tokens.generated.ts",
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint",
     "format": "prettier --write .",

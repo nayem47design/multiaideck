@@ -9,3 +9,4 @@ docs
 multiaideck-starter
 /*.md
 .agent
+src/styles/figma

@@ -1,8 +1,11 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
+@import "../styles/theme.css";
 @import "../styles/typography.css";
+@import "../styles/effects.css";
 
-/* Tokens only: turn off Tailwind's default palette. Theme values come from tokens.css in Phase 3. */
-@theme {
-  --color-*: initial;
+body {
+  background-color: var(--lum-canvas);
+  color: var(--lum-ink);
+  font-family: var(--font-sans);
 }

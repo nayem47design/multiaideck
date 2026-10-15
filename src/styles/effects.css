@@ -1,0 +1,39 @@
+/*
+ * Glass and elevation utilities, built only from tokens.
+ * Figma: "Glass = a glass/* fill token + a Glass/* effect style. Cards use solid surface + Elevation/Card."
+ */
+
+/* Solid lum/surface first; glass only where blur is supported and transparency is allowed. */
+@utility glass {
+  background-color: var(--lum-surface);
+  box-shadow: var(--shadow-glass);
+
+  @supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0)) {
+    background-color: var(--glass-fill);
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    backdrop-filter: blur(var(--blur-glass));
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: var(--lum-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@utility glass-strong {
+  background-color: var(--lum-surface);
+  box-shadow: var(--shadow-glass-strong);
+
+  @supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0)) {
+    background-color: var(--glass-fill-strong);
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    backdrop-filter: blur(var(--blur-glass));
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: var(--lum-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
