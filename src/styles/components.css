@@ -233,6 +233,260 @@
   --hero-art-width: 150px; /* Home hero › Model constellation */
   --hero-art-height: 80px; /* Home hero › Model constellation */
   --composer-width: 880px; /* Composer › State=Default */
+  --auth-pad: 120px; /* Desktop · Sign in › Promise */
+  --auth-promise-w: 520px; /* Desktop · Sign in › Promise */
+  --auth-promise-body-w: 480px; /* Desktop · Sign in › Promise › Ask in English or Bangla. MultiAIDeck as */
+  --auth-point-gap: 10px; /* Desktop · Sign in › Promise › Point */
+  --auth-or-gap: 10px; /* Desktop · Sign in › Sign in card › or */
+  --auth-card-w: 440px; /* Desktop · Sign in › Sign in card */
+  --auth-card-pad: var(
+    --size-control-sm
+  ); /* Desktop · Sign in › Sign in card */
+  --auth-phone-h: 52px; /* Desktop · Sign in › Sign in card › Phone field */
+  --auth-phone-radius: 16px; /* Desktop · Sign in › Sign in card › Phone field */
+  --auth-phone-gap: 10px; /* Desktop · Sign in › Sign in card › Phone field */
+  --auth-phone-pad-mobile: 14px; /* M16 · Sign in: phone number › Content › Phone field */
+  --auth-country-pad: 10px; /* Desktop · Sign in › Sign in card › Phone field › Country */
+  --auth-phone-h-mobile: 60px; /* M16 · Sign in: phone number › Content › Phone field */
+  --auth-phone-mobile-radius: 18px; /* M16 · Sign in: phone number › Content › Phone field */
+  --auth-country-h: var(
+    --size-control-md
+  ); /* Desktop · Sign in › Sign in card › Phone field › Country */
+  --auth-country-radius: var(
+    --radius-sm
+  ); /* Desktop · Sign in › Sign in card › Phone field › Country */
+  --auth-country-h-mobile: var(
+    --space-10
+  ); /* M16 · Sign in: phone number › Content › Phone field › Country */
+  --auth-country-mobile-radius: 12px; /* M16 · Sign in: phone number › Content › Phone field › Country */
+  --auth-button-h: var(
+    --space-12
+  ); /* Desktop · Sign in › Sign in card › Button · Send code */
+  --auth-button-h-mobile: var(
+    --space-14
+  ); /* M16 · Sign in: phone number › Bottom › Button · Send code */
+  --auth-google-h-mobile: 52px; /* M16 · Sign in: phone number › Bottom › Button · Continue with Google */
+  --code-box-h: var(
+    --space-14
+  ); /* Desktop · Enter code › Code card › Code boxes › Digit 1 */
+  --code-box-h-mobile: 60px; /* M17 · Enter the code › Content › Code boxes › Digit 1 */
+  --language-gap: 10px; /* M1 · Welcome & language › Bottom › Language */
+  --language-option-h: 60px; /* M1 · Welcome & language › Bottom › Language › Option · English */
+  --language-option-radius: 18px; /* M1 · Welcome & language › Bottom › Language › Option · English */
+  --language-option-pad: 18px; /* M1 · Welcome & language › Bottom › Language › Option · English */
+  --language-check: var(
+    --space-6
+  ); /* M1 · Welcome & language › Bottom › Language › Option · English › check */
+  --browse-main-w: 860px; /* Chats › Main */
+  --browse-top: var(--space-10); /* Chats › Main */
+  --browse-search-h: var(--space-12); /* Chats › Main › Search */
+  --choice-pill-h: 34px; /* Chats › Main › Filters › Filter · All */
+  --choice-pill-pad: 14px; /* Chats › Main › Filters › Filter · All */
+  --choice-pill-h-lg: var(
+    --space-10
+  ); /* M21 · Make a picture › Picture sheet › Styles › Style · Photo */
+  --chats-list-pad: var(--space-2); /* Chats › Main › List */
+  --chats-row-h: 60px; /* Chats › Main › List › Chat · Coffee shop names */
+  --chats-row-gap: 14px; /* Chats › Main › List › Chat · Coffee shop names */
+  --chats-row-time-w: var(
+    --space-16
+  ); /* Chats › Main › List › Chat · Coffee shop names › 11:40 */
+  --chats-row-orbs-w: 52px; /* Chats › Main › List › Chat · Coffee shop names › orbs */
+  --chats-row-h-mobile: 68px; /* M14 · Chats › List › Chat · Coffee shop names */
+  --chats-row-mobile-radius: 18px; /* M14 · Chats › List › Chat · Coffee shop names */
+  --chats-row-orbs-w-mobile: var(
+    --size-control-lg
+  ); /* M14 · Chats › List › Chat · Coffee shop names › orbs */
+  --search-overlay-w: 640px; /* Overlay · Search chats */
+  --search-query-h: 52px; /* Overlay · Search chats › Query */
+  --search-query-pad: 14px; /* Overlay · Search chats › Query */
+  --search-query-gap: 10px; /* Overlay · Search chats › Query */
+  --search-query-radius: 16px; /* Overlay · Search chats › Query */
+  --search-result-h: var(
+    --space-14
+  ); /* Overlay · Search chats › Result · Coffee shop names */
+  --browse-gap: 18px; /* Image studio › Main */
+  --images-tile-radius: 18px; /* Image studio › Main › Recent › Picture 1 */
+  --images-picture-w: 520px; /* Image studio · Picture ready › Main › Body › Picture (generated image placeholder) */
+  --images-picture-pad: var(
+    --size-control-sm
+  ); /* Image studio · Picture ready › Main › Body › Picture (generated image placeholder) */
+  --images-side-w: 316px; /* Image studio · Picture ready › Main › Body › Side */
+  --page-button-h: var(
+    --space-12
+  ); /* Image studio · Picture ready › Main › Body › Side › Button · Download */
+  --images-sheet-gap: 14px; /* M21 · Make a picture › Picture sheet */
+  --images-describe-radius: 18px; /* M21 · Make a picture › Picture sheet › Describe */
+  --images-action-gap: 10px; /* M22 · Picture ready › Actions */
+  --images-describe-h: 96px; /* M21 · Make a picture › Picture sheet › Describe */
+  --images-describe-pad: 14px; /* M21 · Make a picture › Picture sheet › Describe */
+  --images-action-h-mobile: 52px; /* M22 · Picture ready › Actions › row › Button · Save to phone */
+  --preset-card-pad: var(
+    --size-icon-md
+  ); /* Presets › Main › Grid › Preset · Recommended */
+  --preset-card-gap: 10px; /* Presets › Main › Grid › Preset · Recommended */
+  --preset-tag-pad: 10px; /* Presets › Main › Grid › Preset · Recommended › top › tag */
+  --preset-action-pad: 14px; /* Presets › Main › Grid › Preset · Recommended › actions › Button · Use */
+  --chat-column: 760px; /* Best answer › Best answer card */
+  --chat-thinking-pad: 28px; /* Thinking · Best answer › Thinking card */
+  --chat-thinking-row: 52px; /* Thinking · Best answer › Thinking card › AI · GPT-5 */
+  --chat-thinking-row-radius: 16px; /* Thinking · Best answer › Thinking card › AI · GPT-5 */
+  --chat-stop-pad: 18px; /* Thinking · Best answer › Thinking card › Footer › Button · Stop */
+  --chat-writing-gap: 14px; /* Thinking · Compare › Writing · GPT-5 */
+  --chat-writing-header-gap: 10px; /* Thinking · Compare › Writing · GPT-5 › Header */
+  --chat-orbs-sm-w: 60px; /* Thinking · Best answer › Thinking card › h › Model constellation */
+  --chat-orbs-sm-small: 22.4px; /* Thinking · Best answer › Thinking card › h › Model constellation › AI orb#0 */
+  --chat-orbs-sm-big: 28.8px; /* Thinking · Best answer › Thinking card › h › Model constellation › AI orb#2 */
+  --chat-orbs-md-w: 75px; /* M20 · AIs are thinking › Thinking › Model constellation */
+  --chat-orbs-md-small: 28px; /* M20 · AIs are thinking › Thinking › Model constellation › AI orb#0 */
+  --chat-orbs-md-big: var(
+    --size-control-md
+  ); /* M20 · AIs are thinking › Thinking › Model constellation › AI orb#2 */
+  --chat-orbs-lg-w: 93px; /* M2 · Home › Hero › Model constellation */
+  --chat-orbs-lg-small: 34.7px; /* M2 · Home › Hero › Model constellation › AI orb#0 */
+  --chat-orbs-lg-big: 44.6px; /* M2 · Home › Hero › Model constellation › AI orb#2 */
+  --chat-orbs-xl-w: 150px; /* M4 · Voice: listening › Listening › Model constellation */
+  --chat-orbs-xl-small: var(
+    --space-14
+  ); /* M4 · Voice: listening › Listening › Model constellation › AI orb#0 */
+  --chat-orbs-xl-big: 72px; /* M4 · Voice: listening › Listening › Model constellation › AI orb#2 */
+  --chat-card-tall: 494px; /* Compare › Answer card */
+  --chat-card: 438px; /* Compare · Prompt 2: 1 of 3 answered › Answer card · GPT-5 */
+  --chat-card-short: 388px; /* Compare · Writing prompt 3: who gets it? › Answer card · GPT-5 */
+  --chat-summary-height: 46px; /* Compare · Prompt 2: 1 of 3 answered › Prompt 1 (collapsed) */
+  --chat-summary-radius: 16px; /* Compare · Prompt 2: 1 of 3 answered › Prompt 1 (collapsed) */
+  --chat-summary-pad-y: 10px; /* Compare · Prompt 2: 1 of 3 answered › Prompt 1 (collapsed) */
+  --chat-summary-chip: var(
+    --space-6
+  ); /* Compare · Prompt 2: 1 of 3 answered › Prompt 1 (collapsed) › Result · Claude · 1.4 cr */
+  --chat-summary-chip-pad: 10px; /* Compare · Prompt 2: 1 of 3 answered › Prompt 1 (collapsed) › Result · Claude · 1.4 cr */
+  --chat-recipients-pad-y: 10px; /* Compare · Writing prompt 3: who gets it? › Follow-up recipients */
+  --chat-m-thinking-gap: 14px; /* M20 · AIs are thinking › Thinking */
+  --chat-m-thinking-row: var(
+    --space-14
+  ); /* M20 · AIs are thinking › Thinking › Progress › AI · GPT-5 */
+  --chat-m-button: 52px; /* M20 · AIs are thinking › Stop › Button · Stop */
+  --chat-m-composer-gap: 10px; /* M2 · Home › Mobile composer */
+  --chat-m-composer-pad-x: 14px; /* M2 · Home › Mobile composer */
+  --chat-m-voice-note-h: 28px; /* M18 · Voice: check your words › Mobile composer › From voice */
+  --chat-m-voice-note-pad: 10px; /* M18 · Voice: check your words › Mobile composer › From voice */
+  --chat-m-file-radius: 16px; /* M19 · File attached › Mobile composer › File · Menu-draft.pdf */
+  --chat-m-file-gap: 10px; /* M19 · File attached › Mobile composer › File · Menu-draft.pdf */
+  --chat-m-tab-height: var(
+    --space-14
+  ); /* M6 · Compare: one answer at a time › Model tabs › Tab · GPT-5 */
+  --chat-m-tab-pad-x: 10px; /* M6 · Compare: one answer at a time › Model tabs › Tab · GPT-5 */
+  --chat-m-selected-width: 1.5px; /* M6 · Compare: one answer at a time › Model tabs › Tab · Claude */
+  --chat-m-card-header-gap: 10px; /* M6 · Compare: one answer at a time › Answer card · Claude › Header */
+  --chat-m-card-pad-y: 14px; /* M6 · Compare: one answer at a time › Answer card · Claude › Body */
+  --chat-m-failed-gap: 14px; /* M8 · Compare: an AI couldn’t answer › Answer card · GPT-5 (failed) */
+  --chat-m-refund-pad-y: 10px; /* M8 · Compare: an AI couldn’t answer › Answer card · GPT-5 (failed) › Refund */
+  --chat-m-bubble: 270px; /* M5 · Best answer › You */
+  --chat-sheet-pad-bottom: var(
+    --space-3
+  ); /* M3 · “+” sheet: add photos & files › Add sheet */
+  --chat-m-option-height: 68px; /* M3 · “+” sheet: add photos & files › Add sheet › Option · Take a photo */
+  --chat-m-option-gap: 14px; /* M3 · “+” sheet: add photos & files › Add sheet › Option · Take a photo */
+  --chat-m-choice-radius: 18px; /* M7 · How should we answer? (mode & AIs) › Mode sheet › Mode · Best answer */
+  --chat-m-choice-pad: 14px; /* M7 · How should we answer? (mode & AIs) › Mode sheet › Mode · Best answer */
+  --chat-m-tag: 22px; /* M7 · How should we answer? (mode & AIs) › Mode sheet › Mode · Best answer › t › tr › tag */
+  --chat-m-radio-width: 2px; /* M7 · How should we answer? (mode & AIs) › Mode sheet › Mode · Compare › radio */
+  --chat-m-pill-pad: 14px; /* M7 · How should we answer? (mode & AIs) › Mode sheet › AIs used › Presets › Preset · Cheapest */
+  --chat-m-model-row: 62px; /* M25 · Choose AIs › Choose AIs sheet › AI · GPT-5 */
+  --chat-m-check-radius: 7px; /* M25 · Choose AIs › Choose AIs sheet › AI · GPT-5 › check */
+  --chat-m-starter-radius: 18px; /* M2 · Home › Try one › Starter · Write in Bangla */
+  --chat-m-tile-radius: 12px; /* M2 · Home › Try one › Starter · Write in Bangla › tile */
+  --chat-m-switch-pad: 3px; /* M2 · Home › Top row › Language switch */
+  --chat-voice-done: 80px; /* M4 · Voice: listening › Controls › Done › Tap · tick */
+  --chat-voice-done-icon: var(
+    --size-control-sm
+  ); /* M4 · Voice: listening › Controls › Done › Tap · tick › Icon/tick-02 */
+  --chat-voice-icon: 28px; /* M4 · Voice: listening › Controls › Cancel › Tap · cancel › Icon/cancel-01 */
+  --chat-voice-bar: 5px; /* M4 · Voice: listening › Listening › Waveform › Rectangle */
+  --settings-save-bar-width: 560px; /* Settings · Profile › Save bar */
+  --usage-period-height: 34px; /* Settings · Usage › Period */
+  --usage-stat-pad: var(
+    --size-icon-md
+  ); /* Settings · Usage › Usage summary › Stat/CREDITS SPENT */
+  --usage-chart-height: 150px; /* Settings · Usage › Daily spend card › Bars · Oct 1–14 */
+  --usage-chart-bar-width: var(
+    --size-icon-md
+  ); /* Settings · Usage › Daily spend card › Bars · Oct 1–14 › Oct 14#0 */
+  --usage-chart-bar-max: 96px; /* Settings · Usage › Daily spend card › Bars · Oct 1–14 › Oct 14#0 */
+  --usage-chart-bar-empty: var(
+    --space-0-5
+  ); /* Settings · Usage › Daily spend card › Bars · Oct 1–14 › Oct 2 */
+  --usage-chart-label-height: var(
+    --size-icon-sm
+  ); /* Settings · Usage › Daily spend card › Bars · Oct 1–14 › Oct 1#1 */
+  --help-contact-pad: var(
+    --size-icon-md
+  ); /* Settings · Help & support › Content › Contact › Contact · Chat with us */
+  --help-contact-gap: 10px; /* Settings · Help & support › Content › Contact › Contact · Chat with us */
+  --help-contact-tile: var(
+    --size-control-lg
+  ); /* Settings · Help & support › Content › Contact › Contact · Chat with us › tile */
+  --help-contact-tile-radius: 12px; /* Settings · Help & support › Content › Contact › Contact · Chat with us › tile */
+  --help-contact-tile-icon: var(
+    --size-icon-md
+  ); /* M42 · Help & support › Content › Contact › Contact · Chat with us › tile › Icon/bubble-chat */
+  --help-contact-button-height: var(
+    --space-10
+  ); /* Settings · Help & support › Content › Contact › Contact · Chat with us › Button · Start chat */
+  --help-contact-button-pad: 18px; /* Settings · Help & support › Content › Contact › Contact · Chat with us › Button · Start chat */
+  --help-faq-pad: var(
+    --space-1-5
+  ); /* Settings · Help & support › Content › FAQ */
+  --help-faq-row-height: 52px; /* Settings · Help & support › Content › FAQ › Q · Why didn’t one of the AIs answer? */
+  --help-faq-row-pad: 14px; /* Settings · Help & support › Content › FAQ › Q · Why didn’t one of the AIs answer? */
+  --help-faq-icon: 18px; /* Settings · Help & support › Content › FAQ › Q · Can I ask in Bangla? › Icon/arrow-down-01 */
+  --sign-out-width: 480px; /* Overlay · Sign out */
+  --sign-out-pad: 28px; /* Overlay · Sign out */
+  --sign-out-gap: 14px; /* Overlay · Sign out */
+  --sign-out-actions-gap: 10px; /* Overlay · Sign out › Actions */
+  --acct-card-pad: var(
+    --size-icon-sm
+  ); /* M15 · Account & settings › Content › Reading */
+  --acct-profile-pad: 14px; /* M15 · Account & settings › Content › Profile */
+  --acct-profile-avatar: var(
+    --space-12
+  ); /* M15 · Account & settings › Content › Profile › avatar */
+  --acct-profile-chevron: var(
+    --size-icon-md
+  ); /* M15 · Account & settings › Content › Profile › Icon/arrow-right-01 */
+  --acct-row-height: var(
+    --space-14
+  ); /* M15 · Account & settings › Content › Settings list › Row · Language */
+  --acct-row-icon: 22px; /* M15 · Account & settings › Content › Settings list › Row · Language › Icon/globe-02 */
+  --acct-row-chevron: 18px; /* M15 · Account & settings › Content › Settings list › Row · Language › Icon/arrow-right-01 */
+  --acct-sign-out-height: var(
+    --space-12
+  ); /* M15 · Account & settings › Content › Sign out */
+  --acct-text-size-options-height: var(
+    --space-12
+  ); /* M15 · Account & settings › Content › Reading › Text size › Size options */
+  --acct-text-size-option-height: var(
+    --space-10
+  ); /* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Large */
+  --acct-usage-card-pad: 18px; /* M13 · Usage › Content › Total */
+  --acct-usage-track: var(
+    --space-2
+  ); /* M13 · Usage › Content › By AI › AI · GPT-5 › track */
+  --acct-usage-track-radius: 4px; /* M13 · Usage › Content › By AI › AI · GPT-5 › track */
+  --acct-period-height: var(--space-10); /* M13 · Usage › Top bar › Period */
+  --acct-sheet-pad-top: var(--space-3); /* M39 · Language › Language sheet */
+  --acct-sheet-grabber-width: var(
+    --space-10
+  ); /* M39 · Language › Language sheet › Grabber row › grabber */
+  --acct-sheet-grabber-height: var(
+    --space-1
+  ); /* M39 · Language › Language sheet › Grabber row › grabber */
+  --acct-sheet-gap: 10px; /* M39 · Language › Language sheet */
+  --acct-sheet-option-height: var(
+    --space-16
+  ); /* M39 · Language › Language sheet › Option · English */
+  --acct-sheet-option-radius: 18px; /* M39 · Language › Language sheet › Option · English */
+  --acct-sheet-button-height: 52px; /* M39 · Language › Language sheet › Button · Done */
   --field-app-1-w: 980px; /* Home › Light field › light field#0 */
   --field-app-1-h: 600px; /* Home › Light field › light field#0 */
   --field-app-1-x: 380px; /* Home › Light field › light field#0 */
@@ -317,6 +571,64 @@
   --mobile-gutter: var(--size-icon-sm); /* M5 · Best answer › Answer */
   --screen-desktop: 1440px; /* Home */
   --screen-mobile: 360px; /* M2 · Home */
+  --pro-compare-row-h: var(
+    --size-control-sm
+  ); /* Wallet › B · Order summary + Pro › Pro comparison › compare › row */
+  --pro-compare-col-1: 80px; /* Wallet › B · Order summary + Pro › Pro comparison › compare › row › c */
+  --pro-compare-col-2: 110px; /* Wallet › B · Order summary + Pro › Pro comparison › compare › row › c#1 */
+  --pro-compare-col-3: 130px; /* Wallet › B · Order summary + Pro › Pro comparison › compare › row › c#2 */
+  --pro-compare-table-radius: 12px; /* Wallet › B · Order summary + Pro › Pro comparison › compare */
+  --pro-compare-pill-h: 34px; /* Wallet › B · Order summary + Pro › Pro comparison › Pill/See Pro details */
+  --usage-link-radius: var(--radius-lg); /* Wallet › Usage link */
+  --go-pro-width: 560px; /* Overlay · Go Pro */
+  --go-pro-pad: 28px; /* Overlay · Go Pro */
+  --go-pro-gap: 14px; /* Overlay · Go Pro */
+  --go-pro-crown: 22px; /* Overlay · Go Pro › top › t › Icon/crown */
+  --go-pro-plan-radius: 18px; /* Overlay · Go Pro › Compare plans › Plan · Pay as you go */
+  --go-pro-button-pad: 18px; /* Overlay · Go Pro › Actions › Button · Not now */
+  --go-pro-actions-gap: 10px; /* Overlay · Go Pro › Actions */
+  --pro-on-icon: 80px; /* Overlay · Pro is on › icon */
+  --pro-on-crown: var(
+    --size-control-md
+  ); /* Overlay · Pro is on › icon › Icon/crown */
+  --m-content-gap: var(--space-3); /* M10 · Wallet › Content */
+  --m-card-gap: var(--space-1-5); /* M10 · Wallet › Content › Balance */
+  --m-chip-h: 28px; /* M10 · Wallet › Content › Balance › Never expire */
+  --m-chip-pad: 10px; /* M10 · Wallet › Content › Balance › Never expire */
+  --m-chip-icon: 14px; /* M10 · Wallet › Content › Balance › Never expire › Icon/tick-02 */
+  --m-button-h: 52px; /* M10 · Wallet › Content › Balance › Button · Add credits */
+  --m-button-lg-h: var(
+    --space-14
+  ); /* M11 · Add credits: amount & bKash › Pay bar › Button · Pay ৳699 with bKash */
+  --m-row-radius: 18px; /* M10 · Wallet › Content › Row · Spent this month */
+  --m-row-pad-x: 14px; /* M10 · Wallet › Content › Row · Spent this month */
+  --m-row-pad-y: var(
+    --space-3
+  ); /* M10 · Wallet › Content › Row · Spent this month */
+  --m-row-min-h: 68px; /* M10 · Wallet › Content › Row · Spent this month */
+  --m-tile: var(
+    --space-10
+  ); /* M10 · Wallet › Content › Row · Spent this month › tile */
+  --m-tile-radius: 12px; /* M10 · Wallet › Content › Row · Spent this month › tile */
+  --m-hint-pad: var(
+    --size-icon-sm
+  ); /* M10 · Wallet › Content › How credits work */
+  --m-pack-h: 60px; /* M11 · Add credits: amount & bKash › Content › Pack · ৳99 */
+  --m-pack-pad: 14px; /* M11 · Add credits: amount & bKash › Content › Pack · ৳99 */
+  --m-radio: 22px; /* M11 · Add credits: amount & bKash › Content › Pack · ৳99 › radio */
+  --m-content-gap-sm: 10px; /* M11 · Add credits: amount & bKash › Content */
+  --m-method-h: 84px; /* M11 · Add credits: amount & bKash › Content › Methods › Method · bKash */
+  --m-pay-bar-pad-y: 14px; /* M11 · Add credits: amount & bKash › Pay bar */
+  --m-hero-icon: 88px; /* M12 · Payment received › Success › check */
+  --m-hero-icon-inner: 60px; /* M12 · Payment received › Success › check › in */
+  --m-hero-glyph: var(
+    --size-control-sm
+  ); /* M12 · Payment received › Success › check › in › Icon/tick-02 */
+  --m-hero-top: 110px; /* M12 · Payment received › Success */
+  --m-receipt-pad: 18px; /* M12 · Payment received › Receipt */
+  --m-logo: 72px; /* M34 · Finish payment in bKash › Waiting › bKash logo slot */
+  --m-step: 28px; /* M34 · Finish payment in bKash › Waiting › Steps › Step 1 › n */
+  --m-history-status-h: 26px; /* M36 · Payment history › List › Payment · Today, 11:52 AM › top › status */
   --page-width: 1120px; /* Template/Settings shell (÷ 0.75) */
   --checkout-main-width: 728px; /* Template/Full page with checkout (÷ 0.75) */
   --app-main-top: 68px; /* Template/App shell (÷ 0.75) */
@@ -481,6 +793,174 @@
   --spacing-hero-art-width: var(--hero-art-width);
   --spacing-hero-art-height: var(--hero-art-height);
   --spacing-composer-width: var(--composer-width);
+  --spacing-auth-pad: var(--auth-pad);
+  --spacing-auth-promise-w: var(--auth-promise-w);
+  --spacing-auth-promise-body-w: var(--auth-promise-body-w);
+  --spacing-auth-point-gap: var(--auth-point-gap);
+  --spacing-auth-or-gap: var(--auth-or-gap);
+  --spacing-auth-card-w: var(--auth-card-w);
+  --spacing-auth-card-pad: var(--auth-card-pad);
+  --spacing-auth-phone-h: var(--auth-phone-h);
+  --radius-auth-phone: var(--auth-phone-radius);
+  --spacing-auth-phone-gap: var(--auth-phone-gap);
+  --spacing-auth-phone-pad-mobile: var(--auth-phone-pad-mobile);
+  --spacing-auth-country-pad: var(--auth-country-pad);
+  --spacing-auth-phone-h-mobile: var(--auth-phone-h-mobile);
+  --radius-auth-phone-mobile: var(--auth-phone-mobile-radius);
+  --spacing-auth-country-h: var(--auth-country-h);
+  --radius-auth-country: var(--auth-country-radius);
+  --spacing-auth-country-h-mobile: var(--auth-country-h-mobile);
+  --radius-auth-country-mobile: var(--auth-country-mobile-radius);
+  --spacing-auth-button-h: var(--auth-button-h);
+  --spacing-auth-button-h-mobile: var(--auth-button-h-mobile);
+  --spacing-auth-google-h-mobile: var(--auth-google-h-mobile);
+  --spacing-code-box-h: var(--code-box-h);
+  --spacing-code-box-h-mobile: var(--code-box-h-mobile);
+  --spacing-language-gap: var(--language-gap);
+  --spacing-language-option-h: var(--language-option-h);
+  --radius-language-option: var(--language-option-radius);
+  --spacing-language-option-pad: var(--language-option-pad);
+  --spacing-language-check: var(--language-check);
+  --spacing-browse-main-w: var(--browse-main-w);
+  --spacing-browse-top: var(--browse-top);
+  --spacing-browse-search-h: var(--browse-search-h);
+  --spacing-choice-pill-h: var(--choice-pill-h);
+  --spacing-choice-pill-pad: var(--choice-pill-pad);
+  --spacing-choice-pill-h-lg: var(--choice-pill-h-lg);
+  --spacing-chats-list-pad: var(--chats-list-pad);
+  --spacing-chats-row-h: var(--chats-row-h);
+  --spacing-chats-row-gap: var(--chats-row-gap);
+  --spacing-chats-row-time-w: var(--chats-row-time-w);
+  --spacing-chats-row-orbs-w: var(--chats-row-orbs-w);
+  --spacing-chats-row-h-mobile: var(--chats-row-h-mobile);
+  --radius-chats-row-mobile: var(--chats-row-mobile-radius);
+  --spacing-chats-row-orbs-w-mobile: var(--chats-row-orbs-w-mobile);
+  --spacing-search-overlay-w: var(--search-overlay-w);
+  --spacing-search-query-h: var(--search-query-h);
+  --spacing-search-query-pad: var(--search-query-pad);
+  --spacing-search-query-gap: var(--search-query-gap);
+  --radius-search-query: var(--search-query-radius);
+  --spacing-search-result-h: var(--search-result-h);
+  --spacing-browse-gap: var(--browse-gap);
+  --radius-images-tile: var(--images-tile-radius);
+  --spacing-images-picture-w: var(--images-picture-w);
+  --spacing-images-picture-pad: var(--images-picture-pad);
+  --spacing-images-side-w: var(--images-side-w);
+  --spacing-page-button-h: var(--page-button-h);
+  --spacing-images-sheet-gap: var(--images-sheet-gap);
+  --radius-images-describe: var(--images-describe-radius);
+  --spacing-images-action-gap: var(--images-action-gap);
+  --spacing-images-describe-h: var(--images-describe-h);
+  --spacing-images-describe-pad: var(--images-describe-pad);
+  --spacing-images-action-h-mobile: var(--images-action-h-mobile);
+  --spacing-preset-card-pad: var(--preset-card-pad);
+  --spacing-preset-card-gap: var(--preset-card-gap);
+  --spacing-preset-tag-pad: var(--preset-tag-pad);
+  --spacing-preset-action-pad: var(--preset-action-pad);
+  --spacing-chat-column: var(--chat-column);
+  --spacing-chat-thinking-pad: var(--chat-thinking-pad);
+  --spacing-chat-thinking-row: var(--chat-thinking-row);
+  --radius-chat-thinking-row: var(--chat-thinking-row-radius);
+  --spacing-chat-stop-pad: var(--chat-stop-pad);
+  --spacing-chat-writing-gap: var(--chat-writing-gap);
+  --spacing-chat-writing-header-gap: var(--chat-writing-header-gap);
+  --spacing-chat-orbs-sm-w: var(--chat-orbs-sm-w);
+  --spacing-chat-orbs-sm-small: var(--chat-orbs-sm-small);
+  --spacing-chat-orbs-sm-big: var(--chat-orbs-sm-big);
+  --spacing-chat-orbs-md-w: var(--chat-orbs-md-w);
+  --spacing-chat-orbs-md-small: var(--chat-orbs-md-small);
+  --spacing-chat-orbs-md-big: var(--chat-orbs-md-big);
+  --spacing-chat-orbs-lg-w: var(--chat-orbs-lg-w);
+  --spacing-chat-orbs-lg-small: var(--chat-orbs-lg-small);
+  --spacing-chat-orbs-lg-big: var(--chat-orbs-lg-big);
+  --spacing-chat-orbs-xl-w: var(--chat-orbs-xl-w);
+  --spacing-chat-orbs-xl-small: var(--chat-orbs-xl-small);
+  --spacing-chat-orbs-xl-big: var(--chat-orbs-xl-big);
+  --spacing-chat-card-tall: var(--chat-card-tall);
+  --spacing-chat-card: var(--chat-card);
+  --spacing-chat-card-short: var(--chat-card-short);
+  --spacing-chat-summary-height: var(--chat-summary-height);
+  --radius-chat-summary: var(--chat-summary-radius);
+  --spacing-chat-summary-pad-y: var(--chat-summary-pad-y);
+  --spacing-chat-summary-chip: var(--chat-summary-chip);
+  --spacing-chat-summary-chip-pad: var(--chat-summary-chip-pad);
+  --spacing-chat-recipients-pad-y: var(--chat-recipients-pad-y);
+  --spacing-chat-m-thinking-gap: var(--chat-m-thinking-gap);
+  --spacing-chat-m-thinking-row: var(--chat-m-thinking-row);
+  --spacing-chat-m-button: var(--chat-m-button);
+  --spacing-chat-m-composer-gap: var(--chat-m-composer-gap);
+  --spacing-chat-m-composer-pad-x: var(--chat-m-composer-pad-x);
+  --spacing-chat-m-voice-note-h: var(--chat-m-voice-note-h);
+  --spacing-chat-m-voice-note-pad: var(--chat-m-voice-note-pad);
+  --radius-chat-m-file: var(--chat-m-file-radius);
+  --spacing-chat-m-file-gap: var(--chat-m-file-gap);
+  --spacing-chat-m-tab-height: var(--chat-m-tab-height);
+  --spacing-chat-m-tab-pad-x: var(--chat-m-tab-pad-x);
+  --spacing-chat-m-card-header-gap: var(--chat-m-card-header-gap);
+  --spacing-chat-m-card-pad-y: var(--chat-m-card-pad-y);
+  --spacing-chat-m-failed-gap: var(--chat-m-failed-gap);
+  --spacing-chat-m-refund-pad-y: var(--chat-m-refund-pad-y);
+  --spacing-chat-m-bubble: var(--chat-m-bubble);
+  --spacing-chat-sheet-pad-bottom: var(--chat-sheet-pad-bottom);
+  --spacing-chat-m-option-height: var(--chat-m-option-height);
+  --spacing-chat-m-option-gap: var(--chat-m-option-gap);
+  --radius-chat-m-choice: var(--chat-m-choice-radius);
+  --spacing-chat-m-choice-pad: var(--chat-m-choice-pad);
+  --spacing-chat-m-tag: var(--chat-m-tag);
+  --spacing-chat-m-pill-pad: var(--chat-m-pill-pad);
+  --spacing-chat-m-model-row: var(--chat-m-model-row);
+  --radius-chat-m-check: var(--chat-m-check-radius);
+  --radius-chat-m-starter: var(--chat-m-starter-radius);
+  --radius-chat-m-tile: var(--chat-m-tile-radius);
+  --spacing-chat-m-switch-pad: var(--chat-m-switch-pad);
+  --spacing-chat-voice-done: var(--chat-voice-done);
+  --spacing-chat-voice-done-icon: var(--chat-voice-done-icon);
+  --spacing-chat-voice-icon: var(--chat-voice-icon);
+  --spacing-chat-voice-bar: var(--chat-voice-bar);
+  --spacing-settings-save-bar-width: var(--settings-save-bar-width);
+  --spacing-usage-period-height: var(--usage-period-height);
+  --spacing-usage-stat-pad: var(--usage-stat-pad);
+  --spacing-usage-chart-height: var(--usage-chart-height);
+  --spacing-usage-chart-bar-width: var(--usage-chart-bar-width);
+  --spacing-usage-chart-bar-max: var(--usage-chart-bar-max);
+  --spacing-usage-chart-bar-empty: var(--usage-chart-bar-empty);
+  --spacing-usage-chart-label-height: var(--usage-chart-label-height);
+  --spacing-help-contact-pad: var(--help-contact-pad);
+  --spacing-help-contact-gap: var(--help-contact-gap);
+  --spacing-help-contact-tile: var(--help-contact-tile);
+  --radius-help-contact-tile: var(--help-contact-tile-radius);
+  --spacing-help-contact-tile-icon: var(--help-contact-tile-icon);
+  --spacing-help-contact-button-height: var(--help-contact-button-height);
+  --spacing-help-contact-button-pad: var(--help-contact-button-pad);
+  --spacing-help-faq-pad: var(--help-faq-pad);
+  --spacing-help-faq-row-height: var(--help-faq-row-height);
+  --spacing-help-faq-row-pad: var(--help-faq-row-pad);
+  --spacing-help-faq-icon: var(--help-faq-icon);
+  --spacing-sign-out-width: var(--sign-out-width);
+  --spacing-sign-out-pad: var(--sign-out-pad);
+  --spacing-sign-out-gap: var(--sign-out-gap);
+  --spacing-sign-out-actions-gap: var(--sign-out-actions-gap);
+  --spacing-acct-card-pad: var(--acct-card-pad);
+  --spacing-acct-profile-pad: var(--acct-profile-pad);
+  --spacing-acct-profile-avatar: var(--acct-profile-avatar);
+  --spacing-acct-profile-chevron: var(--acct-profile-chevron);
+  --spacing-acct-row-height: var(--acct-row-height);
+  --spacing-acct-row-icon: var(--acct-row-icon);
+  --spacing-acct-row-chevron: var(--acct-row-chevron);
+  --spacing-acct-sign-out-height: var(--acct-sign-out-height);
+  --spacing-acct-text-size-options-height: var(--acct-text-size-options-height);
+  --spacing-acct-text-size-option-height: var(--acct-text-size-option-height);
+  --spacing-acct-usage-card-pad: var(--acct-usage-card-pad);
+  --spacing-acct-usage-track: var(--acct-usage-track);
+  --radius-acct-usage-track: var(--acct-usage-track-radius);
+  --spacing-acct-period-height: var(--acct-period-height);
+  --spacing-acct-sheet-pad-top: var(--acct-sheet-pad-top);
+  --spacing-acct-sheet-grabber-width: var(--acct-sheet-grabber-width);
+  --spacing-acct-sheet-grabber-height: var(--acct-sheet-grabber-height);
+  --spacing-acct-sheet-gap: var(--acct-sheet-gap);
+  --spacing-acct-sheet-option-height: var(--acct-sheet-option-height);
+  --radius-acct-sheet-option: var(--acct-sheet-option-radius);
+  --spacing-acct-sheet-button-height: var(--acct-sheet-button-height);
   --spacing-field-app-1-w: var(--field-app-1-w);
   --spacing-field-app-1-h: var(--field-app-1-h);
   --spacing-field-app-1-x: var(--field-app-1-x);
@@ -548,6 +1028,50 @@
   --spacing-mobile-gutter: var(--mobile-gutter);
   --spacing-screen-desktop: var(--screen-desktop);
   --spacing-screen-mobile: var(--screen-mobile);
+  --spacing-pro-compare-row-h: var(--pro-compare-row-h);
+  --spacing-pro-compare-col-1: var(--pro-compare-col-1);
+  --spacing-pro-compare-col-2: var(--pro-compare-col-2);
+  --spacing-pro-compare-col-3: var(--pro-compare-col-3);
+  --radius-pro-compare-table: var(--pro-compare-table-radius);
+  --spacing-pro-compare-pill-h: var(--pro-compare-pill-h);
+  --radius-usage-link: var(--usage-link-radius);
+  --spacing-go-pro-width: var(--go-pro-width);
+  --spacing-go-pro-pad: var(--go-pro-pad);
+  --spacing-go-pro-gap: var(--go-pro-gap);
+  --spacing-go-pro-crown: var(--go-pro-crown);
+  --radius-go-pro-plan: var(--go-pro-plan-radius);
+  --spacing-go-pro-button-pad: var(--go-pro-button-pad);
+  --spacing-go-pro-actions-gap: var(--go-pro-actions-gap);
+  --spacing-pro-on-icon: var(--pro-on-icon);
+  --spacing-pro-on-crown: var(--pro-on-crown);
+  --spacing-m-content-gap: var(--m-content-gap);
+  --spacing-m-card-gap: var(--m-card-gap);
+  --spacing-m-chip-h: var(--m-chip-h);
+  --spacing-m-chip-pad: var(--m-chip-pad);
+  --spacing-m-chip-icon: var(--m-chip-icon);
+  --spacing-m-button-h: var(--m-button-h);
+  --spacing-m-button-lg-h: var(--m-button-lg-h);
+  --radius-m-row: var(--m-row-radius);
+  --spacing-m-row-pad-x: var(--m-row-pad-x);
+  --spacing-m-row-pad-y: var(--m-row-pad-y);
+  --spacing-m-row-min-h: var(--m-row-min-h);
+  --spacing-m-tile: var(--m-tile);
+  --radius-m-tile: var(--m-tile-radius);
+  --spacing-m-hint-pad: var(--m-hint-pad);
+  --spacing-m-pack-h: var(--m-pack-h);
+  --spacing-m-pack-pad: var(--m-pack-pad);
+  --spacing-m-radio: var(--m-radio);
+  --spacing-m-content-gap-sm: var(--m-content-gap-sm);
+  --spacing-m-method-h: var(--m-method-h);
+  --spacing-m-pay-bar-pad-y: var(--m-pay-bar-pad-y);
+  --spacing-m-hero-icon: var(--m-hero-icon);
+  --spacing-m-hero-icon-inner: var(--m-hero-icon-inner);
+  --spacing-m-hero-glyph: var(--m-hero-glyph);
+  --spacing-m-hero-top: var(--m-hero-top);
+  --spacing-m-receipt-pad: var(--m-receipt-pad);
+  --spacing-m-logo: var(--m-logo);
+  --spacing-m-step: var(--m-step);
+  --spacing-m-history-status-h: var(--m-history-status-h);
   --spacing-page-width: var(--page-width);
   --spacing-checkout-main-width: var(--checkout-main-width);
   --spacing-app-main-top: var(--app-main-top);
@@ -984,7 +1508,510 @@
   @apply type-body-small;
 }
 
+/* Desktop · Sign in › Promise › One question.
+Three AIs.
+The best answer: Geist Light 48/56 ls -1.6 */
+@utility type-auth-hero {
+  font-family: var(--font-sans);
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 300;
+  letter-spacing: -1.6px;
+}
+
+/* M1 · Welcome & language › Content › One question.
+Three AIs.
+The best answer: Geist Light 30/38 ls -0.8 */
+@utility type-auth-hero-mobile {
+  font-family: var(--font-sans);
+  font-size: 30px;
+  line-height: 38px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* Desktop · Sign in › Sign in card › Sign in or create an account: Geist SemiBold 22/28 ls -0.2 */
+@utility type-auth-card-title {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* M16 · Sign in: phone number › Content › Sign in with your phone: Geist Light 28/36 ls -0.8 */
+@utility type-auth-mobile-title {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* Desktop · Sign in › Sign in card › Phone field › Country › +880: Geist Medium 15/20 ls -0.1 */
+@utility type-auth-country {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+/* M16 · Sign in: phone number › Content › Phone field › Country › +880: Geist Medium 17/20 ls -0.1 */
+@utility type-auth-country-mobile {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+/* Desktop · Sign in › Sign in card › Phone field › 1712 345 214: Geist Regular 17/27 ls -0.1 */
+@utility type-auth-phone {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 27px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* M16 · Sign in: phone number › Content › Phone field › 1712 345 214: Geist Regular 19/27 ls -0.1 */
+@utility type-auth-phone-mobile {
+  font-family: var(--font-sans);
+  font-size: 19px;
+  line-height: 27px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* Desktop · Sign in › Sign in card › Button · Send code › Send code: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-auth-button {
+  @apply type-auth-country;
+}
+
+/* M16 · Sign in: phone number › Bottom › Button · Send code › Send code: Geist Medium 16/20 ls -0.1 */
+@utility type-auth-button-mobile {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+/* M17 · Enter the code › Wrong number? Change it: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-auth-link-mobile {
+  @apply type-auth-country;
+}
+
+/* Desktop · Enter code › Code card › Code boxes › Digit 1 › 4: Geist Light 24/36 ls -0.8 */
+@utility type-code-digit {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* M17 · Enter the code › Content › Code boxes › Digit 1 › 4: Geist Light 26/36 ls -0.8 */
+@utility type-code-digit-mobile {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  line-height: 36px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* M1 · Welcome & language › Bottom › Language › Option · English › English: Geist Medium 18/20 ls -0.1 */
+@utility type-language-option {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+/* Chats › Main › Filters › Filter · All › All: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-choice-pill {
+  @apply type-ui-strong;
+}
+
+/* M21 · Make a picture › Picture sheet › Styles › Style · Photo › Photo: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-choice-pill-lg {
+  @apply type-auth-country;
+}
+
+/* Chats › Main › List › Group · Today › Today: Geist Medium 13/20 ls -0.1 */
+@utility type-chats-group {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+/* Chats › Main › List › Chat · Coffee shop names › Coffee shop names: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-chats-row-title {
+  @apply type-auth-country;
+}
+
+/* M14 · Chats › List › Chat · Coffee shop names › t › Coffee shop names: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */
+@utility type-chats-row-title-mobile {
+  @apply type-auth-button-mobile;
+}
+
+/* Overlay · Search chats › Query › coffee: Geist Regular 17/27 ls -0.1, same as type-auth-phone */
+@utility type-search-query {
+  @apply type-auth-phone;
+}
+
+/* Image studio › Main › Prompt box › A cosy coffee shop sign that says “Golpo: Geist Regular 17/27 ls -0.1, same as type-auth-phone */
+@utility type-images-prompt {
+  @apply type-auth-phone;
+}
+
+/* Image studio · Picture ready › Main › Body › Picture (generated image placeholder) › Golpo Coffee: Geist Light 44/36 ls -0.8 */
+@utility type-images-picture-caption {
+  font-family: var(--font-sans);
+  font-size: 44px;
+  line-height: 36px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* M22 · Picture ready › Golpo Coffee: Geist Light 34/36 ls -0.8 */
+@utility type-images-picture-caption-mobile {
+  font-family: var(--font-sans);
+  font-size: 34px;
+  line-height: 36px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* Image studio · Picture ready › Main › Head › Golpo Coffee sign: Geist SemiBold 22/28 ls -0.2, same as type-auth-card-title */
+@utility type-images-title {
+  @apply type-auth-card-title;
+}
+
+/* Image studio · Picture ready › Main › Body › Side › Your picture is ready: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */
+@utility type-images-ready {
+  @apply type-auth-button-mobile;
+}
+
+/* Presets › Main › Grid › Preset · Recommended › Recommended: Geist Medium 17/20 ls -0.1, same as type-auth-country-mobile */
+@utility type-preset-title {
+  @apply type-auth-country-mobile;
+}
+
+/* Presets › Main › Grid › Preset · Recommended › top › tag › In use: Geist Medium 12/20 ls -0.1 */
+@utility type-preset-tag {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+/* Presets › Main › Grid › Preset · Recommended › actions › Button · Use › Use: Geist Medium 13/20 ls -0.1, same as type-chats-group */
+@utility type-preset-action {
+  @apply type-chats-group;
+}
+
+/* Thinking · Best answer › Thinking card › h › t › Asking 3 AIs…: Geist SemiBold 22/28 ls -0.2, same as type-auth-card-title */
+@utility type-chat-thinking-title {
+  @apply type-auth-card-title;
+}
+
+/* Thinking · Best answer › Thinking card › AI · GPT-5 › GPT-5: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-chat-thinking-model {
+  @apply type-auth-country;
+}
+
+/* Thinking · Compare › Writing · GPT-5 › Header › t › GPT-5: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */
+@utility type-chat-writing-model {
+  @apply type-auth-button-mobile;
+}
+
+/* Thinking · Compare › Status bar › Asking 3 AIs…: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-chat-status-title {
+  @apply type-auth-country;
+}
+
+/* Thinking · Compare › Status bar › Button · Stop › Stop: Geist Medium 13/20 ls -0.1, same as type-chats-group */
+@utility type-chat-status-stop {
+  @apply type-chats-group;
+}
+
+/* M20 · AIs are thinking › Thinking › Progress › AI · GPT-5 › GPT-5: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */
+@utility type-chat-m-name {
+  @apply type-auth-button-mobile;
+}
+
+/* M5 · Best answer › Answer head › Best answer: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-chat-m-strong {
+  @apply type-auth-country;
+}
+
+/* M18 · Voice: check your words › Mobile composer › From voice › From your voice. Check the words, then t: Geist Medium 13/20 ls -0.1, same as type-chats-group */
+@utility type-chat-m-voice-note {
+  @apply type-chats-group;
+}
+
+/* M2 · Home › Hero › Good evening, Imam: Geist Light 28/36 ls -0.8, same as type-auth-mobile-title */
+@utility type-chat-m-greeting {
+  @apply type-auth-mobile-title;
+}
+
+/* M4 · Voice: listening › Listening › Listening…: Geist Light 28/36 ls -0.8, same as type-auth-mobile-title */
+@utility type-chat-m-voice-title {
+  @apply type-auth-mobile-title;
+}
+
+/* M4 · Voice: listening › Listening › Transcript › Give me coffee shop names that feel loca: Geist Regular 18/28 ls -0.1 */
+@utility type-chat-m-transcript {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* Settings · Profile › Profile: Geist Light 36/42 ls -1, same as type-stat */
+@utility type-settings-title {
+  @apply type-stat;
+}
+
+/* Settings · Profile › How you appear, and how MultiAI talks to you.: Geist Regular 15/22 ls 0 */
+@utility type-settings-subtitle {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Settings · Usage › Where your credits went: Geist Light 28/34 ls -0.6 */
+@utility type-settings-section-title {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+}
+
+/* Settings · Profile › Content › Account row › Account: Geist Medium 14/20 ls 0 */
+@utility type-settings-account-label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Settings · Profile › Content › Account row › Sign out: Geist Medium 13/18 ls 0, same as type-label */
+@utility type-settings-link {
+  @apply type-label;
+}
+
+/* Settings · Help & support › Content › Contact › Contact · Chat with us › Chat with us: Geist Medium 17/20 ls -0.1, same as type-auth-country-mobile */
+@utility type-help-contact-title {
+  @apply type-auth-country-mobile;
+}
+
+/* Settings · Help & support › Content › Contact › Contact · Chat with us › Button · Start chat › Start chat: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-help-contact-button {
+  @apply type-ui-strong;
+}
+
+/* Settings · Help & support › Content › Common questions: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-help-group-label {
+  @apply type-ui-strong;
+}
+
+/* Settings · Help & support › Content › FAQ › Q · Why didn’t one of the AIs answer? › Why didn’t one of the AIs answer?: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-help-faq-question {
+  @apply type-auth-country;
+}
+
+/* Overlay · Sign out › Sign out of MultiAI?: Geist SemiBold 20/28 ls -0.2 */
+@utility type-sign-out-title {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* M15 · Account & settings › Content › Settings list › Row · Language › Language: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */
+@utility type-acct-row-label {
+  @apply type-auth-button-mobile;
+}
+
+/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Normal › Default: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-acct-text-size-normal {
+  @apply type-ui-strong;
+}
+
+/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Larger › Extra large: Geist Medium 19/20 ls -0.1 */
+@utility type-acct-text-size-larger {
+  font-family: var(--font-sans);
+  font-size: 19px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+/* M13 · Usage › Content › Total › t › 26 credits: Geist Light 30/36 ls -0.8, same as type-title */
+@utility type-acct-usage-total {
+  @apply type-title;
+}
+
+/* M13 · Usage › Content › By AI › Which AIs used your credits: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-acct-card-title {
+  @apply type-auth-country;
+}
+
+/* M39 · Language › Language sheet › Option · English › t › English: Geist Medium 17/20 ls -0.1, same as type-auth-country-mobile */
+@utility type-acct-sheet-option-title {
+  @apply type-auth-country-mobile;
+}
+
 /* M2 · Home › Tab bar › Tab · Chats › Chats: Geist Medium 13/18 ls 0, same as type-label */
 @utility type-tab-label {
   @apply type-label;
+}
+
+/* Wallet › Wallet: Geist Light 40/46 ls -1.2 */
+@utility type-wallet-title {
+  font-family: var(--font-sans);
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 300;
+  letter-spacing: -1.2px;
+}
+
+/* Wallet › Your balance, top-ups and payments. Spending detail is in Settings → Usage.: Geist Regular 15/22 ls 0, same as type-settings-subtitle */
+@utility type-wallet-lede {
+  @apply type-settings-subtitle;
+}
+
+/* Wallet › Top up: Geist Light 28/34 ls -0.6, same as type-settings-section-title */
+@utility type-wallet-section {
+  @apply type-settings-section-title;
+}
+
+/* Wallet › Pay in taka with bKash, Nagad or card. Bigger packs include bonus credits.: Geist Regular 14/20 ls 0 */
+@utility type-wallet-section-lede {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Wallet › Export › Export CSV: Geist Medium 13/18 ls 0, same as type-label */
+@utility type-wallet-link {
+  @apply type-label;
+}
+
+/* Wallet › B · Order summary + Pro › Pro comparison › h › Use AI every day? Try Pro: Geist Medium 15/20 ls 0, same as type-title-small */
+@utility type-pro-compare-title {
+  @apply type-title-small;
+}
+
+/* Wallet › B · Order summary + Pro › Pro comparison › compare › row › c#1 › Pay as you go: Geist Medium 12/16 ls 0, same as type-caption-strong */
+@utility type-pro-compare-head {
+  @apply type-caption-strong;
+}
+
+/* Wallet › B · Order summary + Pro › Pro comparison › compare › row#1 › c › Price: Geist Regular 12/16 ls 0, same as type-caption */
+@utility type-pro-compare-cell {
+  @apply type-caption;
+}
+
+/* Overlay · Go Pro › price › ৳1,599: Geist Light 36/36 ls -0.8 */
+@utility type-go-pro-price {
+  font-family: var(--font-sans);
+  font-size: 36px;
+  line-height: 36px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* Overlay · Go Pro › Compare plans › Plan · Pay as you go › Pay as you go: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-go-pro-plan-title {
+  @apply type-auth-country;
+}
+
+/* Overlay · Go Pro › Actions › Button · Not now › Not now: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-go-pro-button {
+  @apply type-ui-strong;
+}
+
+/* Overlay · Pro is on › You’re on Pro: Geist Light 28/36 ls -0.8, same as type-auth-mobile-title */
+@utility type-pro-on-title {
+  @apply type-auth-mobile-title;
+}
+
+/* M10 · Wallet › Content › Balance › 10,684 credits: Geist Light 32/36 ls -0.8 */
+@utility type-m-balance-value {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* M10 · Wallet › Content › Balance › Never expire › Credits never expire: Geist Medium 13/20 ls -0.1, same as type-chats-group */
+@utility type-m-chip {
+  @apply type-chats-group;
+}
+
+/* M10 · Wallet › Content › Balance › Button · Add credits › Add credits: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */
+@utility type-m-button {
+  @apply type-auth-button-mobile;
+}
+
+/* M10 · Wallet › Content › Row · Spent this month › t › Spent this month: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-m-row-title {
+  @apply type-auth-country;
+}
+
+/* M11 · Add credits: amount & bKash › Content › 1. How much?: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-m-step-title {
+  @apply type-auth-country;
+}
+
+/* M11 · Add credits: amount & bKash › Content › Pack · ৳99 › ৳99: Geist Medium 17/20 ls -0.1, same as type-auth-country-mobile */
+@utility type-m-pack-price {
+  @apply type-auth-country-mobile;
+}
+
+/* M12 · Payment received › Success › Payment received: Geist Light 28/36 ls -0.8, same as type-auth-mobile-title */
+@utility type-m-hero-title {
+  @apply type-auth-mobile-title;
+}
+
+/* M12 · Payment received › Receipt › Line · In taka › about ৳875.74: Geist Regular 14/20 ls -0.1, same as type-ui */
+@utility type-m-receipt-value {
+  @apply type-ui;
+}
+
+/* M34 · Finish payment in bKash › Waiting › Steps › Step 1 › Opened bKash: Geist Medium 15/20 ls -0.1, same as type-auth-country */
+@utility type-m-step-label {
+  @apply type-auth-country;
+}
+
+/* M36 · Payment history › List › Payment · Today, 11:52 AM › top › ৳699 via bKash: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */
+@utility type-m-history-amount {
+  @apply type-auth-button-mobile;
+}
+
+/* M36 · Payment history › List › Payment · Today, 11:52 AM › action › Download receipt: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-m-link {
+  @apply type-ui-strong;
+}
+
+/* M37 · Go Pro › Content › Pro card › price › ৳1,599: Geist Light 32/36 ls -0.8, same as type-m-balance-value */
+@utility type-m-pro-price {
+  @apply type-m-balance-value;
 }

@@ -1,4 +1,356 @@
 {
+  "account": {
+    "title": "Account",
+    "openProfile": "Your profile and sign-in",
+    "reading": {
+      "title": "Easy reading",
+      "textSize": "Text size",
+      "normal": "Normal",
+      "large": "Large",
+      "larger": "Larger",
+      "help": "Answers and buttons get bigger. Works with your phone’s font size too."
+    },
+    "rows": {
+      "language": "Language",
+      "usage": "Usage",
+      "usageValue": "{credits} credits this month",
+      "notifications": "Notifications",
+      "privacy": "Privacy & security",
+      "help": "Help & support",
+      "helpValue": "Chat or call"
+    },
+    "signOut": "Sign out",
+    "language": {
+      "title": "App language",
+      "englishHelp": "Menus and buttons in English",
+      "banglaHelp": "মেনু ও বোতাম বাংলায়",
+      "note": "You can ask questions in either language, whatever you choose here.",
+      "done": "Done"
+    },
+    "signOutPrompt": {
+      "title": "Sign out of MultiAI?",
+      "body": "Your chats and {credits} credits stay safe. Sign in again any time with your phone number.",
+      "stay": "Stay signed in",
+      "confirm": "Sign out"
+    },
+    "deleteDialog": {
+      "title": "Delete your account?",
+      "body": "This can’t be undone. You will lose:",
+      "chatsLabel": "Chats",
+      "chats": "{count, plural, one {# chat} other {# chats}} and their history",
+      "creditsLabel": "Credits",
+      "credits": "{credits} credits ({money})",
+      "profileLabel": "Profile",
+      "profile": "Name, photo and preferences",
+      "download": "Download your data first",
+      "confirmLabel": "Type {word} to confirm",
+      "word": "DELETE",
+      "cancel": "Keep my account",
+      "delete": "Delete account"
+    }
+  },
+  "auth": {
+    "promise": {
+      "title": "One question.\nThree AIs.\nThe best answer.",
+      "body": "Ask in English or Bangla. MultiAI asks GPT, Claude and Gemini at once and shows you the best answer. You only pay, in taka, for answers you get.",
+      "points": {
+        "noSubscription": "No subscription needed. Top up with bKash, Nagad or card.",
+        "neverExpire": "Credits never expire.",
+        "notCharged": "If an AI can’t answer, you’re not charged."
+      }
+    },
+    "welcome": {
+      "body": "Ask in English or Bangla. You only pay, in taka, for answers you actually get.",
+      "chooseLanguage": "Choose your language",
+      "languageHelp": "You can change this any time in Account.",
+      "continue": "Continue",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "phone": {
+      "title": "Sign in or create an account",
+      "mobileTitle": "Sign in with your phone",
+      "subtitle": "We’ll text you a 6-digit code. No password.",
+      "mobileSubtitle": "We’ll send a 6-digit code by SMS. No password needed.",
+      "label": "Mobile number",
+      "help": "Mobile number (Bangladesh)",
+      "placeholder": "1XXX XXX XXX",
+      "prefix": "+880",
+      "country": "Bangladesh",
+      "send": "Send code",
+      "or": "or",
+      "google": "Continue with Google",
+      "terms": "By continuing you agree to the Terms and Privacy Policy.",
+      "invalid": "Enter your 10-digit mobile number, like 1712 345 214.",
+      "back": "Back"
+    },
+    "code": {
+      "title": "Enter the code",
+      "sentTo": "Sent by SMS to {phone}",
+      "label": "6-digit code",
+      "digit": "Digit {position}",
+      "resendIn": "Resend code in {time}",
+      "resend": "Resend code",
+      "autoFill": "The code fills in by itself on most phones.",
+      "verify": "Verify and continue",
+      "change": "Wrong number? Change it",
+      "back": "Back"
+    }
+  },
+  "chat": {
+    "titleMenu": "Chat options",
+    "back": "Back",
+    "copied": "Copied",
+    "thinking": {
+      "title": "Asking {count} AIs…",
+      "titleOne": "Asking {name}…",
+      "body": "Usually 5 to 15 seconds. You can keep browsing; the answer will wait in this chat.",
+      "bodyMobile": "Usually 5 to 15 seconds. You can leave this screen; the answer will wait for you.",
+      "slowMobile": "Two AIs are slower than usual. We’ll stop waiting after 30 seconds, and you won’t pay for them.",
+      "catchUpMobile": "{names} first read your earlier questions, so their answers make sense.",
+      "stop": "Stop",
+      "stopNote": "If you stop, you only pay for answers that finished.",
+      "progress": "{done} of {total} done",
+      "slow": "{count} AIs are slow. We stop waiting after 30 s; you won’t pay for them.",
+      "catchUp": "{names} first read your earlier prompts"
+    },
+    "status": {
+      "done": "Done in {seconds} s",
+      "writing": "Writing…",
+      "slow": "Taking longer than usual…",
+      "slowShort": "Taking longer…",
+      "unresponsive": "Not responding",
+      "catchingUp": "Catching up on earlier prompts…",
+      "catchingUpShort": "Catching up, then writing…"
+    },
+    "suggestion": {
+      "ready": "{count, plural, one {# answer ready.} other {# answers ready.}}",
+      "suggests": "MultiAI suggests {name}: most complete, mid cost.",
+      "why": "Why?",
+      "partial": "{answered} of {total} answered.",
+      "failedBoth": "{timedOut} timed out and {unavailable} was unavailable. Both refunded.",
+      "retryBoth": "Retry both · ≈ {credits} cr",
+      "stillUnavailable": "{name} is still unavailable and was refunded.",
+      "swap": "Swap {name}",
+      "independent": "Each answer is independent: {names} only saw your prompts. MultiAI suggests {name}."
+    },
+    "badge": {
+      "suggested": "Suggested",
+      "fastestCheapest": "Fastest · Cheapest",
+      "only": "Only answer",
+      "retried": "Answered on retry",
+      "caughtUp": "Caught up",
+      "failed": "Couldn’t answer"
+    },
+    "card": {
+      "close": "Close",
+      "copy": "Copy",
+      "retry": "Retry",
+      "helpful": "Helpful",
+      "notHelpful": "Not helpful",
+      "continue": "Continue with {name}",
+      "swapModel": "Swap model",
+      "retryWithCost": "Retry · ≈ {credits} cr",
+      "refunded": "Refunded · {credits} cr",
+      "timeout": "Timed out after 30 s.\n{provider} was slow to respond. Nothing was charged.",
+      "unavailable": "{name} was unavailable.\n{provider} reported an outage. Nothing was charged."
+    },
+    "metric": {
+      "seconds": "{value} s",
+      "tokens": "{value} tokens"
+    },
+    "receipt": {
+      "models": "This prompt: {count, plural, one {# model} other {# models}} · {credits} credits · ≈ BDT {money}",
+      "answers": "This prompt: {count, plural, one {# answer} other {# answers}} · {credits} credits · ≈ BDT {money}",
+      "cheapest": "Cheapest: {name} ({credits} cr)",
+      "refunded": "Refunded: {names} (0 cr)",
+      "catchUp": "Includes {credits} cr to catch {names} up on your earlier prompts"
+    },
+    "summary": {
+      "label": "Prompt {n}",
+      "result": "{name} · {credits} cr",
+      "refunded": "{name} · refunded",
+      "show": "Show",
+      "hide": "Hide"
+    },
+    "best": {
+      "title": "Best answer",
+      "builtFrom": "Built from {names}",
+      "seeAll": "See all {count} answers side by side",
+      "why": "Why this answer?",
+      "lead": "{name}:",
+      "source": "from {name}",
+      "fromCount": "from {count} AIs",
+      "sourceMobile": "· from {name}",
+      "cost": "{credits} credits",
+      "money": "(৳{amount})",
+      "seeAllMobile": "See all {count} answers"
+    },
+    "recipients": {
+      "message": "Not every AI answered last time. Send to:",
+      "all": "All {count}",
+      "allNote": "get your earlier prompts only",
+      "only": "Only {name}",
+      "catchUp": "Catch-up ≈ {credits} cr",
+      "title": "Not every AI answered last time",
+      "question": "Who should get “{prompt}”?",
+      "allAis": "All {count} AIs",
+      "allBody": "Any AI that missed first gets your earlier questions, so it understands.",
+      "onlyBody": "The one that answered. Cheaper and faster.",
+      "cost": "About {credits} credits (৳{money})",
+      "note": "Each AI answers on its own. They never see each other’s answers.",
+      "send": "Send"
+    },
+    "mobile": {
+      "youAsked": "You asked:",
+      "tabs": "Answers",
+      "page": "Answer {n} of {total}",
+      "tab": {
+        "suggested": "Suggested",
+        "cheapest": "Cheapest",
+        "cost": "{credits} cr",
+        "answered": "Answered",
+        "failed": "Didn’t answer",
+        "answeredNow": "Answered now",
+        "caughtUp": "Caught up"
+      },
+      "meta": "{seconds} seconds · {credits} credits (৳{money})",
+      "note": {
+        "suggested": "Suggested: most complete answer, mid cost",
+        "suggestedTaglines": "Suggested: clearest taglines",
+        "fastestCheapest": "Fastest and cheapest of the three",
+        "only": "Only answer this time. {count} AIs didn’t reply.",
+        "retried": "Answered when you tried again",
+        "caughtUp": "Caught up on your earlier questions first"
+      },
+      "use": "Use this answer",
+      "hint": {
+        "swipe": "Swipe for the next answer",
+        "partial": "{answered} of {total} answered · swipe to see the others",
+        "partialTo": "{answered} of {total} answered · swipe to see {name}",
+        "all": "All {total} answered · swipe for the next answer"
+      },
+      "failed": {
+        "timeoutTitle": "{name} couldn’t answer this time",
+        "timeoutBody": "It took too long to reply (over 30 seconds). This happens when an AI is busy.",
+        "unavailableTitle": "{name} isn’t available right now",
+        "unavailableBody": "{provider}’s service is having problems. Trying again now usually won’t help.",
+        "notCharged": "You were not charged for this.",
+        "tryAgain": "Try again · about {credits} credits",
+        "tryLater": "Try again later",
+        "askDifferent": "Ask a different AI"
+      }
+    },
+    "and": "{rest} and {last}"
+  },
+  "chats": {
+    "title": "Chats",
+    "newChat": "New chat",
+    "search": "Search your chats",
+    "searchShortcut": "⌘K",
+    "filters": {
+      "label": "Show",
+      "all": "All",
+      "best": "Best answer",
+      "compare": "Compare",
+      "image": "Images"
+    },
+    "pinned": "Pinned",
+    "meta": {
+      "compare": "Compare · {credits} cr",
+      "compareMany": "Compare · {prompts} prompts · {credits} cr",
+      "best": "Best answer · {credits} cr",
+      "image": "Image · {credits} cr"
+    },
+    "mobileMeta": {
+      "compare": "Compare · {count} AIs · {credits} credits",
+      "best": "Best answer · {credits} credits",
+      "image": "Image · {credits} credits"
+    },
+    "tip": "Tip: right-click a chat to rename, pin or delete it.",
+    "mobileTip": "Press and hold a chat to rename or delete it.",
+    "more": "More options for {title}",
+    "menu": {
+      "rename": "Rename",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "delete": "Delete"
+    },
+    "renameLabel": "Chat name",
+    "deleted": "Chat deleted",
+    "undo": "Undo",
+    "empty": {
+      "title": "Nothing here yet",
+      "body": "Chats of this kind will show up here.",
+      "action": "New chat"
+    }
+  },
+  "checkout": {
+    "dialog": {
+      "head": "Secure checkout · PayStation (simulated)",
+      "title": "{kind, select, card {Confirm your card payment} other {Approve in your {method} app}}",
+      "body": "{kind, select, card {We opened a secure card page. Check the amount and confirm there.} other {We sent a payment request. Open {method}, check the amount, and approve.}}",
+      "amount": "Amount",
+      "amountValue": "BDT {amount}",
+      "youGet": "You get",
+      "credits": "{credits} credits",
+      "method": "Method",
+      "approved": "I approved it",
+      "simulateFailure": "Simulate a failed payment",
+      "cancel": "Cancel"
+    },
+    "received": {
+      "title": "Payment received",
+      "body": "{credits} credits were added to your wallet.",
+      "paid": "Paid",
+      "paidValue": "BDT {amount} · {method}",
+      "added": "Added",
+      "newBalance": "New balance",
+      "backToChat": "Back to chat",
+      "viewReceipt": "View receipt"
+    },
+    "failed": {
+      "title": "Payment didn’t go through",
+      "body": "No money was taken from your {method} account. You can try again or choose another method.",
+      "tryAgain": "Try again",
+      "chooseAnother": "Choose another method"
+    },
+    "mobile": {
+      "paying": "Paying ৳{amount}",
+      "cancel": "Cancel",
+      "finishTitle": "Finish the payment in {method}",
+      "finishBody": "{kind, select, card {The secure card page has opened. Enter your card details there, then come back. This screen updates by itself.} other {The {method} app or page has opened. Enter your {method} PIN there, then come back. This screen updates by itself.}}",
+      "stepOpened": "Opened {method}",
+      "stepPin": "{kind, select, card {Confirm on the card page} other {Enter your PIN in {method}}}",
+      "stepAdded": "Credits added here",
+      "openAgain": "Open {method} again",
+      "cancelPayment": "Cancel payment",
+      "nothingCharged": "Nothing is charged until {method} confirms.",
+      "receivedBody": "{credits} credits added to your wallet.",
+      "newBalance": "New balance",
+      "credits": "{credits} credits",
+      "inTaka": "In taka",
+      "inTakaValue": "about ৳{amount}",
+      "youPaid": "You paid",
+      "youPaidValue": "৳{amount} with {method}",
+      "bonus": "Bonus",
+      "bonusValue": "+{credits} credits ({pct}%)",
+      "noBonus": "none",
+      "transactionId": "Transaction ID",
+      "date": "Date",
+      "dateValue": "{date}, {time}",
+      "startAsking": "Start asking",
+      "downloadReceipt": "Download receipt",
+      "failedBody": "{method} didn’t confirm the payment. No money was taken from your account.",
+      "reasons": "Common reasons",
+      "reasonPin": "{kind, select, card {Wrong card details or the time ran out} other {Wrong PIN or the time ran out}}",
+      "reasonBalance": "{kind, select, card {Not enough balance on the card} other {Not enough balance in {method}}}",
+      "reasonClosed": "{kind, select, card {The card page was closed too early} other {The {method} app was closed too early}}",
+      "tryAgain": "Try again",
+      "payAnotherWay": "Pay another way",
+      "help": "Money was taken? Get help"
+    }
+  },
   "common": {
     "brand": "MultiAI",
     "footnote": "MultiAI can make mistakes. Compare answers for important decisions.",
@@ -25,6 +377,143 @@
       "home": "Go to a new chat"
     }
   },
+  "composer": {
+    "label": "Message",
+    "placeholder": {
+      "home": "Ask anything, in English or Bangla…",
+      "followUp": "Ask a follow-up…",
+      "followUpAll": "Ask a follow-up to all {count} models…",
+      "followUpAllMobile": "Ask all {count} a follow-up…",
+      "files": "Ask about these files…",
+      "file": "Ask about this file…"
+    },
+    "attach": "Add photos & files",
+    "voice": "Voice",
+    "send": "Send",
+    "cancelVoice": "Cancel voice",
+    "doneVoice": "Done",
+    "modeGroup": "Answer mode",
+    "removeAttachment": "Remove {name}",
+    "voiceLanguage": "Voice language",
+    "modes": {
+      "best": "Best answer",
+      "compare": "Compare"
+    },
+    "models": "{count, plural, one {# model} other {# models}}",
+    "estimate": "≈ {min} to {max} cr",
+    "menu": {
+      "files": {
+        "title": "Add photos & files",
+        "description": "PDF, Word, Excel, images · up to 20 MB"
+      }
+    },
+    "listening": "Listening",
+    "fileMeta": "{type} · {size}",
+    "fileUploading": "Uploading · {percent}%",
+    "fileReady": "{type} · {size} · ready",
+    "voiceNote": "From your voice. Check the words, then tap Send.",
+    "sheet": {
+      "title": "Add to your question",
+      "description": "The AIs can read photos, PDFs, Word and Excel files.",
+      "camera": {
+        "title": "Take a photo",
+        "description": "Use your camera"
+      },
+      "gallery": {
+        "title": "Choose from gallery",
+        "description": "Photos and screenshots"
+      },
+      "file": {
+        "title": "Choose a file",
+        "description": "PDF, Word, Excel · up to 20 MB"
+      }
+    },
+    "voiceScreen": {
+      "title": "Listening…",
+      "cancel": "Cancel",
+      "done": "Done",
+      "pause": "Pause",
+      "resume": "Resume",
+      "hint": "Speak naturally. Tap Done, check the words, then send."
+    }
+  },
+  "home": {
+    "greeting": {
+      "morning": "Good morning, {name}",
+      "afternoon": "Good afternoon, {name}",
+      "evening": "Good evening, {name}"
+    },
+    "subtitle": "Ask once. Get the best answer from up to three models.",
+    "subtitleMobile": "Ask once. Get the best answer from 3 AIs.",
+    "explainer": {
+      "best": "Best answer asks 3 models in parallel and merges the strongest reply. You pay only for tokens used.",
+      "compare": "Compare asks 3 models in parallel and shows each answer side by side. You pay only for tokens used."
+    },
+    "starters": {
+      "compare": {
+        "title": "Compare three models",
+        "description": "See GPT, Claude and Gemini by side"
+      },
+      "bangla": {
+        "title": "Write in Bangla",
+        "description": "Draft, translate or polish বাংলা text"
+      },
+      "image": {
+        "title": "Create an image",
+        "description": "Open Image studio with a prompt"
+      }
+    },
+    "mobile": {
+      "tryOne": "Not sure what to ask? Try one",
+      "bangla": {
+        "title": "Write in Bangla",
+        "description": "বাংলা লেখা, অনুবাদ"
+      },
+      "compare": {
+        "title": "Compare 3 AI answers",
+        "description": "See them side by side"
+      },
+      "image": {
+        "title": "Make a picture",
+        "description": "Describe it, get an image"
+      },
+      "balance": "Your balance, open Wallet"
+    },
+    "banglaPrompt": "Write a short welcome message for my coffee shop in Bangla"
+  },
+  "images": {
+    "title": "Image studio",
+    "mobileTitle": "Make a picture",
+    "intro": "Describe a picture and an image AI will make it. Each picture costs about {credits} credits ({money}).",
+    "prompt": "Describe your picture",
+    "placeholder": "Describe the picture you want, in English or Bangla…",
+    "style": "Style",
+    "styles": {
+      "photo": "Photo",
+      "drawing": "Drawing",
+      "logo": "Logo",
+      "poster": "Poster"
+    },
+    "cost": "≈ {credits} cr",
+    "costLong": "Each picture costs about {credits} credits ({money})",
+    "create": "Create picture",
+    "recent": "Your recent pictures",
+    "open": "Open “{title}”",
+    "ready": "Your picture is ready",
+    "making": "Making your picture…",
+    "promptLine": "“{prompt}” · {style}",
+    "credits": "{credits} credits ({money})",
+    "mobileCredits": "{credits} credits ({money}) · made by an image AI",
+    "download": "Download",
+    "saveToPhone": "Save to phone",
+    "share": "Share",
+    "another": "Make another version",
+    "useInChat": "Use in a chat",
+    "back": "Back",
+    "more": "More",
+    "saved": "Picture saved",
+    "linkCopied": "Link copied"
+  },
   "nav": {
     "collapse": "Collapse sidebar",
     "openSidebar": "Open sidebar",
@@ -49,6 +538,699 @@
       "chats": "Chats",
       "wallet": "Wallet",
       "account": "Account"
+    }
+  },
+  "picker": {
+    "title": "Choose models",
+    "subtitle": "Pick which models answer in this chat. Compare speed and cost before you choose.",
+    "close": "Close",
+    "selected": "{count} selected",
+    "estimate": "≈ {credits} credits per prompt",
+    "remove": "Remove {name}",
+    "tabs": {
+      "chat": "Chat models",
+      "image": "Image models"
+    },
+    "search": "Search models or providers",
+    "preset": "Preset: My default",
+    "goodFor": "Good for",
+    "columns": {
+      "model": "MODEL",
+      "version": "VERSION",
+      "tags": "GOOD FOR",
+      "speed": "SPEED",
+      "cost": "PER ANSWER"
+    },
+    "selectedGroup": "SELECTED · {count}",
+    "moreGroup": "MORE MODELS · {count}",
+    "version": "{name} version",
+    "reset": "Reset to default",
+    "hint": "Costs are typical for a short answer. Your receipt shows the exact amount.",
+    "savePreset": "Save as preset",
+    "apply": "Use these {count} models",
+    "cost": "~{credits} cr",
+    "filters": {
+      "all": "All",
+      "writing": "Writing",
+      "reasoning": "Reasoning",
+      "fast": "Fast & low cost",
+      "web": "Web search",
+      "open": "Open source",
+      "bangla": "Bangla"
+    },
+    "tags": {
+      "balanced": "Balanced",
+      "allRound": "All-round",
+      "writing": "Writing",
+      "longDocs": "Long docs",
+      "fast": "Fast",
+      "imagesIn": "Images in",
+      "reasoning": "Reasoning",
+      "maths": "Maths",
+      "lowCost": "Low cost",
+      "webSearch": "Web search",
+      "sources": "Sources",
+      "realTime": "Real-time",
+      "openSource": "Open source",
+      "multilingual": "Multilingual"
+    },
+    "mode": {
+      "title": "How should we answer?",
+      "best": "Best answer",
+      "recommended": "Recommended",
+      "bestBody": "One reply, built from the best parts of 3 AIs. Easiest to read.",
+      "compare": "Compare",
+      "compareBody": "See each AI’s answer on its own and pick the one you like.",
+      "which": "Which AIs?",
+      "presets": {
+        "recommended": "Recommended",
+        "cheapest": "Cheapest",
+        "bangla": "Bangla"
+      },
+      "cost": "About {min}–{max} credits (৳{minMoney}–{maxMoney}) a question",
+      "change": "Change",
+      "done": "Done"
+    },
+    "mobile": {
+      "title": "Choose up to {max} AIs",
+      "count": "{count} of {max}",
+      "body": "Each AI answers your question on its own.",
+      "option": "{description} · ~{credits} cr",
+      "descriptions": {
+        "gpt": "Good all-rounder",
+        "claude": "Clear, careful writing",
+        "gemini": "Fastest, cheapest",
+        "deepseek": "Low cost",
+        "grok": "Up-to-date news"
+      },
+      "limit": "To add another, untick one first.",
+      "apply": "Use these {count}"
+    }
+  },
+  "presets": {
+    "title": "Presets",
+    "intro": "Saved sets of AIs. Pick one in the composer before you ask.",
+    "newPreset": "New preset",
+    "inUse": "In use",
+    "use": "Use",
+    "edit": "Edit",
+    "cost": "≈ {low}–{high} cr a question",
+    "costOne": "≈ {credits} cr a question",
+    "back": "Back",
+    "items": {
+      "recommended": {
+        "name": "Recommended",
+        "description": "A good mix for everyday questions."
+      },
+      "cheapest": {
+        "name": "Cheapest",
+        "description": "Lowest cost. Good for quick, simple questions."
+      },
+      "bangla": {
+        "name": "Best for Bangla",
+        "description": "Strongest at reading and writing Bangla."
+      },
+      "writing": {
+        "name": "Careful writing",
+        "description": "Two AIs for emails, posts and letters."
+      }
+    },
+    "newName": "My preset",
+    "saved": "Preset saved",
+    "picker": {
+      "editTitle": "Edit “{name}”",
+      "newTitle": "New preset",
+      "subtitle": "Pick the AIs in this preset. Compare speed and cost before you choose.",
+      "close": "Close",
+      "selected": "{count} selected",
+      "estimate": "≈ {credits} credits per prompt",
+      "remove": "Remove {name}",
+      "tabs": {
+        "chat": "Chat models",
+        "image": "Image models"
+      },
+      "search": "Search models or providers",
+      "preset": "Preset: {name}",
+      "goodFor": "Good for",
+      "filters": {
+        "all": "All",
+        "fast": "Fast",
+        "writing": "Writing",
+        "reasoning": "Reasoning",
+        "lowCost": "Low cost"
+      },
+      "columns": {
+        "model": "MODEL",
+        "version": "VERSION",
+        "tags": "GOOD FOR",
+        "speed": "SPEED",
+        "cost": "PER ANSWER"
+      },
+      "selectedGroup": "SELECTED · {count}",
+      "moreGroup": "MORE MODELS · {count}",
+      "version": "{name} version",
+      "reset": "Reset to default",
+      "hint": "Costs are typical for a short answer. Your receipt shows the exact amount.",
+      "saveAsNew": "Save as new preset",
+      "apply": "Save preset",
+      "cost": "~{credits} cr",
+      "tags": {
+        "balanced": "Balanced",
+        "allRound": "All-round",
+        "writing": "Writing",
+        "longDocs": "Long docs",
+        "fast": "Fast",
+        "imagesIn": "Images in",
+        "reasoning": "Reasoning",
+        "maths": "Maths",
+        "lowCost": "Low cost",
+        "web": "Web search",
+        "openSource": "Open source",
+        "bangla": "Bangla"
+      }
+    }
+  },
+  "pro": {
+    "name": "MultiAI Pro",
+    "price": "৳{bdt}",
+    "perMonth": "a month",
+    "tagline": "For people who use AI every day.",
+    "close": "Close",
+    "payg": "Pay as you go",
+    "paygFrom": "Buy credits from ৳{bdt}",
+    "paygNeverExpire": "Credits never expire",
+    "paygModels": "All standard AIs",
+    "pro": "Pro",
+    "proCredits": "{credits} credits each month",
+    "proModels": "Premium AIs and video",
+    "proPriority": "Priority when AIs are busy",
+    "note": "Pay as you go is cheaper if you ask a few questions a week. Pro credits reset monthly; cancel any time.",
+    "notNow": "Not now",
+    "upgrade": "Upgrade with bKash · ৳{bdt}",
+    "mobile": {
+      "title": "Go Pro",
+      "back": "Back",
+      "benefitCredits": "{credits} credits every month (about {questions} questions)",
+      "benefitModels": "All AIs, including premium and video",
+      "benefitReset": "Credits reset each month; cancel any time",
+      "benefitPriority": "Priority when AIs are busy",
+      "note": "Pay as you go is still cheaper if you ask a few questions a week.",
+      "upgrade": "Upgrade with bKash"
+    },
+    "on": {
+      "title": "You’re on Pro",
+      "body": "{credits} credits added. Next payment of ৳{bdt} on {date}. Cancel any time in Wallet.",
+      "bodyMobile": "{credits} credits added. Your next payment of ৳{bdt} is on {date}. Cancel any time in Wallet.",
+      "startAsking": "Start asking",
+      "viewInWallet": "View in Wallet"
+    }
+  },
+  "search": {
+    "title": "Search chats",
+    "placeholder": "Search your chats",
+    "count": "{count, plural, one {# chat matches} other {# chats match}}",
+    "recent": "Recent chats",
+    "empty": "No chats match “{query}”",
+    "esc": "Esc",
+    "keys": "↑ ↓ to move · ↵ to open · Esc to close",
+    "enter": "↵",
+    "kind": {
+      "compare": "Compare",
+      "best": "Best answer",
+      "image": "Image"
+    },
+    "detail": "{text} · {day}",
+    "excerpt": "“…{text}”"
+  },
+  "settings": {
+    "topBar": {
+      "title": "Settings",
+      "back": "Back to chat",
+      "wallet": "Wallet"
+    },
+    "nav": {
+      "label": "Settings",
+      "profile": "Profile",
+      "models": "Models & presets",
+      "notifications": "Notifications",
+      "privacy": "Privacy & security",
+      "usage": "Usage",
+      "wallet": "Wallet & billing",
+      "help": "Help & support"
+    },
+    "backToAccount": "Back to Account",
+    "profile": {
+      "title": "Profile",
+      "subtitle": "How you appear, and how MultiAI talks to you.",
+      "identity": {
+        "title": "Identity",
+        "changePhoto": "Change photo",
+        "photoHint": "JPG or PNG, up to 2 MB",
+        "photoSoon": "Photo upload is coming soon.",
+        "displayName": "Display name",
+        "displayNameHelp": "Shown on shared chats and team reports.",
+        "email": "Email",
+        "verified": "Verified",
+        "change": "Change",
+        "emailHelp": "Used for sign-in and receipts.",
+        "emailSoon": "Changing your email is coming soon."
+      },
+      "preferences": {
+        "title": "Preferences",
+        "appLanguage": "App language",
+        "appLanguageHelp": "Menus, buttons and messages.",
+        "english": "English",
+        "bangla": "Bangla",
+        "answerLanguage": "Answer language",
+        "answerLanguageHelp": "The language models reply in.",
+        "answerSame": "Same as my question",
+        "amounts": "Show amounts as",
+        "amountsHelp": "How costs appear across MultiAI.",
+        "amountsBoth": "Credits + taka",
+        "amountsCredits": "Credits only",
+        "density": "Text density",
+        "densityHelp": "How much fits on screen.",
+        "comfortable": "Comfortable",
+        "compact": "Compact"
+      },
+      "account": {
+        "label": "Account",
+        "signOut": "Sign out",
+        "delete": "Delete account"
+      },
+      "save": {
+        "nameChanged": "You changed your display name",
+        "changed": "You have unsaved changes",
+        "discard": "Discard",
+        "save": "Save changes",
+        "saved": "Changes saved",
+        "nameEmpty": "Your display name can’t be empty"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Choose what you hear about, and where.",
+      "banner": {
+        "title": "Notifications start soon",
+        "body": "Set your choices now. We’ll start sending from launch day, nothing before."
+      },
+      "channels": {
+        "app": "In-app",
+        "email": "Email"
+      },
+      "groups": {
+        "money": "MONEY",
+        "usage": "USAGE",
+        "reliability": "RELIABILITY",
+        "product": "PRODUCT"
+      },
+      "types": {
+        "lowBalance": {
+          "title": "Low balance alert",
+          "help": "When your balance drops below your limit."
+        },
+        "receipts": {
+          "title": "Payment receipts",
+          "help": "After every successful top-up."
+        },
+        "weekly": {
+          "title": "Weekly usage summary",
+          "help": "Credits used per model, every Sunday."
+        },
+        "failed": {
+          "title": "Failed answers",
+          "help": "When a model fails to respond. You are not charged."
+        },
+        "models": {
+          "title": "New models",
+          "help": "When a new model becomes available."
+        },
+        "offers": {
+          "title": "Offers and discounts",
+          "help": "Credit pack deals. Off unless you turn it on."
+        }
+      },
+      "alwaysOn": "Always on",
+      "alertBelow": "Alert me below",
+      "threshold": "{credits} credits",
+      "thresholdMoney": "{money} · about {chats, plural, one {# chat} other {# chats}}",
+      "lower": "Lower the alert",
+      "higher": "Raise the alert",
+      "mobile": {
+        "payments": {
+          "title": "Payments and receipts",
+          "help": "When credits are added or a payment fails"
+        },
+        "lowBalance": {
+          "title": "Low balance",
+          "help": "When you have less than {credits} credits left"
+        },
+        "longAnswers": {
+          "title": "Long answers ready",
+          "help": "If you leave while AIs are working"
+        },
+        "offers": {
+          "title": "Offers and news",
+          "help": "New AIs and discounts"
+        }
+      }
+    },
+    "privacy": {
+      "title": "Privacy & security",
+      "subtitle": "How you sign in, and what happens to your data.",
+      "signIn": {
+        "title": "Sign-in methods",
+        "google": "Google",
+        "googleHelp": "{email} · your main sign-in",
+        "phone": "Phone",
+        "phoneHelp": "{phone} · for sign-in codes",
+        "connected": "Connected",
+        "password": "Email and password",
+        "passwordNotSet": "Not set. Add one to sign in without Google.",
+        "passwordSet": "Set. You can sign in with {email} and your password.",
+        "notSet": "Not set",
+        "isSet": "Set",
+        "newPassword": "New password",
+        "confirm": "Confirm password",
+        "confirmPlaceholder": "Type it again",
+        "show": "Show password",
+        "hide": "Hide password",
+        "cancel": "Cancel",
+        "submit": "Set password",
+        "strength": {
+          "weak": "Weak",
+          "fair": "Fair",
+          "good": "Good",
+          "strong": "Strong"
+        },
+        "ruleLength": "8+ characters",
+        "ruleSymbol": "A number or symbol",
+        "tooWeak": "Use 8 or more characters with a number or symbol.",
+        "mismatch": "The two passwords don’t match.",
+        "saved": "Password set"
+      },
+      "data": {
+        "title": "Your data",
+        "history": "Chat history",
+        "historyHelp": "Kept in your account until you delete it. Delete any chat from its menu.",
+        "privacyPolicy": "Privacy policy",
+        "download": "Download your data",
+        "downloadHelp": "Profile and preferences as a file. Full chat export is coming later.",
+        "downloadButton": "Download",
+        "downloaded": "Your data file is downloading"
+      },
+      "legal": {
+        "terms": "Terms of service",
+        "privacy": "Privacy policy",
+        "contact": "Contact support"
+      },
+      "mobile": {
+        "privateTitle": "Your chats are private",
+        "privateBody": "We send your question to the AIs you choose, and nothing else. We don’t sell your data.",
+        "signIn": "Sign-in",
+        "signInValue": "Phone + Google",
+        "download": "Download my data",
+        "deleteHistory": "Delete chat history",
+        "deleteAccount": "Delete account",
+        "deleteNote": "Deleting your account removes your chats and any unused credits. We’ll ask you to confirm first."
+      }
+    },
+    "usage": {
+      "title": "Usage",
+      "subtitle": "Where your credits go, prompt by prompt. Top-ups and payments stay in Wallet.",
+      "period": {
+        "label": "Period",
+        "this": "This month",
+        "last": "Last month"
+      },
+      "export": "Export CSV",
+      "exported": "Your CSV file is downloading",
+      "csv": {
+        "date": "Date",
+        "chat": "Chat",
+        "mode": "Mode",
+        "model": "Model",
+        "credits": "Credits",
+        "taka": "Taka"
+      },
+      "stats": {
+        "spent": "CREDITS SPENT",
+        "spentCaption": "{money} this month",
+        "prompts": "PROMPTS",
+        "promptsCaption": "in {chats, plural, one {# chat} other {# chats}}",
+        "average": "AVERAGE PER PROMPT",
+        "averageCaption": "Used for your “about N chats” estimate",
+        "vsLast": "VS LAST MONTH",
+        "vsLastValue": "New",
+        "vsLastCaption": "Comparison starts next month"
+      },
+      "byModel": {
+        "heading": "Where your credits went",
+        "title": "BY MODEL",
+        "total": "{credits} · {money}",
+        "insightLabel": "INSIGHT",
+        "insightTitle": "Gemini cost about half as much as GPT-5 on the same prompt.",
+        "insightBody": "If quality is close, picking Gemini for quick questions makes your credits last longer.",
+        "insightFootnote": "Based on {prompts, plural, one {# prompt} other {# prompts}} this month. Gets better with more chats."
+      },
+      "daily": {
+        "heading": "Daily spend",
+        "label": "Credits spent per day, {from}–{to}",
+        "noLimit": "No spending limit set.",
+        "setLimit": "Set a limit in Wallet"
+      },
+      "activity": {
+        "heading": "Activity",
+        "filters": {
+          "label": "Show",
+          "all": "All",
+          "best": "Best answer",
+          "compare": "Compare",
+          "image": "Image"
+        },
+        "columns": {
+          "date": "DATE",
+          "chat": "CHAT",
+          "models": "MODELS",
+          "credits": "CREDITS",
+          "money": "TAKA"
+        },
+        "date": "{date} · {time}",
+        "modelsCount": "{count, plural, one {# model} other {# models}}",
+        "toggle": "Show models for {chat}",
+        "footnote": "Usage is grouped by chat. Open a row to see each model’s share.",
+        "empty": "No chats of this kind in this period.",
+        "refunds": "No failed answers this month. If an answer fails or you stop it early, its credits come back and it shows here as Refunded."
+      },
+      "lastMonth": {
+        "title": "Nothing to show for last month",
+        "body": "You started using MultiAI this month. Last month’s usage will show here from next month."
+      },
+      "mobile": {
+        "spent": "You spent",
+        "about": "about {taka}",
+        "summary": "{prompts, plural, one {# question} other {# questions}} this month · {refunds, plural, one {# refund} other {# refunds}}",
+        "byAi": "Which AIs used your credits",
+        "tipTitle": "Save credits",
+        "tipBody": "Gemini cost about half as much as GPT-5. For quick questions, choose the “Cheapest” option.",
+        "recent": "Recent questions",
+        "today": "Today, {time}",
+        "itemMeta": "{when} · {count, plural, one {# AI} other {# AIs}}",
+        "empty": "No questions in this period.",
+        "refunds": "If an AI fails or you stop it, those credits come back and show here as “Refunded”."
+      }
+    },
+    "help": {
+      "title": "Help & support",
+      "subtitle": "Talk to a person, or find a quick answer.",
+      "chat": {
+        "title": "Chat with us",
+        "body": "A person replies in a few minutes, 9am–9pm every day.",
+        "bodyShort": "Reply in a few minutes, 9am–9pm",
+        "action": "Start chat"
+      },
+      "call": {
+        "title": "Call us",
+        "body": "Free call, in Bangla or English, 9am–9pm.",
+        "bodyShort": "Free call, in Bangla or English",
+        "action": "Call now"
+      },
+      "common": "Common questions",
+      "faq": {
+        "credit": {
+          "q": "What is a credit, and how much does a question cost?",
+          "qShort": "What is a credit?",
+          "a": "Credits are how MultiAI counts AI use. 1 credit is BDT 0.01. Every question shows its cost before you send it, and asking more AIs costs more."
+        },
+        "failed": {
+          "q": "Why didn’t one of the AIs answer?",
+          "qShort": "Why didn’t an AI answer?",
+          "a": "Sometimes a model is busy or takes too long. You are not charged for an answer that fails, and you can retry that AI on its own."
+        },
+        "bkash": {
+          "q": "My bKash payment failed. Was I charged?",
+          "qShort": "My bKash payment failed",
+          "a": "No credits are taken for a failed payment. If money left your bKash account, it comes back automatically within 3 working days. If it doesn’t, chat with us."
+        },
+        "bangla": {
+          "q": "Can I ask in Bangla?",
+          "qShort": "Can I ask in Bangla?",
+          "a": "Yes. Ask in Bangla or English, whichever you like. The app language only changes menus and buttons."
+        },
+        "delete": {
+          "q": "How do I delete a chat or my account?",
+          "qShort": "How do I delete a chat?",
+          "a": "Open the chat’s menu and choose Delete. To delete your whole account, go to Settings › Profile › Delete account."
+        }
+      }
+    }
+  },
+  "wallet": {
+    "title": "Wallet",
+    "lede": "Your balance, top-ups and payments. Spending detail is in Settings → Usage.",
+    "backToChat": "Back to chat",
+    "settings": "Settings",
+    "stats": {
+      "balance": "BALANCE",
+      "balanceCaption": "≈ BDT {bdt} · about {chats} chats at your average",
+      "neverExpire": "Credits never expire",
+      "spent": "SPENT THIS MONTH",
+      "spentCaption": "≈ BDT {bdt} · {count, plural, one {{chats} chat} other {{chats} chats}} this month",
+      "plan": "PLAN",
+      "payg": "Pay as you go",
+      "paygCaption": "No subscription. Top up when you need.",
+      "upgrade": "Upgrade Now",
+      "pro": "MultiAI Pro",
+      "proCaption": "BDT {bdt} a month · next payment on {date}"
+    },
+    "topUp": {
+      "title": "Top up",
+      "lede": "Pay in taka with bKash, Nagad or card. Bigger packs include bonus credits.",
+      "step1": "1   Choose an amount",
+      "columns": {
+        "pay": "YOU PAY",
+        "get": "YOU GET",
+        "bonus": "BONUS",
+        "chats": "≈ CHATS"
+      },
+      "price": "BDT {amount}",
+      "noBonus": "none",
+      "bonus": "+{pct}%",
+      "mostChosen": "Most chosen",
+      "custom": "Custom amount (from BDT {min})",
+      "customLabel": "Amount in BDT",
+      "customHelp": "From BDT {min}. Custom amounts have no bonus.",
+      "customError": "Enter at least BDT {min}.",
+      "teams": "Need more than BDT {max}? Teams plan →",
+      "footnote": "Chats estimated from your average of {avg} credits per chat.",
+      "step2": "2   Pay with",
+      "methods": {
+        "bkash": "Mobile wallet",
+        "nagad": "Mobile wallet",
+        "card": "Visa, Mastercard"
+      }
+    },
+    "order": {
+      "title": "ORDER SUMMARY",
+      "youPay": "You pay",
+      "credits": "Credits",
+      "bonus": "Bonus (+{pct}%)",
+      "bonusNone": "Bonus",
+      "youGet": "You get",
+      "newBalance": "New balance",
+      "pay": "Pay BDT {amount} with {method}",
+      "chooseAmount": "Choose an amount",
+      "secured": "Secured by PayStation",
+      "neverCharged": "Failed payments are never charged.",
+      "bonusValue": "+ {credits}"
+    },
+    "proCard": {
+      "title": "Use AI every day? Try Pro",
+      "payg": "Pay as you go",
+      "pro": "Pro",
+      "price": "Price",
+      "priceTaka": "From BDT {bdt}",
+      "pricePro": "BDT {bdt} / month",
+      "credits": "Credits",
+      "creditsTaka": "What you buy",
+      "creditsPro": "{credits} every month",
+      "expiry": "Expiry",
+      "expiryTaka": "Never",
+      "expiryPro": "Reset monthly",
+      "models": "Models",
+      "modelsTaka": "All",
+      "modelsPro": "All + premium, video",
+      "details": "See Pro details"
+    },
+    "usage": {
+      "text": "Where your credits went and every chat’s cost now live in Settings → Usage.",
+      "link": "See usage →"
+    },
+    "payments": {
+      "title": "Payments",
+      "export": "Export CSV",
+      "columns": {
+        "date": "DATE",
+        "topUp": "TOP-UP",
+        "status": "STATUS"
+      },
+      "date": "{date} · {time}",
+      "topUp": "BDT {amount} via {method}",
+      "pro": "Pro · BDT {amount} via {method}",
+      "failed": "Failed · not charged",
+      "added": "Added",
+      "tryAgain": "Try again",
+      "receipt": "Receipt",
+      "footnote": "Successful top-ups show a \"Receipt\" download here, replacing the separate Invoices card.",
+      "csv": {
+        "file": "multiai-payments.csv",
+        "receiptFile": "multiai-receipt-{reference}.csv",
+        "date": "Date",
+        "amount": "Amount (BDT)",
+        "method": "Method",
+        "status": "Status",
+        "credits": "Credits added",
+        "reference": "Transaction ID"
+      }
+    },
+    "mobile": {
+      "balance": "Your balance",
+      "balanceCaption": "About ৳{bdt} · enough for about {chats} questions",
+      "addCredits": "Add credits",
+      "howTitle": "How credits work",
+      "howBody": "100 credits = ৳1. A normal question costs about 2 to 15 credits. If an AI can’t answer, you pay nothing.",
+      "spent": "Spent this month",
+      "spentValue": "{credits} credits (৳{bdt})",
+      "history": "Payment history",
+      "historyLast": "Last: ৳{amount} via {method} · {status}",
+      "historyEmpty": "No payments yet",
+      "lastAdded": "added",
+      "lastNotCharged": "not charged",
+      "payg": "Pay as you go",
+      "paygCaption": "Pro: ৳{bdt} a month",
+      "pro": "MultiAI Pro",
+      "proCaption": "Next payment ৳{bdt} on {date}",
+      "upgrade": "Upgrade Now",
+      "topUpTitle": "Add credits",
+      "step1": "1. How much?",
+      "price": "৳{amount}",
+      "bonus": "+{pct}% bonus",
+      "other": "Other amount (from ৳{min})",
+      "step2": "2. Pay with",
+      "youGet": "You get {credits} credits",
+      "newBalance": "New balance {credits}",
+      "pay": "Pay ৳{amount} with {method}",
+      "secure": "Secured by PayStation · failed payments are never charged",
+      "historyTitle": "Payment history",
+      "historyNote": "“Not charged” means the payment didn’t finish and no money left your account.",
+      "amount": "৳{amount} via {method}",
+      "proAmount": "Pro · ৳{amount} via {method}",
+      "statusAdded": "Added",
+      "statusNotCharged": "Not charged",
+      "today": "Today, {time}",
+      "dateTime": "{date}, {time}",
+      "downloadReceipt": "Download receipt",
+      "tryAgain": "Try again"
     }
   }
 }

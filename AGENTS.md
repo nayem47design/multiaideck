@@ -14,13 +14,13 @@ Next.js (App Router) + TypeScript strict · Tailwind on CSS-variable tokens (def
 
 ```
 src/
-  app/                  routes: (auth) (app) settings wallet api
+  app/[locale]/         routes (en at /, bn at /bn): (auth) (app) (page: wallet, settings); api/ later
   components/
     atoms/  molecules/  organisms/  templates/
   styles/
     tokens.css          generated from Figma variables (Light + Dark)
     typography.css      text styles as classes
-  lib/                  ai/, billing/, payments/, auth/, i18n/
+  lib/                  ai/, billing/, payments/, auth/, i18n/, mock/ (demo data until Phase 6)
   messages/             en.json, bn.json
 tests/
   visual/               Figma reference images + comparison tests
@@ -40,6 +40,14 @@ tests/
 8. **Credits use an append-only ledger.** Never update or delete ledger rows; write corrections as new entries.
 9. **Secrets stay out of the repo.** Read them from the environment (`.env` is git-ignored).
 10. **Git:** work on a branch, small PRs, never push to `main`.
+
+## Responsive
+
+- Below 768px: bottom tabs, full-screen sheets, Compare shows one answer at a time with tabs and swipe.
+- 768 to 1024px: collapsible sidebar (a drawer), Compare shows two columns. Not designed in Figma yet; needs designer sign-off.
+- 1024px and up: full desktop layout, Compare shows three columns.
+- Touch targets at least 48px on touch screens; body text never below 16px on mobile.
+- Screen conventions (routes, locale, copy, screen tokens): `docs/SCREENS.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

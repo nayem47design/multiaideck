@@ -17,7 +17,12 @@ export default defineConfig({
     {
       name: "desktop",
       testDir: "./tests/e2e",
-      use: { ...devices["Desktop Chrome"], baseURL: APP_URL },
+      // Figma's desktop frames are 1440×900.
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1440, height: 900 },
+        baseURL: APP_URL,
+      },
     },
     {
       name: "mobile",

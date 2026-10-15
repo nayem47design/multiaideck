@@ -1,4 +1,4 @@
-import { Icon } from "@/components/atoms/Icon";
+import { Icon, type IconName } from "@/components/atoms/Icon";
 import { cx, focusRing } from "@/components/atoms/states";
 
 import { TableCard, TableCell } from "../TableCard";
@@ -11,7 +11,8 @@ export interface PaymentRow {
   /** e.g. "BDT 2,499 via bKash". */
   topUp: string;
   status: { label: string; tone: "success" | "error" };
-  action?: { label: string; onClick?: () => void };
+  /** Default icon: reload (Try again); e.g. download-01 for a receipt. */
+  action?: { label: string; onClick?: () => void; icon?: IconName };
 }
 
 export interface PaymentsTableProps {
@@ -85,7 +86,10 @@ export function PaymentsTable({
                   focusRing,
                 )}
               >
-                <Icon name="reload" className="size-dialog-link-icon" />
+                <Icon
+                  name={row.action.icon ?? "reload"}
+                  className="size-dialog-link-icon"
+                />
                 {row.action.label}
               </button>
             )}

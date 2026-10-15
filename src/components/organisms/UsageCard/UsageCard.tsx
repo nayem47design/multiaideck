@@ -13,6 +13,8 @@ export interface UsageByModel {
   money: string;
   /** Share of spend, 0–100. */
   share: number;
+  /** The share as shown, formatted for the locale (e.g. "৫৪%"); defaults to `${share}%`. */
+  shareLabel?: string;
 }
 
 export interface UsageCardProps {
@@ -85,7 +87,7 @@ export function UsageCard({
                 {r.money}
               </span>
               <span className="w-usage-col-share text-right type-stepper text-ink-3">
-                {r.share}%
+                {r.shareLabel ?? `${r.share}%`}
               </span>
             </li>
           ))}

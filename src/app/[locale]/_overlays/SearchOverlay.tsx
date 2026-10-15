@@ -1,8 +1,108 @@
 "use client";
 
+import { Dialog } from "radix-ui";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+
+import {
+  SearchChatsPanel,
+  type SearchChatsResult,
+} from "@/components/organisms/SearchChatsPanel";
+import { useRouter } from "@/lib/i18n/navigation";
+import { DEMO_CHATS, type DemoChat } from "@/lib/mock/demo";
+import { chatHref, chatModels } from "@/lib/mock/images";
+
 import type { OverlayProps } from "../_shell/overlays";
 
-// Placeholder: built in Phase 5 by the route that owns this overlay.
-export function SearchOverlay(_props: OverlayProps) {
-  return null;
+// Figma: Prototype › "Overlay · Search chats" (166:27803), opened by ⌘K anywhere and the sidebar's
+// search field. Filters the chat list as you type (title and first prompt), ↑/↓ move, ↵ opens,
+// Esc closes. Prototype: Result · Coffee shop names → the chat; Golpo Coffee sign → Picture ready.
+
+const EXCERPT_WORDS_BEFORE = 2;
+
+/** "Give me 3 name ideas for a small coffee shop in Dhaka" + "coffee" → "a small coffee shop in Dhaka". */
+function excerpt(text: string, query: string) {
+  const at = text.toLowerCase().indexOf(query.toLowerCase());
+  if (at < 0) return null;
+  const before = text.slice(0, at).trimEnd().split(/\s+/).filter(Boolean);
+  const start = before.slice(-EXCERPT_WORDS_BEFORE).join(" ");
+  return `${start} ${text.slice(at)}`.trim();
+}
+
+export function SearchOverlay({ open, onOpenChange }: OverlayProps) {
+  return (
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 z-40 bg-overlay-scrim" />
+        <Dialog.Content
+          aria-describedby={undefined}
+          className="fixed top-1/2 left-1/2 z-50 max-h-full w-search-overlay-w max-w-[calc(100%-2*var(--mobile-gutter))] -translate-1/2 overflow-y-auto outline-none"
+        >
+          {/* Mounted only while open, so each opening starts with an empty query. */}
+          <SearchChats onDone={() => onOpenChange(false)} />
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+function SearchChats({ onDone }: { onDone: () => void }) {
+  const t = useTranslations("search");
+  const tn = useTranslations("nav");
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+  const [active, setActive] = useState(0);
+
+  const q = query.trim();
+  const matches = q
+    ? DEMO_CHATS.filter(
+        (c) =>
+          c.title.toLowerCase().includes(q.toLowerCase()) ||
+          c.snippet.toLowerCase().includes(q.toLowerCase()),
+      )
+    : DEMO_CHATS;
+
+  const detail = (c: DemoChat) => {
+    const found = q && c.kind !== "image" ? excerpt(c.snippet, q) : null;
+    return t("detail", {
+      text: found ? t("excerpt", { text: found }) : t(`kind.${c.kind}`),
+      day: tn(c.day),
+    });
+  };
+  const results: SearchChatsResult[] = matches.map((c) => ({
+    id: c.id,
+    title: c.title,
+    detail: detail(c),
+    models: chatModels(c),
+  }));
+
+  const open = (id: string) => {
+    const chat = DEMO_CHATS.find((c) => c.id === id);
+    if (!chat) return;
+    onDone();
+    router.push(chatHref(chat));
+  };
+
+  return (
+    <SearchChatsPanel
+      title={<Dialog.Title className="sr-only">{t("title")}</Dialog.Title>}
+      query={query}
+      onQueryChange={(v) => {
+        setQuery(v);
+        setActive(0);
+      }}
+      results={results}
+      activeIndex={Math.min(active, Math.max(0, results.length - 1))}
+      onActiveIndexChange={setActive}
+      onOpen={open}
+      labels={{
+        search: t("placeholder"),
+        count: q ? t("count", { count: results.length }) : t("recent"),
+        empty: t("empty", { query: q }),
+        esc: t("esc"),
+        keys: t("keys"),
+        enter: t("enter"),
+      }}
+    />
+  );
 }

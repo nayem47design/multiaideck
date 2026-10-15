@@ -29,6 +29,8 @@ export interface DeleteDialogPanelProps extends DeleteDialogContent {
   deleting?: boolean;
   /** Renders the title and body as Radix Dialog parts (inside <DeleteDialog>). */
   inDialog?: boolean;
+  /** Extra classes for the panel, e.g. a full-width layout on phones. */
+  className?: string;
 }
 
 export function DeleteDialogPanel({
@@ -46,11 +48,17 @@ export function DeleteDialogPanel({
   onDelete,
   deleting,
   inDialog,
+  className,
 }: DeleteDialogPanelProps) {
   const Title = inDialog ? Dialog.Title : "h2";
   const Body = inDialog ? Dialog.Description : "p";
   return (
-    <div className="flex w-dialog-width flex-col gap-4 rounded-2xl bg-surface p-8 shadow-dialog">
+    <div
+      className={cx(
+        "flex w-dialog-width flex-col gap-4 rounded-2xl bg-surface p-8 shadow-dialog",
+        className,
+      )}
+    >
       <span className="flex size-12 items-center justify-center rounded-dialog-icon bg-status-error-soft text-error">
         <Icon name="delete-02" className="size-dialog-icon-glyph" />
       </span>
@@ -118,6 +126,10 @@ export interface DeleteDialogProps extends DeleteDialogContent {
   onOpenChange: (open: boolean) => void;
   onDelete: () => void;
   deleting?: boolean;
+  /** Extra classes for the positioned dialog content (e.g. side margins on phones). */
+  contentClassName?: string;
+  /** Extra classes for the panel; see DeleteDialogPanel's className. */
+  panelClassName?: string;
 }
 
 export function DeleteDialog({
@@ -125,6 +137,8 @@ export function DeleteDialog({
   onOpenChange,
   onDelete,
   deleting,
+  contentClassName,
+  panelClassName,
   ...content
 }: DeleteDialogProps) {
   const [value, setValue] = useState("");
@@ -132,9 +146,15 @@ export function DeleteDialog({
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-40 bg-overlay-scrim" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 z-50 -translate-1/2 outline-none">
+        <Dialog.Content
+          className={cx(
+            "fixed top-1/2 left-1/2 z-50 -translate-1/2 outline-none",
+            contentClassName,
+          )}
+        >
           <DeleteDialogPanel
             {...content}
+            className={panelClassName}
             inDialog
             value={value}
             onValueChange={setValue}

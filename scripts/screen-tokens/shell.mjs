@@ -1,7 +1,7 @@
 // Screen tokens shared by every screen: the light field, the mobile tab bar and top bar.
 // TS(name, kind, [screen, ...layer names], prop): see scripts/screen-tokens/README.md.
 
-export default (TS) => [
+const screenTokens = (TS) => [
   // Light field: blurred ellipses behind each screen. One set per Figma variant.
   ...[
     ["app", ["Home", "Light field"], "light field", 3],
@@ -64,3 +64,5 @@ export default (TS) => [
   TS("screen-desktop", "size", ["Home"], "w"),
   TS("screen-mobile", "size", ["M2 · Home"], "w"),
 ];
+
+export default screenTokens;

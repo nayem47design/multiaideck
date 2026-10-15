@@ -24,6 +24,8 @@ export interface OrderSummaryProps {
   sections: OrderSummaryRow[][];
   payLabel: string;
   onPay?: () => void;
+  /** No amount chosen yet (e.g. an empty custom amount). */
+  payDisabled?: boolean;
   trust: { icon: IconName; label: string; tone?: "muted" | "success" }[];
   className?: string;
 }
@@ -34,6 +36,7 @@ export function OrderSummary({
   sections,
   payLabel,
   onPay,
+  payDisabled,
   trust,
   className,
 }: OrderSummaryProps) {
@@ -83,8 +86,10 @@ export function OrderSummary({
       <button
         type="button"
         onClick={onPay}
+        disabled={payDisabled}
         className={cx(
           "inline-flex h-12 w-full items-center justify-center gap-2 rounded-pill bg-cta type-order-summary-pay text-on-cta",
+          "disabled:cursor-not-allowed disabled:bg-canvas-deep disabled:text-ink-3",
           stateLayer,
           focusRing,
         )}

@@ -6,6 +6,7 @@ import { Icon } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
 import { ModelOrb } from "@/components/atoms/ModelOrb";
 import { cx } from "@/components/atoms/states";
+import type { BadgeTone } from "@/components/atoms/Badge";
 import { ReceiptStrip } from "@/components/molecules/ReceiptStrip";
 import type { ModelId } from "@/lib/ai/models";
 
@@ -43,6 +44,13 @@ export interface AnswerCardProps {
   badge?: string;
   /** Failed only, e.g. "Refunded · 0 cr". */
   refund?: string;
+  /**
+   * Badge tone when not Failed. Defaults to Info; screens use Success ("Fastest · Cheapest") and
+   * Neutral ("Caught up", "Answered on retry").
+   */
+  badgeTone?: BadgeTone;
+  /** Replaces the card's size classes (Figma's 360×520), e.g. to fill a grid column. */
+  sizeClassName?: string;
   labels: AnswerCardLabels;
   onClose?: () => void;
   onCopy?: () => void;
@@ -64,6 +72,8 @@ export function AnswerCard({
   metrics = [],
   badge,
   refund,
+  badgeTone = "info",
+  sizeClassName,
   labels,
   onClose,
   onCopy,
@@ -79,7 +89,8 @@ export function AnswerCard({
   return (
     <article
       className={cx(
-        "flex h-answer-card-height w-answer-card-width flex-col overflow-hidden rounded-answer-card bg-surface shadow-answer-card ring-inset",
+        "flex flex-col overflow-hidden rounded-answer-card bg-surface shadow-answer-card ring-inset",
+        sizeClassName ?? "h-answer-card-height w-answer-card-width",
         // Figma includes the stroke in the layout: content sits inside it.
         state === "suggested"
           ? "p-(--answer-card-border-suggested-width) ring-(length:--answer-card-border-suggested-width) ring-blue"
@@ -116,7 +127,7 @@ export function AnswerCard({
           metrics={failed ? [] : metrics}
           badge={
             badge
-              ? { tone: failed ? "error" : "info", label: badge }
+              ? { tone: failed ? "error" : badgeTone, label: badge }
               : undefined
           }
         />

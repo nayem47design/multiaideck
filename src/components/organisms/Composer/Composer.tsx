@@ -1,4 +1,4 @@
-import type { TextareaHTMLAttributes } from "react";
+import type { ReactElement, ReactNode, TextareaHTMLAttributes } from "react";
 
 import { Icon } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
@@ -69,6 +69,11 @@ export interface ComposerProps extends Omit<
   voice?: ComposerVoice;
   labels: ComposerLabels;
   onAttach?: () => void;
+  /**
+   * Wraps the "+" button, e.g. in a <ComposerMenu> so the button opens the "+" menu (Figma:
+   * Composer menu 147:38907). Receives the button; returns what to render in its place.
+   */
+  attachMenu?: (button: ReactElement) => ReactNode;
   onPickModels?: () => void;
   onVoice?: () => void;
   onSend?: () => void;
@@ -91,6 +96,7 @@ export function Composer({
   voice,
   labels,
   onAttach,
+  attachMenu,
   onPickModels,
   onVoice,
   onSend,
@@ -223,12 +229,14 @@ export function Composer({
           </>
         ) : (
           <>
-            <IconButton
-              variant="outline"
-              icon="add-01"
-              label={labels.attach}
-              onClick={onAttach}
-            />
+            {(attachMenu ?? ((button: ReactElement) => button))(
+              <IconButton
+                variant="outline"
+                icon="add-01"
+                label={labels.attach}
+                onClick={onAttach}
+              />,
+            )}
             <SegmentedControl
               options={modes}
               value={mode}

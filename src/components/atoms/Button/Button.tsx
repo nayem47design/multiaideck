@@ -9,7 +9,7 @@ import { cx, focusRing, stateLayer } from "../states";
 
 export type ButtonVariant =
   "primary" | "secondary" | "ghost" | "destructive" | "tinted";
-export type ButtonSize = "md" | "sm";
+export type ButtonSize = "md" | "sm" | "lg" | "touch" | "touch-lg";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -21,8 +21,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * "Change photo", "Download"); Figma's Button gap (space/1-5) is the icon gap.
    */
   icon?: IconName;
-  /** sm = 14px, md = 16px. */
-  iconSize?: "sm" | "md";
+  /** sm = 14px, md = 16px, lg = 20px (mobile buttons). */
+  iconSize?: "sm" | "md" | "lg";
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -52,6 +52,12 @@ const disabledFillStyles =
 const sizes: Record<ButtonSize, string> = {
   md: "h-control-lg px-5 type-ui-strong",
   sm: "h-control-md px-4 type-label",
+  /** 48px dialog buttons (Overlay · Go Pro, Pro is on). */
+  lg: "h-12 px-go-pro-button-pad type-go-pro-button",
+  /** 52px mobile button (M10 Add credits, secondary actions on M-screens). */
+  touch: "h-m-button-h px-5 type-m-button",
+  /** 56px mobile primary button (M11 Pay, M12 Start asking). */
+  "touch-lg": "h-m-button-lg-h px-5 type-m-button",
 };
 
 export function Button({
@@ -88,7 +94,11 @@ export function Button({
           <Icon
             name={icon}
             className={cx(
-              iconSize === "sm" ? "size-select-icon" : "size-icon-sm",
+              iconSize === "sm"
+                ? "size-select-icon"
+                : iconSize === "lg"
+                  ? "size-icon-md"
+                  : "size-icon-sm",
               (variant === "secondary" || variant === "ghost") && "text-ink-2",
             )}
           />

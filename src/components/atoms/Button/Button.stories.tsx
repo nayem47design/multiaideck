@@ -97,3 +97,26 @@ export const AllLoading: Story = {
   name: "State · Loading",
   render: () => <Matrix loading />,
 };
+
+// Screen sizes (not in the Figma Button matrix): dialog buttons and mobile touch buttons.
+export const ScreenSizes: Story = {
+  render: (props) => (
+    <div className="w-80 flex flex-col gap-3">
+      <Button {...props} size="lg">
+        Upgrade with bKash · ৳1,599
+      </Button>
+      <Button
+        {...props}
+        size="touch"
+        variant="secondary"
+        icon="arrow-down-01"
+        iconSize="lg"
+      >
+        Download receipt
+      </Button>
+      <Button {...props} size="touch-lg">
+        Pay ৳699 with bKash
+      </Button>
+    </div>
+  ),
+};

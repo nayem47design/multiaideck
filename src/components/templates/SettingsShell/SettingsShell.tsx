@@ -10,6 +10,11 @@ export interface SettingsShellProps {
   nav: ReactNode;
   /** Page title and setting cards. */
   children: ReactNode;
+  /**
+   * Screens: below 768px hide the top bar and nav and drop the padding (M-screens draw their own
+   * top bar), and leave the background to the page's light field.
+   */
+  responsive?: boolean;
   className?: string;
 }
 
@@ -17,15 +22,31 @@ export function SettingsShell({
   topBar,
   nav,
   children,
+  responsive = false,
   className,
 }: SettingsShellProps) {
+  const r = responsive;
   return (
     <div
-      className={cx("flex min-h-dvh flex-col bg-canvas p-shell-pad", className)}
+      className={cx(
+        "flex min-h-dvh flex-col p-shell-pad",
+        r ? "max-md:p-0" : "bg-canvas",
+        className,
+      )}
     >
-      <div data-region="top-bar">{topBar}</div>
-      <div className="mx-auto mt-page-top flex w-full max-w-page-width items-start gap-settings-gap">
-        <div data-region="nav" className="sticky top-shell-pad shrink-0">
+      <div data-region="top-bar" className={cx(r && "max-md:hidden")}>
+        {topBar}
+      </div>
+      <div
+        className={cx(
+          "mx-auto mt-page-top flex w-full max-w-page-width items-start gap-settings-gap",
+          r && "max-md:mt-0 md:max-lg:gap-6",
+        )}
+      >
+        <div
+          data-region="nav"
+          className={cx("sticky top-shell-pad shrink-0", r && "max-md:hidden")}
+        >
           {nav}
         </div>
         <div

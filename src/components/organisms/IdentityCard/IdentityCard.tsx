@@ -26,6 +26,8 @@ export interface IdentityCardProps {
     change: { label: string; onClick?: () => void };
     help: string;
   };
+  /** Screens: below 768px, stack the fields and wrap the photo row (no Figma frame yet). */
+  responsive?: boolean;
   className?: string;
 }
 
@@ -37,17 +39,24 @@ export function IdentityCard({
   photoHint,
   displayName,
   email,
+  responsive = false,
   className,
 }: IdentityCardProps) {
   return (
     <section
       className={cx(
         "flex w-full flex-col gap-4 rounded-xl border border-line bg-surface p-6 shadow-stat-card",
+        responsive && "max-md:p-4",
         className,
       )}
     >
       <h2 className="type-step-title text-ink">{title}</h2>
-      <div className="flex items-center gap-4">
+      <div
+        className={cx(
+          "flex items-center gap-4",
+          responsive && "max-md:flex-wrap max-md:gap-3",
+        )}
+      >
         <span
           role="img"
           aria-label={name}
@@ -65,7 +74,7 @@ export function IdentityCard({
         </Button>
         <span className="type-caption text-ink-3">{photoHint}</span>
       </div>
-      <div className="flex gap-4">
+      <div className={cx("flex gap-4", responsive && "max-md:flex-col")}>
         <label className="flex min-w-0 flex-1 flex-col gap-2">
           <span className="type-field-label text-ink-2">
             {displayName.label}

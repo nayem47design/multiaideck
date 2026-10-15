@@ -50,3 +50,7 @@ export const Failed: Story = {
     refund: "Refunded · 0 cr",
   },
 };
+/** Screens use other badge tones: Success (“Fastest · Cheapest”), Neutral (“Caught up”). */
+export const BadgeSuccess: Story = {
+  args: { badge: "Fastest · Cheapest", badgeTone: "success" },
+};

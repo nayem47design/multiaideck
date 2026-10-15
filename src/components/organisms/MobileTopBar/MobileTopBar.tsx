@@ -16,7 +16,12 @@ export interface MobileTopBarAction {
 export interface MobileTopBarProps {
   title: ReactNode;
   /** Back link: an empty link element, e.g. <Link href="/" />. Omit on root screens. */
-  back?: { label: string; link: ReactElement<{ className?: string }> };
+  back?: {
+    label: string;
+    link: ReactElement<{ className?: string }>;
+    /** Default arrow-left-01; cancel-01 for screens that close a flow (M34). */
+    icon?: IconName;
+  };
   actions?: MobileTopBarAction[];
   className?: string;
 }
@@ -48,7 +53,7 @@ export function MobileTopBar({
           },
           <Icon
             key="icon"
-            name="arrow-left-01"
+            name={back.icon ?? "arrow-left-01"}
             className="size-mobile-tap-icon"
           />,
         )
