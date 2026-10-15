@@ -28,7 +28,8 @@ const screens = {
 
 // ---------------------------------------------------------------------------
 // Which values each component needs. Selectors name Figma layers; values come from Figma.
-//   path: [component, variant?, ...child layer names]; prop: w | h | x | radius | strokeWeight | opacity
+//   path: [component, variant?, ...child layer names]; prop: w | h | x | y | radius | strokeWeight | gap |
+//     padX (right) | padLeft | padY (top) | padBottom | opacity
 //   kind: size (Tailwind spacing), radius, stroke, opacity, text, gradient, color
 
 const T = (name, kind, path, prop) => ({ name, kind, path, prop });
@@ -415,6 +416,7 @@ const TOKENS = [
     return [
       T("sidebar-width", "size", ex, "w"),
       T("sidebar", "shadow", ex),
+      T("sidebar-pad-top", "size", ex, "padY"),
       T(
         "sidebar-brand-orb",
         "size",
@@ -422,21 +424,143 @@ const TOKENS = [
         "w",
       ),
       T("sidebar-brand", "text", [...ex, "Brand row", "brand", "MultiAI"]),
+      // Also used by Model picker, Activity table and Recent usage.
       T("sidebar-section", "text", [...ex, "Today header", "Label"]),
-      T("sidebar-chat", "radius", [...ex, "Coffee shop names"], "radius"),
-      T("sidebar-chat-title", "text", [...ex, "Hellow", "Title"]),
-      T("sidebar-chat-title-active", "text", [
-        ...ex,
-        "Coffee shop names",
-        "Title",
-      ]),
       T(
         "sidebar-chat-orb-overlap",
         "size",
-        [...ex, "Coffee shop names", "orbs"],
+        [...ex, "Coffee shop names", "orbs", "models"],
         "gap",
       ),
-      T("sidebar-credits-amount", "text", [...ex, "Credits", "Balance"]),
+      T("sidebar-actions-gap", "size", [...ex, "g"], "h"),
+      T("sidebar-actions-gap-between", "size", [...ex, "Actions"], "gap"),
+      T("sidebar-new-chat-gap", "size", [...ex, "Actions", "New chat"], "gap"),
+      T("sidebar-new-chat", "text", [...ex, "Actions", "New chat", "New chat"]),
+      T(
+        "sidebar-search-icon",
+        "size",
+        [...ex, "Actions", "Search", "Icon/search"],
+        "w",
+      ),
+      T("sidebar-nav-gap", "size", [...ex, "g#1"], "h"),
+      T("sidebar-nav-height", "size", [...ex, "Nav item"], "h"),
+      T("sidebar-user-gap", "size", [...ex, "g#2"], "h"),
+    ];
+  })(),
+  // Collapsed rail: the gaps between its groups (Figma spacer frames "g").
+  ...(() => {
+    const rail = ["Sidebar", "State=Collapsed"];
+    return [
+      T("rail-pad-y", "size", rail, "padY"),
+      T("rail-group-gap", "size", [...rail, "g"], "h"),
+      T("rail-search-gap", "size", [...rail, "g#1"], "h"),
+      T("rail-footer-gap", "size", [...rail, "g#3"], "h"),
+      T("rail-credits", "radius", [...rail, "Credits"], "radius"),
+    ];
+  })(),
+
+  // Sidebar section header (245:28609): "Projects", "Today"… with a fold chevron and an action.
+  T("section-header-height", "size", ["Sidebar section header"], "h"),
+  T("section-header-pad-top", "size", ["Sidebar section header"], "padY"),
+  T("section-header-pad-right", "size", ["Sidebar section header"], "padX"),
+  T(
+    "section-header-pad-bottom",
+    "size",
+    ["Sidebar section header"],
+    "padBottom",
+  ),
+  T("section-header-gap", "size", ["Sidebar section header"], "gap"),
+  T("section-header", "text", ["Sidebar section header", "Label"]),
+  T(
+    "section-header-chevron",
+    "size",
+    ["Sidebar section header", "Chevron"],
+    "w",
+  ),
+  T("section-header-action", "size", ["Sidebar section header", "Add"], "w"),
+  T(
+    "section-header-action-icon",
+    "size",
+    ["Sidebar section header", "Add", "Icon/add"],
+    "w",
+  ),
+
+  // Project row (245:28699)
+  T("project-row-height", "size", ["Project row", "State=Default"], "h"),
+  T("project-row-gap", "size", ["Project row", "State=Default"], "gap"),
+  T("project-row", "radius", ["Project row", "State=Default"], "radius"),
+  T("project-row-name", "text", ["Project row", "State=Default", "Name"]),
+  T("project-row-name-active", "text", ["Project row", "State=Active", "Name"]),
+  T("project-row-count", "text", ["Project row", "State=Default", "Count"]),
+
+  // Chat row (245:28743)
+  ...(() => {
+    const row = ["Chat row", "State=Default, Models=Three"];
+    return [
+      T("chat-row-height", "size", row, "h"),
+      T("chat-row-gap", "size", row, "gap"),
+      T("chat-row-pad-left", "size", row, "padLeft"),
+      T("chat-row-pad-right", "size", row, "padX"),
+      T("chat-row", "radius", row, "radius"),
+      T("chat-row-orbs", "size", [...row, "orbs"], "w"),
+      T("chat-row-orb-overlap", "size", [...row, "orbs", "models"], "gap"),
+      T("chat-row-title", "text", [...row, "Title"]),
+      T("chat-row-title-active", "text", [
+        "Chat row",
+        "State=Active, Models=Three",
+        "Title",
+      ]),
+      T("chat-row-cost", "text", [...row, "Cost"]),
+    ];
+  })(),
+
+  // Menu item (245:28774) and Account menu (245:28819)
+  T("menu-item-height", "size", ["Menu item", "Type=Default"], "h"),
+  T("menu-item-pad", "size", ["Menu item", "Type=Default"], "padX"),
+  T("menu-item-gap", "size", ["Menu item", "Type=Default"], "gap"),
+  T("menu-item", "radius", ["Menu item", "Type=Default"], "radius"),
+  T("menu-item-icon", "size", ["Menu item", "Type=Default", "Icon"], "w"),
+  T(
+    "menu-item-submenu-icon",
+    "size",
+    ["Menu item", "Type=Default", "Submenu"],
+    "w",
+  ),
+  T("menu-item-label", "text", ["Menu item", "Type=Default", "Label"]),
+  T("menu-item-trailing", "text", ["Menu item", "Type=Default", "Trailing"]),
+  T("account-menu-width", "size", ["Account menu"], "w"),
+  T("account-menu-pad", "size", ["Account menu"], "padX"),
+  T("account-menu-gap", "size", ["Account menu"], "gap"),
+  T("account-menu", "radius", ["Account menu"], "radius"),
+  T("account-menu", "shadow", ["Account menu"]),
+
+  // Credits (245:28812): State=Collapsed bar and State=Expanded card
+  ...(() => {
+    const c = ["Credits", "State=Collapsed"];
+    const e = ["Credits", "State=Expanded"];
+    return [
+      T("credits-bar-height", "size", c, "h"),
+      T("credits-bar-pad-left", "size", c, "padLeft"),
+      T("credits-bar-pad-right", "size", c, "padX"),
+      T("credits-gap", "size", c, "gap"),
+      T("credits-icon", "size", [...c, "Icon/flash"], "w"),
+      T("credits-balance", "text", [...c, "Balance"]),
+      T("credits-top-up-link", "text", [...c, "actions", "Top up"]),
+      T("credits-toggle", "size", [...c, "Toggle"], "w"),
+      T("credits-toggle-icon", "size", [...c, "Toggle", "Icon/up"], "w"),
+      T("credits-card", "radius", e, "radius"),
+      T("credits-card-pad-top", "size", e, "padY"),
+      T("credits-card-pad", "size", e, "padX"),
+      T("credits-card-gap", "size", e, "gap"),
+      T("credits-head-height", "size", [...e, "head"], "h"),
+      T("credits-money", "text", [...e, "BDT"]),
+      T("credits-progress-height", "size", [...e, "Progress"], "h"),
+      T("credits-progress", "radius", [...e, "Progress"], "radius"),
+      T("credits-top-up-height", "size", [...e, "actions", "Top up"], "h"),
+      T("credits-top-up-pad", "size", [...e, "actions", "Top up"], "padX"),
+      T("credits-top-up", "text", [...e, "actions", "Top up", "Label"]),
+      T("credits-go-pro-gap", "size", [...e, "actions", "Go Pro"], "gap"),
+      T("credits-go-pro", "text", [...e, "actions", "Go Pro", "Label"]),
     ];
   })(),
   T(
@@ -1245,6 +1369,7 @@ for (const t of TOKENS) {
       padX: node.pad?.[1],
       padLeft: node.pad?.[3],
       padY: node.pad?.[0],
+      padBottom: node.pad?.[2],
       y: node.pos?.[1],
       blur: node.blur,
     }[t.prop];

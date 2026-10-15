@@ -1,22 +1,31 @@
+"use client";
+
 import type { ReactElement } from "react";
-import { cloneElement } from "react";
+import { cloneElement, useId } from "react";
 
 import { AiOrb } from "@/components/atoms/AiOrb";
 import { Avatar } from "@/components/atoms/Avatar";
-import { Button } from "@/components/atoms/Button";
 import { Icon, type IconName } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
-import { ModelOrb } from "@/components/atoms/ModelOrb";
-import { ProgressBar } from "@/components/atoms/ProgressBar";
-import { ShortcutChip } from "@/components/atoms/ShortcutChip";
 import { cx, focusRing, stateLayer } from "@/components/atoms/states";
+import { ChatRow } from "@/components/molecules/ChatRow";
+import { Credits, type CreditsProps } from "@/components/molecules/Credits";
 import { NavItem } from "@/components/molecules/NavItem";
-import { SearchField } from "@/components/molecules/SearchField";
+import { ProjectRow } from "@/components/molecules/ProjectRow";
+import { SidebarSectionHeader } from "@/components/molecules/SidebarSectionHeader";
 import { Tooltip } from "@/components/molecules/Tooltip";
+import {
+  AccountMenu,
+  type AccountMenuEntry,
+} from "@/components/organisms/AccountMenu";
 import type { ModelId } from "@/lib/ai/models";
 
 // Figma: Design system › Sidebar (227:32985): State=Expanded (28:8525) and State=Collapsed
-// (227:32794), a 66px rail whose icons keep their expanded rows and show a Tooltip (Size=Label).
+// (227:32794), a 66px rail whose icons show a Tooltip (Size=Label).
+//
+// Expanded: Brand row · New chat + Search · nav · Projects (header "＋" and Project rows) · day
+// sections of Chat rows · Credits · account row. Section headers fold their rows; Credits folds
+// with its chevron; the account row (or its ⋯) opens the Account menu.
 // Links take an empty link element (an <a> or Next.js <Link>); the sidebar adds the content.
 //
 // `collapsed`: false (expanded), true (rail), or "auto": the rail when the user collapsed it
@@ -31,11 +40,27 @@ type LinkElement = ReactElement<{
 export interface SidebarChat {
   id: string;
   title: string;
-  /** e.g. "3 models · 2.6 cr". */
-  meta: string;
+  /** e.g. "2.6 cr" or "Best · 4 cr". */
+  cost: string;
   models: ModelId[];
   link: LinkElement;
   active?: boolean;
+}
+
+export interface SidebarProject {
+  id: string;
+  name: string;
+  /** Number of chats, formatted. */
+  count: string;
+  link: LinkElement;
+  active?: boolean;
+}
+
+export interface SidebarSection {
+  /** Stable id, used to remember the fold ("today", "yesterday"…). */
+  id: string;
+  label: string;
+  chats: SidebarChat[];
 }
 
 export interface SidebarProps {
@@ -49,38 +74,41 @@ export interface SidebarProps {
   /** Shortcut shown in the collapse and expand tooltips, e.g. "⌘\\". */
   toggleShortcut?: string;
   newChat: { label: string; shortcut?: string; link: LinkElement };
-  search: { placeholder: string; shortcut?: string; onFocus?: () => void };
+  search: { label: string; shortcut?: string; onOpen?: () => void };
   nav: {
     icon: IconName;
     label: string;
     link: LinkElement;
     selected?: boolean;
   }[];
-  sections: { label: string; chats: SidebarChat[] }[];
-  credits: {
-    /** e.g. "10,684 credits". */
-    amount: string;
-    /** e.g. "≈ BDT 106.84". */
-    money: string;
-    /** 0–100. */
-    progress: number;
-    progressLabel: string;
-    topUp: { label: string; onClick?: () => void };
-    goPro: { label: string; link: LinkElement };
+  projects: {
+    label: string;
+    /** The header's "＋" (New project). */
+    add: { label: string; onClick?: () => void };
+    items: SidebarProject[];
+    /** The rail's folder icon: an empty link (or <button>). */
+    rail: { link: LinkElement; selected?: boolean };
   };
+  sections: SidebarSection[];
+  /** Folded section ids: "projects" or a section id. */
+  folded?: string[];
+  onFoldToggle?: (id: string) => void;
+  credits: Omit<CreditsProps, "id" | "className">;
   user: {
     name: string;
     email: string;
     initials: string;
+    /** The account row's accessible name, e.g. "Account menu". */
     menuLabel: string;
-    onMenu?: () => void;
+    menu: AccountMenuEntry[];
   };
   className?: string;
 }
 
-const glassTile = "border border-glass-rim glass-strong";
-
 const STATE = { true: "collapsed", false: "expanded", auto: "auto" } as const;
+
+/** Hover / pressed tint for links (stateLayer's `enabled:` only matches form controls). */
+const linkLayer = stateLayer.replaceAll("enabled:", "");
 
 export function Sidebar({
   brand,
@@ -93,17 +121,23 @@ export function Sidebar({
   newChat,
   search,
   nav,
+  projects,
   sections,
+  folded = [],
+  onFoldToggle,
   credits,
   user,
   className,
 }: SidebarProps) {
+  const id = useId();
+  const isOpen = (key: string) => !folded.includes(key);
+
   return (
     <aside
       data-sidebar-state={STATE[String(collapsed) as keyof typeof STATE]}
       className={cx(
-        "flex h-full w-sidebar-width flex-col overflow-hidden rounded-xl border border-glass-rim glass px-3 py-4 shadow-sidebar",
-        "transition-[width] duration-base ease-out rail:w-sidebar-rail-width",
+        "flex h-full w-sidebar-width flex-col overflow-hidden rounded-xl border border-glass-rim glass px-3 pt-sidebar-pad-top pb-3 shadow-sidebar",
+        "transition-[width] duration-base ease-out rail:w-sidebar-rail-width rail:pt-rail-pad-y rail:pb-rail-pad-y",
         className,
       )}
     >
@@ -114,6 +148,7 @@ export function Sidebar({
         newChat={newChat}
         search={search}
         nav={nav}
+        projects={projects}
         credits={credits}
         user={user}
       />
@@ -137,42 +172,63 @@ export function Sidebar({
           </Tooltip>
         </div>
 
-        {cloneElement(
-          newChat.link,
-          {
-            className: cx(
-              "mt-3 flex h-10 shrink-0 items-center gap-2 rounded-pill px-4 text-ink type-nav-item-selected shadow-sidebar-new-chat",
-              glassTile,
-              focusRing,
+        <span aria-hidden className="h-sidebar-actions-gap shrink-0" />
+
+        <div className="flex h-control-md shrink-0 items-center gap-sidebar-actions-gap-between">
+          {cloneElement(
+            newChat.link,
+            {
+              className: cx(
+                "flex h-full min-w-0 flex-1 items-center gap-sidebar-new-chat-gap rounded-pill bg-canvas-deep px-3 text-ink",
+                linkLayer,
+                focusRing,
+              ),
+            },
+            <Icon
+              key="i"
+              name="pencil-edit-02"
+              className="size-icon-sm shrink-0 text-ink-2"
+            />,
+            <span key="l" className="flex-1 truncate type-sidebar-new-chat">
+              {newChat.label}
+            </span>,
+            newChat.shortcut && (
+              <kbd key="k" className="type-mono-xs text-ink-3">
+                {newChat.shortcut}
+              </kbd>
             ),
-          },
-          <Icon
-            key="i"
-            name="pencil-edit-02"
-            className="size-icon-sm text-ink-2"
-          />,
-          <span key="l" className="flex-1">
-            {newChat.label}
-          </span>,
-          newChat.shortcut && (
-            <ShortcutChip key="k">{newChat.shortcut}</ShortcutChip>
-          ),
-        )}
+          )}
+          <Tooltip
+            size="label"
+            side="bottom"
+            body={search.label}
+            shortcut={search.shortcut}
+          >
+            <button
+              type="button"
+              aria-label={search.label}
+              aria-haspopup="dialog"
+              onClick={search.onOpen}
+              className={cx(
+                "flex size-control-md shrink-0 items-center justify-center rounded-pill bg-canvas-deep text-ink-2",
+                stateLayer,
+                focusRing,
+              )}
+            >
+              <Icon name="search-01" className="size-sidebar-search-icon" />
+            </button>
+          </Tooltip>
+        </div>
 
-        <SearchField
-          className="mt-1 shrink-0"
-          placeholder={search.placeholder}
-          aria-label={search.placeholder}
-          shortcut={search.shortcut}
-          onFocus={search.onFocus}
-        />
+        <span aria-hidden className="h-sidebar-nav-gap shrink-0" />
 
-        <nav className="mt-3 flex shrink-0 flex-col gap-0-5">
+        <nav className="flex shrink-0 flex-col gap-0-5">
           {nav.map((item) => (
             <NavItem
               key={item.label}
               icon={item.icon}
               selected={item.selected}
+              heightClassName="h-sidebar-nav-height"
               asChild
             >
               {cloneElement(item.link, {}, item.label)}
@@ -180,123 +236,101 @@ export function Sidebar({
           ))}
         </nav>
 
-        <div className="flex min-h-0 flex-col gap-0-5 overflow-y-auto">
+        {/* Projects and chats scroll between the nav and Credits. */}
+        <div className="-mx-1 flex min-h-0 flex-1 flex-col gap-0-5 overflow-y-auto px-1">
+          <SidebarSectionHeader
+            label={projects.label}
+            expanded={isOpen("projects")}
+            onToggle={() => onFoldToggle?.("projects")}
+            controls={`${id}-projects`}
+            action={{
+              label: projects.add.label,
+              onClick: projects.add.onClick,
+            }}
+          />
+          <div
+            id={`${id}-projects`}
+            hidden={!isOpen("projects")}
+            className="flex flex-col gap-0-5"
+          >
+            {projects.items.map((p) => (
+              <ProjectRow
+                key={p.id}
+                name={p.name}
+                count={p.count}
+                state={p.active ? "active" : "default"}
+                link={p.link}
+              />
+            ))}
+          </div>
+
           {sections.map((section) => (
-            <section key={section.label} className="flex flex-col gap-0-5">
-              <h2 className="px-3 pt-6 pb-1 type-sidebar-section text-ink-3">
-                {section.label}
-              </h2>
-              {section.chats.map((chat) =>
-                cloneElement(
-                  chat.link,
-                  {
-                    key: chat.id,
-                    "aria-current": chat.active ? "page" : undefined,
-                    className: cx(
-                      "flex flex-col rounded-sidebar-chat px-3 py-2",
-                      chat.active
-                        ? cx(glassTile, "shadow-sidebar-chat")
-                        : "hover:bg-canvas-deep",
-                      focusRing,
-                    ),
-                  },
-                  <span
-                    key="t"
-                    className={cx(
-                      "truncate text-ink",
-                      chat.active
-                        ? "type-sidebar-chat-title-active"
-                        : "type-sidebar-chat-title",
-                    )}
-                  >
-                    {chat.title}
-                  </span>,
-                  <span key="m" className="flex items-center gap-2">
-                    <span className="flex space-x-sidebar-chat-orb-overlap">
-                      {chat.models.map((m) => (
-                        <ModelOrb key={m} model={m} size="sm" />
-                      ))}
-                    </span>
-                    <span className="type-caption text-ink-3">{chat.meta}</span>
-                  </span>,
-                ),
-              )}
+            <section
+              key={section.id}
+              aria-label={section.label}
+              className="flex flex-col gap-0-5"
+            >
+              <SidebarSectionHeader
+                label={section.label}
+                expanded={isOpen(section.id)}
+                onToggle={() => onFoldToggle?.(section.id)}
+                controls={`${id}-${section.id}`}
+              />
+              <div
+                id={`${id}-${section.id}`}
+                hidden={!isOpen(section.id)}
+                className="flex flex-col gap-0-5"
+              >
+                {section.chats.map((chat) => (
+                  <ChatRow
+                    key={chat.id}
+                    title={chat.title}
+                    cost={chat.cost}
+                    models={chat.models}
+                    state={chat.active ? "active" : "default"}
+                    link={chat.link}
+                  />
+                ))}
+              </div>
             </section>
           ))}
         </div>
 
-        <span className="flex-1" />
+        <Credits id={`${id}-credits`} {...credits} />
 
-        <div
-          className={cx(
-            "flex shrink-0 flex-col gap-3 rounded-lg p-4 shadow-sidebar-credits",
-            glassTile,
-          )}
-        >
-          <div className="flex items-center gap-3">
-            <span className="flex size-control-sm shrink-0 items-center justify-center rounded-pill bg-blue-soft text-blue">
-              <Icon name="flash" className="size-icon-sm" />
-            </span>
-            <span className="flex flex-col">
-              <span className="type-sidebar-credits-amount text-ink">
-                {credits.amount}
-              </span>
-              <span className="type-caption text-ink-3">{credits.money}</span>
-            </span>
-          </div>
-          <ProgressBar
-            value={credits.progress}
-            aria-label={credits.progressLabel}
-          />
-          <div className="flex items-center gap-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={credits.topUp.onClick}
-            >
-              {credits.topUp.label}
-            </Button>
-            <span className="flex-1" />
-            {cloneElement(
-              credits.goPro.link,
-              {
-                className: cx(
-                  "inline-flex items-center gap-1-5 rounded-xs text-ink type-label",
-                  focusRing,
-                ),
-              },
-              <Icon
-                key="i"
-                name="crown"
-                className="size-select-icon text-status-warning"
-              />,
-              credits.goPro.label,
+        <span aria-hidden className="h-sidebar-user-gap shrink-0" />
+
+        <AccountMenu label={user.menuLabel} items={user.menu}>
+          <button
+            type="button"
+            className={cx(
+              "flex shrink-0 items-center gap-3 rounded-pill p-1 text-left",
+              "transition-colors duration-fast ease-out hover:bg-canvas-deep data-[state=open]:bg-canvas-deep",
+              focusRing,
             )}
-          </div>
-        </div>
-
-        <div className="mt-2 flex shrink-0 items-center gap-3 rounded-pill p-1">
-          <Avatar initials={user.initials} name={user.name} />
-          <span className="flex min-w-0 flex-1 flex-col">
-            <span className="truncate type-nav-item-selected text-ink">
-              {user.name}
+          >
+            <Avatar initials={user.initials} name={user.name} aria-hidden />
+            <span className="flex min-w-0 flex-1 flex-col">
+              <span className="truncate type-ui-strong text-ink">
+                {user.name}
+              </span>
+              <span className="truncate type-caption text-ink-3">
+                {user.email}
+              </span>
             </span>
-            <span className="truncate type-caption text-ink-3">
-              {user.email}
+            {/* The row's name is what it shows, then what it opens. */}
+            <span className="sr-only">{user.menuLabel}</span>
+            <span className="flex size-control-md shrink-0 items-center justify-center text-ink-2">
+              <Icon name="more-horizontal" className="size-icon-button-icon" />
             </span>
-          </span>
-          <IconButton
-            icon="more-horizontal"
-            label={user.menuLabel}
-            onClick={user.onMenu}
-          />
-        </div>
+          </button>
+        </AccountMenu>
       </div>
     </aside>
   );
 }
 
-/** Figma: Sidebar State=Collapsed. Rows line up with the expanded sidebar's. */
+/** Figma: Sidebar State=Collapsed. */
 function Rail({
   expandLabel,
   onExpand,
@@ -304,6 +338,7 @@ function Rail({
   newChat,
   search,
   nav,
+  projects,
   credits,
   user,
 }: Pick<
@@ -311,6 +346,7 @@ function Rail({
   | "newChat"
   | "search"
   | "nav"
+  | "projects"
   | "credits"
   | "user"
   | "onExpand"
@@ -320,9 +356,20 @@ function Rail({
 }) {
   const tile =
     "flex size-rail-tile shrink-0 items-center justify-center rounded-pill";
+  const navTile = (selected?: boolean) =>
+    cx(
+      "flex h-rail-nav-height w-rail-tile shrink-0 items-center justify-center rounded-pill",
+      "transition-colors duration-fast ease-out",
+      selected
+        ? "border border-glass-rim bg-glass-fill-strong text-ink"
+        : "text-ink-2 hover:bg-canvas-deep hover:text-ink",
+      focusRing,
+    );
+  const gap = (h: string) => <span aria-hidden className={cx(h, "shrink-0")} />;
+
   return (
     <div className="hidden min-h-0 flex-1 flex-col items-center gap-0-5 rail:flex">
-      <div className="flex size-rail-tile shrink-0 items-center justify-center">
+      <div className="flex size-10 shrink-0 items-center justify-center">
         <Tip label={expandLabel} shortcut={toggleShortcut}>
           <IconButton
             icon="sidebar-left"
@@ -332,6 +379,8 @@ function Rail({
         </Tip>
       </div>
 
+      {gap("h-rail-group-gap")}
+
       <Tip label={newChat.label} shortcut={newChat.shortcut}>
         {cloneElement(
           newChat.link,
@@ -339,8 +388,8 @@ function Rail({
             "aria-label": newChat.label,
             className: cx(
               tile,
-              "mt-3 text-ink-2 shadow-sidebar-new-chat",
-              glassTile,
+              "bg-canvas-deep text-ink-2",
+              linkLayer,
               focusRing,
             ),
           } as { className: string },
@@ -348,14 +397,17 @@ function Rail({
         )}
       </Tip>
 
-      <Tip label={search.placeholder} shortcut={search.shortcut}>
+      {gap("h-rail-search-gap")}
+
+      <Tip label={search.label} shortcut={search.shortcut}>
         <button
           type="button"
-          aria-label={search.placeholder}
-          onClick={search.onFocus}
+          aria-label={search.label}
+          aria-haspopup="dialog"
+          onClick={search.onOpen}
           className={cx(
             tile,
-            "mt-1 text-ink-3 ring-1 ring-line ring-inset",
+            "bg-canvas-deep text-ink-3",
             stateLayer,
             focusRing,
           )}
@@ -364,7 +416,9 @@ function Rail({
         </button>
       </Tip>
 
-      <nav className="mt-3 flex shrink-0 flex-col gap-0-5">
+      {gap("h-rail-group-gap")}
+
+      <nav className="flex shrink-0 flex-col gap-0-5">
         {nav.map((item) => (
           <Tip key={item.label} label={item.label}>
             {cloneElement(
@@ -372,75 +426,84 @@ function Rail({
               {
                 "aria-label": item.label,
                 "aria-current": item.selected ? "page" : undefined,
-                className: cx(
-                  "flex h-rail-nav-height w-rail-tile items-center justify-center rounded-pill",
-                  "transition-colors duration-fast ease-out",
-                  item.selected
-                    ? "border border-glass-rim bg-glass-fill-strong text-ink"
-                    : "text-ink-2 hover:bg-canvas-deep hover:text-ink",
-                  focusRing,
-                ),
+                className: navTile(item.selected),
               } as { className: string },
               <Icon key="i" name={item.icon} className="size-icon-sm" />,
             )}
           </Tip>
         ))}
+        <Tip label={projects.label}>
+          {cloneElement(
+            projects.rail.link,
+            {
+              "aria-label": projects.label,
+              "aria-current": projects.rail.selected ? "page" : undefined,
+              className: navTile(projects.rail.selected),
+            } as { className: string },
+            <Icon key="i" name="folder-01" className="size-icon-sm" />,
+          )}
+        </Tip>
       </nav>
 
       <span className="flex-1" />
 
-      <div className="flex shrink-0 flex-col items-center gap-3">
-        <Tip label={`${credits.amount} · ${credits.money}`}>
-          <button
-            type="button"
-            aria-label={`${credits.amount}, ${credits.money}. ${credits.topUp.label}`}
-            onClick={credits.topUp.onClick}
-            className={cx(
-              tile,
-              "rounded-lg shadow-sidebar-credits",
-              glassTile,
-              focusRing,
-            )}
-          >
-            <span className="flex size-rail-credits-icon items-center justify-center rounded-pill bg-blue-soft text-blue">
-              <Icon name="flash" className="size-icon-sm" />
-            </span>
-          </button>
-        </Tip>
-
-        <Tip label={credits.goPro.label}>
-          {cloneElement(
-            credits.goPro.link,
-            {
-              "aria-label": credits.goPro.label,
-              className: cx(
-                "flex h-rail-nav-height w-rail-tile items-center justify-center rounded-pill",
-                stateLayer,
-                focusRing,
-              ),
-            } as { className: string },
-            <Icon
-              key="i"
-              name="crown"
-              className="size-rail-crown text-status-warning"
-            />,
+      <Tip label={`${credits.balance} · ${credits.money}`}>
+        <button
+          type="button"
+          aria-label={`${credits.balance}, ${credits.money}. ${credits.topUp.label}`}
+          onClick={credits.topUp.onClick}
+          className={cx(
+            "flex size-rail-tile shrink-0 items-center justify-center rounded-rail-credits bg-canvas-deep",
+            focusRing,
           )}
-        </Tip>
+        >
+          <span className="flex size-rail-credits-icon items-center justify-center rounded-pill bg-blue-soft text-blue">
+            <Icon name="flash" className="size-icon-sm" />
+          </span>
+        </button>
+      </Tip>
 
-        <Tip label={user.name}>
-          <button
-            type="button"
-            aria-label={`${user.name}. ${user.menuLabel}`}
-            onClick={user.onMenu}
-            className={cx(
-              "flex h-rail-user-height w-rail-tile items-center justify-center rounded-pill",
+      {gap("h-rail-footer-gap")}
+
+      <Tip label={credits.goPro.label}>
+        {cloneElement(
+          credits.goPro.link,
+          {
+            "aria-label": credits.goPro.label,
+            className: cx(
+              "flex h-rail-nav-height w-rail-tile shrink-0 items-center justify-center rounded-pill",
+              linkLayer,
               focusRing,
-            )}
-          >
-            <Avatar initials={user.initials} name={user.name} />
-          </button>
-        </Tip>
-      </div>
+            ),
+          } as { className: string },
+          <Icon
+            key="i"
+            name="crown"
+            className="size-rail-crown text-status-warning"
+          />,
+        )}
+      </Tip>
+
+      {gap("h-rail-footer-gap")}
+
+      <AccountMenu
+        label={user.menuLabel}
+        items={user.menu}
+        side="right"
+        align="end"
+        alignOffset={0}
+      >
+        <button
+          type="button"
+          aria-label={`${user.name}. ${user.menuLabel}`}
+          className={cx(
+            "flex h-rail-user-height w-rail-tile shrink-0 items-center justify-center rounded-pill",
+            focusRing,
+          )}
+        >
+          <Avatar initials={user.initials} name={user.name} />
+        </button>
+      </AccountMenu>
     </div>
   );
 }

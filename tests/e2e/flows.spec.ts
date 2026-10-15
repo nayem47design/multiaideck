@@ -74,13 +74,42 @@ test("sign out from the sidebar", async ({ page }) => {
   );
   await ownDemoSession(page);
   await page.goto("/");
-  await v(page.getByRole("button", { name: "Account menu" })).click();
-  await v(page.getByRole("button", { name: "Sign out", exact: true })).click();
+  // R17/R18: the account row opens the Account menu; Sign out opens the sign-out dialog.
+  await v(page.getByRole("button", { name: /Account menu/ })).click();
+  await page.getByRole("menuitem", { name: "Sign out" }).click();
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: "Sign out", exact: true })
+    .click();
   await expect(page).toHaveURL(/\/sign-in/, { timeout: NAV });
   // The session is gone: app pages send you back to sign in.
   await page.goto("/wallet");
   await expect(page).toHaveURL(/\/sign-in\?next=%2Fwallet/);
   expect((await page.request.get("/api/me")).status()).toBe(401);
+});
+
+test("account menu: keyboard, Esc, and its pages", async ({ page }) => {
+  test.skip(isMobile(page), "the sidebar is desktop only");
+  await page.goto("/");
+  const row = v(page.getByRole("button", { name: /Account menu/ }));
+  await row.focus();
+  await page.keyboard.press("Enter");
+  const menu = page.getByRole("menu", { name: "Account menu" });
+  await expect(menu).toBeVisible();
+  await expect(menu.getByRole("menuitem")).toHaveText([
+    /Settings/,
+    /Usage & billing/,
+    /Language\s*English/,
+    /Help & support/,
+    /Sign out/,
+  ]);
+  await page.keyboard.press("Escape");
+  await expect(menu).toBeHidden();
+  await expect(row).toBeFocused();
+
+  await row.click();
+  await menu.getByRole("menuitem", { name: "Usage & billing" }).click();
+  await expect(page).toHaveURL(/\/settings\/usage$/, { timeout: NAV });
 });
 
 test("delete account needs the word DELETE", async ({ page }) => {

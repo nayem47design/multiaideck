@@ -12,6 +12,8 @@ export interface NavItemProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   selected?: boolean;
   external?: boolean;
   asChild?: boolean;
+  /** Replaces the default height (an h-* class), where Figma resizes the instance (Sidebar: 32px). */
+  heightClassName?: string;
   ref?: Ref<HTMLAnchorElement>;
 }
 
@@ -20,6 +22,7 @@ export function NavItem({
   selected = false,
   external = false,
   asChild = false,
+  heightClassName = "h-control-md",
   className,
   children,
   ref,
@@ -31,7 +34,8 @@ export function NavItem({
       ref={ref}
       aria-current={selected ? "page" : undefined}
       className={cx(
-        "flex h-control-md w-full items-center gap-2 rounded-pill px-3",
+        "flex w-full items-center gap-2 rounded-pill px-3",
+        heightClassName,
         "transition-colors duration-fast ease-out",
         selected
           ? "border border-glass-rim bg-glass-fill-strong type-nav-item-selected text-ink"

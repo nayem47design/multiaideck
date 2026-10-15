@@ -77,7 +77,11 @@ test.describe("keyboard", () => {
     [
       "sign out",
       "/",
-      (p) => p.getByRole("button", { name: "Account menu" }).click(),
+      // R17/R18: the account row opens the Account menu, whose Sign out opens the dialog.
+      async (p) => {
+        await p.getByRole("button", { name: /Account menu/ }).click();
+        await p.getByRole("menuitem", { name: "Sign out" }).click();
+      },
     ],
     [
       "delete account",

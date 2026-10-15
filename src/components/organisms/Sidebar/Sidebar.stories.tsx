@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { useState } from "react";
 
 import { Sidebar } from "./Sidebar";
 
@@ -17,15 +18,15 @@ function Frame(
 const chat = (
   id: string,
   title: string,
-  meta: string,
+  cost: string,
   models: ("gpt" | "claude" | "gemini")[],
   active = false,
-) => ({
+) => ({ id, title, cost, models, active, link: <a href="#" /> });
+
+const project = (id: string, name: string, count: string) => ({
   id,
-  title,
-  meta,
-  models,
-  active,
+  name,
+  count,
   link: <a href="#" />,
 });
 
@@ -36,7 +37,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Figma: Design system › Sidebar (227:32985): State=Expanded and State=Collapsed.",
+          "Figma: Design system › Sidebar (227:32985): State=Expanded and State=Collapsed. Section headers fold their rows, Credits folds with its chevron, the account row opens the Account menu.",
       },
     },
   },
@@ -44,37 +45,46 @@ const meta = {
     brand: "MultiAI",
     collapseLabel: "Collapse sidebar",
     newChat: { label: "New chat", shortcut: "⌘N", link: <a href="#" /> },
-    search: { placeholder: "Search chats", shortcut: "⌘K" },
+    search: { label: "Search chats", shortcut: "⌘K" },
     nav: [
       { icon: "bubble-chat", label: "Chats", link: <a href="#" /> },
       { icon: "image-01", label: "Image studio", link: <a href="#" /> },
       { icon: "bookmark-02", label: "Presets", link: <a href="#" /> },
     ],
+    projects: {
+      label: "Projects",
+      add: { label: "New project" },
+      items: [
+        project("p1", "MultiAI launch", "12"),
+        project("p2", "Coffee brand", "5"),
+        project("p3", "Thesis research", "8"),
+      ],
+      rail: { link: <a href="#" /> },
+    },
     sections: [
       {
+        id: "today",
         label: "Today",
         chats: [
           chat(
             "1",
             "Coffee shop names",
-            "3 models · 2.6 cr",
+            "2.6 cr",
             ["gpt", "claude", "gemini"],
             true,
           ),
-          chat("2", "Hellow", "3 models · 0.9 cr", ["gpt", "claude", "gemini"]),
-          chat("3", "Who are you?", "3 models · 14 cr", [
-            "gpt",
-            "claude",
-            "gemini",
-          ]),
-          chat("4", "How old are you", "Best answer · 4 cr", ["claude"]),
+          chat("2", "Hellow", "0.9 cr", ["gpt", "claude", "gemini"]),
+          chat("3", "Who are you?", "14 cr", ["gpt", "claude", "gemini"]),
+          chat("4", "How old are you", "Best · 4 cr", ["gemini"]),
         ],
       },
     ],
     credits: {
-      amount: "10,684 credits",
+      expandLabel: "Show credits",
+      collapseLabel: "Hide credits",
+      balance: "10,684 credits",
       money: "≈ BDT 106.84",
-      progress: 60,
+      progress: 52.7,
       progressLabel: "Credits left",
       topUp: { label: "Top up" },
       goPro: { label: "Go Pro", link: <a href="#" /> },
@@ -84,6 +94,42 @@ const meta = {
       email: "alhossain@musemind.agency",
       initials: "AH",
       menuLabel: "Account menu",
+      menu: [
+        {
+          id: "settings",
+          icon: "settings-01",
+          label: "Settings",
+          trailing: "⌘,",
+          link: <a href="#" />,
+        },
+        {
+          id: "usage",
+          icon: "chart-histogram",
+          label: "Usage & billing",
+          link: <a href="#" />,
+        },
+        {
+          id: "language",
+          icon: "globe-02",
+          label: "Language",
+          trailing: "English",
+          submenu: true,
+          link: <a href="#" />,
+        },
+        {
+          id: "help",
+          icon: "help-circle",
+          label: "Help & support",
+          link: <a href="#" />,
+        },
+        {
+          id: "sign-out",
+          icon: "logout-03",
+          label: "Sign out",
+          tone: "danger",
+          separatorBefore: true,
+        },
+      ],
     },
   },
   decorators: [Frame],
@@ -100,5 +146,29 @@ export const Collapsed: Story = {
     collapsed: true,
     expandLabel: "Expand sidebar",
     toggleShortcut: "⌘\\",
+  },
+};
+
+/** Fold and unfold sections and Credits; open the Account menu from the account row. */
+export const Interactive: Story = {
+  render: function Render(args) {
+    const [folded, setFolded] = useState<string[]>([]);
+    const [open, setOpen] = useState(false);
+    return (
+      <Sidebar
+        {...args}
+        folded={folded}
+        onFoldToggle={(id) =>
+          setFolded((f) =>
+            f.includes(id) ? f.filter((x) => x !== id) : [...f, id],
+          )
+        }
+        credits={{
+          ...args.credits,
+          state: open ? "expanded" : "collapsed",
+          onToggle: () => setOpen((o) => !o),
+        }}
+      />
+    );
   },
 };
