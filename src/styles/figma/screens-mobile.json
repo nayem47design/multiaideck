@@ -3,7 +3,7 @@
   "figmaFileKey": "fCrR78u1aj0DQjzpaEhrIY",
   "page": "28:7492",
   "readWith": "figma-console figma_execute (read-only)",
-  "exportedAt": "2026-10-15T17:05:26.117Z",
+  "exportedAt": "2026-10-15T20:41:39.787Z",
   "note": "Mobile screens M1–M43 (360×800). n=name t=type x/y/w/h al=[dir,pt,pr,pb,pl,gap,main,cross] r=radius sw=stroke weight f=fills s=strokes fx=effects c=text ts=text style (raw: family style size/lineHeight ls<letterSpacing px>) m=main component p=text props k=children"
  },
  "screens": {

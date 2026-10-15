@@ -79,10 +79,26 @@
     "height": 900,
     "scale": 1
   },
+  "chats__dark__1440.png": {
+    "id": "245:36403",
+    "name": "Dark · Chats",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
   "chats__light__1440.png": {
     "id": "166:27473",
     "name": "Chats",
     "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-files-attached-2__dark__1440.png": {
+    "id": "235:20570",
+    "name": "Dark · Compare · Files attached",
+    "theme": "dark",
     "width": 1440,
     "height": 900,
     "scale": 1
@@ -207,10 +223,26 @@
     "height": 900,
     "scale": 1
   },
+  "desktop-enter-code__dark__1440.png": {
+    "id": "245:36787",
+    "name": "Dark · Desktop · Enter code",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
   "desktop-enter-code__light__1440.png": {
     "id": "166:26754",
     "name": "Desktop · Enter code",
     "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "desktop-sign-in__dark__1440.png": {
+    "id": "245:36739",
+    "name": "Dark · Desktop · Sign in",
+    "theme": "dark",
     "width": 1440,
     "height": 900,
     "scale": 1
@@ -311,10 +343,26 @@
     "height": 900,
     "scale": 1
   },
+  "image-studio-picture-ready__dark__1440.png": {
+    "id": "245:36512",
+    "name": "Dark · Image studio · Picture ready",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
   "image-studio-picture-ready__light__1440.png": {
     "id": "166:28077",
     "name": "Image studio · Picture ready",
     "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "image-studio__dark__1440.png": {
+    "id": "245:36480",
+    "name": "Dark · Image studio",
+    "theme": "dark",
     "width": 1440,
     "height": 900,
     "scale": 1
@@ -671,6 +719,22 @@
     "height": 800,
     "scale": 2
   },
+  "overlay-account-menu__dark__1440.png": {
+    "id": "245:36836",
+    "name": "Dark · Overlay · Account menu",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "overlay-account-menu__light__1440.png": {
+    "id": "245:36075",
+    "name": "Overlay · Account menu",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
   "overlay-checkout-simulated__dark__480.png": {
     "id": "28:15116",
     "name": "Dark · Overlay · Checkout (simulated)",
@@ -703,6 +767,14 @@
     "height": 526,
     "scale": 1
   },
+  "overlay-go-pro__dark__560.png": {
+    "id": "245:36863",
+    "name": "Dark · Overlay · Go Pro",
+    "theme": "dark",
+    "width": 560,
+    "height": 457,
+    "scale": 1
+  },
   "overlay-go-pro__light__560.png": {
     "id": "166:28764",
     "name": "Overlay · Go Pro",
@@ -725,6 +797,22 @@
     "theme": "light",
     "width": 1000,
     "height": 820,
+    "scale": 1
+  },
+  "overlay-new-project__dark__480.png": {
+    "id": "245:36921",
+    "name": "Dark · Overlay · New project",
+    "theme": "dark",
+    "width": 480,
+    "height": 294,
+    "scale": 1
+  },
+  "overlay-new-project__light__480.png": {
+    "id": "245:36384",
+    "name": "Overlay · New project",
+    "theme": "light",
+    "width": 480,
+    "height": 294,
     "scale": 1
   },
   "overlay-payment-failed__dark__480.png": {
@@ -759,12 +847,28 @@
     "height": 446,
     "scale": 1
   },
+  "overlay-pro-is-on__dark__480.png": {
+    "id": "245:36903",
+    "name": "Dark · Overlay · Pro is on",
+    "theme": "dark",
+    "width": 480,
+    "height": 380,
+    "scale": 1
+  },
   "overlay-pro-is-on__light__480.png": {
     "id": "166:28814",
     "name": "Overlay · Pro is on",
     "theme": "light",
     "width": 480,
     "height": 380,
+    "scale": 1
+  },
+  "overlay-search-chats__dark__640.png": {
+    "id": "245:36839",
+    "name": "Dark · Overlay · Search chats",
+    "theme": "dark",
+    "width": 640,
+    "height": 258,
     "scale": 1
   },
   "overlay-search-chats__light__640.png": {
@@ -775,6 +879,14 @@
     "height": 258,
     "scale": 1
   },
+  "overlay-sign-out__dark__480.png": {
+    "id": "245:36912",
+    "name": "Dark · Overlay · Sign out",
+    "theme": "dark",
+    "width": 480,
+    "height": 212,
+    "scale": 1
+  },
   "overlay-sign-out__light__480.png": {
     "id": "166:28826",
     "name": "Overlay · Sign out",
@@ -783,10 +895,74 @@
     "height": 212,
     "scale": 1
   },
+  "presets__dark__1440.png": {
+    "id": "245:36544",
+    "name": "Dark · Presets",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
   "presets__light__1440.png": {
     "id": "166:28328",
     "name": "Presets",
     "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "project-coffee-brand__dark__1440.png": {
+    "id": "245:38304",
+    "name": "Dark · Project · Coffee brand",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "project-coffee-brand__light__1440.png": {
+    "id": "245:38074",
+    "name": "Project · Coffee brand",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "project-multiai-launch__dark__1440.png": {
+    "id": "245:36659",
+    "name": "Dark · Project · MultiAI launch",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "project-multiai-launch__light__1440.png": {
+    "id": "245:36126",
+    "name": "Project · MultiAI launch",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "project-thesis-research__dark__1440.png": {
+    "id": "245:38764",
+    "name": "Dark · Project · Thesis research",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "project-thesis-research__light__1440.png": {
+    "id": "245:38534",
+    "name": "Project · Thesis research",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "settings-help-support__dark__1440.png": {
+    "id": "245:36619",
+    "name": "Dark · Settings · Help & support",
+    "theme": "dark",
     "width": 1440,
     "height": 900,
     "scale": 1

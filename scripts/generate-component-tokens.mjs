@@ -225,10 +225,10 @@ const TOKENS = [
   T("citation-chip-dot", "size", ["Citation chip", "dot"], "w"),
   T("citation-chip", "text", ["Citation chip", "Label"]),
 
-  T("tooltip-width", "size", ["Tooltip"], "w"),
-  T("tooltip", "radius", ["Tooltip"], "radius"),
-  T("tooltip-title", "text", ["Tooltip", "Title"]),
-  T("tooltip-body", "text", ["Tooltip", "Body"]),
+  T("tooltip-width", "size", ["Tooltip", "Size=Default"], "w"),
+  T("tooltip", "radius", ["Tooltip", "Size=Default"], "radius"),
+  T("tooltip-title", "text", ["Tooltip", "Size=Default", "Title"]),
+  T("tooltip-body", "text", ["Tooltip", "Size=Default", "Body"]),
 
   T(
     "banner-icon",
@@ -408,39 +408,37 @@ const TOKENS = [
   T("page-top-bar-height", "size", ["Page top bar"], "h"),
   T("page-top-bar-title", "text", ["Page top bar", "Wallet"]),
 
-  T("sidebar-width", "size", ["Sidebar"], "w"),
-  T("sidebar", "shadow", ["Sidebar"]),
-  T(
-    "sidebar-brand-orb",
-    "size",
-    ["Sidebar", "Brand row", "brand", "AI orb"],
-    "w",
-  ),
-  T("sidebar-brand", "text", ["Sidebar", "Brand row", "brand", "MultiAI"]),
-  T("sidebar-new-chat", "shadow", ["Sidebar", "New chat"]),
-  T("sidebar-section", "text", ["Sidebar", "label", "Today"]),
-  T("sidebar-chat", "radius", ["Sidebar", "Coffee shop names"], "radius"),
-  T("sidebar-chat", "shadow", ["Sidebar", "Coffee shop names"]),
-  T("sidebar-chat-title", "text", ["Sidebar", "Hellow", "Hellow"]),
-  T("sidebar-chat-title-active", "text", [
-    "Sidebar",
-    "Coffee shop names",
-    "Coffee shop names",
-  ]),
-  T(
-    "sidebar-chat-orb-overlap",
-    "size",
-    ["Sidebar", "Coffee shop names", "meta", "dots"],
-    "gap",
-  ),
-  T("sidebar-credits", "shadow", ["Sidebar", "Credits card"]),
-  T("sidebar-credits-amount", "text", [
-    "Sidebar",
-    "Credits card",
-    "r",
-    "t",
-    "10,684 credits",
-  ]),
+  // Sidebar (component set since the collapsible rail): read from State=Expanded, which is now
+  // built from Sidebar section header, Project row, Chat row and Credits instances.
+  ...(() => {
+    const ex = ["Sidebar", "State=Expanded"];
+    return [
+      T("sidebar-width", "size", ex, "w"),
+      T("sidebar", "shadow", ex),
+      T(
+        "sidebar-brand-orb",
+        "size",
+        [...ex, "Brand row", "brand", "AI orb"],
+        "w",
+      ),
+      T("sidebar-brand", "text", [...ex, "Brand row", "brand", "MultiAI"]),
+      T("sidebar-section", "text", [...ex, "Today header", "Label"]),
+      T("sidebar-chat", "radius", [...ex, "Coffee shop names"], "radius"),
+      T("sidebar-chat-title", "text", [...ex, "Hellow", "Title"]),
+      T("sidebar-chat-title-active", "text", [
+        ...ex,
+        "Coffee shop names",
+        "Title",
+      ]),
+      T(
+        "sidebar-chat-orb-overlap",
+        "size",
+        [...ex, "Coffee shop names", "orbs"],
+        "gap",
+      ),
+      T("sidebar-credits-amount", "text", [...ex, "Credits", "Balance"]),
+    ];
+  })(),
   T(
     "answer-card-receipt-gap-failed",
     "size",

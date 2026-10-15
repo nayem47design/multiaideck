@@ -88,8 +88,8 @@
   --select-border-open-width: 1.5px; /* Select › State=Open */
   --citation-chip-height: 26px; /* Citation chip */
   --citation-chip-dot: var(--space-2); /* Citation chip › dot */
-  --tooltip-width: 240px; /* Tooltip */
-  --tooltip-radius: 12px; /* Tooltip */
+  --tooltip-width: 240px; /* Tooltip › Size=Default */
+  --tooltip-radius: 12px; /* Tooltip › Size=Default */
   --banner-icon: 18px; /* Banner › Tone=Info › Icon/information-circle */
   --empty-state-icon-circle: var(--space-12); /* Empty state › icon */
   --empty-state-icon: 22px; /* Empty state › icon › Icon/bubble-chat */
@@ -124,14 +124,15 @@
   ); /* Suggestion bar › Pill/Why? */
   --page-top-bar-shadow: var(--shadow-glass); /* Page top bar */
   --page-top-bar-height: var(--space-14); /* Page top bar */
-  --sidebar-width: 268px; /* Sidebar */
-  --sidebar-shadow: var(--shadow-glass); /* Sidebar */
-  --sidebar-brand-orb: 26px; /* Sidebar › Brand row › brand › AI orb */
-  --sidebar-new-chat-shadow: var(--shadow-glass); /* Sidebar › New chat */
-  --sidebar-chat-radius: 16px; /* Sidebar › Coffee shop names */
-  --sidebar-chat-shadow: var(--shadow-glass); /* Sidebar › Coffee shop names */
-  --sidebar-chat-orb-overlap: -4px; /* Sidebar › Coffee shop names › meta › dots */
-  --sidebar-credits-shadow: var(--shadow-glass); /* Sidebar › Credits card */
+  --sidebar-width: 268px; /* Sidebar › State=Expanded */
+  --sidebar-shadow: var(--shadow-glass); /* Sidebar › State=Expanded */
+  --sidebar-brand-orb: 26px; /* Sidebar › State=Expanded › Brand row › brand › AI orb */
+  --sidebar-chat-radius: var(
+    --radius-sm
+  ); /* Sidebar › State=Expanded › Coffee shop names */
+  --sidebar-chat-orb-overlap: var(
+    --space-0
+  ); /* Sidebar › State=Expanded › Coffee shop names › orbs */
   --answer-card-receipt-gap-failed: 10px; /* Answer card › State=Failed › Receipt row */
   --composer-file-gap: 10px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf */
   --composer-wave-gap: 3px; /* Composer › State=Voice listening › Toolbar › Waveform */
@@ -745,11 +746,8 @@
   --spacing-sidebar-width: var(--sidebar-width);
   --shadow-sidebar: var(--sidebar-shadow);
   --spacing-sidebar-brand-orb: var(--sidebar-brand-orb);
-  --shadow-sidebar-new-chat: var(--sidebar-new-chat-shadow);
   --radius-sidebar-chat: var(--sidebar-chat-radius);
-  --shadow-sidebar-chat: var(--sidebar-chat-shadow);
   --spacing-sidebar-chat-orb-overlap: var(--sidebar-chat-orb-overlap);
-  --shadow-sidebar-credits: var(--sidebar-credits-shadow);
   --spacing-answer-card-receipt-gap-failed: var(
     --answer-card-receipt-gap-failed
   );
@@ -1233,12 +1231,12 @@
   @apply type-caption-strong;
 }
 
-/* Tooltip › Title: Luminous/Caption Strong */
+/* Tooltip › Size=Default › Title: Luminous/Caption Strong */
 @utility type-tooltip-title {
   @apply type-caption-strong;
 }
 
-/* Tooltip › Body: Luminous/Caption */
+/* Tooltip › Size=Default › Body: Luminous/Caption */
 @utility type-tooltip-body {
   @apply type-caption;
 }
@@ -1338,7 +1336,7 @@
   @apply type-title-small;
 }
 
-/* Sidebar › Brand row › brand › MultiAI: Geist SemiBold 17/22 ls -0.4 */
+/* Sidebar › State=Expanded › Brand row › brand › MultiAI: Geist SemiBold 17/22 ls -0.4 */
 @utility type-sidebar-brand {
   font-family: var(--font-sans);
   font-size: 17px;
@@ -1347,24 +1345,24 @@
   letter-spacing: -0.4px;
 }
 
-/* Sidebar › label › Today: Luminous/Section */
+/* Sidebar › State=Expanded › Today header › Label: Luminous/Section */
 @utility type-sidebar-section {
   @apply type-section;
 }
 
-/* Sidebar › Hellow › Hellow: Luminous/UI */
+/* Sidebar › State=Expanded › Hellow › Title: Luminous/UI */
 @utility type-sidebar-chat-title {
   @apply type-ui;
 }
 
-/* Sidebar › Coffee shop names › Coffee shop names: Luminous/UI Strong */
+/* Sidebar › State=Expanded › Coffee shop names › Title: Luminous/UI Strong */
 @utility type-sidebar-chat-title-active {
   @apply type-ui-strong;
 }
 
-/* Sidebar › Credits card › r › t › 10,684 credits: Luminous/Title Small */
+/* Sidebar › State=Expanded › Credits › Balance: Luminous/Label */
 @utility type-sidebar-credits-amount {
-  @apply type-title-small;
+  @apply type-label;
 }
 
 /* Order summary › line › BDT 699: Geist Medium 20/26 ls 0 */
