@@ -43,6 +43,8 @@ export const Suggested: Story = { args: { state: "suggested" } };
 export const Default: Story = {};
 export const Failed: Story = {
   args: {
+    children:
+      "Claude didn’t answer this time, so you weren’t charged. Retry with the same model, or swap to another one.",
     state: "failed",
     badge: "Couldn’t answer",
     refund: "Refunded · 0 cr",

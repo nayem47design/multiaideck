@@ -84,3 +84,156 @@
   font-weight: 400;
   letter-spacing: 0px;
 }
+
+/* Luminous/Body Small · Geist Regular · 13px/18px */
+@utility type-body-small {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Mono Small · Geist Mono Regular · 13px/18px */
+@utility type-mono-small {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Tag · Geist Medium · 11px/14px */
+@utility type-tag {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Caption Strong · Geist Medium · 12px/16px */
+@utility type-caption-strong {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Overline · Geist Medium · 12px/16px */
+@utility type-overline {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Luminous/Subtitle · Geist Medium · 16px/22px */
+@utility type-subtitle {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+/* Luminous/Section · Geist Medium · 11px/16px */
+@utility type-section {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+}
+
+/* Luminous/Title Small · Geist Medium · 15px/20px */
+@utility type-title-small {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Badge · Geist Medium · 11px/15px */
+@utility type-badge {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Input · Geist Regular · 15px/20px */
+@utility type-input {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Mono XS · Geist Mono Regular · 11px/15px */
+@utility type-mono-xs {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Mono Caption · Geist Mono Regular · 12px/16px */
+@utility type-mono-caption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Mono Body · Geist Mono Regular · 14px/20px */
+@utility type-mono-body {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Body Compact · Geist Regular · 15px/22px */
+@utility type-body-compact {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* Luminous/Answer · Geist Regular · 15px/24px */
+@utility type-answer {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* Luminous/Stat · Geist Light · 36px/42px */
+@utility type-stat {
+  font-family: var(--font-sans);
+  font-size: 36px;
+  line-height: 42px;
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+
+/* Luminous/Dialog Title · Geist Light · 28px/34px */
+@utility type-dialog-title {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}

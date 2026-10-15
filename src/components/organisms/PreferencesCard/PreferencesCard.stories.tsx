@@ -5,7 +5,7 @@ import { Select } from "@/components/molecules/Select";
 
 import { PreferencesCard } from "./PreferencesCard";
 
-// Shown at 640px: Figma's 301px component frame is too narrow for its rows.
+// Figma's Preferences card frame is 824px wide.
 function frame(width: number, height?: number) {
   return function Frame(Story: () => React.JSX.Element) {
     return (
@@ -73,7 +73,7 @@ const meta = {
       },
     ],
   },
-  decorators: [frame(640)],
+  decorators: [frame(824)],
 } satisfies Meta<typeof PreferencesCard>;
 
 export default meta;

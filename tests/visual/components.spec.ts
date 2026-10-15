@@ -14,16 +14,7 @@ const SKIP = new Set(["button"]); // has its own spec
 
 // Figma component frames that are narrower than their own content, so Figma's export overlaps
 // itself. They are checked inside their screens instead.
-const NOT_COMPARABLE: Record<string, string> = {
-  "preferences-card/default": "Figma frame (301px) is narrower than its rows",
-  "data-card/default": "Figma frame (287px) is narrower than its rows",
-  "sign-in-methods-card/default":
-    "Figma clips its password-strength row (505px in a 436px column)",
-  "notification-matrix/default":
-    "Figma: the Failed answers help text (307px) overflows its 277px column under the toggle",
-  "identity-card/default":
-    "Figma frame (420px): help texts and the email field overflow their 177px columns",
-};
+const NOT_COMPARABLE: Record<string, string> = {};
 
 // Variants whose pixels cannot be compared with their Figma export; only the size is checked.
 const SIZE_ONLY: Record<string, string> = {};

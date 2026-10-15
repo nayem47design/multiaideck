@@ -3,9 +3,7 @@ import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/atoms/Icon";
 import { cx } from "@/components/atoms/states";
 
-// Figma: Design system › Data card (103:29293): data rows with an action. Figma's component
-// frame (287px) is narrower than its rows (help text is fixed at 480px), so it overlaps; this
-// lays the rows out properly.
+// Figma: Design system › Data card (103:29293): data rows with an action.
 
 export interface DataCardProps {
   title: string;

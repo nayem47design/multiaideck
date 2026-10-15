@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import { TopUpTable } from "./TopUpTable";
 
-// Figma's Top-up table frame is 367px wide (its columns are clipped, as in Figma).
+// Figma's Top-up table frame is 728px wide.
 function frame(width: number, height?: number) {
   return function Frame(Story: () => React.JSX.Element) {
     return (
@@ -61,7 +61,7 @@ const meta = {
     teams: { label: "Need more than BDT 2,499? Teams plan →", href: "#" },
     footnote: "Chats estimated from your average of 26 credits per chat.",
   },
-  decorators: [frame(367)],
+  decorators: [frame(728)],
 } satisfies Meta<typeof TopUpTable>;
 
 export default meta;

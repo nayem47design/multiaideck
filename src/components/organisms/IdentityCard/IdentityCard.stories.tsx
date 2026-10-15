@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import { IdentityCard } from "./IdentityCard";
 
-// Figma's Identity card frame is 420px wide and shows the display name focused.
+// Figma's Identity card frame is 824px wide and shows the display name focused.
 function frame(width: number, height?: number) {
   return function Frame(Story: () => React.JSX.Element) {
     return (
@@ -44,7 +44,7 @@ const meta = {
       help: "Used for sign-in and receipts.",
     },
   },
-  decorators: [frame(420)],
+  decorators: [frame(824)],
 } satisfies Meta<typeof IdentityCard>;
 
 export default meta;

@@ -70,7 +70,7 @@ const meta = {
       },
     },
   },
-  decorators: [frame(542)],
+  decorators: [frame(824)],
 } satisfies Meta<typeof SignInMethodsCard>;
 
 export default meta;

@@ -1,5 +1,15 @@
 {
-  "$note": "Figma exports include the Glass/Strong shadow, cropped by the parent frame. Offsets of the 36x36 button inside each export, from Figma absoluteRenderBounds vs absoluteBoundingBox (CSS px).",
-  "light": { "x": 40, "y": 21, "width": 36, "height": 36 },
-  "dark": { "x": 40, "y": 0, "width": 36, "height": 36 }
+  "$note": "Offsets of the component inside the Figma export (effects such as shadows extend the export), from absoluteRenderBounds vs absoluteBoundingBox, CSS px.",
+  "light": {
+    "x": 40,
+    "y": 21,
+    "width": 36,
+    "height": 36
+  },
+  "dark": {
+    "x": 40,
+    "y": 0,
+    "width": 36,
+    "height": 36
+  }
 }

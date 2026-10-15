@@ -5,8 +5,6 @@ import { Radio } from "@/components/atoms/Radio";
 import { cx, focusRing } from "@/components/atoms/states";
 
 // Figma: Design system › Top-up table (103:20863). Step 1 of the wallet: pick a credit pack.
-// Figma's component is 367px wide but its columns need ~586px, so Figma clips them; this
-// component clips the same way and shows every column when given room.
 
 export interface TopUpPack {
   value: string;

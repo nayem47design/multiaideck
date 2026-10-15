@@ -130,7 +130,7 @@ const meta = {
     ],
     onChange: () => {},
   },
-  decorators: [frame(495)],
+  decorators: [frame(824)],
 } satisfies Meta<typeof NotificationMatrix>;
 
 export default meta;

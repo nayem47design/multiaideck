@@ -4,7 +4,7 @@ import { Button } from "@/components/atoms/Button";
 
 import { DataCard } from "./DataCard";
 
-// Shown at 760px: Figma's 287px component frame is too narrow for its rows.
+// Figma's Data card frame is 824px wide.
 function frame(width: number, height?: number) {
   return function Frame(Story: () => React.JSX.Element) {
     return (
@@ -60,7 +60,7 @@ const meta = {
       },
     ],
   },
-  decorators: [frame(760)],
+  decorators: [frame(824)],
 } satisfies Meta<typeof DataCard>;
 
 export default meta;

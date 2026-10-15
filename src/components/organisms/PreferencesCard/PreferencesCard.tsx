@@ -4,8 +4,7 @@ import { cx } from "@/components/atoms/states";
 import { SettingRow } from "@/components/molecules/SettingRow";
 
 // Figma: Design system › Preferences card (103:29258): rows of setting + control (segmented
-// controls and a select). Figma's component frame (301px) is narrower than its rows, so its
-// layout overlaps; this lays the rows out properly. Figma's segmented options here use 16px
+// controls and a select). Figma's segmented options here use 16px
 // padding and its select is 40px / radius 12, unlike the molecules (12px; 36px / radius 10).
 
 export interface PreferencesCardProps {

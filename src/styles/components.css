@@ -81,7 +81,7 @@
   --stepper-icon: 14px; /* Stepper › minus › Icon/minus-sign */
   --pack-row-height: var(--space-14); /* Pack row */
   --pack-row-radius: 16px; /* Pack row */
-  --toast-shadow: 0px 12px 40px 0px #1f336124; /* Toast › Tone=Success */
+  --toast-shadow: var(--shadow-glass-strong); /* Toast › Tone=Success */
   --toast-icon: 18px; /* Toast › Tone=Success › Icon/tick-02 */
   --select-width: 200px; /* Select › State=Default */
   --select-icon: 14px; /* Select › State=Default › Icon/arrow-down-01 */
@@ -96,11 +96,11 @@
   --model-list-row-height: 60px; /* Model list row › State=Default */
   --model-list-row-info: 180px; /* Model list row › State=Default › t */
   --cost-estimate-icon: 14px; /* Cost estimate › Icon/information-circle */
-  --prompt-bubble-shadow: 0px 12px 40px 0px #1f33610f; /* Prompt bubble */
-  --chat-title-pill-shadow: 0px 12px 40px 0px #1f33610d; /* Chat title pill */
+  --prompt-bubble-shadow: var(--shadow-glass); /* Prompt bubble */
+  --chat-title-pill-shadow: var(--shadow-glass); /* Chat title pill */
   --chat-title-pill-icon: 14px; /* Chat title pill › Icon/arrow-down-01 */
   --prompt-receipt-height: 28px; /* Prompt receipt */
-  --save-bar-shadow: 0px 12px 40px 0px #1f336129; /* Save bar */
+  --save-bar-shadow: var(--shadow-glass-strong); /* Save bar */
   --save-bar-height: 60px; /* Save bar */
   --save-bar-discard-height: var(--space-10); /* Save bar › Pill/Discard */
   --answer-card-width: 360px; /* Answer card › State=Default */
@@ -117,7 +117,7 @@
   --composer-file-text: 150px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf › text */
   --composer-wave-bar: 3px; /* Composer › State=Voice listening › Toolbar › Waveform › bar */
   --composer-menu-width: 312px; /* Composer menu */
-  --suggestion-bar-shadow: 0px 12px 40px 0px #1f33610d; /* Suggestion bar */
+  --suggestion-bar-shadow: var(--shadow-glass); /* Suggestion bar */
   --suggestion-bar-orb: 22px; /* Suggestion bar › mini constellation › Model orb */
   --suggestion-bar-why-height: var(
     --size-control-sm
@@ -127,11 +127,11 @@
   --sidebar-width: 268px; /* Sidebar */
   --sidebar-shadow: var(--shadow-glass); /* Sidebar */
   --sidebar-brand-orb: 26px; /* Sidebar › Brand row › brand › AI orb */
-  --sidebar-new-chat-shadow: 0px 12px 40px 0px #1f33610d; /* Sidebar › New chat */
+  --sidebar-new-chat-shadow: var(--shadow-glass); /* Sidebar › New chat */
   --sidebar-chat-radius: 16px; /* Sidebar › Coffee shop names */
-  --sidebar-chat-shadow: 0px 12px 40px 0px #1f33610d; /* Sidebar › Coffee shop names */
+  --sidebar-chat-shadow: var(--shadow-glass); /* Sidebar › Coffee shop names */
   --sidebar-chat-orb-overlap: -4px; /* Sidebar › Coffee shop names › meta › dots */
-  --sidebar-credits-shadow: 0px 12px 40px 0px #1f33610f; /* Sidebar › Credits card */
+  --sidebar-credits-shadow: var(--shadow-glass); /* Sidebar › Credits card */
   --answer-card-receipt-gap-failed: 10px; /* Answer card › State=Failed › Receipt row */
   --composer-file-gap: 10px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf */
   --composer-wave-gap: 3px; /* Composer › State=Voice listening › Toolbar › Waveform */
@@ -139,7 +139,7 @@
   --composer-file-pad-right: 10px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf */
   --composer-language-pad-x: 10px; /* Composer › State=Voice listening › Toolbar › Language */
   --composer-menu-item-pad: 10px; /* Composer menu › Item/Add photos & files */
-  --order-summary-shadow: 0px 12px 40px 0px #1f33611a; /* Order summary */
+  --order-summary-shadow: var(--shadow-glass-strong); /* Order summary */
   --order-summary-width: 376px; /* Order summary */
   --order-summary-trust-icon: 14px; /* Order summary › trust › Icon/square-lock-02 */
   --settings-nav-shadow: var(--shadow-glass); /* Settings nav */
@@ -156,8 +156,10 @@
   --top-up-col-bonus: 110px; /* Top-up table › Table head › c#2 */
   --top-up-col-chats: 110px; /* Top-up table › Table head › c#3 */
   --top-up-custom-height: 52px; /* Top-up table › Custom amount */
-  --payment-method-radio: 18px; /* Payment method selector › methods › Method bKash › radio */
-  --payment-method-radio-ring-width: 5px; /* Payment method selector › methods › Method bKash › radio */
+  --payment-method-radio: var(
+    --size-icon-md
+  ); /* Payment method selector › methods › Method bKash › radio */
+  --payment-method-radio-ring-width: 6px; /* Payment method selector › methods › Method bKash › radio */
   --payment-method-radio-border-width: 1.5px; /* Payment method selector › methods › Method Nagad › radio */
   --dialog-sm-width: 480px; /* Checkout dialog */
   --usage-insight-width: 264px; /* Usage card › Insight */
@@ -187,7 +189,6 @@
   --payments-col-action: 200px; /* Payments table › head › c#3 */
   --data-tile-radius: 12px; /* Data card › Row/Chat history › tile */
   --notif-col: 84px; /* Notification matrix › Head › col */
-  --toggle-knob-shadow: 0px 1px 2px 0px #00000026; /* Notification matrix › Row/Low balance alert › top › cell › Toggle on › knob */
   --toggle-locked: 0.55; /* Notification matrix › Row/Payment receipts › top › cell › Toggle on */
   --set-password-indent: var(
     --space-14
@@ -379,7 +380,6 @@
   --spacing-payments-col-action: var(--payments-col-action);
   --radius-data-tile: var(--data-tile-radius);
   --spacing-notif-col: var(--notif-col);
-  --shadow-toggle-knob: var(--toggle-knob-shadow);
   --spacing-set-password-indent: var(--set-password-indent);
   --spacing-picker-width: var(--picker-width);
   --spacing-picker-height: var(--picker-height);
@@ -408,22 +408,9 @@
   --spacing-checkout-col-gap: var(--checkout-col-gap);
 }
 
-/* Filter pill › State=Default › Label: Geist Medium 12/16 ls 0 */
+/* Filter pill › State=Default › Label: Luminous/Caption Strong */
 @utility type-filter-pill {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 500;
-  letter-spacing: 0px;
-}
-
-/* Badge › Tone=Neutral › Label: Geist Medium 11/15 ls 0 */
-@utility type-badge {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  line-height: 15px;
-  font-weight: 500;
-  letter-spacing: 0px;
+  @apply type-caption-strong;
 }
 
 /* Model orb › Model=GPT, Size=lg › Initial: Geist SemiBold 13/16 ls 0 */
@@ -444,269 +431,204 @@
   letter-spacing: 0px;
 }
 
-/* Avatar › Initials: Geist Medium 12/16 ls 0, same as type-filter-pill */
+/* Avatar › Initials: Luminous/Caption Strong */
 @utility type-avatar {
-  @apply type-filter-pill;
+  @apply type-caption-strong;
 }
 
-/* Input › State=Default › Value: Geist Regular 15/20 ls 0 */
-@utility type-input {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 20px;
-  font-weight: 400;
-  letter-spacing: 0px;
-}
-
-/* Metric chip › Value: Geist Mono Regular 11/15 ls 0 */
+/* Metric chip › Value: Luminous/Mono XS */
 @utility type-metric-chip {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 15px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-mono-xs;
 }
 
-/* Text link › Style=Default › Label: Geist Medium 13/18 ls 0, same as type-label */
+/* Text link › Style=Default › Label: Luminous/Label */
 @utility type-text-link {
   @apply type-label;
 }
 
-/* Shortcut chip › Keys: Geist Mono Regular 11/14 ls 0 */
+/* Shortcut chip › Keys: Luminous/Mono XS */
 @utility type-shortcut-chip {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 14px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-mono-xs;
 }
 
-/* Segmented control › Selected=First › Option 1 › Label: Geist Medium 13/18 ls 0, same as type-label */
+/* Segmented control › Selected=First › Option 1 › Label: Luminous/Label */
 @utility type-segmented-option {
   @apply type-label;
 }
 
-/* Search field › Placeholder: Geist Regular 14/20 ls 0 */
+/* Search field › Placeholder: Luminous/UI */
 @utility type-search-field {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-ui;
 }
 
-/* Nav item › State=Default, Trailing=None › Label: Geist Regular 14/20 ls 0, same as type-search-field */
+/* Nav item › State=Default, Trailing=None › Label: Luminous/UI */
 @utility type-nav-item {
-  @apply type-search-field;
+  @apply type-ui;
 }
 
-/* Nav item › State=Selected, Trailing=None › Label: Geist Medium 14/20 ls 0 */
+/* Nav item › State=Selected, Trailing=None › Label: Luminous/UI Strong */
 @utility type-nav-item-selected {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
-  letter-spacing: 0px;
+  @apply type-ui-strong;
 }
 
-/* Model chip › Label: Geist Medium 13/18 ls 0, same as type-label */
+/* Model chip › Label: Luminous/Label */
 @utility type-model-chip {
   @apply type-label;
 }
 
-/* Stepper › value › Value: Geist Mono Regular 13/18 ls 0 */
+/* Stepper › value › Value: Luminous/Mono Small */
 @utility type-stepper {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-mono-small;
 }
 
-/* Field › Label: Geist Medium 13/18 ls 0, same as type-label */
+/* Field › Label: Luminous/Label */
 @utility type-field-label {
   @apply type-label;
 }
 
-/* Field › Help: Geist Regular 12/16 ls 0, same as type-caption */
+/* Field › Help: Luminous/Caption */
 @utility type-field-help {
   @apply type-caption;
 }
 
-/* Setting row › t › Title: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Setting row › t › Title: Luminous/UI Strong */
 @utility type-setting-row-title {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Setting row › t › Help: Geist Regular 13/18 ls 0 */
+/* Setting row › t › Help: Luminous/Body Small */
 @utility type-setting-row-help {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-body-small;
 }
 
-/* Pack row › Price: Geist Medium 16/22 ls 0 */
+/* Pack row › Price: Luminous/Subtitle */
 @utility type-pack-row-price {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 22px;
-  font-weight: 500;
-  letter-spacing: 0px;
+  @apply type-subtitle;
 }
 
-/* Pack row › Credits: Geist Mono Regular 13/18 ls 0, same as type-stepper */
+/* Pack row › Credits: Luminous/Mono Small */
 @utility type-pack-row-credits {
-  @apply type-stepper;
+  @apply type-mono-small;
 }
 
-/* Toast › Tone=Success › Message: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Toast › Tone=Success › Message: Luminous/UI Strong */
 @utility type-toast {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Select › State=Default › Value: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+/* Select › State=Default › Value: Luminous/Body Small */
 @utility type-select {
-  @apply type-setting-row-help;
+  @apply type-body-small;
 }
 
-/* Citation chip › Label: Geist Medium 12/16 ls 0, same as type-filter-pill */
+/* Citation chip › Label: Luminous/Caption Strong */
 @utility type-citation-chip {
-  @apply type-filter-pill;
+  @apply type-caption-strong;
 }
 
-/* Tooltip › Title: Geist Medium 12/16 ls 0, same as type-filter-pill */
+/* Tooltip › Title: Luminous/Caption Strong */
 @utility type-tooltip-title {
-  @apply type-filter-pill;
+  @apply type-caption-strong;
 }
 
-/* Tooltip › Body: Geist Regular 12/16 ls 0, same as type-caption */
+/* Tooltip › Body: Luminous/Caption */
 @utility type-tooltip-body {
   @apply type-caption;
 }
 
-/* Banner › Tone=Info › t › Title: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Banner › Tone=Info › t › Title: Luminous/UI Strong */
 @utility type-banner-title {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Banner › Tone=Info › t › Body: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+/* Banner › Tone=Info › t › Body: Luminous/Body Small */
 @utility type-banner-body {
-  @apply type-setting-row-help;
+  @apply type-body-small;
 }
 
-/* Empty state › Title: Geist Medium 16/22 ls 0, same as type-pack-row-price */
+/* Empty state › Title: Luminous/Subtitle */
 @utility type-empty-state-title {
-  @apply type-pack-row-price;
+  @apply type-subtitle;
 }
 
-/* Empty state › Body: Geist Regular 13/19 ls 0 */
+/* Empty state › Body: Luminous/Body Small */
 @utility type-empty-state-body {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  line-height: 19px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-body-small;
 }
 
-/* Model list row › State=Default › t › Name: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Model list row › State=Default › t › Name: Luminous/UI Strong */
 @utility type-model-list-row-name {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Model list row › State=Default › t › Provider: Geist Regular 12/16 ls 0, same as type-caption */
+/* Model list row › State=Default › t › Provider: Luminous/Caption */
 @utility type-model-list-row-provider {
   @apply type-caption;
 }
 
-/* Model list row › State=Default › tags › tag › Balanced: Geist Medium 11/14 ls 0 */
+/* Model list row › State=Default › tags › tag › Balanced: Luminous/Tag */
 @utility type-model-list-row-tag {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  line-height: 14px;
-  font-weight: 500;
-  letter-spacing: 0px;
+  @apply type-tag;
 }
 
-/* Model list row › State=Default › Cost: Geist Mono Regular 13/18 ls 0, same as type-stepper */
+/* Model list row › State=Default › Cost: Luminous/Mono Small */
 @utility type-model-list-row-cost {
-  @apply type-stepper;
+  @apply type-mono-small;
 }
 
-/* Cost estimate › Value: Geist Mono Regular 12/16 ls 0 */
+/* Cost estimate › Value: Luminous/Mono Caption */
 @utility type-cost-estimate {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-mono-caption;
 }
 
-/* Prompt bubble › Give me 3 name ideas for a small coffee shop in Dhaka: Geist Regular 15/22 ls -0.1 */
+/* Prompt bubble › Give me 3 name ideas for a small coffee shop in Dhaka: Luminous/Body Compact */
 @utility type-prompt-bubble {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 22px;
-  font-weight: 400;
-  letter-spacing: -0.1px;
+  @apply type-body-compact;
 }
 
-/* Chat title pill › Coffee shop names: Geist Medium 13/18 ls 0, same as type-label */
+/* Chat title pill › Coffee shop names: Luminous/Label */
 @utility type-chat-title-pill {
   @apply type-label;
 }
 
-/* Prompt receipt › This prompt: 3 models · 2.6 credits · ≈ BDT 0.03: Geist Medium 13/18 ls 0, same as type-label */
+/* Prompt receipt › This prompt: 3 models · 2.6 credits · ≈ BDT 0.03: Luminous/Label */
 @utility type-prompt-receipt {
   @apply type-label;
 }
 
-/* Prompt receipt › Cheapest: Gemini (0.3 cr): Geist Regular 13/18 ls 0, same as type-setting-row-help */
+/* Prompt receipt › Cheapest: Gemini (0.3 cr): Luminous/Body Small */
 @utility type-prompt-receipt-secondary {
-  @apply type-setting-row-help;
+  @apply type-body-small;
 }
 
-/* Save bar › You changed your display name: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Save bar › You changed your display name: Luminous/UI Strong */
 @utility type-save-bar-message {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Save bar › Save (black pill) › Save changes: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Save bar › Save (black pill) › Save changes: Luminous/UI Strong */
 @utility type-save-bar-save {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Answer card › State=Default › Header › name › nr › Model name: Geist Medium 15/20 ls -0.2 */
+/* Answer card › State=Default › Header › name › nr › Model name: Luminous/Title Small */
 @utility type-answer-card-model {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 20px;
-  font-weight: 500;
-  letter-spacing: -0.2px;
+  @apply type-title-small;
 }
 
-/* Answer card › State=Default › Answer body › Answer: Geist Regular 15/24 ls -0.1 */
+/* Answer card › State=Default › Answer body › Answer: Luminous/Answer */
 @utility type-answer-card-answer {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 24px;
-  font-weight: 400;
-  letter-spacing: -0.1px;
+  @apply type-answer;
 }
 
-/* Composer › State=Default › Placeholder: Geist Regular 15/22 ls -0.1, same as type-prompt-bubble */
+/* Composer › State=Default › Placeholder: Luminous/Body Compact */
 @utility type-composer-input {
-  @apply type-prompt-bubble;
+  @apply type-body-compact;
 }
 
-/* Page top bar › Wallet: Geist Medium 15/20 ls 0 */
+/* Page top bar › Wallet: Luminous/Title Small */
 @utility type-page-top-bar-title {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 20px;
-  font-weight: 500;
-  letter-spacing: 0px;
+  @apply type-title-small;
 }
 
 /* Sidebar › Brand row › brand › MultiAI: Geist SemiBold 17/22 ls -0.4 */
@@ -718,37 +640,24 @@
   letter-spacing: -0.4px;
 }
 
-/* Sidebar › label › Today: Geist Medium 11/16 ls 0.4 */
+/* Sidebar › label › Today: Luminous/Section */
 @utility type-sidebar-section {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  line-height: 16px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
+  @apply type-section;
 }
 
-/* Sidebar › Hellow › Hellow: Geist Regular 14/20 ls -0.1, same as type-ui */
+/* Sidebar › Hellow › Hellow: Luminous/UI */
 @utility type-sidebar-chat-title {
   @apply type-ui;
 }
 
-/* Sidebar › Coffee shop names › Coffee shop names: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+/* Sidebar › Coffee shop names › Coffee shop names: Luminous/UI Strong */
 @utility type-sidebar-chat-title-active {
   @apply type-ui-strong;
 }
 
-/* Sidebar › Credits card › r › t › 10,684 credits: Geist Medium 15/20 ls -0.2, same as type-answer-card-model */
+/* Sidebar › Credits card › r › t › 10,684 credits: Luminous/Title Small */
 @utility type-sidebar-credits-amount {
-  @apply type-answer-card-model;
-}
-
-/* Order summary › ORDER SUMMARY: Geist Medium 12/16 ls 0.3 */
-@utility type-overline {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
+  @apply type-title-small;
 }
 
 /* Order summary › line › BDT 699: Geist Medium 20/26 ls 0 */
@@ -760,54 +669,37 @@
   letter-spacing: 0px;
 }
 
-/* Order summary › line#1 › Credits: Geist Regular 14/20 ls 0, same as type-search-field */
+/* Order summary › line#1 › Credits: Luminous/UI */
 @utility type-order-summary-label {
-  @apply type-search-field;
+  @apply type-ui;
 }
 
-/* Order summary › line › You pay: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Order summary › line › You pay: Luminous/UI Strong */
 @utility type-order-summary-label-strong {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Order summary › line#1 › 69,900: Geist Mono Regular 14/20 ls 0 */
+/* Order summary › line#1 › 69,900: Luminous/Mono Body */
 @utility type-order-summary-value {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-mono-body;
 }
 
-/* Order summary › Pay (black pill) › Pay BDT 699 with bKash: Geist Medium 15/20 ls 0, same as type-page-top-bar-title */
+/* Order summary › Pay (black pill) › Pay BDT 699 with bKash: Luminous/Title Small */
 @utility type-order-summary-pay {
-  @apply type-page-top-bar-title;
+  @apply type-title-small;
 }
 
-/* Delete dialog › Delete your account?: Geist Light 28/34 ls -0.8 */
-@utility type-dialog-title {
-  font-family: var(--font-sans);
-  font-size: 28px;
-  line-height: 34px;
-  font-weight: 300;
-  letter-spacing: -0.8px;
-}
-
-/* Delete dialog › This can’t be undone. You will lose:: Geist Regular 15/22 ls 0 */
+/* Delete dialog › This can’t be undone. You will lose:: Luminous/Body Compact */
 @utility type-dialog-body {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 22px;
-  font-weight: 400;
-  letter-spacing: 0px;
+  @apply type-body-compact;
 }
 
-/* Delete dialog › Loss list › r › 4 chats and their history: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+/* Delete dialog › Loss list › r › 4 chats and their history: Luminous/Body Small */
 @utility type-dialog-list {
-  @apply type-setting-row-help;
+  @apply type-body-small;
 }
 
-/* Delete dialog › Loss list › r#1 › 10,684 credits (≈ BDT 106.84): Geist Medium 13/18 ls 0, same as type-label */
+/* Delete dialog › Loss list › r#1 › 10,684 credits (≈ BDT 106.84): Luminous/Label */
 @utility type-dialog-list-strong {
   @apply type-label;
 }
@@ -821,71 +713,59 @@
   letter-spacing: 0px;
 }
 
-/* Delete dialog › actions › Delete (red) › Delete account: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+/* Delete dialog › actions › Delete (red) › Delete account: Luminous/UI Strong */
 @utility type-dialog-cta {
-  @apply type-nav-item-selected;
+  @apply type-ui-strong;
 }
 
-/* Stat summary row › Stat/BALANCE › 10,684 credits: Geist Light 36/42 ls -1 */
+/* Stat summary row › Stat/BALANCE › 10,684 credits: Luminous/Stat */
 @utility type-stat-value {
-  font-family: var(--font-sans);
-  font-size: 36px;
-  line-height: 42px;
-  font-weight: 300;
-  letter-spacing: -1px;
+  @apply type-stat;
 }
 
-/* Stat summary row › Stat/BALANCE › ≈ BDT 106.84 · about 410 chats at your average: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+/* Stat summary row › Stat/BALANCE › ≈ BDT 106.84 · about 410 chats at your average: Luminous/Body Small */
 @utility type-stat-caption {
-  @apply type-setting-row-help;
+  @apply type-body-small;
 }
 
-/* Stat summary row › Stat/BALANCE › chip › Credits never expire: Geist Medium 12/16 ls 0, same as type-filter-pill */
+/* Stat summary row › Stat/BALANCE › chip › Credits never expire: Luminous/Caption Strong */
 @utility type-stat-chip {
-  @apply type-filter-pill;
+  @apply type-caption-strong;
 }
 
-/* Top-up table › h › 1 Choose an amount: Geist Medium 16/22 ls -0.2 */
+/* Top-up table › h › 1 Choose an amount: Luminous/Subtitle */
 @utility type-step-title {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 22px;
-  font-weight: 500;
-  letter-spacing: -0.2px;
+  @apply type-subtitle;
 }
 
-/* Top-up table › Pack BDT 99 › c › BDT 99: Geist Medium 16/22 ls -0.2, same as type-step-title */
+/* Top-up table › Pack BDT 99 › c › BDT 99: Luminous/Subtitle */
 @utility type-top-up-price {
-  @apply type-step-title;
+  @apply type-subtitle;
 }
 
-/* Payment method selector › methods › Method bKash › t › bKash: Geist Medium 15/20 ls 0, same as type-page-top-bar-title */
+/* Payment method selector › methods › Method bKash › t › bKash: Luminous/Title Small */
 @utility type-payment-method-name {
-  @apply type-page-top-bar-title;
+  @apply type-title-small;
 }
 
-/* Checkout dialog › Approve in your bKash app: Geist Light 26/32 ls -0.6 */
+/* Checkout dialog › Approve in your bKash app: Luminous/Dialog Title */
 @utility type-dialog-hero-title {
-  font-family: var(--font-sans);
-  font-size: 26px;
-  line-height: 32px;
-  font-weight: 300;
-  letter-spacing: -0.6px;
+  @apply type-dialog-title;
 }
 
-/* Checkout dialog › We sent a payment request. Open bKash, check the amount, and approve.: Geist Regular 14/20 ls 0, same as type-search-field */
+/* Checkout dialog › We sent a payment request. Open bKash, check the amount, and approve.: Luminous/UI */
 @utility type-dialog-hero-body {
-  @apply type-search-field;
+  @apply type-ui;
 }
 
-/* Checkout dialog › summary › r › Amount: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+/* Checkout dialog › summary › r › Amount: Luminous/Body Small */
 @utility type-dialog-summary-label {
-  @apply type-setting-row-help;
+  @apply type-body-small;
 }
 
-/* Checkout dialog › summary › r › BDT 699: Geist Mono Regular 13/18 ls 0, same as type-stepper */
+/* Checkout dialog › summary › r › BDT 699: Luminous/Mono Small */
 @utility type-dialog-summary-value {
-  @apply type-stepper;
+  @apply type-mono-small;
 }
 
 /* Usage card › Insight › Gemini cost about half as much as GPT-5 on the same prompt.: Geist Light 20/27 ls -0.4 */
@@ -897,12 +777,12 @@
   letter-spacing: -0.4px;
 }
 
-/* Usage card › Insight › If quality is close, picking Gemini for quick questions makes your credits last longer.: Geist Regular 13/19 ls 0, same as type-empty-state-body */
+/* Usage card › Insight › If quality is close, picking Gemini for quick questions makes your credits last longer.: Luminous/Body Small */
 @utility type-usage-insight-body {
-  @apply type-empty-state-body;
+  @apply type-body-small;
 }
 
-/* Activity table › row › c#3 › 26 credits: Geist Mono Regular 13/20 ls 0, same as type-mono */
+/* Activity table › row › c#3 › 26 credits: Luminous/Mono */
 @utility type-table-number {
   @apply type-mono;
 }
@@ -925,13 +805,9 @@
   letter-spacing: 0px;
 }
 
-/* Notification matrix › Group MONEY › MONEY: Geist Medium 11/16 ls 0.6 */
+/* Notification matrix › Group MONEY › MONEY: Luminous/Section */
 @utility type-group-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  line-height: 16px;
-  font-weight: 500;
-  letter-spacing: 0.6px;
+  @apply type-section;
 }
 
 /* Sign-in methods card › Set password (expanded) › Field/New password › input › ••••••••••: Geist Medium 18/20 ls 2 */
@@ -952,7 +828,7 @@
   letter-spacing: -0.5px;
 }
 
-/* Home hero › Starters › Card/Compare three models › t › See GPT, Claude and Gemini by side: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+/* Home hero › Starters › Card/Compare three models › t › See GPT, Claude and Gemini by side: Luminous/Body Small */
 @utility type-starter-card-text {
-  @apply type-setting-row-help;
+  @apply type-body-small;
 }

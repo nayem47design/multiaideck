@@ -664,14 +664,6 @@ const TOKENS = [
   // ---- Organisms · group 3b
   T("notif-col", "size", ["Notification matrix", "Head", "col"], "w"),
   T("group-label", "text", ["Notification matrix", "Group MONEY", "MONEY"]),
-  T("toggle-knob", "shadow", [
-    "Notification matrix",
-    "Row/Low balance alert",
-    "top",
-    "cell",
-    "Toggle on",
-    "knob",
-  ]),
   T(
     "toggle-locked",
     "opacity",
@@ -984,10 +976,22 @@ for (const t of TOKENS) {
   const { node, where } = find(t.path);
 
   if (t.kind === "text") {
-    if (node.textStyle)
-      throw new Error(
-        `${where} already has text style ${node.textStyle}; use it directly`,
-      );
+    // The layer has a Luminous text style in Figma: the component token is just that style.
+    if (node.textStyle?.startsWith("Luminous/")) {
+      const style = `type-${node.textStyle.slice(9).toLowerCase().replace(/\s+/g, "-")}`;
+      report.push({
+        token: `type-${t.name}`,
+        where,
+        figma: node.textStyle,
+        result: `= ${style} (bound in Figma)`,
+      });
+      // Same name as the Luminous utility (e.g. type-badge): it already exists.
+      if (style !== `type-${t.name}`)
+        utilities.push(
+          `/* ${where}: ${node.textStyle} */\n@utility type-${t.name} {\n  @apply ${style};\n}\n`,
+        );
+      continue;
+    }
     const ls =
       node.letterSpacing.unit === "PERCENT"
         ? round((node.letterSpacing.value * node.fontSize) / 100)
@@ -1057,7 +1061,25 @@ for (const t of TOKENS) {
 
   let value;
   let cssVar = `--${t.name}`;
-  if (t.kind === "shadow") {
+  if (t.kind === "shadow" && node.effectStyle) {
+    // Linked to a Luminous effect style in Figma: alias it.
+    const [group, variant] = node.effectStyle.toLowerCase().split("/");
+    const key =
+      group === "elevation"
+        ? variant
+        : variant === "default"
+          ? group
+          : `${group}-${variant}`;
+    cssVar = `--${t.name}-shadow`;
+    value = `var(--shadow-${key})`;
+    report.push({
+      token: cssVar,
+      where,
+      figma: node.effectStyle,
+      result: `= ${node.effectStyle} (bound in Figma)`,
+    });
+    theme.push(`  --shadow-${t.name}: var(${cssVar});`);
+  } else if (t.kind === "shadow") {
     const shadows = (node.effects ?? []).filter(
       (e) => e.type === "DROP_SHADOW",
     );

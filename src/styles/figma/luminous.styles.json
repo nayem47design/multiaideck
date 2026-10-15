@@ -3,52 +3,497 @@
     "figmaFileKey": "fCrR78u1aj0DQjzpaEhrIY",
     "page": "28:7489",
     "readWith": "figma-console: figma_get_text_styles + getLocalEffectStylesAsync (read-only)",
-    "exportedAt": "2026-10-15T13:24:30Z",
-    "note": "Only Luminous/* text styles. Legacy Reading/*, UI/*, Code/* styles are excluded (scheduled for deletion in Figma)."
+    "exportedAt": "2026-10-15T16:34:54.925Z",
+    "note": "All Luminous/* text styles (26 after the Oct 15 Figma clean-up) and the effect styles."
   },
   "textStyles": [
-    { "name": "Luminous/Display", "fontFamily": "Geist", "fontStyle": "Light", "fontSize": 48, "lineHeight": { "unit": "PIXELS", "value": 54 }, "letterSpacing": { "unit": "PIXELS", "value": -1.600000023841858 } },
-    { "name": "Luminous/Title", "fontFamily": "Geist", "fontStyle": "Light", "fontSize": 30, "lineHeight": { "unit": "PIXELS", "value": 36 }, "letterSpacing": { "unit": "PIXELS", "value": -0.800000011920929 } },
-    { "name": "Luminous/Heading", "fontFamily": "Geist", "fontStyle": "SemiBold", "fontSize": 19, "lineHeight": { "unit": "PIXELS", "value": 28 }, "letterSpacing": { "unit": "PIXELS", "value": -0.20000000298023224 } },
-    { "name": "Luminous/Body", "fontFamily": "Geist", "fontStyle": "Regular", "fontSize": 16, "lineHeight": { "unit": "PIXELS", "value": 27 }, "letterSpacing": { "unit": "PIXELS", "value": -0.10000000149011612 } },
-    { "name": "Luminous/UI", "fontFamily": "Geist", "fontStyle": "Regular", "fontSize": 14, "lineHeight": { "unit": "PIXELS", "value": 20 }, "letterSpacing": { "unit": "PIXELS", "value": -0.10000000149011612 } },
-    { "name": "Luminous/UI Strong", "fontFamily": "Geist", "fontStyle": "Medium", "fontSize": 14, "lineHeight": { "unit": "PIXELS", "value": 20 }, "letterSpacing": { "unit": "PIXELS", "value": -0.10000000149011612 } },
-    { "name": "Luminous/Label", "fontFamily": "Geist", "fontStyle": "Medium", "fontSize": 13, "lineHeight": { "unit": "PIXELS", "value": 18 }, "letterSpacing": { "unit": "PIXELS", "value": 0 } },
-    { "name": "Luminous/Caption", "fontFamily": "Geist", "fontStyle": "Regular", "fontSize": 12, "lineHeight": { "unit": "PIXELS", "value": 16 }, "letterSpacing": { "unit": "PIXELS", "value": 0 } },
-    { "name": "Luminous/Mono", "fontFamily": "Geist Mono", "fontStyle": "Regular", "fontSize": 13, "lineHeight": { "unit": "PIXELS", "value": 20 }, "letterSpacing": { "unit": "PIXELS", "value": 0 } }
+    {
+      "name": "Luminous/Display",
+      "fontFamily": "Geist",
+      "fontStyle": "Light",
+      "fontSize": 48,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 54
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -1.600000023841858
+      }
+    },
+    {
+      "name": "Luminous/Title",
+      "fontFamily": "Geist",
+      "fontStyle": "Light",
+      "fontSize": 30,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 36
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.800000011920929
+      }
+    },
+    {
+      "name": "Luminous/Heading",
+      "fontFamily": "Geist",
+      "fontStyle": "SemiBold",
+      "fontSize": 19,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 28
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.20000000298023224
+      }
+    },
+    {
+      "name": "Luminous/Body",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 27
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.10000000149011612
+      }
+    },
+    {
+      "name": "Luminous/UI",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.10000000149011612
+      }
+    },
+    {
+      "name": "Luminous/UI Strong",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.10000000149011612
+      }
+    },
+    {
+      "name": "Luminous/Label",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Caption",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Mono",
+      "fontFamily": "Geist Mono",
+      "fontStyle": "Regular",
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Body Small",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Mono Small",
+      "fontFamily": "Geist Mono",
+      "fontStyle": "Regular",
+      "fontSize": 13,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 18
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Tag",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 11,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Caption Strong",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Overline",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.30000001192092896
+      }
+    },
+    {
+      "name": "Luminous/Subtitle",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 22
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.20000000298023224
+      }
+    },
+    {
+      "name": "Luminous/Section",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 11,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.6000000238418579
+      }
+    },
+    {
+      "name": "Luminous/Title Small",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 15,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Badge",
+      "fontFamily": "Geist",
+      "fontStyle": "Medium",
+      "fontSize": 11,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 15
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Input",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 15,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Mono XS",
+      "fontFamily": "Geist Mono",
+      "fontStyle": "Regular",
+      "fontSize": 11,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 15
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Mono Caption",
+      "fontFamily": "Geist Mono",
+      "fontStyle": "Regular",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Mono Body",
+      "fontFamily": "Geist Mono",
+      "fontStyle": "Regular",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      }
+    },
+    {
+      "name": "Luminous/Body Compact",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 15,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 22
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.10000000149011612
+      }
+    },
+    {
+      "name": "Luminous/Answer",
+      "fontFamily": "Geist",
+      "fontStyle": "Regular",
+      "fontSize": 15,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 24
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.10000000149011612
+      }
+    },
+    {
+      "name": "Luminous/Stat",
+      "fontFamily": "Geist",
+      "fontStyle": "Light",
+      "fontSize": 36,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 42
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -1
+      }
+    },
+    {
+      "name": "Luminous/Dialog Title",
+      "fontFamily": "Geist",
+      "fontStyle": "Light",
+      "fontSize": 28,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 34
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": -0.800000011920929
+      }
+    }
   ],
   "effectStyles": [
     {
       "name": "Elevation/Card",
       "effects": [
-        { "type": "DROP_SHADOW", "color": { "r": 0.11999999731779099, "g": 0.20000000298023224, "b": 0.3799999952316284, "a": 0.05000000074505806 }, "offset": { "x": 0, "y": 6 }, "radius": 20, "spread": 0 }
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0.11999999731779099,
+            "g": 0.20000000298023224,
+            "b": 0.3799999952316284,
+            "a": 0.05000000074505806
+          },
+          "offset": {
+            "x": 0,
+            "y": 6
+          },
+          "radius": 20,
+          "spread": 0
+        }
       ]
     },
     {
       "name": "Elevation/Float",
       "effects": [
-        { "type": "DROP_SHADOW", "color": { "r": 0.11999999731779099, "g": 0.20000000298023224, "b": 0.3799999952316284, "a": 0.07999999821186066 }, "offset": { "x": 0, "y": 12 }, "radius": 40, "spread": 0 },
-        { "type": "DROP_SHADOW", "color": { "r": 0.11999999731779099, "g": 0.20000000298023224, "b": 0.3799999952316284, "a": 0.03999999910593033 }, "offset": { "x": 0, "y": 1 }, "radius": 2, "spread": 0 }
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0.11999999731779099,
+            "g": 0.20000000298023224,
+            "b": 0.3799999952316284,
+            "a": 0.07999999821186066
+          },
+          "offset": {
+            "x": 0,
+            "y": 12
+          },
+          "radius": 40,
+          "spread": 0
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0.11999999731779099,
+            "g": 0.20000000298023224,
+            "b": 0.3799999952316284,
+            "a": 0.03999999910593033
+          },
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "radius": 2,
+          "spread": 0
+        }
       ]
     },
     {
       "name": "Elevation/Modal",
       "effects": [
-        { "type": "DROP_SHADOW", "color": { "r": 0.05000000074505806, "g": 0.07999999821186066, "b": 0.15000000596046448, "a": 0.25 }, "offset": { "x": 0, "y": 24 }, "radius": 60, "spread": 0 }
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0.05000000074505806,
+            "g": 0.07999999821186066,
+            "b": 0.15000000596046448,
+            "a": 0.25
+          },
+          "offset": {
+            "x": 0,
+            "y": 24
+          },
+          "radius": 60,
+          "spread": 0
+        }
       ]
     },
     {
       "name": "Glass/Default",
       "effects": [
-        { "type": "BACKGROUND_BLUR", "radius": 28 },
-        { "type": "DROP_SHADOW", "color": { "r": 0.11999999731779099, "g": 0.20000000298023224, "b": 0.3799999952316284, "a": 0.07999999821186066 }, "offset": { "x": 0, "y": 12 }, "radius": 40, "spread": 0 }
+        {
+          "type": "BACKGROUND_BLUR",
+          "radius": 28
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0.11999999731779099,
+            "g": 0.20000000298023224,
+            "b": 0.3799999952316284,
+            "a": 0.07999999821186066
+          },
+          "offset": {
+            "x": 0,
+            "y": 12
+          },
+          "radius": 40,
+          "spread": 0
+        }
       ]
     },
     {
       "name": "Glass/Strong",
       "effects": [
-        { "type": "BACKGROUND_BLUR", "radius": 28 },
-        { "type": "DROP_SHADOW", "color": { "r": 0.11999999731779099, "g": 0.20000000298023224, "b": 0.3799999952316284, "a": 0.11999999731779099 }, "offset": { "x": 0, "y": 12 }, "radius": 40, "spread": 0 }
+        {
+          "type": "BACKGROUND_BLUR",
+          "radius": 28
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0.11999999731779099,
+            "g": 0.20000000298023224,
+            "b": 0.3799999952316284,
+            "a": 0.11999999731779099
+          },
+          "offset": {
+            "x": 0,
+            "y": 12
+          },
+          "radius": 40,
+          "spread": 0
+        }
       ]
     }
   ]
