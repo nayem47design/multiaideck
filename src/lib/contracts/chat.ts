@@ -5,7 +5,7 @@ import { IsoDate, ModelIdSchema } from "./common";
 // Asking and comparing.
 //
 // POST  /api/estimate                    EstimateRequest → EstimateResponse
-// GET   /api/chats?q=&kind=              → ChatListResponse
+// GET   /api/chats?q=&kind=              → ChatListResponse  (projects: src/lib/contracts/projects.ts)
 // POST  /api/chats                       SendPromptRequest → SendPromptResponse  (402 insufficient_credits)
 // GET   /api/chats/:id                   → ChatDetail
 // PATCH /api/chats/:id                   UpdateChatRequest → ChatSummary
@@ -40,6 +40,8 @@ export const SendPromptRequest = z.object({
    * earlier prompts catch up first.
    */
   recipients: z.array(ModelIdSchema).min(1).max(6).optional(),
+  /** New chats only: file the chat in this project (one of the user's). */
+  projectId: z.string().min(1).optional(),
 });
 export type SendPromptRequest = z.input<typeof SendPromptRequest>;
 
@@ -132,6 +134,8 @@ export const ChatSummarySchema = z.object({
   prompts: z.number(),
   credits: z.number(),
   pinned: z.boolean(),
+  /** The project the chat is filed in, or null. */
+  projectId: z.string().nullable(),
   /** First prompt, for search. */
   snippet: z.string(),
   updatedAt: IsoDate,
@@ -149,6 +153,8 @@ export type ChatDetail = z.infer<typeof ChatDetailSchema>;
 export const UpdateChatRequest = z.object({
   title: z.string().trim().min(1).max(120).optional(),
   pinned: z.boolean().optional(),
+  /** Move the chat into one of the user's projects, or out of its project (null). */
+  projectId: z.string().min(1).nullable().optional(),
 });
 
 export const SwapModelRequest = z.object({ model: ModelIdSchema });

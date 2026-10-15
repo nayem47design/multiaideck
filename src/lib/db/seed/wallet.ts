@@ -45,7 +45,7 @@ const HISTORY = [
   },
 ] as const;
 
-export async function seedWallet(db: Db, userId: string) {
+export async function seedWallet(db: Db, userId: string, prefix = "") {
   for (const h of HISTORY) {
     // ৳199 isn't a pack (Figma's example): a custom amount, no bonus.
     const quote = "pack" in h ? quotePack(h.pack) : quoteCustom(h.bdt);
@@ -54,7 +54,7 @@ export async function seedWallet(db: Db, userId: string) {
       .insert(payments)
       .values({
         userId,
-        invoice: h.invoice,
+        invoice: `${prefix}${h.invoice}`,
         provider: "sandbox",
         method: h.method,
         kind: "topup",

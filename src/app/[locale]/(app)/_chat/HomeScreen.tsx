@@ -13,8 +13,9 @@ import { HomeHero } from "@/components/organisms/HomeHero";
 import { AppMain } from "@/components/templates/AppShell";
 import { ApiClientError } from "@/lib/api-client";
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
-import { useMe } from "@/lib/me";
+import { useMe, greetingName } from "@/lib/me";
 import { DEMO_VOICE } from "@/lib/mock/chat";
+import { invalidateProjects } from "@/lib/projects";
 
 import { sendPrompt } from "./api";
 import { parseParams } from "./state";
@@ -35,7 +36,10 @@ function greetingFor(hour: number): Greeting {
   return "evening";
 }
 
-/** Reads the deep-link params (?composer=…, ?sheet=…); render inside <Suspense>. */
+/**
+ * Reads the deep-link params (?composer=…, ?sheet=…, ?project=<id> to start the chat inside a
+ * project); render inside <Suspense>.
+ */
 export function HomeRoute() {
   const sp = useSearchParams();
   const p = parseParams(new URLSearchParams(sp.toString()));
@@ -44,6 +48,7 @@ export function HomeRoute() {
       key={sp.toString()}
       initial={p.composer}
       initialSheet={p.sheet}
+      projectId={sp.get("project") ?? undefined}
     />
   );
 }
@@ -51,9 +56,12 @@ export function HomeRoute() {
 export function HomeScreen({
   initial,
   initialSheet,
+  projectId,
 }: {
   initial?: ReturnType<typeof parseParams>["composer"];
   initialSheet?: ReturnType<typeof parseParams>["sheet"];
+  /** The new chat goes into this project (from a project page's New chat). */
+  projectId?: string;
 }) {
   const t = useTranslations("home");
   const tc = useTranslations("common");
@@ -78,8 +86,15 @@ export function HomeScreen({
     onModeChange: setMode,
     onSend: async ({ text, models, attachments }) => {
       try {
-        const sent = await sendPrompt({ text, mode, models, attachments });
+        const sent = await sendPrompt({
+          text,
+          mode,
+          models,
+          attachments,
+          projectId,
+        });
         void refresh(); // the hold shows in the balance right away
+        if (projectId) invalidateProjects();
         router.push(`/c/${sent.chatId}`);
       } catch (e) {
         if (e instanceof ApiClientError && e.code === "insufficient_credits")
@@ -96,7 +111,7 @@ export function HomeScreen({
     initialSheet,
   });
 
-  const name = user?.name.trim().split(/\s+/)[0] ?? "";
+  const name = user ? greetingName(user) : "";
   const credits = balance?.credits ?? 0;
   return (
     <AppMain

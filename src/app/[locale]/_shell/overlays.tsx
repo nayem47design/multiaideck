@@ -11,6 +11,7 @@ import {
 } from "react";
 
 import { GoProOverlay } from "../_overlays/GoProOverlay";
+import { NewProjectOverlay } from "../_overlays/NewProjectOverlay";
 import { ProOnOverlay } from "../_overlays/ProOnOverlay";
 import { SearchOverlay } from "../_overlays/SearchOverlay";
 import { SignOutOverlay } from "../_overlays/SignOutOverlay";
@@ -18,7 +19,8 @@ import { SignOutOverlay } from "../_overlays/SignOutOverlay";
 // App-wide overlays from the prototype that open over any screen: ⌘K search, Go Pro, Pro is on,
 // and Sign out. Route-specific dialogs (checkout, delete account, model picker) stay in their route.
 
-export type OverlayName = "search" | "go-pro" | "pro-on" | "sign-out";
+export type OverlayName =
+  "search" | "go-pro" | "pro-on" | "sign-out" | "new-project";
 
 export interface OverlayProps {
   open: boolean;
@@ -72,6 +74,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
       <GoProOverlay {...props("go-pro")} />
       <ProOnOverlay {...props("pro-on")} />
       <SignOutOverlay {...props("sign-out")} />
+      <NewProjectOverlay {...props("new-project")} />
     </OverlayContext>
   );
 }

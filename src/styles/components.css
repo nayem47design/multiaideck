@@ -126,13 +126,85 @@
   --page-top-bar-height: var(--space-14); /* Page top bar */
   --sidebar-width: 268px; /* Sidebar › State=Expanded */
   --sidebar-shadow: var(--shadow-glass); /* Sidebar › State=Expanded */
+  --sidebar-pad-top: 14px; /* Sidebar › State=Expanded */
   --sidebar-brand-orb: 26px; /* Sidebar › State=Expanded › Brand row › brand › AI orb */
-  --sidebar-chat-radius: var(
+  --sidebar-chat-orb-overlap: -4px; /* Sidebar › State=Expanded › Coffee shop names › orbs › models */
+  --sidebar-actions-gap: 10px; /* Sidebar › State=Expanded › g */
+  --sidebar-actions-gap-between: var(
+    --space-1-5
+  ); /* Sidebar › State=Expanded › Actions */
+  --sidebar-new-chat-gap: 10px; /* Sidebar › State=Expanded › Actions › New chat */
+  --sidebar-search-icon: 18px; /* Sidebar › State=Expanded › Actions › Search › Icon/search */
+  --sidebar-nav-gap: var(--space-2); /* Sidebar › State=Expanded › g#1 */
+  --sidebar-nav-height: var(
+    --size-control-sm
+  ); /* Sidebar › State=Expanded › Nav item */
+  --sidebar-user-gap: var(--space-1); /* Sidebar › State=Expanded › g#2 */
+  --rail-pad-y: var(--size-icon-sm); /* Sidebar › State=Collapsed */
+  --rail-group-gap: var(--space-3); /* Sidebar › State=Collapsed › g */
+  --rail-search-gap: var(--space-1); /* Sidebar › State=Collapsed › g#1 */
+  --rail-footer-gap: var(--space-2); /* Sidebar › State=Collapsed › g#3 */
+  --rail-credits-radius: var(
+    --radius-lg
+  ); /* Sidebar › State=Collapsed › Credits */
+  --section-header-height: var(--space-10); /* Sidebar section header */
+  --section-header-pad-top: var(--space-3); /* Sidebar section header */
+  --section-header-pad-right: var(--space-1-5); /* Sidebar section header */
+  --section-header-pad-bottom: var(--space-1); /* Sidebar section header */
+  --section-header-gap: var(--space-1); /* Sidebar section header */
+  --section-header-chevron: var(
+    --space-3
+  ); /* Sidebar section header › Chevron */
+  --section-header-action: var(--space-6); /* Sidebar section header › Add */
+  --section-header-action-icon: 14px; /* Sidebar section header › Add › Icon/add */
+  --project-row-height: var(
+    --size-control-sm
+  ); /* Project row › State=Default */
+  --project-row-gap: 10px; /* Project row › State=Default */
+  --project-row-radius: var(--radius-sm); /* Project row › State=Default */
+  --chat-row-height: 34px; /* Chat row › State=Default, Models=Three */
+  --chat-row-gap: 10px; /* Chat row › State=Default, Models=Three */
+  --chat-row-pad-left: 10px; /* Chat row › State=Default, Models=Three */
+  --chat-row-pad-right: var(
+    --space-3
+  ); /* Chat row › State=Default, Models=Three */
+  --chat-row-radius: var(
     --radius-sm
-  ); /* Sidebar › State=Expanded › Coffee shop names */
-  --sidebar-chat-orb-overlap: var(
-    --space-0
-  ); /* Sidebar › State=Expanded › Coffee shop names › orbs */
+  ); /* Chat row › State=Default, Models=Three */
+  --chat-row-orbs: 28px; /* Chat row › State=Default, Models=Three › orbs */
+  --chat-row-orb-overlap: -4px; /* Chat row › State=Default, Models=Three › orbs › models */
+  --menu-item-height: var(--size-control-md); /* Menu item › Type=Default */
+  --menu-item-pad: 10px; /* Menu item › Type=Default */
+  --menu-item-gap: 10px; /* Menu item › Type=Default */
+  --menu-item-radius: 12px; /* Menu item › Type=Default */
+  --menu-item-icon: var(--size-icon-sm); /* Menu item › Type=Default › Icon */
+  --menu-item-submenu-icon: var(
+    --space-3
+  ); /* Menu item › Type=Default › Submenu */
+  --account-menu-width: 232px; /* Account menu */
+  --account-menu-pad: var(--space-1-5); /* Account menu */
+  --account-menu-gap: var(--space-0-5); /* Account menu */
+  --account-menu-radius: 18px; /* Account menu */
+  --account-menu-shadow: 0px 12px 40px 0px #080a142e; /* Account menu */
+  --credits-bar-height: var(--size-control-md); /* Credits › State=Collapsed */
+  --credits-bar-pad-left: var(--space-3); /* Credits › State=Collapsed */
+  --credits-bar-pad-right: var(--space-1-5); /* Credits › State=Collapsed */
+  --credits-gap: var(--space-2); /* Credits › State=Collapsed */
+  --credits-icon: 14px; /* Credits › State=Collapsed › Icon/flash */
+  --credits-toggle: var(--space-6); /* Credits › State=Collapsed › Toggle */
+  --credits-toggle-icon: 14px; /* Credits › State=Collapsed › Toggle › Icon/up */
+  --credits-card-radius: 18px; /* Credits › State=Expanded */
+  --credits-card-pad-top: var(--space-1-5); /* Credits › State=Expanded */
+  --credits-card-pad: var(--space-3); /* Credits › State=Expanded */
+  --credits-card-gap: var(--space-2); /* Credits › State=Expanded */
+  --credits-head-height: 30px; /* Credits › State=Expanded › head */
+  --credits-progress-height: 3px; /* Credits › State=Expanded › Progress */
+  --credits-progress-radius: 2px; /* Credits › State=Expanded › Progress */
+  --credits-top-up-height: 30px; /* Credits › State=Expanded › actions › Top up */
+  --credits-top-up-pad: 14px; /* Credits › State=Expanded › actions › Top up */
+  --credits-go-pro-gap: var(
+    --space-1-5
+  ); /* Credits › State=Expanded › actions › Go Pro */
   --answer-card-receipt-gap-failed: 10px; /* Answer card › State=Failed › Receipt row */
   --composer-file-gap: 10px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf */
   --composer-wave-gap: 3px; /* Composer › State=Voice listening › Toolbar › Waveform */
@@ -404,6 +476,29 @@
   ); /* M4 · Voice: listening › Controls › Done › Tap · tick › Icon/tick-02 */
   --chat-voice-icon: 28px; /* M4 · Voice: listening › Controls › Cancel › Tap · cancel › Icon/cancel-01 */
   --chat-voice-bar: 5px; /* M4 · Voice: listening › Listening › Waveform › Rectangle */
+  --project-title-gap: var(
+    --space-3
+  ); /* Project · MultiAI launch › Main › Head › Title */
+  --project-title-icon: 28px; /* Project · MultiAI launch › Main › Head › Title › Icon/folder */
+  --new-project-width: 480px; /* Overlay · New project */
+  --new-project-pad: 28px; /* Overlay · New project */
+  --new-project-gap: 14px; /* Overlay · New project */
+  --new-project-radius: var(--radius-xl); /* Overlay · New project */
+  --new-project-field-gap: var(
+    --space-1-5
+  ); /* Overlay · New project › Field · Project name */
+  --new-project-input-h: var(
+    --size-control-lg
+  ); /* Overlay · New project › Field · Project name › Input */
+  --new-project-input-pad: 14px; /* Overlay · New project › Field · Project name › Input */
+  --new-project-input-radius: 12px; /* Overlay · New project › Field · Project name › Input */
+  --new-project-input-stroke-width: 1.5px; /* Overlay · New project › Field · Project name › Input */
+  --new-project-actions-gap: 10px; /* Overlay · New project › Actions */
+  --new-project-button-h: var(
+    --size-control-lg
+  ); /* Overlay · New project › Actions › Button · Cancel */
+  --new-project-button-pad: 18px; /* Overlay · New project › Actions › Button · Cancel */
+  --new-project-button-icon: 18px; /* Overlay · New project › Actions › Button · Create project › Icon/folder-add */
   --settings-save-bar-width: 560px; /* Settings · Profile › Save bar */
   --usage-period-height: 34px; /* Settings · Usage › Period */
   --usage-stat-pad: var(
@@ -745,9 +840,67 @@
   --spacing-page-top-bar-height: var(--page-top-bar-height);
   --spacing-sidebar-width: var(--sidebar-width);
   --shadow-sidebar: var(--sidebar-shadow);
+  --spacing-sidebar-pad-top: var(--sidebar-pad-top);
   --spacing-sidebar-brand-orb: var(--sidebar-brand-orb);
-  --radius-sidebar-chat: var(--sidebar-chat-radius);
   --spacing-sidebar-chat-orb-overlap: var(--sidebar-chat-orb-overlap);
+  --spacing-sidebar-actions-gap: var(--sidebar-actions-gap);
+  --spacing-sidebar-actions-gap-between: var(--sidebar-actions-gap-between);
+  --spacing-sidebar-new-chat-gap: var(--sidebar-new-chat-gap);
+  --spacing-sidebar-search-icon: var(--sidebar-search-icon);
+  --spacing-sidebar-nav-gap: var(--sidebar-nav-gap);
+  --spacing-sidebar-nav-height: var(--sidebar-nav-height);
+  --spacing-sidebar-user-gap: var(--sidebar-user-gap);
+  --spacing-rail-pad-y: var(--rail-pad-y);
+  --spacing-rail-group-gap: var(--rail-group-gap);
+  --spacing-rail-search-gap: var(--rail-search-gap);
+  --spacing-rail-footer-gap: var(--rail-footer-gap);
+  --radius-rail-credits: var(--rail-credits-radius);
+  --spacing-section-header-height: var(--section-header-height);
+  --spacing-section-header-pad-top: var(--section-header-pad-top);
+  --spacing-section-header-pad-right: var(--section-header-pad-right);
+  --spacing-section-header-pad-bottom: var(--section-header-pad-bottom);
+  --spacing-section-header-gap: var(--section-header-gap);
+  --spacing-section-header-chevron: var(--section-header-chevron);
+  --spacing-section-header-action: var(--section-header-action);
+  --spacing-section-header-action-icon: var(--section-header-action-icon);
+  --spacing-project-row-height: var(--project-row-height);
+  --spacing-project-row-gap: var(--project-row-gap);
+  --radius-project-row: var(--project-row-radius);
+  --spacing-chat-row-height: var(--chat-row-height);
+  --spacing-chat-row-gap: var(--chat-row-gap);
+  --spacing-chat-row-pad-left: var(--chat-row-pad-left);
+  --spacing-chat-row-pad-right: var(--chat-row-pad-right);
+  --radius-chat-row: var(--chat-row-radius);
+  --spacing-chat-row-orbs: var(--chat-row-orbs);
+  --spacing-chat-row-orb-overlap: var(--chat-row-orb-overlap);
+  --spacing-menu-item-height: var(--menu-item-height);
+  --spacing-menu-item-pad: var(--menu-item-pad);
+  --spacing-menu-item-gap: var(--menu-item-gap);
+  --radius-menu-item: var(--menu-item-radius);
+  --spacing-menu-item-icon: var(--menu-item-icon);
+  --spacing-menu-item-submenu-icon: var(--menu-item-submenu-icon);
+  --spacing-account-menu-width: var(--account-menu-width);
+  --spacing-account-menu-pad: var(--account-menu-pad);
+  --spacing-account-menu-gap: var(--account-menu-gap);
+  --radius-account-menu: var(--account-menu-radius);
+  --shadow-account-menu: var(--account-menu-shadow);
+  --spacing-credits-bar-height: var(--credits-bar-height);
+  --spacing-credits-bar-pad-left: var(--credits-bar-pad-left);
+  --spacing-credits-bar-pad-right: var(--credits-bar-pad-right);
+  --spacing-credits-gap: var(--credits-gap);
+  --spacing-credits-icon: var(--credits-icon);
+  --spacing-credits-toggle: var(--credits-toggle);
+  --spacing-credits-toggle-icon: var(--credits-toggle-icon);
+  --radius-credits-card: var(--credits-card-radius);
+  --spacing-credits-card-pad-top: var(--credits-card-pad-top);
+  --spacing-credits-card-pad: var(--credits-card-pad);
+  --spacing-credits-card-gap: var(--credits-card-gap);
+  --spacing-credits-head-height: var(--credits-head-height);
+  --spacing-credits-progress-height: var(--credits-progress-height);
+  --radius-credits-progress: var(--credits-progress-radius);
+  --spacing-credits-top-up-height: var(--credits-top-up-height);
+  --spacing-credits-top-up-pad: var(--credits-top-up-pad);
+  --spacing-credits-go-pro-gap: var(--credits-go-pro-gap);
   --spacing-answer-card-receipt-gap-failed: var(
     --answer-card-receipt-gap-failed
   );
@@ -938,6 +1091,20 @@
   --spacing-chat-voice-done-icon: var(--chat-voice-done-icon);
   --spacing-chat-voice-icon: var(--chat-voice-icon);
   --spacing-chat-voice-bar: var(--chat-voice-bar);
+  --spacing-project-title-gap: var(--project-title-gap);
+  --spacing-project-title-icon: var(--project-title-icon);
+  --spacing-new-project-width: var(--new-project-width);
+  --spacing-new-project-pad: var(--new-project-pad);
+  --spacing-new-project-gap: var(--new-project-gap);
+  --radius-new-project: var(--new-project-radius);
+  --spacing-new-project-field-gap: var(--new-project-field-gap);
+  --spacing-new-project-input-h: var(--new-project-input-h);
+  --spacing-new-project-input-pad: var(--new-project-input-pad);
+  --radius-new-project-input: var(--new-project-input-radius);
+  --spacing-new-project-actions-gap: var(--new-project-actions-gap);
+  --spacing-new-project-button-h: var(--new-project-button-h);
+  --spacing-new-project-button-pad: var(--new-project-button-pad);
+  --spacing-new-project-button-icon: var(--new-project-button-icon);
   --spacing-settings-save-bar-width: var(--settings-save-bar-width);
   --spacing-usage-period-height: var(--usage-period-height);
   --spacing-usage-stat-pad: var(--usage-stat-pad);
@@ -1350,18 +1517,78 @@
   @apply type-section;
 }
 
-/* Sidebar › State=Expanded › Hellow › Title: Luminous/UI */
-@utility type-sidebar-chat-title {
-  @apply type-ui;
-}
-
-/* Sidebar › State=Expanded › Coffee shop names › Title: Luminous/UI Strong */
-@utility type-sidebar-chat-title-active {
+/* Sidebar › State=Expanded › Actions › New chat › New chat: Luminous/UI Strong */
+@utility type-sidebar-new-chat {
   @apply type-ui-strong;
 }
 
-/* Sidebar › State=Expanded › Credits › Balance: Luminous/Label */
-@utility type-sidebar-credits-amount {
+/* Sidebar section header › Label: Luminous/Section */
+@utility type-section-header {
+  @apply type-section;
+}
+
+/* Project row › State=Default › Name: Luminous/UI */
+@utility type-project-row-name {
+  @apply type-ui;
+}
+
+/* Project row › State=Active › Name: Luminous/UI Strong */
+@utility type-project-row-name-active {
+  @apply type-ui-strong;
+}
+
+/* Project row › State=Default › Count: Luminous/Caption */
+@utility type-project-row-count {
+  @apply type-caption;
+}
+
+/* Chat row › State=Default, Models=Three › Title: Luminous/UI */
+@utility type-chat-row-title {
+  @apply type-ui;
+}
+
+/* Chat row › State=Active, Models=Three › Title: Luminous/UI Strong */
+@utility type-chat-row-title-active {
+  @apply type-ui-strong;
+}
+
+/* Chat row › State=Default, Models=Three › Cost: Luminous/Caption */
+@utility type-chat-row-cost {
+  @apply type-caption;
+}
+
+/* Menu item › Type=Default › Label: Luminous/UI */
+@utility type-menu-item-label {
+  @apply type-ui;
+}
+
+/* Menu item › Type=Default › Trailing: Luminous/Caption */
+@utility type-menu-item-trailing {
+  @apply type-caption;
+}
+
+/* Credits › State=Collapsed › Balance: Luminous/Label */
+@utility type-credits-balance {
+  @apply type-label;
+}
+
+/* Credits › State=Collapsed › actions › Top up: Luminous/Label */
+@utility type-credits-top-up-link {
+  @apply type-label;
+}
+
+/* Credits › State=Expanded › BDT: Luminous/Caption */
+@utility type-credits-money {
+  @apply type-caption;
+}
+
+/* Credits › State=Expanded › actions › Top up › Label: Luminous/Label */
+@utility type-credits-top-up {
+  @apply type-label;
+}
+
+/* Credits › State=Expanded › actions › Go Pro › Label: Luminous/Label */
+@utility type-credits-go-pro {
   @apply type-label;
 }
 
@@ -1805,6 +2032,20 @@ The best answer: Geist Light 30/38 ls -0.8 */
   letter-spacing: -0.1px;
 }
 
+/* Overlay · New project › Sign out of MultiAI?: Geist SemiBold 20/28 ls -0.2 */
+@utility type-new-project-title {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* Overlay · New project › Actions › Button · Cancel › Stay signed in: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-new-project-button {
+  @apply type-ui-strong;
+}
+
 /* Settings · Profile › Profile: Geist Light 36/42 ls -1, same as type-stat */
 @utility type-settings-title {
   @apply type-stat;
@@ -1862,13 +2103,9 @@ The best answer: Geist Light 30/38 ls -0.8 */
   @apply type-auth-country;
 }
 
-/* Overlay · Sign out › Sign out of MultiAI?: Geist SemiBold 20/28 ls -0.2 */
+/* Overlay · Sign out › Sign out of MultiAI?: Geist SemiBold 20/28 ls -0.2, same as type-new-project-title */
 @utility type-sign-out-title {
-  font-family: var(--font-sans);
-  font-size: 20px;
-  line-height: 28px;
-  font-weight: 600;
-  letter-spacing: -0.2px;
+  @apply type-new-project-title;
 }
 
 /* M15 · Account & settings › Content › Settings list › Row · Language › Language: Geist Medium 16/20 ls -0.1, same as type-auth-button-mobile */

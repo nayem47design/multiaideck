@@ -12,6 +12,7 @@ import {
 } from "@/lib/contracts/chat";
 import { getDb } from "@/lib/db";
 import { json, readBody, readQuery, route } from "@/lib/server/api";
+import { ownProject } from "@/lib/server/projects";
 
 const ListQuery = z.object({
   q: z.string().max(200).optional(),
@@ -30,11 +31,15 @@ export const GET = route(async (req: Request) => {
 export const POST = route(async (req: Request) => {
   const user = await requireUser();
   const body = await readBody(req, SendPromptRequest);
-  const started = await sendPrompt(await getDb(), user.id, {
+  const db = await getDb();
+  // Started inside a project: it must be one of the user's.
+  if (body.projectId) await ownProject(db, user.id, body.projectId);
+  const started = await sendPrompt(db, user.id, {
     text: body.text,
     mode: body.mode,
     models: body.models,
     attachments: body.attachments,
+    projectId: body.projectId,
   });
   after(() => started.job);
   return json<SendPromptResponse>(

@@ -13,6 +13,7 @@ export function toUser(u: UserRow): User {
   return {
     id: u.id,
     name: u.name,
+    preferredName: u.preferredName,
     phone: u.phone,
     email: u.email,
     emailVerified: u.emailVerified,

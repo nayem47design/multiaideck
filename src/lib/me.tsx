@@ -156,6 +156,11 @@ export function nationalPhone(phone: string | null) {
   return [d.slice(0, 4), d.slice(4, 7), d.slice(7)].filter(Boolean).join(" ");
 }
 
+/** What to call the user in a greeting: their preferred name, else the first word of their name. */
+export function greetingName(user: Pick<User, "name" | "preferredName">) {
+  return user.preferredName?.trim() || user.name.trim().split(/\s+/)[0] || "";
+}
+
 /** What to call the user when they haven't set a name. */
 export function displayName(user: Pick<User, "name" | "phone" | "email">) {
   return (

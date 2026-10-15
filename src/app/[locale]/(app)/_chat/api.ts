@@ -17,6 +17,8 @@ export function sendPrompt(body: {
   models: ModelId[];
   recipients?: ModelId[];
   attachments?: { name: string; kind: "file" | "image"; size: number }[];
+  /** New chats: file it in this project. */
+  projectId?: string;
 }) {
   const { chatId, ...rest } = body;
   return api(chatId ? `/api/chats/${chatId}/prompts` : "/api/chats", {

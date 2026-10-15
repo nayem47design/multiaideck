@@ -15,6 +15,20 @@
       "when": 1792088900531,
       "tag": "0001_ledger_append_only",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792097122631,
+      "tag": "0002_projects",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792098405601,
+      "tag": "0003_preferred_name",
+      "breakpoints": true
     }
   ]
 }

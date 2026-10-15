@@ -37,6 +37,8 @@ export const IsoDate = z.string().datetime({ offset: true });
 export const UserSchema = z.object({
   id: z.string(),
   name: z.string(),
+  /** What MultiAI calls the user ("Good evening, Imam"); null → first word of name. */
+  preferredName: z.string().nullable(),
   phone: z.string().nullable(),
   email: z.string().nullable(),
   emailVerified: z.boolean(),

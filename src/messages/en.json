@@ -51,6 +51,14 @@
     },
     "languageFailed": "Couldn’t save your language. It’s changed on this device only."
   },
+  "accountMenu": {
+    "settings": "Settings",
+    "settingsShortcut": "⌘,",
+    "usage": "Usage & billing",
+    "language": "Language",
+    "help": "Help & support",
+    "signOut": "Sign out"
+  },
   "admin": {
     "title": "Admin",
     "backToChat": "Back to chat",
@@ -641,8 +649,6 @@
     "presets": "Presets",
     "today": "Today",
     "yesterday": "Yesterday",
-    "chatMeta": "{count} models · {credits} cr",
-    "chatMetaBest": "Best answer · {credits} cr",
     "creditsLeft": "Credits left",
     "topUp": "Top up",
     "goPro": "Go Pro",
@@ -657,7 +663,13 @@
     "expand": "Expand sidebar",
     "toggleShortcut": "⌘\\",
     "pinned": "Pinned",
-    "earlier": "Earlier"
+    "earlier": "Earlier",
+    "projects": "Projects",
+    "newProject": "New project",
+    "chatCost": "{credits} cr",
+    "chatCostBest": "Best · {credits} cr",
+    "showCredits": "Show credits",
+    "hideCredits": "Hide credits"
   },
   "picker": {
     "title": "Choose models",
@@ -864,6 +876,72 @@
       "viewInWallet": "View in Wallet"
     },
     "startFailed": "We couldn’t start the payment. Nothing was charged. Please try again."
+  },
+  "projects": {
+    "newChat": "New chat",
+    "meta": "{count, plural, one {{n} chat} other {{n} chats}} · Projects keep related chats together",
+    "search": "Search in {name}",
+    "searchShortcut": "⌘K",
+    "tip": "Tip: drag any chat from the sidebar onto a project to move it here.",
+    "mobileTip": "Press and hold a chat to move it into or out of a project.",
+    "back": "Back to chats",
+    "options": "Project options",
+    "menu": {
+      "rename": "Rename project",
+      "delete": "Delete project"
+    },
+    "empty": {
+      "title": "No chats in this project yet",
+      "body": "Start a new chat here, or move chats in from the chat list.",
+      "action": "New chat"
+    },
+    "noResults": {
+      "title": "No matching chats",
+      "body": "Try another word or filter."
+    },
+    "dialog": {
+      "title": "New project",
+      "body": "Group related chats in one place. You can rename or delete it later.",
+      "label": "Project name",
+      "placeholder": "e.g. Coffee brand",
+      "cancel": "Cancel",
+      "create": "Create project"
+    },
+    "renameDialog": {
+      "title": "Rename project",
+      "body": "Its chats stay in it.",
+      "save": "Save"
+    },
+    "deleteDialog": {
+      "title": "Delete “{name}”?",
+      "body": "The project goes away. {count, plural, =0 {} one {Its chat stays} other {Its {n} chats stay}} in your chat list.",
+      "cancel": "Keep project",
+      "confirm": "Delete project"
+    },
+    "errors": {
+      "taken": "You already have a project called “{name}”.",
+      "failed": "Couldn’t save. Check your connection and try again."
+    },
+    "chatMenu": {
+      "move": "Move to project…",
+      "moveElsewhere": "Move to another project…",
+      "remove": "Remove from project"
+    },
+    "moveDialog": {
+      "title": "Move to a project",
+      "body": "“{title}” can be in one project at a time.",
+      "label": "Projects",
+      "none": "You have no projects yet. Create one from the sidebar.",
+      "current": "Current",
+      "cancel": "Cancel"
+    },
+    "toast": {
+      "moved": "Moved to {name}",
+      "removed": "Removed from {name}",
+      "renamed": "Project renamed",
+      "deleted": "Project deleted. Its chats are still in your chat list.",
+      "failed": "That didn’t work. Try again."
+    }
   },
   "search": {
     "title": "Search chats",

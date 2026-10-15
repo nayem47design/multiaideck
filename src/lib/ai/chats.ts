@@ -8,11 +8,13 @@ import type { Db } from "@/lib/db";
 import { answers, bestAnswers, chats, images, prompts } from "@/lib/db/schema";
 import { ApiError } from "@/lib/server/api";
 
+import { ownProject } from "@/lib/server/projects";
+
 import { livePrompt } from "./bus";
 import type { ModelId } from "./models";
 import { toPrompt } from "./views";
 
-// Chats: list (search, kind filter), detail, rename/pin, soft delete.
+// Chats: list (search, kind and project filters), detail, rename/pin/move to a project, soft delete.
 
 type ChatRow = typeof chats.$inferSelect;
 
@@ -23,7 +25,11 @@ const like = (q: string) => `%${q.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
 export async function listChats(
   db: Db,
   userId: string,
-  { q, kind }: { q?: string; kind?: ChatRow["kind"] } = {},
+  {
+    q,
+    kind,
+    projectId,
+  }: { q?: string; kind?: ChatRow["kind"]; projectId?: string } = {},
 ): Promise<ChatSummary[]> {
   const query = q?.trim();
   const pattern = query ? like(query) : null;
@@ -35,6 +41,7 @@ export async function listChats(
         eq(chats.userId, userId),
         isNull(chats.deletedAt),
         kind ? eq(chats.kind, kind) : undefined,
+        projectId ? eq(chats.projectId, projectId) : undefined,
         pattern
           ? sql`(${chats.title} ilike ${pattern}
               or exists (select 1 from ${prompts} where ${prompts.chatId} = ${chats.id} and ${prompts.text} ilike ${pattern})
@@ -119,6 +126,7 @@ async function summaries(
         sum(answerCost, c.id) + sum(bestCost, c.id) + sum(pics, c.id),
       ),
       pinned: c.pinned,
+      projectId: c.projectId,
       snippet,
       updatedAt: c.updatedAt.toISOString(),
     };
@@ -181,14 +189,17 @@ export async function updateChat(
   db: Db,
   userId: string,
   chatId: string,
-  patch: { title?: string; pinned?: boolean },
+  patch: { title?: string; pinned?: boolean; projectId?: string | null },
 ): Promise<ChatSummary> {
   const chat = await ownChat(db, userId, chatId);
+  // Moving into a project: it must be one of the user's live projects.
+  if (patch.projectId) await ownProject(db, userId, patch.projectId);
   const [row] = await db
     .update(chats)
     .set({
       ...(patch.title !== undefined ? { title: patch.title } : {}),
       ...(patch.pinned !== undefined ? { pinned: patch.pinned } : {}),
+      ...(patch.projectId !== undefined ? { projectId: patch.projectId } : {}),
     })
     .where(eq(chats.id, chat.id))
     .returning();

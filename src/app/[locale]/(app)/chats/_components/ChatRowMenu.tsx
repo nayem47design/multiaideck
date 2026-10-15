@@ -1,13 +1,14 @@
 "use client";
 
 import { ContextMenu, DropdownMenu } from "radix-ui";
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 import { Icon, type IconName } from "@/components/atoms/Icon";
 import { cx } from "@/components/atoms/states";
 import { chatRowMoreButton } from "@/components/molecules/ChatListRow";
 
-// The chat row actions the Chats tip promises (rename, pin, delete). Not drawn in Figma: the menu
+// The chat row actions the Chats tip promises (rename, pin, delete), plus move to / remove from a
+// project. Not drawn in Figma: the menu
 // reuses the Composer menu's glass panel. Opens from the row's "more" button, by right-click, or by
 // press-and-hold on touch screens (Radix context menu).
 
@@ -70,14 +71,19 @@ export function ChatRowMoreMenu({
 export function ChatRowContextMenu({
   actions,
   children,
+  rowProps,
 }: {
   actions: ChatRowAction[];
   children: ReactNode;
+  /** Extra props for the row's wrapper, e.g. chatDragProps(id) from @/lib/projects. */
+  rowProps?: HTMLAttributes<HTMLDivElement>;
 }) {
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger asChild>
-        <div className="select-none md:select-auto">{children}</div>
+        <div {...rowProps} className="select-none md:select-auto">
+          {children}
+        </div>
       </ContextMenu.Trigger>
       <ContextMenu.Portal>
         <ContextMenu.Content

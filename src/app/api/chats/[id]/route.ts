@@ -17,7 +17,7 @@ export const GET = route(async (_req: Request, ctx: Ctx) => {
   return json<ChatDetail>(await chatDetail(await getDb(), user.id, id));
 });
 
-/** PATCH /api/chats/:id — rename or pin. */
+/** PATCH /api/chats/:id — rename, pin, or move into a project (projectId) or out of it (null). */
 export const PATCH = route(async (req: Request, ctx: Ctx) => {
   const user = await requireUser();
   const { id } = await ctx.params;

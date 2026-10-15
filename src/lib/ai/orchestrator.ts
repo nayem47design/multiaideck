@@ -204,6 +204,8 @@ export interface SendInput {
   attachments?: { name: string; kind: "file" | "image"; size: number }[];
   /** Follow-ups: which models get it (defaults to `models`). */
   recipients?: ModelId[];
+  /** New chats: the project to file it in (already checked to be the user's). */
+  projectId?: string;
 }
 
 export interface Started {
@@ -248,6 +250,7 @@ export async function sendPrompt(
           userId,
           title: titleFromPrompt(input.text),
           kind: input.mode,
+          projectId: input.projectId ?? null,
         });
       else
         await tx

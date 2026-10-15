@@ -44,6 +44,8 @@ export const users = pgTable(
     /** Bcrypt-style password hash (scrypt), for the optional email + password sign-in. */
     passwordHash: text("password_hash"),
     name: text("name").notNull().default(""),
+    /** What MultiAI calls the user ("Good evening, Imam"); null → the first word of name. */
+    preferredName: text("preferred_name"),
     locale: text("locale", { enum: ["en", "bn"] })
       .notNull()
       .default("en"),
@@ -109,6 +111,32 @@ export const otpCodes = pgTable(
   (t) => [index("otp_phone_idx").on(t.phone, t.createdAt)],
 );
 
+// ---- Projects (folders of related chats)
+
+/**
+ * A user's project. Deleting one is soft (deleted_at) and moves its chats out first; chats are
+ * never deleted with a project. Names are unique per user, ignoring case, among live projects.
+ */
+export const projects = pgTable(
+  "projects",
+  {
+    id: id(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    name: text("name").notNull(),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+    deletedAt: timestamp("deleted_at", { withTimezone: true }),
+  },
+  (t) => [
+    index("projects_user_idx").on(t.userId, t.createdAt),
+    uniqueIndex("projects_user_name_key")
+      .on(t.userId, sql`lower(${t.name})`)
+      .where(sql`deleted_at is null`),
+  ],
+);
+
 // ---- Chats
 
 export const chats = pgTable(
@@ -118,6 +146,8 @@ export const chats = pgTable(
     userId: text("user_id")
       .notNull()
       .references(() => users.id),
+    /** The project the chat is filed in, if any (at most one). */
+    projectId: text("project_id").references(() => projects.id),
     title: text("title").notNull(),
     kind: text("kind", { enum: ["best", "compare", "image"] }).notNull(),
     pinned: boolean("pinned").notNull().default(false),
@@ -125,7 +155,10 @@ export const chats = pgTable(
     updatedAt: updatedAt(),
     deletedAt: timestamp("deleted_at", { withTimezone: true }),
   },
-  (t) => [index("chats_user_idx").on(t.userId, t.updatedAt)],
+  (t) => [
+    index("chats_user_idx").on(t.userId, t.updatedAt),
+    index("chats_project_idx").on(t.projectId),
+  ],
 );
 
 export const prompts = pgTable(

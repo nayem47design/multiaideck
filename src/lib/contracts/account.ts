@@ -27,6 +27,8 @@ import { IsoDate, ModelIdSchema, UserSchema } from "./common";
 
 export const UpdateProfileRequest = z.object({
   name: z.string().trim().min(1).max(80).optional(),
+  /** What MultiAI calls the user in greetings; null clears it (first word of name). */
+  preferredName: z.string().trim().min(1).max(40).nullable().optional(),
   locale: z.enum(["en", "bn"]).optional(),
   answerLanguage: z.string().max(20).optional(),
   lowBalanceAlert: z.number().int().min(0).max(1_000_000).optional(),

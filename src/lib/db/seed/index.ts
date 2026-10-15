@@ -2,13 +2,14 @@ import "server-only";
 
 import { eq } from "drizzle-orm";
 
-import { appendEntry } from "@/lib/billing/ledger";
+import { appendEntry, balanceMcr } from "@/lib/billing/ledger";
 import { mcr } from "@/lib/billing/units";
 import type { Db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { DEMO_BALANCE, DEMO_USER } from "@/lib/mock/demo";
 
-import { seedChats } from "./chats";
+import { seedChats, type CoffeeStage } from "./chats";
+import { seedProjects } from "./projects";
 import { seedWallet } from "./wallet";
 
 // Demo data from the Figma prototype (the coffee-shop chat, 10,684 credits), for development,
@@ -16,28 +17,49 @@ import { seedWallet } from "./wallet";
 
 export const DEMO_PHONE = "+8801712345214";
 
-export async function seedDemo(db: Db) {
+export interface SeedUserOptions {
+  phone: string;
+  email: string;
+  /** Prefix for seeded ids (chats, payments…), so fixture users coexist with the demo user. */
+  prefix?: string;
+  /** Where the coffee-shop chat stops (see seed/chats.ts). */
+  stage?: CoffeeStage;
+}
+
+/** A user with the prototype's data: payments, chats, projects and 10,684 credits. */
+export async function seedUser(
+  db: Db,
+  { phone, email, prefix = "", stage }: SeedUserOptions,
+) {
   if (process.env.NODE_ENV === "production")
     throw new Error("No demo seed in production");
 
-  let [user] = await db.select().from(users).where(eq(users.phone, DEMO_PHONE));
+  let [user] = await db.select().from(users).where(eq(users.phone, phone));
   if (!user)
     [user] = await db
       .insert(users)
       .values({
-        phone: DEMO_PHONE,
+        phone,
         name: DEMO_USER.name,
-        email: DEMO_USER.email,
+        preferredName: DEMO_USER.firstName,
+        email,
         emailVerified: true,
       })
       .returning();
+  // Users seeded before preferred names existed.
+  if (!user.preferredName)
+    [user] = await db
+      .update(users)
+      .set({ preferredName: DEMO_USER.firstName })
+      .where(eq(users.id, user.id))
+      .returning();
 
   // Area seeds add their history first (payments, chats with charges)…
-  await seedWallet(db, user.id);
-  await seedChats(db, user.id);
+  await seedWallet(db, user.id, prefix);
+  await seedChats(db, user.id, { prefix, stage });
+  await seedProjects(db, user.id);
 
   // …then one adjustment brings the balance to the prototype's 10,684 credits.
-  const { balanceMcr } = await import("@/lib/billing/ledger");
   const diff = mcr(DEMO_BALANCE.credits) - (await balanceMcr(db, user.id));
   if (diff !== 0)
     await appendEntry(db, {
@@ -49,4 +71,8 @@ export async function seedDemo(db: Db) {
       note: "Demo seed: prototype balance",
     });
   return user;
+}
+
+export function seedDemo(db: Db) {
+  return seedUser(db, { phone: DEMO_PHONE, email: DEMO_USER.email });
 }
