@@ -93,10 +93,6 @@ export const SCREENS: Record<string, ScreenCase> = {
   "compare-prompt-2-gpt-5-answered-on-retry": {
     url: `${CHAT}?state=prompt-2-retry`,
   },
-  "compare-prompt-2-gpt-5-answered-on-retry-2": {
-    url: `${CHAT}?state=prompt-2-retry`,
-    todo: "Duplicate Figma frame name (166:30462); same state as 166:29348",
-  },
   "compare-writing-prompt-3-who-gets-it": { url: `${CHAT}?state=prompt-3-who` },
   "thinking-prompt-3-catching-up": { url: `${CHAT}?state=thinking-3&hold=1` },
   "compare-prompt-3-all-3-answered": { url: `${CHAT}?state=prompt-3` },

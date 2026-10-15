@@ -95,14 +95,6 @@
     "height": 900,
     "scale": 1
   },
-  "compare-files-attached-2__dark__1440.png": {
-    "id": "235:20570",
-    "name": "Dark · Compare · Files attached",
-    "theme": "dark",
-    "width": 1440,
-    "height": 900,
-    "scale": 1
-  },
   "compare-files-attached__dark__1440.png": {
     "id": "157:10267",
     "name": "Dark · Compare · Files attached",
@@ -138,14 +130,6 @@
   "compare-prompt-2-1-of-3-answered__light__1440.png": {
     "id": "166:28838",
     "name": "Compare · Prompt 2: 1 of 3 answered",
-    "theme": "light",
-    "width": 1440,
-    "height": 900,
-    "scale": 1
-  },
-  "compare-prompt-2-gpt-5-answered-on-retry-2__light__1440.png": {
-    "id": "166:30462",
-    "name": "Compare · Prompt 2: GPT-5 answered on retry",
     "theme": "light",
     "width": 1440,
     "height": 900,
