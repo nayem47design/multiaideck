@@ -1,0 +1,11 @@
+.next
+node_modules
+package-lock.json
+storybook-static
+playwright-report
+test-results
+coverage
+docs
+multiaideck-starter
+/*.md
+.agent
