@@ -24,7 +24,8 @@
     "db:studio": "drizzle-kit studio",
     "test:screens": "playwright test --project=screens",
     "test:a11y": "playwright test --project=a11y",
-    "lighthouse": "npx --yes lighthouse@12.8.2 http://localhost:3000/sign-in --form-factor=mobile --screenEmulation.mobile --throttling-method=simulate --output=html --output-path=./lighthouse-report.html --chrome-flags=--headless"
+    "lighthouse": "npx --yes lighthouse@12.8.2 http://localhost:3000/sign-in --form-factor=mobile --screenEmulation.mobile --throttling-method=simulate --output=html --output-path=./lighthouse-report.html --chrome-flags=--headless",
+    "logos": "node scripts/generate-model-logos.mjs"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.81",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
+    "@lobehub/icons-static-svg": "^1.95.1",
     "@playwright/test": "^1.64.1",
     "@storybook/addon-a11y": "^10.6.2",
     "@storybook/addon-docs": "^10.6.2",

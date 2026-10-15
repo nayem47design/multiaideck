@@ -32,6 +32,8 @@ type Seeded = DemoAnswer & {
   catchUp?: number;
   retryOf?: string;
   at: Date;
+  /** Frozen mid-run (thinking fixtures): the answer's live status and the text so far. */
+  live?: { status: "streaming" | "catching-up" | "queued"; text?: string };
 };
 
 const DEMO_VERSION = "demo";
@@ -88,6 +90,8 @@ async function seedPrompt(
     at: Date;
     answers: Seeded[];
     best?: DemoBestAnswer & { creditsCharged: number };
+    /** "running" freezes the prompt mid-answer (thinking fixtures). */
+    status?: "running" | "done";
   },
 ) {
   const models = [
@@ -103,11 +107,29 @@ async function seedPrompt(
       text: p.text,
       mode: p.mode,
       models,
-      status: "done",
+      status: p.status ?? "done",
       createdAt: p.at,
     })
     .onConflictDoNothing();
   for (const a of p.answers) {
+    if (a.live) {
+      // Still running: no finish time, no charge yet (its hold stays until it ends).
+      await db
+        .insert(answers)
+        .values({
+          id: a.id,
+          promptId: p.id,
+          chatId,
+          model: a.model,
+          modelVersion: DEMO_VERSION,
+          status: a.live.status,
+          text: a.live.text ?? "",
+          startedAt: a.at,
+          createdAt: a.at,
+        })
+        .onConflictDoNothing();
+      continue;
+    }
     const total = a.text ? mcr(a.credits ?? 0) : 0;
     const catchUp = a.text ? mcr(a.catchUp ?? 0) : 0;
     const durationMs = a.text
@@ -201,62 +223,155 @@ async function seedChat(
 
 const title = (id: string) => DEMO_CHATS.find((c) => c.id === id)!.title;
 
-export async function seedChats(db: Db, userId: string) {
+/**
+ * How far the coffee-shop chat has got, for the screen-test fixture accounts (seed/fixtures.ts):
+ * each stops where a Figma Prototype frame does. "thinking-*" stages are frozen mid-run.
+ */
+export const COFFEE_STAGES = [
+  "thinking-best",
+  "best",
+  "thinking-compare",
+  "compare",
+  "thinking-2",
+  "prompt-2",
+  "prompt-2-retry",
+  "thinking-3",
+  "prompt-3",
+] as const;
+export type CoffeeStage = (typeof COFFEE_STAGES)[number];
+
+export interface SeedChatsOptions {
+  /** Prefix for every seeded id (chats, prompts, answers, pictures), so several users can coexist. */
+  prefix?: string;
+  /** Where the coffee-shop chat stops. Default: the full prototype story ("prompt-3"). */
+  stage?: CoffeeStage;
+  now?: Date;
+}
+
+/** Seconds a frozen thinking prompt has been running: past the 8 s "slow" mark. */
+const THINKING_FOR = 20;
+
+export async function seedChats(
+  db: Db,
+  userId: string,
+  { prefix = "", stage = "prompt-3", now = new Date() }: SeedChatsOptions = {},
+) {
+  const P = (id: string) => `${prefix}${id}`;
+  const order = COFFEE_STAGES.indexOf(stage);
+  const reached = (s: CoffeeStage) => order >= COFFEE_STAGES.indexOf(s);
+  const thinking = stage.startsWith("thinking-");
+  const askedAt = new Date(now.getTime() - THINKING_FOR * 1000);
+  const writing = (text: string) => text.split(" ").slice(0, 8).join(" ");
+
   // ---- Coffee shop names
   const { p1, p2, p3 } = COFFEE_CHAT.prompts;
-  const t1 = at(0, 11, 30);
-  const t2 = plus(t1, 4 * 60);
-  const t3 = plus(t1, 8 * 60);
+  const t1 = thinking && order <= 3 ? askedAt : at(0, 11, 30, now);
+  const t2 = stage === "thinking-2" ? askedAt : plus(t1, 4 * 60);
+  const t3 = stage === "thinking-3" ? askedAt : plus(t1, 8 * 60);
   const tRetry = plus(t1, 10 * 60);
+  const compareFirst = stage === "thinking-compare" || stage === "compare";
+  const chatId = P(COFFEE_CHAT_ID);
   await seedChat(db, userId, {
-    id: COFFEE_CHAT_ID,
+    id: chatId,
     title: title(COFFEE_CHAT_ID),
-    kind: "compare",
+    kind: compareFirst || reached("prompt-2") ? "compare" : "best",
     at: t1,
-    updatedAt: tRetry,
+    updatedAt: thinking ? askedAt : reached("prompt-2-retry") ? tRetry : t1,
   });
-  const id = (p: string, m: string) => `${COFFEE_CHAT_ID}-${p}-${m}`;
-  await seedPrompt(db, userId, COFFEE_CHAT_ID, {
-    id: `${COFFEE_CHAT_ID}-p1`,
+  const id = (p: string, m: string) => `${chatId}-${p}-${m}`;
+
+  // Prompt 1: Best answer (Compare for the compare-first frames). Thinking: Gemini done, the
+  // others still writing (Figma "Thinking · Best answer" / "Thinking · Compare").
+  const p1Live = stage === "thinking-best" || stage === "thinking-compare";
+  await seedPrompt(db, userId, chatId, {
+    id: `${chatId}-p1`,
     seq: 1,
     text: p1.text,
-    mode: "best",
+    mode: compareFirst ? "compare" : "best",
     at: t1,
-    answers: p1.answers.map((a) => ({ ...a, id: id("p1", a.model), at: t1 })),
-    best: { ...COFFEE_CHAT.best, creditsCharged: COFFEE_CHAT.best.credits },
-  });
-  await seedPrompt(db, userId, COFFEE_CHAT_ID, {
-    id: `${COFFEE_CHAT_ID}-p2`,
-    seq: 2,
-    text: p2.text,
-    mode: "compare",
-    at: t2,
-    answers: [
-      ...p2.answers.map((a) => ({ ...a, id: id("p2", a.model), at: t2 })),
-      // GPT-5 answered prompt 2 when it was retried, after prompt 3.
-      {
-        ...COFFEE_CHAT.prompts.p2Retried.answers[0],
-        id: id("p2", "gpt-retry"),
-        retryOf: id("p2", "gpt"),
-        at: tRetry,
-      },
-    ],
-  });
-  // Prompt 3: GPT-5 and Gemini missed prompt 2, so they read it first (catch-up ≈ 0.5 cr).
-  const catchUp: Partial<Record<ModelId, number>> = { gpt: 0.3, gemini: 0.2 };
-  await seedPrompt(db, userId, COFFEE_CHAT_ID, {
-    id: `${COFFEE_CHAT_ID}-p3`,
-    seq: 3,
-    text: p3.text,
-    mode: "compare",
-    at: t3,
-    answers: p3.answers.map((a) => ({
+    status: p1Live ? "running" : "done",
+    answers: p1.answers.map((a) => ({
       ...a,
-      id: id("p3", a.model),
-      catchUp: catchUp[a.model],
-      at: t3,
+      id: id("p1", a.model),
+      at: t1,
+      live:
+        p1Live && a.model !== "gemini"
+          ? {
+              status: "streaming" as const,
+              text: a.model === "gpt" ? writing(a.text ?? "") : "",
+            }
+          : undefined,
     })),
+    best:
+      compareFirst || p1Live
+        ? undefined
+        : { ...COFFEE_CHAT.best, creditsCharged: COFFEE_CHAT.best.credits },
   });
+
+  if (reached("thinking-2")) {
+    // Prompt 2: GPT-5 times out, Gemini is unavailable. Thinking: GPT-5 slow (no text yet),
+    // Claude writing, Gemini not responding (Figma "Thinking · Prompt 2 (2 AIs slow)").
+    const p2Live = stage === "thinking-2";
+    await seedPrompt(db, userId, chatId, {
+      id: `${chatId}-p2`,
+      seq: 2,
+      text: p2.text,
+      mode: "compare",
+      at: t2,
+      status: p2Live ? "running" : "done",
+      answers: [
+        ...p2.answers.map((a) => ({
+          ...a,
+          id: id("p2", a.model),
+          at: t2,
+          live:
+            p2Live && a.model !== "gemini"
+              ? {
+                  status: "streaming" as const,
+                  text: a.model === "claude" ? writing(a.text ?? "") : "",
+                }
+              : undefined,
+        })),
+        // GPT-5 answered prompt 2 when it was retried.
+        ...(reached("prompt-2-retry") && !(stage === "thinking-3")
+          ? [
+              {
+                ...COFFEE_CHAT.prompts.p2Retried.answers[0],
+                id: id("p2", "gpt-retry"),
+                retryOf: id("p2", "gpt"),
+                at: tRetry,
+              },
+            ]
+          : []),
+      ],
+    });
+  }
+
+  if (reached("thinking-3")) {
+    // Prompt 3: GPT-5 and Gemini missed prompt 2, so they read it first (catch-up ≈ 0.5 cr).
+    // Thinking: both still catching up, Claude writing (Figma "Thinking · Prompt 3 (catching up)").
+    const p3Live = stage === "thinking-3";
+    const catchUp: Partial<Record<ModelId, number>> = { gpt: 0.3, gemini: 0.2 };
+    await seedPrompt(db, userId, chatId, {
+      id: `${chatId}-p3`,
+      seq: 3,
+      text: p3.text,
+      mode: "compare",
+      at: t3,
+      status: p3Live ? "running" : "done",
+      answers: p3.answers.map((a) => ({
+        ...a,
+        id: id("p3", a.model),
+        catchUp: catchUp[a.model],
+        at: t3,
+        live: p3Live
+          ? a.model === "claude"
+            ? { status: "streaming" as const, text: writing(a.text ?? "") }
+            : { status: "catching-up" as const }
+          : undefined,
+      })),
+    });
+  }
 
   // ---- The one-prompt chats
   const simple: {
@@ -265,27 +380,32 @@ export async function seedChats(db: Db, userId: string) {
     at: Date;
     bestCredits?: number;
   }[] = [
-    { id: "hellow", mode: "best", at: at(0, 9, 12), bestCredits: 0.2 },
-    { id: "who-are-you", mode: "compare", at: at(-1, 15, 0) },
-    { id: "how-old-are-you", mode: "best", at: at(-1, 14, 30), bestCredits: 0 },
+    { id: "hellow", mode: "best", at: at(0, 9, 12, now), bestCredits: 0.2 },
+    { id: "who-are-you", mode: "compare", at: at(-1, 15, 0, now) },
+    {
+      id: "how-old-are-you",
+      mode: "best",
+      at: at(-1, 14, 30, now),
+      bestCredits: 0,
+    },
   ];
   for (const s of simple) {
     const chat = simpleChat(s.id)!;
     await seedChat(db, userId, {
-      id: s.id,
+      id: P(s.id),
       title: title(s.id),
       kind: s.mode,
       at: s.at,
     });
-    await seedPrompt(db, userId, s.id, {
-      id: `${s.id}-p1`,
+    await seedPrompt(db, userId, P(s.id), {
+      id: P(`${s.id}-p1`),
       seq: 1,
       text: chat.prompt.text,
       mode: s.mode,
       at: s.at,
       answers: chat.prompt.answers.map((a) => ({
         ...a,
-        id: `${s.id}-p1-${a.model}`,
+        id: P(`${s.id}-p1-${a.model}`),
         at: s.at,
       })),
       best:
@@ -297,10 +417,10 @@ export async function seedChats(db: Db, userId: string) {
 
   // ---- Pictures (Golpo Coffee sign is also a chat, as in the prototype's list)
   for (const [i, p] of DEMO_PICTURES.entries()) {
-    const when = at(0, 11, 20 - i * 5);
+    const when = at(0, 11, 20 - i * 5, now);
     if (i === 0)
       await seedChat(db, userId, {
-        id: p.id,
+        id: P(p.id),
         title: p.title,
         kind: "image",
         at: when,
@@ -308,9 +428,9 @@ export async function seedChats(db: Db, userId: string) {
     await db
       .insert(images)
       .values({
-        id: p.id,
+        id: P(p.id),
         userId,
-        chatId: i === 0 ? p.id : null,
+        chatId: i === 0 ? P(p.id) : null,
         prompt: p.prompt,
         style: p.style,
         status: "ready",
@@ -320,6 +440,6 @@ export async function seedChats(db: Db, userId: string) {
         createdAt: when,
       })
       .onConflictDoNothing();
-    await ledgerFor(db, userId, "image", p.id, IMAGE_MCR, IMAGE_MCR);
+    await ledgerFor(db, userId, "image", P(p.id), IMAGE_MCR, IMAGE_MCR);
   }
 }
