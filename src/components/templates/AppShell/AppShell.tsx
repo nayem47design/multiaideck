@@ -4,11 +4,12 @@ import { cx } from "@/components/atoms/states";
 
 // Figma: Design system › Template/App shell (28:9266), drawn at 0.75 scale of 1440×900.
 // Sidebar on the left; the main area holds the hero or answer thread, with the Composer docked
-// at the bottom, centred.
+// at the bottom, centred. Below 1024px the sidebar is hidden (the app shows it as a drawer, and
+// below 768px uses the mobile tab bar) and the main area runs edge to edge.
 
 export interface AppShellProps {
   sidebar: ReactNode;
-  /** Hero or answer thread. */
+  /** Hero or answer thread. Without `composer`, rendered as is (wrap it in <AppMain>). */
   children: ReactNode;
   composer?: ReactNode;
   className?: string;
@@ -23,30 +24,67 @@ export function AppShell({
   return (
     <div
       className={cx(
+        "relative isolate flex h-dvh bg-canvas",
         // Figma: the main area keeps the sidebar gap on its right too.
-        "flex h-dvh gap-shell-gap bg-canvas py-shell-pad pr-shell-gap pl-shell-pad",
+        "lg:gap-shell-gap lg:py-shell-pad lg:pr-shell-gap lg:pl-shell-pad",
         className,
       )}
     >
-      <div data-region="sidebar" className="flex shrink-0">
+      <div data-region="sidebar" className="hidden shrink-0 lg:flex">
         {sidebar}
       </div>
       <main className="relative flex min-w-0 flex-1 flex-col">
-        <div
-          data-region="content"
-          className="min-h-0 flex-1 overflow-y-auto pt-app-main-top"
-        >
-          {children}
-        </div>
-        {composer && (
-          <div
-            data-region="composer"
-            className="mx-auto w-full max-w-composer-width shrink-0 pt-4 pb-3"
-          >
-            {composer}
-          </div>
+        {composer === undefined ? (
+          children
+        ) : (
+          <AppMain composer={composer}>{children}</AppMain>
         )}
       </main>
     </div>
+  );
+}
+
+export interface AppMainProps {
+  /** Hero or answer thread; scrolls under the docked composer. */
+  children: ReactNode;
+  composer?: ReactNode;
+  /** Small print under the composer. */
+  footnote?: ReactNode;
+  /** Content top inset; Figma's app shell puts the thread below the top bar. */
+  className?: string;
+}
+
+/** The main column of the app shell: scrolling content with the composer docked below it. */
+export function AppMain({
+  children,
+  composer,
+  footnote,
+  className,
+}: AppMainProps) {
+  return (
+    <>
+      <div
+        data-region="content"
+        className={cx(
+          "min-h-0 flex-1 overflow-y-auto pt-app-main-top",
+          className,
+        )}
+      >
+        {children}
+      </div>
+      {composer && (
+        <div
+          data-region="composer"
+          className="mx-auto w-full max-w-composer-width shrink-0 px-3 pt-4 pb-3 lg:px-0"
+        >
+          {composer}
+          {footnote && (
+            <p className="mt-2 text-center type-caption text-ink-3">
+              {footnote}
+            </p>
+          )}
+        </div>
+      )}
+    </>
   );
 }

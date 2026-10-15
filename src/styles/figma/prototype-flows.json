@@ -1,0 +1,4478 @@
+{
+ "$source": {
+  "figmaFileKey": "fCrR78u1aj0DQjzpaEhrIY",
+  "page": "28:7492",
+  "readWith": "figma-console figma_execute (read-only)",
+  "note": "Prototype reactions on Light screens: tap target layer → action (NAVIGATE/OVERLAY/SWAP/BACK/CLOSE → destination screen)."
+ },
+ "flows": [
+  [
+   "0 · Desktop · Full journey (start here)",
+   "Desktop · Sign in"
+  ],
+  [
+   "1 · Ask and compare",
+   "Home"
+  ],
+  [
+   "2 · Top up with bKash",
+   "Wallet"
+  ],
+  [
+   "3 · Settings and account",
+   "Settings · Profile"
+  ],
+  [
+   "4 · Dark · Ask and compare",
+   "Dark · Home"
+  ],
+  [
+   "5 · Dark · Top up with bKash",
+   "Dark · Wallet"
+  ],
+  [
+   "6 · Dark · Settings and account",
+   "Dark · Settings · Profile"
+  ],
+  [
+   "7 Mobile (Android)",
+   "M1 · Welcome & language"
+  ]
+ ],
+ "screens": {
+  "Home": [
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · “+” menu"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Best answer"
+   },
+   {
+    "target": "Card/Compare three models",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Card/Write in Bangla",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Best answer"
+   },
+   {
+    "target": "Card/Create an image",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   }
+  ],
+  "Compare": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Prompt 2 (2 AIs slow)"
+   }
+  ],
+  "Wallet": [
+   {
+    "target": "Pill/Back to chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Pill/Settings",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Upgrade Now",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "Pay (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Checkout (simulated)"
+   },
+   {
+    "target": "c",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Checkout (simulated)"
+   },
+   {
+    "target": "c",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Checkout (simulated)"
+   },
+   {
+    "target": "See usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Usage"
+   }
+  ],
+  "Settings · Profile": [
+   {
+    "target": "Pill/Back to chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Pill/Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Notifications",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Notifications"
+   },
+   {
+    "target": "Nav/Privacy & security",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Privacy & security"
+   },
+   {
+    "target": "Nav/Usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Usage"
+   },
+   {
+    "target": "Nav/Wallet & billing",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Help & support",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Help & support"
+   },
+   {
+    "target": "Delete account",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Delete account"
+   }
+  ],
+  "Settings · Notifications": [
+   {
+    "target": "Pill/Back to chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Pill/Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Profile",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Nav/Privacy & security",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Privacy & security"
+   },
+   {
+    "target": "Nav/Usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Usage"
+   },
+   {
+    "target": "Nav/Wallet & billing",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Help & support",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Help & support"
+   }
+  ],
+  "Settings · Privacy & security": [
+   {
+    "target": "Pill/Back to chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Pill/Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Profile",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Nav/Notifications",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Notifications"
+   },
+   {
+    "target": "Nav/Usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Usage"
+   },
+   {
+    "target": "Nav/Wallet & billing",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Help & support",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Help & support"
+   }
+  ],
+  "Overlay · Model picker": [
+   {
+    "target": "Close",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   },
+   {
+    "target": "Apply (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   }
+  ],
+  "Overlay · Delete account": [
+   {
+    "target": "Cancel",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   },
+   {
+    "target": "Delete (red)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   }
+  ],
+  "Best answer": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · “+” menu"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Best answer"
+   },
+   {
+    "target": "See all 3 answers",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   }
+  ],
+  "Overlay · Checkout (simulated)": [
+   {
+    "target": "Button/I approved it",
+    "trigger": "ON_CLICK",
+    "action": "SWAP→Overlay · Payment received"
+   },
+   {
+    "target": "Button/Simulate a failed payment",
+    "trigger": "ON_CLICK",
+    "action": "SWAP→Overlay · Payment failed"
+   },
+   {
+    "target": "Button/Cancel",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   }
+  ],
+  "Overlay · Payment received": [
+   {
+    "target": "Button/Back to chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Button/View receipt",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   }
+  ],
+  "Overlay · Payment failed": [
+   {
+    "target": "Button/Try again",
+    "trigger": "ON_CLICK",
+    "action": "SWAP→Overlay · Checkout (simulated)"
+   },
+   {
+    "target": "Button/Choose another method",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   }
+  ],
+  "Settings · Usage": [
+   {
+    "target": "Pill/Back to chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Pill/Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Profile",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Nav/Notifications",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Notifications"
+   },
+   {
+    "target": "Nav/Privacy & security",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Privacy & security"
+   },
+   {
+    "target": "Nav/Wallet & billing",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Help & support",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Help & support"
+   },
+   {
+    "target": "Set a limit in Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   }
+  ],
+  "Home · “+” menu": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Card/Compare three models",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Scrim · click to close",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Item/Add photos & files",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · Files attached"
+   }
+  ],
+  "Home · Voice listening": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Cancel voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Done (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · Voice text ready"
+   },
+   {
+    "target": "Card/Compare three models",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   }
+  ],
+  "Home · Voice text ready": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · “+” menu"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Best answer"
+   },
+   {
+    "target": "Card/Compare three models",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   }
+  ],
+  "Home · Files attached": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Remove",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Remove",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · “+” menu"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Best answer"
+   },
+   {
+    "target": "Card/Compare three models",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   }
+  ],
+  "Best answer · “+” menu": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · Voice listening"
+   },
+   {
+    "target": "See all 3 answers",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Scrim · click to close",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Item/Add photos & files",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · Files attached"
+   }
+  ],
+  "Best answer · Voice listening": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Cancel voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Done (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · Voice text ready"
+   },
+   {
+    "target": "See all 3 answers",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   }
+  ],
+  "Best answer · Voice text ready": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · “+” menu"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Best answer"
+   },
+   {
+    "target": "See all 3 answers",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   }
+  ],
+  "Best answer · Files attached": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Remove",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Remove",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · “+” menu"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Best answer"
+   },
+   {
+    "target": "See all 3 answers",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   }
+  ],
+  "Compare · “+” menu": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Scrim · click to close",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Item/Add photos & files",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Files attached"
+   }
+  ],
+  "Compare · Voice listening": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Cancel voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Done (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice text ready"
+   }
+  ],
+  "Compare · Voice text ready": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Prompt 2 (2 AIs slow)"
+   }
+  ],
+  "Compare · Files attached": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Remove",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Remove",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Prompt 2 (2 AIs slow)"
+   }
+  ],
+  "M1 · Welcome & language": [
+   {
+    "target": "Button · Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M16 · Sign in: phone number"
+   },
+   {
+    "target": "Sign in",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M16 · Sign in: phone number"
+   }
+  ],
+  "M2 · Home": [
+   {
+    "target": "Credits pill",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "seg · বাং",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M39 · Language"
+   },
+   {
+    "target": "Starter · Write in Bangla",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M18 · Voice: check your words"
+   },
+   {
+    "target": "Starter · Compare 3 AI answers",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Starter · Make a picture",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M21 · Make a picture"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M20 · AIs are thinking"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tab · Account",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   }
+  ],
+  "M3 · “+” sheet: add photos & files": [
+   {
+    "target": "Scrim",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   },
+   {
+    "target": "Option · Take a photo",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M19 · File attached"
+   },
+   {
+    "target": "Option · Choose from gallery",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M19 · File attached"
+   },
+   {
+    "target": "Option · Choose a file",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M19 · File attached"
+   },
+   {
+    "target": "Button · Cancel",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   }
+  ],
+  "M4 · Voice: listening": [
+   {
+    "target": "Tap · cancel",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   },
+   {
+    "target": "Cancel",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   },
+   {
+    "target": "Done",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M18 · Voice: check your words"
+   }
+  ],
+  "M5 · Best answer": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Button · See all 3 answers",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M6 · Compare: one answer at a time"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M20 · AIs are thinking"
+   }
+  ],
+  "M6 · Compare: one answer at a time": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M23 · Compare: GPT-5 answer"
+   },
+   {
+    "target": "Tab · Gemini",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M24 · Compare: Gemini answer"
+   },
+   {
+    "target": "Answer card · Claude",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M23 · Compare: GPT-5 answer"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M26 · Follow-up: thinking (2 AIs slow)"
+   }
+  ],
+  "M7 · How should we answer? (mode & AIs)": [
+   {
+    "target": "Scrim",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   },
+   {
+    "target": "Change",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M25 · Choose AIs"
+   },
+   {
+    "target": "Button · Done",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   }
+  ],
+  "M8 · Compare: an AI couldn’t answer": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Claude",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M27 · Follow-up: Claude’s answer"
+   },
+   {
+    "target": "Tab · Gemini",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M28 · Follow-up: Gemini unavailable"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M9 · Follow-up: who should get it?"
+   },
+   {
+    "target": "Answer card · GPT-5 (failed)",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M27 · Follow-up: Claude’s answer"
+   },
+   {
+    "target": "Button · Try again · about 0.9 credits",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M29 · Follow-up: GPT-5 answered on retry"
+   },
+   {
+    "target": "Button · Ask a different AI",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M25 · Choose AIs"
+   }
+  ],
+  "M9 · Follow-up: who should get it?": [
+   {
+    "target": "Scrim",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Button · Send",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M30 · Prompt 3: thinking (catching up)"
+   }
+  ],
+  "M10 · Wallet": [
+   {
+    "target": "Button · Add credits",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M11 · Add credits: amount & bKash"
+   },
+   {
+    "target": "Row · Spent this month",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M13 · Usage"
+   },
+   {
+    "target": "Row · Payment history",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M36 · Payment history"
+   },
+   {
+    "target": "Upgrade Now",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M37 · Go Pro"
+   },
+   {
+    "target": "Tab · Ask",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Account",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   }
+  ],
+  "M11 · Add credits: amount & bKash": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Button · Pay ৳699 with bKash",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M34 · Finish payment in bKash"
+   }
+  ],
+  "M12 · Payment received": [
+   {
+    "target": "Button · Start asking",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Button · Download receipt",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M36 · Payment history"
+   }
+  ],
+  "M13 · Usage": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   }
+  ],
+  "M14 · Chats": [
+   {
+    "target": "Tap · edit",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Chat · Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M31 · Prompt 3: Claude"
+   },
+   {
+    "target": "Chat · Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Ask",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tab · Account",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   }
+  ],
+  "M15 · Account & settings": [
+   {
+    "target": "Profile",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M41 · Privacy & security"
+   },
+   {
+    "target": "Row · Language",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M39 · Language"
+   },
+   {
+    "target": "Row · Usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M13 · Usage"
+   },
+   {
+    "target": "Row · Notifications",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M40 · Notifications"
+   },
+   {
+    "target": "Row · Privacy & security",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M41 · Privacy & security"
+   },
+   {
+    "target": "Row · Help & support",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M42 · Help & support"
+   },
+   {
+    "target": "Sign out",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M43 · Sign out?"
+   },
+   {
+    "target": "Tab · Ask",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   }
+  ],
+  "M16 · Sign in: phone number": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M1 · Welcome & language"
+   },
+   {
+    "target": "Button · Send code",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M17 · Enter the code"
+   },
+   {
+    "target": "Button · Continue with Google",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   }
+  ],
+  "M17 · Enter the code": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M16 · Sign in: phone number"
+   },
+   {
+    "target": "Button · Verify and continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Wrong number? Change it",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M16 · Sign in: phone number"
+   }
+  ],
+  "M18 · Voice: check your words": [
+   {
+    "target": "Credits pill",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "seg · বাং",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M39 · Language"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M20 · AIs are thinking"
+   },
+   {
+    "target": "Tab · Ask",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tab · Account",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   }
+  ],
+  "M19 · File attached": [
+   {
+    "target": "Credits pill",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "seg · বাং",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M39 · Language"
+   },
+   {
+    "target": "Tap · cancel",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M20 · AIs are thinking"
+   },
+   {
+    "target": "Tab · Ask",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tab · Account",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   }
+  ],
+  "M20 · AIs are thinking": [
+   {
+    "target": "M20 · AIs are thinking",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Button · Stop",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   }
+  ],
+  "M21 · Make a picture": [
+   {
+    "target": "Credits pill",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tab · Account",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   },
+   {
+    "target": "Scrim",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Button · Create picture",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M22 · Picture ready"
+   }
+  ],
+  "M22 · Picture ready": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Button · Make another version",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M21 · Make a picture"
+   }
+  ],
+  "M23 · Compare: GPT-5 answer": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Claude",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M6 · Compare: one answer at a time"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Tab · Gemini",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M24 · Compare: Gemini answer"
+   },
+   {
+    "target": "Answer card · GPT-5",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M24 · Compare: Gemini answer"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M26 · Follow-up: thinking (2 AIs slow)"
+   }
+  ],
+  "M24 · Compare: Gemini answer": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Claude",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M6 · Compare: one answer at a time"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M23 · Compare: GPT-5 answer"
+   },
+   {
+    "target": "Answer card · Gemini 3 Flash",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M6 · Compare: one answer at a time"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M26 · Follow-up: thinking (2 AIs slow)"
+   }
+  ],
+  "M25 · Choose AIs": [
+   {
+    "target": "Credits pill",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Tab · Account",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   },
+   {
+    "target": "Scrim",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   },
+   {
+    "target": "Button · Use these 3",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   }
+  ],
+  "M27 · Follow-up: Claude’s answer": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Tab · Gemini",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M28 · Follow-up: Gemini unavailable"
+   },
+   {
+    "target": "Answer card · Claude",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M9 · Follow-up: who should get it?"
+   }
+  ],
+  "M28 · Follow-up: Gemini unavailable": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Claude",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M27 · Follow-up: Claude’s answer"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M9 · Follow-up: who should get it?"
+   },
+   {
+    "target": "Button · Ask a different AI",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M25 · Choose AIs"
+   },
+   {
+    "target": "Button · Try again · about 0.9 credits",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M27 · Follow-up: Claude’s answer"
+   }
+  ],
+  "M29 · Follow-up: GPT-5 answered on retry": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Claude",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M27 · Follow-up: Claude’s answer"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Tab · Gemini",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M28 · Follow-up: Gemini unavailable"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M9 · Follow-up: who should get it?"
+   }
+  ],
+  "M26 · Follow-up: thinking (2 AIs slow)": [
+   {
+    "target": "M26 · Follow-up: thinking (2 AIs slow)",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M6 · Compare: one answer at a time"
+   },
+   {
+    "target": "Button · Stop",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M6 · Compare: one answer at a time"
+   }
+  ],
+  "M30 · Prompt 3: thinking (catching up)": [
+   {
+    "target": "M30 · Prompt 3: thinking (catching up)",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→M31 · Prompt 3: Claude"
+   },
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Button · Stop",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M27 · Follow-up: Claude’s answer"
+   }
+  ],
+  "M31 · Prompt 3: Claude": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M32 · Prompt 3: GPT-5"
+   },
+   {
+    "target": "Tab · Gemini",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M33 · Prompt 3: Gemini"
+   },
+   {
+    "target": "Answer card · Claude",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M32 · Prompt 3: GPT-5"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M20 · AIs are thinking"
+   }
+  ],
+  "M32 · Prompt 3: GPT-5": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Claude",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M31 · Prompt 3: Claude"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M8 · Compare: an AI couldn’t answer"
+   },
+   {
+    "target": "Tab · Gemini",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M33 · Prompt 3: Gemini"
+   },
+   {
+    "target": "Answer card · GPT-5",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M33 · Prompt 3: Gemini"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M20 · AIs are thinking"
+   }
+  ],
+  "M33 · Prompt 3: Gemini": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tab · Claude",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M31 · Prompt 3: Claude"
+   },
+   {
+    "target": "Tab · GPT-5",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M32 · Prompt 3: GPT-5"
+   },
+   {
+    "target": "Answer card · Gemini 3 Flash",
+    "trigger": "ON_DRAG",
+    "action": "NAVIGATE→M31 · Prompt 3: Claude"
+   },
+   {
+    "target": "Button · Use this answer",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M5 · Best answer"
+   },
+   {
+    "target": "Tap · add",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M3 · “+” sheet: add photos & files"
+   },
+   {
+    "target": "Mode chip",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M7 · How should we answer? (mode & AIs)"
+   },
+   {
+    "target": "Tap · mic",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M4 · Voice: listening"
+   },
+   {
+    "target": "Tap · up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M20 · AIs are thinking"
+   }
+  ],
+  "M34 · Finish payment in bKash": [
+   {
+    "target": "M34 · Finish payment in bKash",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→M12 · Payment received"
+   },
+   {
+    "target": "Tap · cancel",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M11 · Add credits: amount & bKash"
+   },
+   {
+    "target": "Button · Open bKash again",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M12 · Payment received"
+   },
+   {
+    "target": "Button · Cancel payment",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M35 · Payment didn’t go through"
+   }
+  ],
+  "M35 · Payment didn’t go through": [
+   {
+    "target": "Button · Try again",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M34 · Finish payment in bKash"
+   },
+   {
+    "target": "Button · Pay another way",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M11 · Add credits: amount & bKash"
+   },
+   {
+    "target": "help",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M42 · Help & support"
+   }
+  ],
+  "M36 · Payment history": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   },
+   {
+    "target": "action",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M11 · Add credits: amount & bKash"
+   },
+   {
+    "target": "action",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M11 · Add credits: amount & bKash"
+   }
+  ],
+  "M37 · Go Pro": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Button · Upgrade with bKash",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M38 · Pro is on"
+   },
+   {
+    "target": "Not now",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   }
+  ],
+  "M38 · Pro is on": [
+   {
+    "target": "Button · Start asking",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   }
+  ],
+  "M39 · Language": [
+   {
+    "target": "Row · Usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M13 · Usage"
+   },
+   {
+    "target": "Tab · Ask",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Scrim",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   },
+   {
+    "target": "Button · Done",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   }
+  ],
+  "M40 · Notifications": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   }
+  ],
+  "M41 · Privacy & security": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   }
+  ],
+  "M42 · Help & support": [
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "BACK"
+   }
+  ],
+  "M43 · Sign out?": [
+   {
+    "target": "Row · Usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M13 · Usage"
+   },
+   {
+    "target": "Tab · Ask",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M2 · Home"
+   },
+   {
+    "target": "Tab · Chats",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M14 · Chats"
+   },
+   {
+    "target": "Tab · Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M10 · Wallet"
+   },
+   {
+    "target": "Scrim",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   },
+   {
+    "target": "Button · Sign out",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M1 · Welcome & language"
+   },
+   {
+    "target": "Button · Stay signed in",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→M15 · Account & settings"
+   }
+  ],
+  "Desktop · Sign in": [
+   {
+    "target": "Button · Send code",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Desktop · Enter code"
+   },
+   {
+    "target": "Button · Continue with Google",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   }
+  ],
+  "Desktop · Enter code": [
+   {
+    "target": "Button · Verify and continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Wrong number? Change it",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Desktop · Sign in"
+   }
+  ],
+  "Thinking · Best answer": [
+   {
+    "target": "Thinking · Best answer",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · “+” menu"
+   },
+   {
+    "target": "Option 2",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer · Voice listening"
+   },
+   {
+    "target": "Button · Stop",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   }
+  ],
+  "Thinking · Compare": [
+   {
+    "target": "Thinking · Compare",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Continue",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Button · Stop",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   }
+  ],
+  "Chats": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Button · New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Chat · Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Chat · Golpo Coffee sign",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio · Picture ready"
+   },
+   {
+    "target": "Chat · Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Chat · Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Chat · How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   }
+  ],
+  "Overlay · Search chats": [
+   {
+    "target": "Esc",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   },
+   {
+    "target": "Result · Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Result · Golpo Coffee sign",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio · Picture ready"
+   }
+  ],
+  "Image studio": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Button · Create picture",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio · Picture ready"
+   },
+   {
+    "target": "Picture 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio · Picture ready"
+   }
+  ],
+  "Image studio · Picture ready": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Tap · left",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Button · Make another version",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Button · Use in a chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   }
+  ],
+  "Presets": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Button · New preset",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Button · Use",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Button · Edit",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Button · Use",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Button · Edit",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Button · Use",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Button · Edit",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Button · Use",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Button · Edit",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   }
+  ],
+  "Settings · Help & support": [
+   {
+    "target": "Pill/Back to chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Pill/Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "Nav/Profile",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Nav/Notifications",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Notifications"
+   },
+   {
+    "target": "Nav/Privacy & security",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Privacy & security"
+   },
+   {
+    "target": "Nav/Usage",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Usage"
+   },
+   {
+    "target": "Nav/Wallet & billing",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   }
+  ],
+  "Overlay · Go Pro": [
+   {
+    "target": "Tap · cancel",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   },
+   {
+    "target": "Button · Not now",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   },
+   {
+    "target": "Button · Upgrade with bKash · ৳1,599",
+    "trigger": "ON_CLICK",
+    "action": "SWAP→Overlay · Pro is on"
+   }
+  ],
+  "Overlay · Pro is on": [
+   {
+    "target": "Button · Start asking",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Button · View in Wallet",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   }
+  ],
+  "Overlay · Sign out": [
+   {
+    "target": "Button · Stay signed in",
+    "trigger": "ON_CLICK",
+    "action": "CLOSE"
+   },
+   {
+    "target": "Button · Sign out",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Desktop · Sign in"
+   }
+  ],
+  "Compare · Prompt 2: 1 of 3 answered": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Why?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 2: GPT-5 answered on retry"
+   },
+   {
+    "target": "Swap model",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Retry button",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 2: GPT-5 answered on retry"
+   },
+   {
+    "target": "Swap model",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Writing prompt 3: who gets it?"
+   }
+  ],
+  "Compare · Prompt 2: GPT-5 answered on retry": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Why?",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Swap model",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Writing prompt 3: who gets it?"
+   },
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   }
+  ],
+  "Compare · Writing prompt 3: who gets it?": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Prompt 3 (catching up)"
+   }
+  ],
+  "Thinking · Prompt 3 (catching up)": [
+   {
+    "target": "Thinking · Prompt 3 (catching up)",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Button · Stop",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 2: 1 of 3 answered"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   }
+  ],
+  "Compare · Prompt 3: all 3 answered": [
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   },
+   {
+    "target": "Send (black pill)",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Thinking · Compare"
+   }
+  ],
+  "Thinking · Prompt 2 (2 AIs slow)": [
+   {
+    "target": "Thinking · Prompt 2 (2 AIs slow)",
+    "trigger": "AFTER_TIMEOUT",
+    "action": "NAVIGATE→Compare · Prompt 2: 1 of 3 answered"
+   },
+   {
+    "target": "New chat",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Home"
+   },
+   {
+    "target": "Search field",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Search chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Chats"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Image studio"
+   },
+   {
+    "target": "Nav item",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Presets"
+   },
+   {
+    "target": "Coffee shop names",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Prompt 3: all 3 answered"
+   },
+   {
+    "target": "Hellow",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Who are you?",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "How old are you",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Pill/Top up",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Wallet"
+   },
+   {
+    "target": "go pro",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Go Pro"
+   },
+   {
+    "target": "User",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Settings · Profile"
+   },
+   {
+    "target": "Button/more",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Sign out"
+   },
+   {
+    "target": "Button · Stop",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare"
+   },
+   {
+    "target": "Attach",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · “+” menu"
+   },
+   {
+    "target": "Option 1",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Best answer"
+   },
+   {
+    "target": "Model picker",
+    "trigger": "ON_CLICK",
+    "action": "OVERLAY→Overlay · Model picker"
+   },
+   {
+    "target": "Voice",
+    "trigger": "ON_CLICK",
+    "action": "NAVIGATE→Compare · Voice listening"
+   }
+  ]
+ }
+}

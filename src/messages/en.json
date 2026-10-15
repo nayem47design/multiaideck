@@ -1,1 +1,54 @@
-{}
+{
+  "common": {
+    "brand": "MultiAI",
+    "footnote": "MultiAI can make mistakes. Compare answers for important decisions.",
+    "credits": "{amount} credits",
+    "creditsShort": "{amount} cr",
+    "money": "≈ BDT {amount}",
+    "taka": "৳{amount}",
+    "close": "Close",
+    "cancel": "Cancel",
+    "back": "Back",
+    "more": "More",
+    "share": "Share",
+    "loading": "Loading…",
+    "language": {
+      "label": "Language",
+      "en": "EN",
+      "bn": "বাং",
+      "english": "English",
+      "bangla": "বাংলা"
+    },
+    "notFound": {
+      "title": "This page doesn’t exist",
+      "body": "The link may be old, or the chat was deleted.",
+      "home": "Go to a new chat"
+    }
+  },
+  "nav": {
+    "collapse": "Collapse sidebar",
+    "openSidebar": "Open sidebar",
+    "newChat": "New chat",
+    "newChatShortcut": "⌘N",
+    "search": "Search chats",
+    "searchShortcut": "⌘K",
+    "chats": "Chats",
+    "imageStudio": "Image studio",
+    "presets": "Presets",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "chatMeta": "{count} models · {credits} cr",
+    "chatMetaBest": "Best answer · {credits} cr",
+    "creditsLeft": "Credits left",
+    "topUp": "Top up",
+    "goPro": "Go Pro",
+    "accountMenu": "Account menu",
+    "tabs": {
+      "label": "Main",
+      "ask": "Ask",
+      "chats": "Chats",
+      "wallet": "Wallet",
+      "account": "Account"
+    }
+  }
+}

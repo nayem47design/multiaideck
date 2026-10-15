@@ -1,1 +1,54 @@
-{}
+{
+  "common": {
+    "brand": "MultiAI",
+    "footnote": "MultiAI ভুল করতে পারে। গুরুত্বপূর্ণ সিদ্ধান্তের আগে উত্তরগুলো মিলিয়ে দেখুন।",
+    "credits": "{amount} ক্রেডিট",
+    "creditsShort": "{amount} ক্রে",
+    "money": "≈ ৳{amount}",
+    "taka": "৳{amount}",
+    "close": "বন্ধ করুন",
+    "cancel": "বাতিল",
+    "back": "পেছনে",
+    "more": "আরও",
+    "share": "শেয়ার",
+    "loading": "লোড হচ্ছে…",
+    "language": {
+      "label": "ভাষা",
+      "en": "EN",
+      "bn": "বাং",
+      "english": "English",
+      "bangla": "বাংলা"
+    },
+    "notFound": {
+      "title": "এই পাতাটি নেই",
+      "body": "লিংকটি পুরোনো হতে পারে, অথবা চ্যাটটি মুছে ফেলা হয়েছে।",
+      "home": "নতুন চ্যাটে যান"
+    }
+  },
+  "nav": {
+    "collapse": "সাইডবার লুকান",
+    "openSidebar": "সাইডবার খুলুন",
+    "newChat": "নতুন চ্যাট",
+    "newChatShortcut": "⌘N",
+    "search": "চ্যাট খুঁজুন",
+    "searchShortcut": "⌘K",
+    "chats": "চ্যাট",
+    "imageStudio": "ছবি স্টুডিও",
+    "presets": "প্রিসেট",
+    "today": "আজ",
+    "yesterday": "গতকাল",
+    "chatMeta": "{count}টি মডেল · {credits} ক্রে",
+    "chatMetaBest": "সেরা উত্তর · {credits} ক্রে",
+    "creditsLeft": "বাকি ক্রেডিট",
+    "topUp": "টপ আপ",
+    "goPro": "Pro নিন",
+    "accountMenu": "অ্যাকাউন্ট মেনু",
+    "tabs": {
+      "label": "প্রধান",
+      "ask": "জিজ্ঞাসা",
+      "chats": "চ্যাট",
+      "wallet": "ওয়ালেট",
+      "account": "অ্যাকাউন্ট"
+    }
+  }
+}

@@ -2,13 +2,14 @@
 // and text styles do not provide (agreed: read them from Figma, never type them by hand).
 //
 //   src/styles/figma/components.json   component specs, exported from Figma (read-only)
+//   src/styles/figma/screens*.json     screen layer snapshots (desktop and mobile), for TS(...)
 //   src/styles/figma/luminous.*.json   the Luminous tokens, to alias equal values
 //
 // Output: src/styles/components.css (CSS variables, Tailwind mapping, text utilities) and
 // src/styles/component-tokens.md (the list for the designer: every off-token value and where
 // it comes from). Run `npm run tokens`.
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,6 +21,10 @@ const variables = read("figma/luminous.tokens.json");
 const styles = read("figma/luminous.styles.json");
 const { textStyles } = styles;
 const templateSnapshot = read("figma/templates.json");
+const screens = {
+  ...read("figma/screens.json").screens,
+  ...read("figma/screens-mobile.json").screens,
+};
 
 // ---------------------------------------------------------------------------
 // Which values each component needs. Selectors name Figma layers; values come from Figma.
@@ -29,6 +34,25 @@ const templateSnapshot = read("figma/templates.json");
 const T = (name, kind, path, prop) => ({ name, kind, path, prop });
 /** A layout size measured from the template snapshot: fn(template children) at Figma's scale. */
 const TL = (name, path, fn) => ({ name, kind: "size", template: path[0], fn });
+/** A value read from a screen layer (screens.json / screens-mobile.json); path starts with the screen name. */
+const TS = (name, kind, path, prop) => ({
+  name,
+  kind,
+  path,
+  prop,
+  screen: true,
+});
+
+// Screen tokens live in scripts/screen-tokens/<area>.mjs, each `export default (TS) => [...]`,
+// so different screens can add tokens without editing this file.
+const screenTokenDir = join(root, "scripts/screen-tokens");
+const screenTokens = [];
+for (const file of readdirSync(screenTokenDir)
+  .filter((f) => f.endsWith(".mjs"))
+  .sort()) {
+  const mod = await import(join(screenTokenDir, file));
+  screenTokens.push(...mod.default(TS));
+}
 
 const TOKENS = [
   T(
@@ -791,6 +815,8 @@ const TOKENS = [
   T("hero-art-width", "size", ["Home hero", "Model constellation"], "w"),
   T("hero-art-height", "size", ["Home hero", "Model constellation"], "h"),
   T("composer-width", "size", ["Composer", "State=Default"], "w"),
+  // ---- Screens: one file per area in scripts/screen-tokens/ (see the README there)
+  ...screenTokens,
   // ---- Templates (drawn at 0.75 scale in Figma; values are divided by the scale)
   TL(
     "page-width",
@@ -852,8 +878,47 @@ const TOKENS = [
 // ---------------------------------------------------------------------------
 // Find a layer. "name#2" picks the third child with that name.
 
-function find(path) {
+/** Screen snapshot node → the component-spec shape the resolver reads. */
+function fromScreen(n) {
+  const o = {
+    w: n.w,
+    h: n.h,
+    pos: [n.x, n.y],
+    radius: n.r,
+    strokeWeight: n.sw,
+    gap: n.al?.[5],
+    pad: n.al ? n.al.slice(1, 5) : undefined,
+    opacity: n.op ?? 1,
+    blur: Number(/LAYER_BLUR:(\d+)/.exec(n.fx ?? "")?.[1]) || undefined,
+    children: (n.k ?? []).map((c) => ({ ...fromScreen(c), name: c.n })),
+  };
+  if (n.ts?.startsWith("Luminous/")) o.textStyle = n.ts;
+  const raw = /^raw (.+) (\S+) ([\d.]+)\/([\d.]+) ls(-?[\d.]+)$/.exec(
+    n.ts ?? "",
+  );
+  if (raw) {
+    o.font = { family: raw[1], style: raw[2] };
+    o.fontSize = Number(raw[3]);
+    o.lineHeight = { value: Number(raw[4]) };
+    o.letterSpacing = { unit: "PIXELS", value: Number(raw[5]) };
+  }
+  return o;
+}
+
+function find(path, screen = false) {
   const [componentName, ...rest] = path;
+  if (screen) {
+    let node = screens[componentName];
+    if (!node) throw new Error(`No Figma screen "${componentName}"`);
+    const trail = [componentName];
+    for (const step of rest) {
+      const [name, index = "0"] = step.split("#");
+      node = (node.k ?? []).filter((c) => c.n === name)[Number(index)];
+      trail.push(step);
+      if (!node) throw new Error(`No layer "${trail.join(" › ")}"`);
+    }
+    return { node: fromScreen(node), where: path.join(" › ") };
+  }
   let node = components.find((c) => c.name === componentName);
   if (!node) throw new Error(`No Figma component "${componentName}"`);
   const trail = [componentName];
@@ -886,7 +951,11 @@ const dimensionTokens = leaves(variables["luminous-dimension"]).map(
     value: token.$value,
   }),
 );
-const ALIAS_GROUPS = { size: ["size", "space"], radius: ["radius"] };
+const ALIAS_GROUPS = {
+  size: ["size", "space"],
+  radius: ["radius"],
+  blur: ["blur"],
+};
 const aliasFor = (kind, value) =>
   (ALIAS_GROUPS[kind] ?? []).flatMap((g) =>
     dimensionTokens.filter((t) => t.group === g && t.value === value),
@@ -973,7 +1042,7 @@ for (const t of TOKENS) {
     });
     continue;
   }
-  const { node, where } = find(t.path);
+  const { node, where } = find(t.path, t.screen);
 
   if (t.kind === "text") {
     // The layer has a Luminous text style in Figma: the component token is just that style.
@@ -1178,6 +1247,8 @@ for (const t of TOKENS) {
       padX: node.pad?.[1],
       padLeft: node.pad?.[3],
       padY: node.pad?.[0],
+      y: node.pos?.[1],
+      blur: node.blur,
     }[t.prop];
     if (typeof raw !== "number")
       throw new Error(`${where}: no numeric ${t.prop}`);
@@ -1194,6 +1265,8 @@ for (const t of TOKENS) {
         ? `= ${alias.cssVar.slice(2).replace("-", "/")} (not bound in Figma)`
         : `new ${t.kind}`,
     });
+    if (t.kind === "blur") cssVar = `--${t.name}-blur`;
+    if (t.kind === "blur") theme.push(`  --blur-${t.name}: var(${cssVar});`);
     if (t.kind === "size") theme.push(`  --spacing-${t.name}: var(${cssVar});`);
     if (t.kind === "radius")
       theme.push(`  --radius-${t.name}: var(${cssVar});`);
