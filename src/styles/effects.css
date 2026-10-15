@@ -116,22 +116,22 @@
 }
 
 :root {
-  --glow-hue: 224;
-  --glow-hue-start: 184;
-  --glow-hue-end: 264;
+  --glow-hue: 214;
+  --glow-hue-start: 198;
+  --glow-hue-end: 230;
   --glow-sat: 85%;
   --glow-light: 60%;
   --glow-speed: 6s;
   --glow-speed-active: 4s;
-  --glow-border: 1px;
-  --glow-blur: 14px;
+  --glow-border: 1.5px;
+  --glow-blur: 18px;
   --glow-idle: 0.55;
-  --glow-halo-idle: 0.35;
+  --glow-halo-idle: 0.45;
   --glow-active: 1;
-  --glow-halo-active: 0.6;
+  --glow-halo-active: 0.75;
   --glow-fade: 0.4s;
   /* The halo's ring before blurring, and the room it gets outside the container. */
-  --glow-halo-line: 2px;
+  --glow-halo-line: 3px;
   --glow-halo-room: calc(var(--glow-blur) * 2);
 }
 

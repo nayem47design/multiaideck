@@ -77,3 +77,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/** The lighter starter row the app uses (not yet in Figma). */
+export const StarterPills: Story = { args: { startersLayout: "pills" } };

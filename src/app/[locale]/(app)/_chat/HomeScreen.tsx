@@ -130,6 +130,7 @@ export function HomeScreen({
       {/* Desktop and tablet: the Home hero */}
       <div className="flex min-h-full items-center justify-center px-6 pb-6 max-md:hidden lg:px-0">
         <HomeHero
+          startersLayout="pills"
           className="max-w-composer-width"
           greeting={t(`greeting.${greeting}`, { name })}
           subtitle={t("subtitle")}

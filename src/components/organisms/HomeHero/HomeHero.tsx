@@ -26,6 +26,11 @@ export interface HomeHeroProps {
   /** e.g. "Best answer asks 3 models in parallel…". */
   modeExplainer: string;
   starters: HomeStarter[];
+  /**
+   * "cards" (Figma: three cards with a description) or "pills" (a lighter row of icon + title;
+   * the description becomes the hover hint). Pills are a product decision not yet in Figma.
+   */
+  startersLayout?: "cards" | "pills";
   className?: string;
 }
 
@@ -42,6 +47,7 @@ export function HomeHero({
   composer,
   modeExplainer,
   starters,
+  startersLayout = "cards",
   className,
 }: HomeHeroProps) {
   return (
@@ -71,30 +77,51 @@ export function HomeHero({
         <Icon name="git-merge" className="size-select-icon" />
         {modeExplainer}
       </p>
-      <div className="mt-8 grid w-full grid-cols-3 gap-3">
-        {starters.map((s) => (
-          <button
-            key={s.title}
-            type="button"
-            onClick={s.onClick}
-            className={cx(
-              "flex flex-col gap-3 rounded-answer-card border border-glass-rim glass p-4 text-left shadow-starter-card",
-              "transition-transform duration-fast ease-out hover:-translate-y-0-5",
-              focusRing,
-            )}
-          >
-            <span className="flex size-10 items-center justify-center rounded-data-tile bg-blue-soft text-blue">
-              <Icon name={s.icon} className="size-icon-button-icon" />
-            </span>
-            <span className="flex flex-col gap-0-5">
-              <span className="type-ui-strong text-ink">{s.title}</span>
-              <span className="type-starter-card-text text-ink-2">
-                {s.description}
+      {startersLayout === "pills" ? (
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          {starters.map((s) => (
+            <button
+              key={s.title}
+              type="button"
+              title={s.description}
+              onClick={s.onClick}
+              className={cx(
+                "inline-flex h-control-md items-center gap-2 rounded-pill border border-glass-rim glass px-3",
+                "type-ui text-ink-2 transition-colors duration-fast ease-out hover:text-ink",
+                focusRing,
+              )}
+            >
+              <Icon name={s.icon} className="size-icon-sm text-blue" />
+              {s.title}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-8 grid w-full grid-cols-3 gap-3">
+          {starters.map((s) => (
+            <button
+              key={s.title}
+              type="button"
+              onClick={s.onClick}
+              className={cx(
+                "flex flex-col gap-3 rounded-answer-card border border-glass-rim glass p-4 text-left shadow-starter-card",
+                "transition-transform duration-fast ease-out hover:-translate-y-0-5",
+                focusRing,
+              )}
+            >
+              <span className="flex size-10 items-center justify-center rounded-data-tile bg-blue-soft text-blue">
+                <Icon name={s.icon} className="size-icon-button-icon" />
               </span>
-            </span>
-          </button>
-        ))}
-      </div>
+              <span className="flex flex-col gap-0-5">
+                <span className="type-ui-strong text-ink">{s.title}</span>
+                <span className="type-starter-card-text text-ink-2">
+                  {s.description}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

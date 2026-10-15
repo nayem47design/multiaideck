@@ -16,11 +16,14 @@ import { seedWallet } from "./wallet";
 // e2e and visual tests. Idempotent: running it twice changes nothing. Never runs in production.
 
 /**
- * The demo account's number. Default: the prototype's (fictional) +880 1712 345 214. Set
- * DEMO_PHONE in .env (git-ignored) to sign in to the demo data with your own number locally.
+ * The demo account's number: the prototype's (fictional) +880 1712 345 214, used by tests.
+ * Setting DEMO_PHONE in .env (git-ignored) also seeds a personal copy of the demo data for your
+ * own number, with its own ids (prefix "me-"), so you can sign in with it locally.
  */
-export const DEMO_PHONE =
-  normalizeBdPhone(process.env.DEMO_PHONE) ?? "+8801712345214";
+export const DEMO_PHONE = "+8801712345214";
+
+/** Your own number for a personal copy of the demo data (DEMO_PHONE in .env), if set. */
+export const PERSONAL_DEMO_PHONE = normalizeBdPhone(process.env.DEMO_PHONE);
 
 /** "1722 376223", "01722376223" or "+8801722376223" → "+8801722376223"; anything else → undefined. */
 function normalizeBdPhone(raw?: string) {
@@ -57,11 +60,14 @@ export async function seedUser(
         emailVerified: true,
       })
       .returning();
-  // Users seeded before preferred names existed.
-  if (!user.preferredName)
+  // Users seeded before preferred names existed, or who signed up before being seeded.
+  if (!user.preferredName || !user.name)
     [user] = await db
       .update(users)
-      .set({ preferredName: DEMO_USER.firstName })
+      .set({
+        preferredName: user.preferredName ?? DEMO_USER.firstName,
+        name: user.name || DEMO_USER.name,
+      })
       .where(eq(users.id, user.id))
       .returning();
 
@@ -84,6 +90,18 @@ export async function seedUser(
   return user;
 }
 
-export function seedDemo(db: Db) {
-  return seedUser(db, { phone: DEMO_PHONE, email: DEMO_USER.email });
+export async function seedDemo(db: Db) {
+  const demo = await seedUser(db, {
+    phone: DEMO_PHONE,
+    email: DEMO_USER.email,
+  });
+  if (PERSONAL_DEMO_PHONE && PERSONAL_DEMO_PHONE !== DEMO_PHONE) {
+    const [local, domain] = DEMO_USER.email.split("@");
+    await seedUser(db, {
+      phone: PERSONAL_DEMO_PHONE,
+      email: `${local}+me@${domain}`,
+      prefix: "me-",
+    });
+  }
+  return demo;
 }
