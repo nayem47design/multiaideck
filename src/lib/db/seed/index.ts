@@ -15,7 +15,18 @@ import { seedWallet } from "./wallet";
 // Demo data from the Figma prototype (the coffee-shop chat, 10,684 credits), for development,
 // e2e and visual tests. Idempotent: running it twice changes nothing. Never runs in production.
 
-export const DEMO_PHONE = "+8801712345214";
+/**
+ * The demo account's number. Default: the prototype's (fictional) +880 1712 345 214. Set
+ * DEMO_PHONE in .env (git-ignored) to sign in to the demo data with your own number locally.
+ */
+export const DEMO_PHONE =
+  normalizeBdPhone(process.env.DEMO_PHONE) ?? "+8801712345214";
+
+/** "1722 376223", "01722376223" or "+8801722376223" → "+8801722376223"; anything else → undefined. */
+function normalizeBdPhone(raw?: string) {
+  const d = raw?.replace(/[\s-]/g, "").replace(/^(\+?880|0)/, "");
+  return d && /^1[3-9]\d{8}$/.test(d) ? `+880${d}` : undefined;
+}
 
 export interface SeedUserOptions {
   phone: string;
