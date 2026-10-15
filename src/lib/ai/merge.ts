@@ -189,7 +189,9 @@ async function demoMerge(
   } else {
     intro =
       input.answers.length > 1
-        ? `Here are the strongest ideas from all ${input.answers.length} answers:`
+        ? input.answers.length === 2
+          ? "Here are the strongest ideas from both answers:"
+          : `Here are the strongest ideas from all ${input.answers.length} answers:`
         : `${MODEL_SPECS[input.answers[0].model].short}’s answer:`;
     points = [];
     const used = new Set<string>();

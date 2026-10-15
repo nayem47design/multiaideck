@@ -74,8 +74,8 @@ const TIMING: Record<ModelId, { first: number; perWord: number }> = {
   llama: { first: 300, perWord: 20 },
   qwen: { first: 500, perWord: 30 },
 };
-const SLOW_FACTOR = 4;
-const SLOW_EXTRA_MS = 4000;
+const SLOW_FACTOR = 2;
+const SLOW_EXTRA_MS = 3000;
 const CATCH_UP_MS_PER_PROMPT = 400;
 
 /** Tests can make the demo model instant. */
@@ -296,7 +296,7 @@ export function createDemoModel(model: ModelId): LanguageModel {
               return;
             }
             if (i < parts.length) {
-              await sleep(timing.perWord * (slow ? SLOW_FACTOR : 1), signal);
+              await sleep(timing.perWord * (slow ? 1.5 : 1), signal);
               controller.enqueue({
                 type: "text-delta",
                 id: "t",

@@ -1,12 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import type { BadgeTone } from "@/components/atoms/Badge";
+import { Button } from "@/components/atoms/Button";
 import { cx } from "@/components/atoms/states";
 import { AnswerPager } from "@/components/molecules/AnswerPager";
+import { EmptyState } from "@/components/molecules/EmptyState";
 import { FollowUpRecipients } from "@/components/molecules/FollowUpRecipients";
 import { MobilePrompt } from "@/components/molecules/MobilePrompt";
 import { ModelTabs, type ModelTab } from "@/components/molecules/ModelTabs";
@@ -36,74 +38,52 @@ import {
 } from "@/components/organisms/ThinkingPanel";
 import { WritingCard } from "@/components/organisms/WritingCard";
 import { AppMain } from "@/components/templates/AppShell";
-import { MODELS } from "@/lib/ai/models";
-import { Link, useRouter } from "@/lib/i18n/navigation";
-import {
-  COFFEE_CHAT,
-  COFFEE_CHAT_ID,
-  DEMO_NEXT_PROMPT,
-  DEMO_VOICE,
-  cheapest,
-  findChat,
-  modelInfo,
-  promptCredits,
-  simpleChat,
-  type AnswerModel,
-  type DemoAnswer,
-  type DemoPrompt,
-} from "@/lib/mock/chat";
-
-import {
-  AFTER_THINKING,
-  CARD_ORDER,
-  TAB_ORDER,
-  coffeeStep,
-  defaultTab,
-  thinkingRows,
-  type StepData,
-} from "./script";
-import {
-  SIMPLE_STEPS,
-  STEPS,
-  isThinking,
-  modeOf,
-  parseParams,
-  stepQuery,
-  type ChatParams,
-  type Step,
-} from "./state";
-import { useComposer } from "./useComposer";
-import { useChatFormat } from "./useFormat";
+import { ApiClientError } from "@/lib/api-client";
+import { MODEL_SPECS } from "@/lib/ai/catalog";
+import { MODELS, type ModelId } from "@/lib/ai/models";
+import type { Answer, Prompt } from "@/lib/contracts/chat";
 import { useIsMobile } from "@/lib/hooks/useMedia";
+import { Link, useRouter } from "@/lib/i18n/navigation";
+import { DEMO_VOICE } from "@/lib/mock/chat";
 
-// A chat (/c/[id]): every desktop and mobile state of the prototype's ask-and-compare flow. The
-// coffee-shop chat is scripted step by step (see ./state.ts for the steps and deep links); the
-// other demo chats show one prompt in Best answer or Compare.
+import { parseParams, type ChatParams } from "./state";
+import { isRunning, useChat } from "./useChat";
+import { useComposer, type AnswerMode, type SendPayload } from "./useComposer";
+import { useChatFormat } from "./useFormat";
+import {
+  isFailed,
+  isOpen,
+  promptCredits,
+  retryCredits,
+  tabOrder,
+  tagsOf,
+  thinkingRows,
+  visibleAnswers,
+  type AnswerTag,
+} from "./view";
 
-const THINK_PHASE_MS = 1300;
-const THINK_DONE_MS = 2800;
+// A chat (/c/[id]) from GET /api/chats/:id, live over each running prompt's event stream. Every
+// desktop and mobile state of the prototype's ask-and-compare flow comes from the real data:
+// thinking (writing, slow, catching up), Best answer (merge step streaming in), Compare, failures
+// with "not charged", retry, swap, stop, and follow-ups with recipients when not every AI answered.
+// The latest prompt is shown in full; earlier prompts fold into summaries (desktop).
+//
+// Deep links (tests and reviews): ?composer=menu|voice|voice-ready|files, ?sheet=mode|models,
+// ?tab=<model> (mobile Compare: which answer is shown).
 
-function defaultStep(id: string): Step {
-  if (id === COFFEE_CHAT_ID) return "prompt-3";
-  return findChat(id)?.kind === "best" ? "best" : "compare";
-}
+/** Re-render this often while answers are on their way (slow rows, elapsed time). */
+const TICK_MS = 1000;
 
-/** Reads the step from ?state= (and the other deep-link params); render inside <Suspense>. */
+/** Reads the deep-link params; render inside <Suspense>. */
 export function ChatRoute({ id }: { id: string }) {
   const sp = useSearchParams();
-  const allowed = id === COFFEE_CHAT_ID ? STEPS : SIMPLE_STEPS;
-  const params = parseParams(
-    new URLSearchParams(sp.toString()),
-    defaultStep(id),
-    allowed,
-  );
-  const key = [params.step, params.retried, params.only, params.tab].join("|");
-  return <ChatScreen key={key} id={id} params={params} />;
+  const params = parseParams(new URLSearchParams(sp.toString()));
+  return <ChatScreen id={id} params={params} />;
 }
 
 export function ChatScreen({
   id,
-  params = { step: defaultStep(id), retried: false, hold: false },
+  params,
 }: {
   id: string;
   params?: ChatParams;
@@ -114,82 +94,101 @@ export function ChatScreen({
   const { n, cr, secs, money, list } = useChatFormat();
   const router = useRouter();
   const mobile = useIsMobile();
-  const chat = findChat(id)!;
-  const coffee = id === COFFEE_CHAT_ID;
-  const { step, retried, only, hold } = params;
+  const { chat, load, reload, send, retry, swap, stop } = useChat(id);
 
-  const data: StepData = coffee
-    ? coffeeStep(params)
-    : { prompt: simpleChat(id)!.prompt, n: 1, best: simpleChat(id)!.best };
-  const { prompt, previous } = data;
-  const mode = modeOf(step);
-  const thinking = isThinking(step);
-  const who = step === "prompt-3-who";
+  const prompts = chat?.promptsList ?? [];
+  const current: Prompt | undefined = prompts.at(-1);
+  const earlier = prompts.slice(0, -1);
+  const answers = current ? visibleAnswers(current) : [];
+  const tags = tagsOf(answers);
+  const answered = answers.filter((a) => a.status === "done");
+  const missed = answers.filter(isFailed);
+  const running = !!current && isRunning(current);
+  const answersOpen = answers.some(isOpen);
 
-  // ---- Moving between steps (the URL keeps the step, so Back and deep links work).
-  const href = (s: Step, extra: Parameters<typeof stepQuery>[1] = {}) =>
-    `/c/${id}${stepQuery(s, extra)}`;
-  const go = (
-    s: Step,
-    extra: Parameters<typeof stepQuery>[1] = {},
-    replace = false,
-  ) =>
-    window.history[replace ? "replaceState" : "pushState"](
-      null,
-      "",
-      stepQuery(s, extra),
-    );
-  const keep = { retried: retried || step === "prompt-2-retry" };
+  // ---- Mode: the composer's toggle is also the view of the latest prompt.
+  const [mode, setMode] = useState<AnswerMode>("best");
+  const [seen, setSeen] = useState<string | null>(null);
+  if (current && seen !== current.id) {
+    setSeen(current.id);
+    setMode(current.mode);
+  }
+  const showBest =
+    mode === "best" && current?.mode === "best" && !!current.best;
+  // Best answer mode thinks until the answers are in (then the merge streams into the card);
+  // Compare thinks until every answer has ended.
+  const thinking =
+    !!current &&
+    (current.mode === "best" && mode === "best"
+      ? answersOpen
+      : running && answersOpen);
 
-  // ---- Thinking: one AI finishes, then the answers replace the thinking screen.
-  const [phase, setPhase] = useState(0);
-  const next = AFTER_THINKING[step];
+  // A clock for "slow" rows while thinking.
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
-    if (!thinking || hold || !next) return;
-    const a = setTimeout(() => setPhase(1), THINK_PHASE_MS);
-    const b = setTimeout(
-      () => go(next, { retried, only }, true),
-      THINK_DONE_MS,
-    );
-    return () => {
-      clearTimeout(a);
-      clearTimeout(b);
-    };
-    // Runs once per step: the screen remounts when the step changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!thinking) return;
+    const timer = setInterval(() => setNow(Date.now()), TICK_MS);
+    return () => clearInterval(timer);
+  }, [thinking]);
 
-  const stop = () => {
-    if (step === "thinking-2") go("compare");
-    else if (step === "thinking-3") go("prompt-2", { ...keep, tab: "claude" });
-    else router.push("/");
+  // ---- Sending, retry, swap, stop
+  const [recipient, setRecipient] = useState<"all" | ModelId>("all");
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const toTopUp = (e: unknown) => {
+    if (e instanceof ApiClientError && e.code === "insufficient_credits") {
+      router.push("/wallet/top-up");
+      return true;
+    }
+    return false;
   };
-
-  // ---- Follow-up recipients (prompt 3 after a partial prompt 2).
-  const [recipient, setRecipient] = useState<"all" | AnswerModel>("all");
-  const answered = prompt.answers.filter((a) => a.text);
-  const missed = prompt.answers.filter((a) => !a.text);
-
-  const send = () => {
-    if (!coffee)
-      return go(mode === "best" ? "thinking-best" : "thinking-compare");
-    if (step === "prompt-2" || step === "prompt-2-retry")
-      return go("prompt-3-who", keep);
-    if (who)
-      return go("thinking-3", {
-        ...keep,
-        only: recipient === "all" ? undefined : recipient,
+  const doSend = async ({ text, models, attachments }: SendPayload) => {
+    try {
+      await send({
+        text,
+        mode,
+        models,
+        attachments,
+        recipients:
+          missed.length && recipient !== "all" ? [recipient] : undefined,
       });
-    if (step === "compare" || step === "thinking-compare")
-      return go("thinking-2");
-    go(mode === "best" ? "thinking-best" : "thinking-compare");
+      setRecipient("all");
+      return true;
+    } catch (e) {
+      toTopUp(e);
+      return false;
+    }
   };
+  const act = (fn: () => Promise<void>) => () =>
+    void fn().catch((e) => {
+      if (!toTopUp(e)) void reload();
+    });
+  const retryAnswer = (a: Answer) => act(() => retry(a.id))();
+  const swapAnswer = (a: Answer) =>
+    composer.openPicker((models) => {
+      const next = models.find(
+        (m) => m !== a.model && !answers.some((x) => x.model === m),
+      );
+      if (next) act(() => swap(a.id, next))();
+    });
+  const onStop = () => current && act(() => stop(current.id))();
 
+  const chatModels = answers.length
+    ? answers.map((a) => a.model)
+    : (current?.models ?? undefined);
   const composer = useComposer({
     context: "chat",
     mode,
-    onModeChange: (m) => go(m === "best" ? "best" : "compare"),
-    onSend: send,
+    onModeChange: setMode,
+    chatId: id,
+    initialModels: chatModels,
+    busy: running,
+    onSend: (payload) => {
+      if (mobile && missed.length) {
+        setSheetOpen(true);
+        return false;
+      }
+      return doSend(payload);
+    },
     voiceText: mode === "best" ? DEMO_VOICE.best : DEMO_VOICE.compare,
     placeholder:
       mode === "best"
@@ -198,62 +197,67 @@ export function ChatScreen({
             mobile: tco("placeholder.followUp"),
           }
         : {
-            desktop: tco("placeholder.followUpAll", { count: n(3) }),
-            mobile: tco("placeholder.followUpAllMobile", { count: n(3) }),
+            desktop: tco("placeholder.followUpAll", {
+              count: n(chatModels?.length ?? 3),
+            }),
+            mobile: tco("placeholder.followUpAllMobile", {
+              count: n(chatModels?.length ?? 3),
+            }),
           },
-    estimate: { min: 2, max: 4 },
-    initial: params.composer,
-    initialSheet: params.sheet,
-    initialValue: who ? DEMO_NEXT_PROMPT : "",
+    initial: params?.composer,
+    initialSheet: params?.sheet,
   });
+  const catchUpCredits =
+    Math.round(
+      (composer.estimate?.catchUp ?? []).reduce((s, c) => s + c.credits, 0) *
+        10,
+    ) / 10;
 
   // ---- Names and copy helpers.
-  const info = (m: AnswerModel) => modelInfo(m);
+  const spec = (m: ModelId) => MODEL_SPECS[m];
   const copy = (text?: string) => {
     if (text) void navigator.clipboard?.writeText(text).catch(() => {});
   };
-  const metricList = (a: DemoAnswer) => [
-    t("metric.seconds", { value: secs(a.seconds ?? 0) }),
-    t("metric.tokens", { value: n(a.tokens ?? 0) }),
-    tc("creditsShort", { amount: cr(a.credits ?? 0) }),
+  const metricList = (a: Answer) => [
+    t("metric.seconds", { value: secs((a.durationMs ?? 0) / 1000) }),
+    t("metric.tokens", { value: n(a.tokens) }),
+    tc("creditsShort", { amount: cr(a.credits) }),
   ];
-  const failedText = (a: DemoAnswer) =>
-    t(a.failure === "unavailable" ? "card.unavailable" : "card.timeout", {
-      name: info(a.model).short,
-      provider: info(a.model).provider,
-    });
-  const badgeTone = (a: DemoAnswer): BadgeTone =>
-    a.tag === "fastestCheapest"
+  const failedText = (a: Answer) =>
+    t(
+      a.failure === "unavailable"
+        ? "card.unavailable"
+        : a.failure === "timeout"
+          ? "card.timeout"
+          : a.failure === "stopped"
+            ? "card.stopped"
+            : "card.error",
+      { name: spec(a.model).short, provider: spec(a.model).provider },
+    );
+  const badgeTone = (tag?: AnswerTag): BadgeTone =>
+    tag === "fastestCheapest"
       ? "success"
-      : a.tag === "retried" || a.tag === "caughtUp"
+      : tag === "retried" || tag === "caughtUp"
         ? "neutral"
         : "info";
-
-  const retryAnswer = (a: DemoAnswer) => {
-    if (coffee && a.model === "gpt" && (step === "prompt-2" || who))
-      go("prompt-2-retry", { tab: "gpt" });
+  const continueWith = (a: Answer) => {
+    composer.setModels([a.model]);
+    setMode("compare");
   };
 
-  const cardProps = (a: DemoAnswer, height: string): AnswerCardProps => {
-    const failed = !a.text;
-    const m = info(a.model);
+  const cardProps = (a: Answer, height: string): AnswerCardProps => {
+    const failed = isFailed(a);
+    const m = spec(a.model);
+    const tag = tags.get(a.id);
     return {
-      state: failed
-        ? "failed"
-        : a.tag === "suggested"
-          ? "suggested"
-          : "default",
+      state: failed ? "failed" : tag === "suggested" ? "suggested" : "default",
       model: a.model,
       modelName: m.name,
       provider: m.provider,
       children: failed ? failedText(a) : a.text,
-      metrics: failed ? [] : metricList(a),
-      badge: failed
-        ? t("badge.failed")
-        : a.tag
-          ? t(`badge.${a.tag}`)
-          : undefined,
-      badgeTone: badgeTone(a),
+      metrics: failed || isOpen(a) ? [] : metricList(a),
+      badge: failed ? t("badge.failed") : tag ? t(`badge.${tag}`) : undefined,
+      badgeTone: badgeTone(tag),
       refund: failed ? t("card.refunded", { credits: n(0) }) : undefined,
       sizeClassName: cx(
         height,
@@ -268,25 +272,18 @@ export function ChatScreen({
         continue: t("card.continue", { name: m.short }),
         swapModel: t("card.swapModel"),
         retryWithCost: t("card.retryWithCost", {
-          credits: cr(a.retryCredits ?? 0),
+          credits: cr(retryCredits(a.model)),
         }),
       },
       onCopy: () => copy(a.text),
-      onContinue: () => go("best"),
+      onContinue: () => continueWith(a),
       onRetry: () => (failed ? retryAnswer(a) : undefined),
-      onSwapModel: composer.openPicker,
+      onSwapModel: () => swapAnswer(a),
     };
   };
 
-  const ordered = (p: DemoPrompt, order: AnswerModel[]) =>
-    order
-      .map((m) => p.answers.find((a) => a.model === m))
-      .filter((a): a is DemoAnswer => !!a);
-
   // ---- Thinking rows.
-  const rowsData = thinkingRows(step, phase, only).filter((r) =>
-    prompt.answers.some((a) => a.model === r.model),
-  );
+  const rowsData = current ? thinkingRows(answers, current.createdAt, now) : [];
   const rowLabel = (
     status: ThinkingRow["status"],
     seconds = 0,
@@ -303,41 +300,39 @@ export function ChatScreen({
     })[status];
   const rows = (short: boolean): ThinkingRow[] =>
     rowsData.map((r) => ({
-      model: r.model,
-      name: short ? info(r.model).short : info(r.model).name,
+      model: r.answer.model,
+      name: short ? spec(r.answer.model).short : spec(r.answer.model).name,
       status: r.status,
       statusLabel: rowLabel(r.status, r.seconds, short),
     }));
   const thinkingTitle =
     rowsData.length === 1
-      ? t("thinking.titleOne", { name: info(rowsData[0].model).short })
+      ? t("thinking.titleOne", { name: spec(rowsData[0].answer.model).short })
       : t("thinking.title", { count: n(rowsData.length) });
-  const catchUpNames = list(
-    rowsData
-      .filter((r) => r.status === "catching-up")
-      .map((r) => info(r.model).short),
-  );
+  const catchingUp = rowsData.filter((r) => r.status === "catching-up");
+  const slowCount = rowsData.filter((r) => r.status === "slow").length;
+  const catchUpNames = list(catchingUp.map((r) => spec(r.answer.model).short));
   const statusMessage =
-    step === "thinking-2"
-      ? t("thinking.slow", { count: n(2) })
-      : step === "thinking-3" && rowsData.length > 1
+    slowCount > 0
+      ? t("thinking.slow", { count: n(slowCount) })
+      : catchingUp.length
         ? t("thinking.catchUp", { names: catchUpNames })
         : t("thinking.progress", {
             done: n(rowsData.filter((r) => r.status === "done").length),
             total: n(rowsData.length),
           });
   const mobileBody =
-    step === "thinking-2"
+    slowCount > 0
       ? t("thinking.slowMobile")
-      : step === "thinking-3" && rowsData.length > 1
+      : catchingUp.length
         ? t("thinking.catchUpMobile", { names: catchUpNames })
         : t("thinking.bodyMobile");
 
   // ---- Suggestion bar and receipt for the answers screens.
-  const suggested = prompt.answers.find((a) => a.tag === "suggested");
-  const missedNames = list(missed.map((a) => info(a.model).short));
+  const suggested = answers.find((a) => tags.get(a.id) === "suggested");
+  const caughtUp = answers.filter((a) => tags.get(a.id) === "caughtUp");
   let suggestion: ReactNode = null;
-  if (!thinking && mode === "compare") {
+  if (current && !thinking && !showBest) {
     const bar = (
       title: string,
       message: string,
@@ -345,9 +340,7 @@ export function ChatScreen({
       onWhy?: () => void,
     ) => (
       <SuggestionBar
-        models={TAB_ORDER.filter((m) =>
-          prompt.answers.some((a) => a.model === m),
-        )}
+        models={tabOrder(answers).map((a) => a.model)}
         title={title}
         message={message}
         whyLabel={why}
@@ -355,48 +348,58 @@ export function ChatScreen({
         className="max-w-full"
       />
     );
-    if (missed.length && step !== "prompt-3") {
+    const retryAll = () => missed.forEach((a) => retryAnswer(a));
+    const retryCost = missed.reduce((s, a) => s + retryCredits(a.model), 0);
+    if (missed.length && !running) {
       const partial = t("suggestion.partial", {
         answered: n(answered.length),
-        total: n(prompt.answers.length),
+        total: n(answers.length),
       });
       const timedOut = missed.find((a) => a.failure === "timeout");
       const down = missed.find((a) => a.failure === "unavailable");
       suggestion =
-        timedOut && down
+        missed.length === 2 && timedOut && down
           ? bar(
               partial,
               t("suggestion.failedBoth", {
-                timedOut: info(timedOut.model).short,
-                unavailable: info(down.model).short,
+                timedOut: spec(timedOut.model).short,
+                unavailable: spec(down.model).short,
               }),
-              t("suggestion.retryBoth", {
-                credits: cr(
-                  missed.reduce((s, a) => s + (a.retryCredits ?? 0), 0),
-                ),
-              }),
-              () => go("prompt-2-retry", { tab: "gpt" }),
+              t("suggestion.retryBoth", { credits: cr(retryCost) }),
+              retryAll,
             )
-          : down
+          : missed.length === 1 && down
             ? bar(
                 partial,
                 t("suggestion.stillUnavailable", {
-                  name: info(down.model).short,
+                  name: spec(down.model).short,
                 }),
-                t("suggestion.swap", { name: info(down.model).short }),
-                composer.openPicker,
+                t("suggestion.swap", { name: spec(down.model).short }),
+                () => swapAnswer(down),
               )
-            : null;
-    } else if (step === "prompt-3" && answered.length > 1 && suggested) {
+            : missed.length === 1
+              ? bar(
+                  partial,
+                  t("suggestion.failedOne", {
+                    name: spec(missed[0].model).short,
+                  }),
+                  t("card.retryWithCost", { credits: cr(retryCost) }),
+                  retryAll,
+                )
+              : bar(
+                  partial,
+                  t("suggestion.failedMany", {
+                    names: list(missed.map((a) => spec(a.model).short)),
+                  }),
+                  t("suggestion.retryAll", { credits: cr(retryCost) }),
+                  retryAll,
+                );
+    } else if (answered.length > 1 && caughtUp.length && suggested) {
       suggestion = bar(
         t("suggestion.ready", { count: answered.length }),
         t("suggestion.independent", {
-          names: list(
-            prompt.answers
-              .filter((a) => a.tag === "caughtUp")
-              .map((a) => info(a.model).short),
-          ),
-          name: info(suggested.model).short,
+          names: list(caughtUp.map((a) => spec(a.model).short)),
+          name: spec(suggested.model).short,
         }),
         t("suggestion.why"),
       );
@@ -404,15 +407,18 @@ export function ChatScreen({
       suggestion = bar(
         t("suggestion.ready", { count: answered.length }),
         suggested
-          ? t("suggestion.suggests", { name: info(suggested.model).short })
+          ? t("suggestion.suggests", { name: spec(suggested.model).short })
           : "",
         t("suggestion.why"),
       );
     }
   }
 
-  const credits = promptCredits(prompt);
-  const cheap = cheapest(prompt);
+  const credits = current ? promptCredits(current, answers) : 0;
+  const cheap = answered.reduce<Answer | undefined>(
+    (min, a) => (!min || a.credits < min.credits ? a : min),
+    undefined,
+  );
   const receipt = (() => {
     if (missed.length)
       return {
@@ -421,82 +427,110 @@ export function ChatScreen({
           credits: cr(credits),
           money: money(credits),
         }),
-        detail: t("receipt.refunded", { names: missedNames }),
+        detail: t("receipt.refunded", {
+          names: list(missed.map((a) => spec(a.model).short)),
+        }),
       };
-    const caughtUp = prompt.answers.filter((a) => a.tag === "caughtUp");
+    const catchUp = answers.reduce((s, a) => s + a.catchUpCredits, 0);
     return {
       summary: t("receipt.models", {
-        count: prompt.answers.length,
+        count: answers.length,
         credits: cr(credits),
         money: money(credits),
       }),
       detail: caughtUp.length
         ? t("receipt.catchUp", {
-            credits: cr(COFFEE_CHAT.catchUpCredits),
-            names: list(caughtUp.map((a) => info(a.model).short)),
+            credits: cr(Math.round(catchUp * 10) / 10),
+            names: list(caughtUp.map((a) => spec(a.model).short)),
           })
-        : cheap && prompt.answers.length > 1
+        : cheap && answers.length > 1
           ? t("receipt.cheapest", {
-              name: info(cheap.model).short,
-              credits: cr(cheap.credits ?? 0),
+              name: spec(cheap.model).short,
+              credits: cr(cheap.credits),
             })
           : undefined,
     };
   })();
 
-  // ---- Earlier prompt, folded.
-  const [showPrevious, setShowPrevious] = useState(false);
-  const summary = previous && !thinking && (
-    <PromptSummary
-      label={t("summary.label", { n: n(previous.n) })}
-      prompt={previous.prompt.text}
-      results={ordered(previous.prompt, TAB_ORDER).map((a) => ({
-        model: a.model,
-        label: a.text
-          ? t("summary.result", {
-              name: info(a.model).short,
-              credits: cr(a.credits ?? 0),
-            })
-          : t("summary.refunded", { name: info(a.model).short }),
-        refunded: !a.text,
-      }))}
-      toggleLabel={showPrevious ? t("summary.hide") : t("summary.show")}
-      expanded={showPrevious}
-      onToggle={() => setShowPrevious((v) => !v)}
-    />
-  );
-
-  const cardHeight = who
-    ? "h-chat-card-short"
-    : data.n > 1
-      ? "h-chat-card"
-      : "h-chat-card-tall";
+  // ---- Earlier prompts, folded (desktop).
   const grid =
     "flex snap-x gap-4 overflow-x-auto pb-1 xl:grid xl:grid-cols-3 xl:overflow-visible";
+  const [shown, setShown] = useState<string[]>([]);
+  const summaries =
+    !thinking &&
+    earlier.map((p) => {
+      const open = shown.includes(p.id);
+      const pAnswers = visibleAnswers(p);
+      return (
+        <div key={p.id} className="flex flex-col gap-3">
+          <PromptSummary
+            label={t("summary.label", { n: n(p.seq) })}
+            prompt={p.text}
+            results={tabOrder(pAnswers).map((a) => ({
+              model: a.model,
+              label:
+                a.status === "done"
+                  ? t("summary.result", {
+                      name: spec(a.model).short,
+                      credits: cr(a.credits),
+                    })
+                  : t("summary.refunded", { name: spec(a.model).short }),
+              refunded: a.status !== "done",
+            }))}
+            toggleLabel={open ? t("summary.hide") : t("summary.show")}
+            expanded={open}
+            onToggle={() =>
+              setShown((s) =>
+                open ? s.filter((x) => x !== p.id) : [...s, p.id],
+              )
+            }
+          />
+          {open && (
+            <>
+              <PromptBubble className="self-end">{p.text}</PromptBubble>
+              <div className={grid}>
+                {pAnswers.map((a) => (
+                  <AnswerCard key={a.id} {...cardProps(a, "h-chat-card")} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      );
+    });
+
+  const showRecipients =
+    !!current && !running && missed.length > 0 && answered.length > 0;
+  const cardHeight =
+    showRecipients && composer.value.trim()
+      ? "h-chat-card-short"
+      : current && current.seq > 1
+        ? "h-chat-card"
+        : "h-chat-card-tall";
+
+  const best = current?.best;
+  const bestModels = answered.map((a) => a.model);
+  const bestMetrics =
+    best?.status === "done"
+      ? [
+          t("metric.seconds", { value: secs((best.durationMs ?? 0) / 1000) }),
+          tc("creditsShort", { amount: cr(best.credits) }),
+          tc("money", { amount: money(best.credits) }),
+        ]
+      : [];
+  const bestThinking = current?.mode === "best" && mode === "best" && thinking;
 
   // ======================================================================== Desktop
-  const desktop = (
+  const desktop = current && (
     <div
       className={cx(
         "flex flex-col max-md:hidden",
-        data.n > 1 ? "gap-3" : "gap-4",
+        current.seq > 1 ? "gap-3" : "gap-4",
       )}
     >
-      {summary}
-      {showPrevious && previous && (
-        <>
-          <PromptBubble className="self-end">
-            {previous.prompt.text}
-          </PromptBubble>
-          <div className={grid}>
-            {ordered(previous.prompt, CARD_ORDER).map((a) => (
-              <AnswerCard key={a.model} {...cardProps(a, "h-chat-card")} />
-            ))}
-          </div>
-        </>
-      )}
-      <PromptBubble className="self-end">{prompt.text}</PromptBubble>
-      {step === "thinking-best" && (
+      {summaries}
+      <PromptBubble className="self-end">{current.text}</PromptBubble>
+      {bestThinking && (
         <ThinkingPanel
           className="mx-auto mt-4 max-w-chat-column"
           title={thinkingTitle}
@@ -504,126 +538,109 @@ export function ChatScreen({
           rows={rows(false)}
           stopLabel={t("thinking.stop")}
           stopNote={t("thinking.stopNote")}
-          onStop={stop}
+          onStop={onStop}
         />
       )}
-      {step === "best" && data.best && (
+      {showBest && !bestThinking && best && (
         <BestAnswerCard
           className="mx-auto mt-4 max-w-chat-column"
-          models={ordered(prompt, CARD_ORDER).map((a) => a.model)}
+          models={bestModels}
           title={t("best.title")}
           builtFrom={t("best.builtFrom", {
-            names: list(
-              ordered(prompt, CARD_ORDER).map((a) =>
-                modelShortGeneric(a.model),
-              ),
-            ),
+            names: list(bestModels.map((m) => MODELS[m].name)),
           })}
-          intro={data.best.intro}
-          points={data.best.ideas.map((idea) => ({
-            lead: t("best.lead", { name: idea.name }),
-            text: idea.text,
-            source: t("best.source", { name: modelShortGeneric(idea.model) }),
+          intro={best.intro}
+          points={best.points.map((p) => ({
+            lead: t("best.lead", { name: p.lead }),
+            text: p.text,
+            source: t("best.source", { name: MODELS[p.model].name }),
           }))}
-          metrics={[
-            t("metric.seconds", { value: secs(data.best.seconds) }),
-            t("metric.tokens", { value: n(data.best.tokens) }),
-            tc("creditsShort", { amount: cr(data.best.credits) }),
-            tc("money", { amount: money(data.best.credits) }),
-          ]}
-          seeAllLabel={t("best.seeAll", { count: n(prompt.answers.length) })}
+          metrics={bestMetrics}
+          seeAllLabel={t("best.seeAll", { count: n(answers.length) })}
           whyLabel={t("best.why")}
-          onSeeAll={() => go("compare")}
+          onSeeAll={() => setMode("compare")}
         />
       )}
-      {thinking && step !== "thinking-best" && (
+      {thinking && !bestThinking && (
         <>
           <ThinkingStatusBar
             className="self-start"
             title={thinkingTitle}
             message={statusMessage}
             stopLabel={t("thinking.stop")}
-            onStop={stop}
+            onStop={onStop}
           />
           <div className={grid}>
-            {ordered(prompt, CARD_ORDER)
-              .filter((a) => rowsData.some((r) => r.model === a.model))
-              .map((a) => {
-                const row = rowsData.find((r) => r.model === a.model)!;
-                return row.status === "done" ? (
-                  <AnswerCard
-                    key={a.model}
-                    {...cardProps(a, "h-chat-card-tall")}
-                  />
-                ) : (
-                  <WritingCard
-                    key={a.model}
-                    model={a.model}
-                    modelName={info(a.model).name}
-                    provider={info(a.model).provider}
-                    status={rowLabel(row.status)}
-                    sizeClassName="h-chat-card-tall w-answer-card-width shrink-0 snap-start xl:w-auto"
-                  />
-                );
-              })}
+            {answers.map((a) => {
+              const row = rowsData.find((r) => r.answer.id === a.id)!;
+              return row.status === "done" || isFailed(a) ? (
+                <AnswerCard key={a.id} {...cardProps(a, "h-chat-card-tall")} />
+              ) : (
+                <WritingCard
+                  key={a.id}
+                  model={a.model}
+                  modelName={spec(a.model).name}
+                  provider={spec(a.model).provider}
+                  status={rowLabel(row.status)}
+                  sizeClassName="h-chat-card-tall w-answer-card-width shrink-0 snap-start xl:w-auto"
+                />
+              );
+            })}
           </div>
         </>
       )}
-      {!thinking && mode === "compare" && (
+      {!thinking && !showBest && (
         <>
           {suggestion && <div className="flex">{suggestion}</div>}
           <div className={grid}>
-            {ordered(prompt, CARD_ORDER).map((a) => (
-              <AnswerCard key={a.model} {...cardProps(a, cardHeight)} />
+            {answers.map((a) => (
+              <AnswerCard key={a.id} {...cardProps(a, cardHeight)} />
             ))}
           </div>
-          <PromptReceipt summary={receipt.summary} detail={receipt.detail} />
+          {!running && (
+            <PromptReceipt summary={receipt.summary} detail={receipt.detail} />
+          )}
         </>
       )}
     </div>
   );
 
   // ======================================================================== Mobile
-  const [tab, setTab] = useState<AnswerModel>(() => {
-    const preferred = params.tab ?? defaultTab(step);
-    return prompt.answers.some((a) => a.model === preferred)
-      ? preferred
-      : (ordered(prompt, TAB_ORDER)[0]?.model ?? "claude");
-  });
-  const tabs = ordered(prompt, TAB_ORDER);
+  const tabs = tabOrder(answers);
+  const [tabPick, setTab] = useState<ModelId | undefined>(params?.tab);
+  const tab =
+    tabs.find((a) => a.model === tabPick)?.model ??
+    (missed.length ? missed[0]?.model : suggested?.model) ??
+    tabs[0]?.model;
   const tabIndex = Math.max(
     0,
     tabs.findIndex((a) => a.model === tab),
   );
-  const current = tabs[tabIndex];
+  const currentTab = tabs[tabIndex];
   const touch = useRef<number | null>(null);
   const swipe = (dir: number) =>
     setTab(tabs[(tabIndex + dir + tabs.length) % tabs.length].model);
 
-  const tabCaption = (a: DemoAnswer): Pick<ModelTab, "caption" | "tone"> => {
-    if (!a.text) return { caption: t("mobile.tab.failed"), tone: "error" };
-    if (data.n === 1) {
-      if (a.tag === "suggested")
+  const tabCaption = (a: Answer): Pick<ModelTab, "caption" | "tone"> => {
+    const tag = tags.get(a.id);
+    if (isFailed(a)) return { caption: t("mobile.tab.failed"), tone: "error" };
+    if (isOpen(a)) return { caption: t("status.writing") };
+    if (current?.seq === 1) {
+      if (tag === "suggested")
         return { caption: t("mobile.tab.suggested"), tone: "info" };
-      if (a.tag === "fastestCheapest")
+      if (tag === "fastestCheapest")
         return { caption: t("mobile.tab.cheapest"), tone: "success" };
-      return { caption: t("mobile.tab.cost", { credits: cr(a.credits ?? 0) }) };
+      return { caption: t("mobile.tab.cost", { credits: cr(a.credits) }) };
     }
-    if (a.tag === "retried") return { caption: t("mobile.tab.answeredNow") };
-    if (a.tag === "caughtUp") return { caption: t("mobile.tab.caughtUp") };
+    if (tag === "retried") return { caption: t("mobile.tab.answeredNow") };
+    if (tag === "caughtUp") return { caption: t("mobile.tab.caughtUp") };
     return { caption: t("mobile.tab.answered") };
   };
 
-  const mobileNote = (a: DemoAnswer) => {
-    switch (a.tag) {
+  const mobileNote = (a: Answer) => {
+    switch (tags.get(a.id)) {
       case "suggested":
-        return {
-          tone: "info" as const,
-          text:
-            data.n === 3
-              ? t("mobile.note.suggestedTaglines")
-              : t("mobile.note.suggested"),
-        };
+        return { tone: "info" as const, text: t("mobile.note.suggested") };
       case "only":
         return {
           tone: "info" as const,
@@ -636,74 +653,72 @@ export function ChatScreen({
         };
       case "caughtUp":
         return { tone: "success" as const, text: t("mobile.note.caughtUp") };
+      case "retried":
+        return { tone: "info" as const, text: t("mobile.note.retried") };
       default:
         return undefined;
     }
   };
 
-  const mobileCard = (a: DemoAnswer): MobileAnswerCardProps => {
-    const m = info(a.model);
-    if (!a.text) {
-      const timeout = a.failure !== "unavailable";
+  const mobileCard = (a: Answer): MobileAnswerCardProps => {
+    const m = spec(a.model);
+    if (isFailed(a)) {
+      const kind =
+        a.failure === "unavailable"
+          ? "unavailable"
+          : a.failure === "timeout"
+            ? "timeout"
+            : a.failure === "stopped"
+              ? "stopped"
+              : "error";
       const askDifferent = {
         label: t("mobile.failed.askDifferent"),
-        onClick: composer.openPicker,
+        onClick: () => swapAnswer(a),
+      };
+      const tryAgain = {
+        label: t("mobile.failed.tryAgain", {
+          credits: cr(retryCredits(a.model)),
+        }),
+        icon: "reload" as const,
+        onClick: () => retryAnswer(a),
       };
       return {
         state: "failed",
         id: `answer-${a.model}`,
         model: a.model,
-        title: t(
-          timeout
-            ? "mobile.failed.timeoutTitle"
-            : "mobile.failed.unavailableTitle",
-          {
-            name: m.short,
-          },
-        ),
-        body: t(
-          timeout
-            ? "mobile.failed.timeoutBody"
-            : "mobile.failed.unavailableBody",
-          {
-            provider: m.provider,
-          },
-        ),
+        title: t(`mobile.failed.${kind}Title`, { name: m.short }),
+        body: t(`mobile.failed.${kind}Body`, { provider: m.provider }),
         refund: t("mobile.failed.notCharged"),
-        actions: timeout
-          ? [
-              {
-                label: t("mobile.failed.tryAgain", {
-                  credits: cr(a.retryCredits ?? 0),
-                }),
-                icon: "reload",
-                tone: "tinted",
-                onClick: () => retryAnswer(a),
-              },
-              { ...askDifferent, tone: "secondary" },
-            ]
-          : [
-              { ...askDifferent, tone: "tinted" },
-              {
-                label: t("mobile.failed.tryLater"),
-                icon: "reload",
-                tone: "secondary",
-                onClick: () => setTab(answered[0]?.model ?? tab),
-              },
-            ],
+        actions:
+          kind === "unavailable"
+            ? [
+                { ...askDifferent, tone: "tinted" },
+                {
+                  label: t("mobile.failed.tryLater"),
+                  icon: "reload",
+                  tone: "secondary",
+                  onClick: () => setTab(answered[0]?.model ?? tab),
+                },
+              ]
+            : [
+                { ...tryAgain, tone: "tinted" },
+                { ...askDifferent, tone: "secondary" },
+              ],
       };
     }
     return {
       id: `answer-${a.model}`,
       model: a.model,
       modelName: m.name,
-      meta: t("mobile.meta", {
-        seconds: secs(a.seconds ?? 0),
-        credits: cr(a.credits ?? 0),
-        money: money(a.credits ?? 0),
-      }),
+      meta: isOpen(a)
+        ? t("status.writing")
+        : t("mobile.meta", {
+            seconds: secs((a.durationMs ?? 0) / 1000),
+            credits: cr(a.credits),
+            money: money(a.credits),
+          }),
       note: mobileNote(a),
-      suggested: a.tag === "suggested" || a.tag === "only",
+      suggested: tags.get(a.id) === "suggested" || tags.get(a.id) === "only",
       children: a.text,
       labels: {
         copy: t("card.copy"),
@@ -712,27 +727,27 @@ export function ChatScreen({
         use: t("mobile.use"),
       },
       onCopy: () => copy(a.text),
-      onUse: () => go("best"),
+      onUse: () => continueWith(a),
     };
   };
 
   const hint = (() => {
     if (!missed.length)
-      return data.n === 1
+      return current?.seq === 1
         ? t("mobile.hint.swipe")
         : t("mobile.hint.all", { total: n(tabs.length) });
     const counts = { answered: n(answered.length), total: n(tabs.length) };
-    return current && !current.text && answered[0]
+    return currentTab && isFailed(currentTab) && answered[0]
       ? t("mobile.hint.partialTo", {
           ...counts,
-          name: info(answered[0].model).short,
+          name: spec(answered[0].model).short,
         })
       : t("mobile.hint.partial", counts);
   })();
 
-  const mobileView = (
+  const mobileView = current && (
     <div className="flex flex-col md:hidden">
-      {(thinking || step === "best") && <MobilePrompt prompt={prompt.text} />}
+      {(thinking || showBest) && <MobilePrompt prompt={current.text} />}
       {thinking && (
         <ThinkingPanel
           layout="mobile"
@@ -742,61 +757,61 @@ export function ChatScreen({
           rows={rows(true)}
         />
       )}
-      {step === "best" && data.best && (
+      {!thinking && showBest && best && (
         <MobileBestAnswer
           className="mt-5"
-          models={ordered(prompt, CARD_ORDER).map((a) => a.model)}
+          models={bestModels}
           title={t("best.title")}
-          subtitle={t("best.fromCount", { count: n(prompt.answers.length) })}
-          intro={data.best.intro}
-          ideas={data.best.ideas.map((idea) => ({
-            name: idea.name,
-            source: t("best.sourceMobile", { name: info(idea.model).short }),
-            text: idea.text,
+          subtitle={t("best.fromCount", { count: n(answered.length) })}
+          intro={best.intro}
+          ideas={best.points.map((p) => ({
+            name: p.lead,
+            source: t("best.sourceMobile", { name: spec(p.model).short }),
+            text: p.text,
           }))}
-          cost={t("best.cost", { credits: cr(data.best.credits) })}
-          money={t("best.money", { amount: money(data.best.credits) })}
+          cost={t("best.cost", { credits: cr(best.credits) })}
+          money={t("best.money", { amount: money(best.credits) })}
           labels={{
             copy: t("card.copy"),
             share: tc("share"),
             helpful: t("card.helpful"),
             notHelpful: t("card.notHelpful"),
-            seeAll: t("best.seeAllMobile", { count: n(prompt.answers.length) }),
+            seeAll: t("best.seeAllMobile", { count: n(answers.length) }),
           }}
           onCopy={() =>
             copy(
               [
-                data.best!.intro,
-                ...data.best!.ideas.map((i) => `${i.name}: ${i.text}`),
+                best.intro,
+                ...best.points.map((i) => `${i.lead}: ${i.text}`),
               ].join("\n"),
             )
           }
-          onSeeAll={() => go("compare")}
+          onSeeAll={() => setMode("compare")}
         />
       )}
-      {!thinking && mode === "compare" && current && (
+      {!thinking && !showBest && currentTab && (
         <>
           <MobilePrompt
             variant="line"
             label={t("mobile.youAsked")}
-            prompt={prompt.text}
+            prompt={current.text}
           />
           <ModelTabs
             className="mt-3"
             label={t("mobile.tabs")}
-            value={tab}
-            onValueChange={(v) => setTab(v as AnswerModel)}
+            value={tab ?? ""}
+            onValueChange={(v) => setTab(v as ModelId)}
             tabs={tabs.map((a) => ({
               value: a.model,
               model: a.model,
-              name: info(a.model).short,
+              name: spec(a.model).short,
               panelId: `answer-${a.model}`,
               ...tabCaption(a),
             }))}
           />
           <div
             role="tabpanel"
-            aria-label={info(current.model).short}
+            aria-label={spec(currentTab.model).short}
             className="mt-2"
             onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
             onTouchEnd={(e) => {
@@ -806,7 +821,7 @@ export function ChatScreen({
               if (Math.abs(dx) > 48) swipe(dx < 0 ? 1 : -1);
             }}
           >
-            <MobileAnswerCard {...mobileCard(current)} />
+            <MobileAnswerCard {...mobileCard(currentTab)} />
           </div>
           <AnswerPager
             className="mt-3"
@@ -824,16 +839,8 @@ export function ChatScreen({
   );
 
   // ======================================================================== Chrome
-  const backHref = thinking
-    ? step === "thinking-2"
-      ? href("compare")
-      : step === "thinking-3"
-        ? href("prompt-2", keep)
-        : "/"
-    : step === "best"
-      ? "/chats"
-      : href("best");
-
+  const title = chat?.title ?? "";
+  const recipientOptions = answered.map((a) => a.model);
   const composerSlot = (
     <>
       {thinking ? (
@@ -841,34 +848,34 @@ export function ChatScreen({
           className="md:hidden"
           label={t("thinking.stop")}
           note={t("thinking.stopNote")}
-          onStop={stop}
+          onStop={onStop}
         />
       ) : (
         <div className="md:hidden">{composer.mobileComposer}</div>
       )}
       <div className="max-md:hidden">
-        {who && (
+        {showRecipients && composer.value.trim() && (
           <FollowUpRecipients
             className="mb-2"
             message={t("recipients.message")}
             options={[
               {
                 value: "all",
-                label: t("recipients.all", { count: n(prompt.answers.length) }),
+                label: t("recipients.all", {
+                  count: n(composer.models.length),
+                }),
                 note: t("recipients.allNote"),
               },
-              ...answered.map((a) => ({
-                value: a.model,
-                label: t("recipients.only", { name: info(a.model).short }),
+              ...recipientOptions.map((m) => ({
+                value: m,
+                label: t("recipients.only", { name: spec(m).short }),
               })),
             ]}
             value={recipient}
             onValueChange={(v) => setRecipient(v as typeof recipient)}
             cost={
-              recipient === "all"
-                ? t("recipients.catchUp", {
-                    credits: cr(COFFEE_CHAT.catchUpCredits),
-                  })
+              recipient === "all" && catchUpCredits > 0
+                ? t("recipients.catchUp", { credits: cr(catchUpCredits) })
                 : undefined
             }
           />
@@ -882,75 +889,94 @@ export function ChatScreen({
     </>
   );
 
+  if (load === "not-found") notFound();
+
+  const estimateMax = composer.estimate?.maxCredits ?? 0;
   return (
     <>
       <ChatTopBar
         className="absolute inset-x-0 top-3 z-10 max-md:hidden md:pr-6 md:pl-16 lg:px-0"
-        title={chat.title}
+        title={title}
         titleMenuLabel={t("titleMenu")}
         shareLabel={tc("share")}
         moreLabel={tc("more")}
       />
       <MobileTopBar
         className="shrink-0 md:hidden"
-        title={chat.title}
-        back={{ label: t("back"), link: <Link href={backHref} /> }}
+        title={title}
+        back={{ label: t("back"), link: <Link href="/chats" /> }}
         actions={[
-          ...(step === "best"
+          ...(showBest
             ? [{ icon: "share-01" as const, label: tc("share") }]
             : []),
           { icon: "more-horizontal" as const, label: tc("more") },
         ]}
       />
-      <AppMain className="max-md:pt-1" composer={composerSlot}>
+      <AppMain className="max-md:pt-1" composer={chat ? composerSlot : null}>
         <div className="w-full px-4 pb-6 md:px-6 lg:px-0">
-          {desktop}
-          {mobileView}
+          {load === "error" ? (
+            <EmptyState
+              icon="bubble-chat"
+              title={t("loadError")}
+              body={t("loadErrorBody")}
+              action={
+                <Button variant="secondary" size="sm" onClick={() => reload()}>
+                  {t("tryAgain")}
+                </Button>
+              }
+            />
+          ) : (
+            <>
+              {desktop}
+              {mobileView}
+            </>
+          )}
         </div>
       </AppMain>
       {composer.overlays}
-      {coffee && (
-        <RecipientsSheet
-          open={who && mobile}
-          onOpenChange={(open) => !open && go("prompt-2", keep)}
-          title={t("recipients.title")}
-          description={t("recipients.question", { prompt: DEMO_NEXT_PROMPT })}
-          value={recipient}
-          onValueChange={(v) => setRecipient(v as typeof recipient)}
-          choices={[
-            {
-              value: "all",
-              models: TAB_ORDER,
-              title: t("recipients.allAis", {
-                count: n(prompt.answers.length),
-              }),
-              description: t("recipients.allBody"),
-              cost: t("recipients.cost", {
-                credits: cr(COFFEE_CHAT.followUpAllCredits),
-                money: money(COFFEE_CHAT.followUpAllCredits),
-              }),
-            },
-            ...answered.map((a) => ({
-              value: a.model,
-              models: [a.model],
-              title: t("recipients.only", { name: info(a.model).short }),
-              description: t("recipients.onlyBody"),
-              cost: t("recipients.cost", {
-                credits: cr(a.credits ?? 0),
-                money: money(a.credits ?? 0),
-              }),
-            })),
-          ]}
-          note={t("recipients.note")}
-          sendLabel={t("recipients.send")}
-          onSend={send}
-        />
-      )}
+      <RecipientsSheet
+        open={sheetOpen && mobile}
+        onOpenChange={setSheetOpen}
+        title={t("recipients.title")}
+        description={t("recipients.question", { prompt: composer.value })}
+        value={recipient}
+        onValueChange={(v) => setRecipient(v as typeof recipient)}
+        choices={[
+          {
+            value: "all",
+            models: tabOrder(answers).map((a) => a.model),
+            title: t("recipients.allAis", { count: n(composer.models.length) }),
+            description: t("recipients.allBody"),
+            cost: t("recipients.cost", {
+              credits: cr(estimateMax),
+              money: money(estimateMax),
+            }),
+          },
+          ...answered.map((a) => ({
+            value: a.model,
+            models: [a.model],
+            title: t("recipients.only", { name: spec(a.model).short }),
+            description: t("recipients.onlyBody"),
+            cost: t("recipients.cost", {
+              credits: cr(retryCredits(a.model)),
+              money: money(retryCredits(a.model)),
+            }),
+          })),
+        ]}
+        note={t("recipients.note")}
+        sendLabel={t("recipients.send")}
+        onSend={async () => {
+          setSheetOpen(false);
+          const text = composer.value.trim();
+          if (!text) return;
+          const ok = await doSend({
+            text,
+            models: composer.models,
+            attachments: [],
+          });
+          if (ok) composer.setValue("");
+        }}
+      />
     </>
   );
-}
-
-/** Figma's Best answer card names models by family ("GPT, Claude and Gemini"). */
-function modelShortGeneric(m: AnswerModel) {
-  return MODELS[m].name;
 }

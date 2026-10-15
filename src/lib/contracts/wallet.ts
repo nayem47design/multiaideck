@@ -89,7 +89,9 @@ export const WalletResponse = z.object({
   proRenewsAt: IsoDate.nullable(),
   spentThisMonth: BalanceSchema,
   chatsThisMonth: z.number(),
-  /** Average credits per prompt, for "about N chats". */
+  /** Average credits per prompt (last 90 days). */
   averagePromptCredits: z.number().nullable(),
+  /** Average credits per chat (last 90 days), for "about N chats". */
+  averageChatCredits: z.number().nullable(),
 });
 export type WalletResponse = z.infer<typeof WalletResponse>;

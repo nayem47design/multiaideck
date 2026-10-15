@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
+import { useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
@@ -10,12 +11,15 @@ import { ProPriceCard } from "@/components/molecules/ProPriceCard";
 import { GoProPanel } from "@/components/organisms/GoProPanel";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
 import { ScreenDialog } from "@/components/organisms/ScreenDialog";
-import { PRO_PLAN, wallet } from "@/lib/mock/wallet";
+import { PRO_PLAN, walletActions } from "@/lib/payments/client";
 
 import { useOverlay, type OverlayProps } from "../_shell/overlays";
 
-// Figma: Overlay · Go Pro (desktop dialog) and M37 · Go Pro (mobile full screen). Upgrading pays
-// the monthly plan with bKash (simulated) and swaps to "Pro is on", as in the prototype.
+// Figma: Overlay · Go Pro (desktop dialog) and M37 · Go Pro (mobile full screen). Upgrading starts
+// a Pro payment on the server (POST /api/payments { kind: "pro" }, bKash). With PayStation the
+// person goes to its checkout and comes back to /wallet/paid, which opens "Pro is on". With the
+// sandbox (no PayStation keys) the payment is approved right away, as in the prototype, and
+// "Pro is on" opens here. The server sets the plan and adds the credits once the payment is paid.
 
 export function GoProOverlay({ open, onOpenChange }: OverlayProps) {
   const t = useTranslations("pro");
@@ -24,9 +28,28 @@ export function GoProOverlay({ open, onOpenChange }: OverlayProps) {
   const n = (v: number) => format.number(v);
   const price = t("price", { bdt: n(PRO_PLAN.bdt) });
   const close = () => onOpenChange(false);
-  const upgrade = () => {
-    wallet.upgradePro();
-    openOverlay("pro-on");
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const upgrade = async () => {
+    if (busy) return;
+    setBusy(true);
+    setFailed(false);
+    try {
+      const { payment, redirectUrl } = await walletActions.start({
+        kind: "pro",
+      });
+      if (payment.provider !== "sandbox") {
+        window.location.assign(redirectUrl);
+        return;
+      }
+      const paid = await walletActions.decide(payment.id, "paid");
+      if (paid.status === "paid") openOverlay("pro-on");
+      else setFailed(true);
+    } catch {
+      setFailed(true);
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -58,12 +81,12 @@ export function GoProOverlay({ open, onOpenChange }: OverlayProps) {
               ],
             },
           }}
-          note={t("note")}
+          note={failed ? t("startFailed") : t("note")}
           closeLabel={t("close")}
           notNowLabel={t("notNow")}
           upgradeLabel={t("upgrade", { bdt: n(PRO_PLAN.bdt) })}
           onClose={close}
-          onUpgrade={upgrade}
+          onUpgrade={() => void upgrade()}
         />
       }
       mobile={
@@ -99,11 +122,16 @@ export function GoProOverlay({ open, onOpenChange }: OverlayProps) {
                 name="information-circle"
                 className="size-select-icon shrink-0"
               />
-              {t("mobile.note")}
+              {failed ? t("startFailed") : t("mobile.note")}
             </p>
           </div>
           <div className="flex flex-col items-center gap-2 px-mobile-gutter pt-6 pb-4">
-            <Button size="touch-lg" className="w-full" onClick={upgrade}>
+            <Button
+              size="touch-lg"
+              className="w-full"
+              loading={busy}
+              onClick={() => void upgrade()}
+            >
               {t("mobile.upgrade")}
             </Button>
             <button

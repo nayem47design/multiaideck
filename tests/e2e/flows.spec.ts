@@ -1,24 +1,43 @@
 import { expect, test, type Page } from "@playwright/test";
 
+import {
+  freshIp,
+  lastCode,
+  newPhoneUser,
+  ownDemoSession,
+  randomPhone,
+  NAV,
+  signedOut,
+} from "./auth";
+
 // The prototype's journeys (Figma flows "0 · Desktop · Full journey", "1 · Ask and compare",
 // "2 · Top up with bKash", "3 · Settings and account", "7 Mobile"), clicked through end to end.
 
 const isMobile = (page: Page) => (page.viewportSize()?.width ?? 0) < 768;
 
+// Every test starts signed in as the demo user (tests/e2e/auth.setup.ts) unless it says otherwise.
+
 // Desktop and mobile layouts share one tree and hide the other with CSS, so match visible only.
 const v = <T extends { filter: (o: { visible: boolean }) => T }>(l: T) =>
   l.filter({ visible: true });
 
-test("sign in with a phone number and a code", async ({ page }) => {
-  await page.goto("/sign-in?step=phone");
-  await v(page.getByLabel("Mobile number")).fill("1712345214");
-  await v(page.getByRole("button", { name: "Send code" })).click();
-  await expect(page).toHaveURL(/\/sign-in\/code/);
+test.describe("signed out", () => {
+  test.use(signedOut);
 
-  await v(page.getByLabel("Digit 1")).fill("4");
-  for (const d of "82913") await page.keyboard.type(d);
-  await v(page.getByRole("button", { name: "Verify and continue" })).click();
-  await expect(page).toHaveURL(/localhost:3000\/$/);
+  test("sign in with a phone number and a code", async ({ page }) => {
+    await freshIp(page);
+    const phone = randomPhone();
+    await page.goto("/sign-in?step=phone");
+    await v(page.getByLabel("Mobile number")).fill(phone);
+    await v(page.getByRole("button", { name: "Send code" })).click();
+    await expect(page).toHaveURL(/\/sign-in\/code/, { timeout: NAV });
+
+    const code = await lastCode(page.request, phone);
+    await v(page.getByLabel("Digit 1")).fill(code[0]);
+    for (const d of code.slice(1)) await page.keyboard.type(d);
+    await v(page.getByRole("button", { name: "Verify and continue" })).click();
+    await expect(page).toHaveURL(/localhost:3000\/$/, { timeout: NAV });
+  });
 });
 
 test("ask, get the best answer, then compare all three", async ({ page }) => {
@@ -87,10 +106,15 @@ test("sign out from the sidebar", async ({ page }) => {
     isMobile(page),
     "the sidebar is desktop only; mobile signs out from Account",
   );
+  await ownDemoSession(page);
   await page.goto("/");
   await v(page.getByRole("button", { name: "Account menu" })).click();
   await v(page.getByRole("button", { name: "Sign out", exact: true })).click();
-  await expect(page).toHaveURL(/\/sign-in/);
+  await expect(page).toHaveURL(/\/sign-in/, { timeout: NAV });
+  // The session is gone: app pages send you back to sign in.
+  await page.goto("/wallet");
+  await expect(page).toHaveURL(/\/sign-in\?next=%2Fwallet/);
+  expect((await page.request.get("/api/me")).status()).toBe(401);
 });
 
 test("delete account needs the word DELETE", async ({ page }) => {
@@ -104,6 +128,23 @@ test("delete account needs the word DELETE", async ({ page }) => {
   await expect(del).toBeDisabled();
   await dialog.getByRole("textbox").fill("DELETE");
   await expect(del).toBeEnabled();
+});
+
+test("delete account closes it and signs out", async ({ page }) => {
+  test.skip(isMobile(page), "desktop Profile");
+  await newPhoneUser(page);
+  await page.goto("/settings/profile");
+  await v(page.getByRole("button", { name: "Delete account" }))
+    .first()
+    .click();
+  const dialog = page.getByRole("dialog");
+  await dialog.getByRole("textbox").fill("DELETE");
+  await dialog
+    .getByRole("button", { name: /^Delete/ })
+    .last()
+    .click();
+  await expect(page).toHaveURL(/\/sign-in/, { timeout: NAV });
+  expect((await page.request.get("/api/me")).status()).toBe(401);
 });
 
 test("⌘K finds a chat", async ({ page }) => {

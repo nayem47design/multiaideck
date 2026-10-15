@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormatter, useTranslations } from "next-intl";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
@@ -14,29 +14,43 @@ import {
   BrowseColumn,
   useBrowseToast,
 } from "@/components/templates/BrowseColumn";
+import { api } from "@/lib/api-client";
+import { IMAGE_MODEL } from "@/lib/ai/catalog";
+import {
+  chatHref,
+  dayOf,
+  invalidateChats,
+  patchChats,
+  timeOf,
+  useChats,
+} from "@/lib/chats";
+import type { ChatSummary } from "@/lib/contracts/chat";
 import { Link, useRouter } from "@/lib/i18n/navigation";
-import { DEMO_CHATS, type ChatKind, type DemoChat } from "@/lib/mock/demo";
 
 import { useOverlay } from "../../../_shell/overlays";
-import { chatHref, chatModels } from "@/lib/mock/images";
 import { ChatRowContextMenu, ChatRowMoreMenu } from "./ChatRowMenu";
 
 // Figma: Prototype › Chats (desktop) and M14 · Chats (mobile, with the tab bar). Chats grouped
-// Today / Yesterday, filters (desktop), a search field that opens ⌘K search, and the tip. Rename,
-// pin and delete work on this page's copy of the demo list (no backend until Phase 6).
+// Today / Yesterday / Earlier, filters (desktop), a search field that opens ⌘K search, and the tip.
+// Rename and pin are PATCH /api/chats/:id; delete is DELETE after the Undo toast has gone.
 
+type ChatKind = ChatSummary["kind"];
+type DemoChat = ChatSummary;
 type Filter = "all" | ChatKind;
+/** Delete for real once Undo is no longer offered. */
+const DELETE_AFTER_MS = 4000;
 const FILTERS: Filter[] = ["all", "best", "compare", "image"];
 
 export function ChatsScreen() {
   const t = useTranslations("chats");
   const tn = useTranslations("nav");
   const format = useFormatter();
+  const locale = useLocale();
   const router = useRouter();
   const { openOverlay } = useOverlay();
-  const { toast, show, hide } = useBrowseToast();
-  const [chats, setChats] = useState<DemoChat[]>(DEMO_CHATS);
-  const [pinned, setPinned] = useState<string[]>([]);
+  const { toast, show, hide } = useBrowseToast(DELETE_AFTER_MS);
+  const { chats, status } = useChats();
+  const pinned = chats.filter((c) => c.pinned).map((c) => c.id);
   const [filter, setFilter] = useState<Filter>("all");
   const [editing, setEditing] = useState<string | null>(null);
   const renameRef = useRef<HTMLInputElement>(null);
@@ -51,7 +65,8 @@ export function ChatsScreen() {
     return () => cancelAnimationFrame(id);
   }, [editing]);
 
-  const n = (v: number) => format.number(v);
+  const n = (v: number) =>
+    format.number(v, { maximumFractionDigits: v < 10 ? 1 : 0 });
   const meta = (c: DemoChat) =>
     c.kind === "image"
       ? t("meta.image", { credits: n(c.credits) })
@@ -78,22 +93,29 @@ export function ChatsScreen() {
       label: t("pinned"),
       chats: visible.filter((c) => pinned.includes(c.id)),
     },
-    ...(["today", "yesterday"] as const).map((day) => ({
+    ...(["today", "yesterday", "earlier"] as const).map((day) => ({
       key: day,
-      label: tn(day),
-      chats: visible.filter((c) => c.day === day && !pinned.includes(c.id)),
+      label: day === "earlier" ? t("earlier") : tn(day),
+      chats: visible.filter(
+        (c) => dayOf(c.updatedAt) === day && !pinned.includes(c.id),
+      ),
     })),
   ].filter((g) => g.chats.length);
 
   const remove = (chat: DemoChat) => {
-    const before = chats;
-    setChats((list) => list.filter((c) => c.id !== chat.id));
+    patchChats((list) => list.filter((c) => c.id !== chat.id));
+    const timer = setTimeout(() => {
+      void api(`/api/chats/${chat.id}`, { method: "DELETE" }).finally(
+        invalidateChats,
+      );
+    }, DELETE_AFTER_MS);
     show(t("deleted"), {
       action: (
         <button
           type="button"
           onClick={() => {
-            setChats(before);
+            clearTimeout(timer);
+            invalidateChats();
             hide();
           }}
           className={cx("ml-2 rounded-xs type-ui-strong text-blue", focusRing)}
@@ -105,10 +127,15 @@ export function ChatsScreen() {
   };
   const rename = (id: string, title: string) => {
     const clean = title.trim();
-    if (clean)
-      setChats((list) =>
+    if (clean) {
+      patchChats((list) =>
         list.map((c) => (c.id === id ? { ...c, title: clean } : c)),
       );
+      void api(`/api/chats/${id}`, {
+        method: "PATCH",
+        body: { title: clean },
+      }).finally(invalidateChats);
+    }
     setEditing(null);
   };
   const actions = (c: DemoChat) => {
@@ -122,10 +149,15 @@ export function ChatsScreen() {
       {
         icon: "bookmark-02" as const,
         label: isPinned ? t("menu.unpin") : t("menu.pin"),
-        onSelect: () =>
-          setPinned((p) =>
-            isPinned ? p.filter((id) => id !== c.id) : [...p, c.id],
-          ),
+        onSelect: () => {
+          patchChats((list) =>
+            list.map((x) => (x.id === c.id ? { ...x, pinned: !isPinned } : x)),
+          );
+          void api(`/api/chats/${c.id}`, {
+            method: "PATCH",
+            body: { pinned: !isPinned },
+          }).finally(invalidateChats);
+        },
       },
       {
         icon: "delete-02" as const,
@@ -203,7 +235,7 @@ export function ChatsScreen() {
           ))}
         </div>
 
-        {groups.length ? (
+        {status === "loading" && !chats.length ? null : groups.length ? (
           <div className="flex flex-col gap-1 md:gap-0 md:rounded-xl md:bg-surface md:p-chats-list-pad md:ring-1 md:ring-line md:ring-inset">
             {groups.map((g) => (
               <section
@@ -222,8 +254,12 @@ export function ChatsScreen() {
                         title={c.title}
                         meta={meta(c)}
                         mobileMeta={mobileMeta(c)}
-                        time={c.time}
-                        models={chatModels(c)}
+                        time={timeOf(c.updatedAt, locale)}
+                        models={
+                          c.kind === "image" && !c.models.length
+                            ? [IMAGE_MODEL]
+                            : c.models
+                        }
                         link={<Link href={chatHref(c)} />}
                         pinnedLabel={
                           pinned.includes(c.id) ? t("pinned") : undefined

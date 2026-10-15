@@ -1,7 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState, type ReactElement, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 
 import { AttachSheet } from "@/components/organisms/AttachSheet";
 import { ChooseModelsSheet } from "@/components/organisms/ChooseModelsSheet";
@@ -17,42 +23,102 @@ import {
   type PickerModel,
 } from "@/components/organisms/ModelPickerModal";
 import { VoiceCapture } from "@/components/organisms/VoiceCapture";
-import { MODELS, type ModelId } from "@/lib/ai/models";
+import { api } from "@/lib/api-client";
 import {
-  DEMO_FILES,
-  DEMO_VOICE,
-  MOBILE_PICKER_IDS,
-  PICKER_MODELS,
-} from "@/lib/mock/chat";
+  DEFAULT_MODELS,
+  MAX_MODELS,
+  MOBILE_PICKER_ORDER,
+  MODEL_SPECS,
+  PICKER_ORDER,
+} from "@/lib/ai/catalog";
+import { MODELS, type ModelId } from "@/lib/ai/models";
+import { typicalAnswerMcr } from "@/lib/billing/pricing";
+import { credits } from "@/lib/billing/units";
+import { builtInKey, usePresets } from "@/lib/chats";
+import { EstimateResponse } from "@/lib/contracts/chat";
+import { useIsMobile, useIsWide } from "@/lib/hooks/useMedia";
+import { DEMO_FILES, DEMO_VOICE } from "@/lib/mock/chat";
 
 import type { ComposerPreset, SheetPreset } from "./state";
 import { useChatFormat } from "./useFormat";
-import { useIsMobile, useIsWide } from "@/lib/hooks/useMedia";
 
 // The composer and everything it opens, shared by Home and the chat screens:
 //   desktop: Composer (+ menu, voice, files) and the Model picker modal;
 //   mobile: Mobile composer, the “+” sheet (M3), voice (M4 → M18), mode sheet (M7), Choose AIs (M25).
-// Sending is up to the screen (`onSend`); this demo has no backend.
+// The models start from the preset in use (or the chat's models); the estimate comes from
+// POST /api/estimate. Sending is up to the screen (`onSend`). Voice and files are still stand-ins
+// (no speech or upload service yet): they fill in the prototype's sample text and files.
 
 export type AnswerMode = "best" | "compare";
+
+export interface SendPayload {
+  text: string;
+  models: ModelId[];
+  attachments: { name: string; kind: "file" | "image"; size: number }[];
+}
 
 export interface UseComposerOptions {
   context: "home" | "chat";
   mode: AnswerMode;
   onModeChange: (mode: AnswerMode) => void;
-  onSend: (text: string) => void;
-  /** What the demo voice input hears. */
+  /** Return false to keep the text (e.g. the send failed). */
+  onSend: (payload: SendPayload) => void | boolean | Promise<void | boolean>;
+  /** What the stand-in voice input hears. */
   voiceText: string;
   placeholder: { desktop: string; mobile: string };
-  /** Composer estimate, e.g. { min: 2, max: 4 } → "≈ 2 to 4 cr". */
-  estimate: { min: number; max: number };
+  /** Follow-ups: the chat, so the estimate includes catch-up. */
+  chatId?: string;
+  /** Follow-ups: the chat's models (else the preset in use). */
+  initialModels?: ModelId[];
   initial?: ComposerPreset;
   initialSheet?: SheetPreset;
-  /** Text already in the composer (e.g. the prototype's prompt 3). */
   initialValue?: string;
+  /** Disable sending (e.g. while answers are on their way). */
+  busy?: boolean;
 }
 
-const DEFAULT_MODELS: ModelId[] = ["gpt", "claude", "gemini"];
+/** The mobile Choose AIs sheet allows three (M25). */
+const MOBILE_MAX = 3;
+const ESTIMATE_DEBOUNCE_MS = 300;
+
+const sizeOf = (s: string) => {
+  const m = /([\d.]+)\s*(KB|MB|GB)/i.exec(s);
+  if (!m) return 0;
+  const unit = { KB: 1e3, MB: 1e6, GB: 1e9 }[m[2].toUpperCase() as "KB"];
+  return Math.round(Number(m[1]) * unit);
+};
+
+/** POST /api/estimate, debounced. */
+function useEstimate(
+  text: string,
+  mode: AnswerMode,
+  models: ModelId[],
+  chatId?: string,
+) {
+  const [estimate, setEstimate] = useState<EstimateResponse | null>(null);
+  const key = JSON.stringify([text.trim(), mode, models, chatId]);
+  useEffect(() => {
+    if (!models.length) return;
+    const ctrl = new AbortController();
+    const t = setTimeout(() => {
+      api("/api/estimate", {
+        method: "POST",
+        body: { text: text.trim(), mode, models, chatId },
+        schema: EstimateResponse,
+        signal: ctrl.signal,
+      })
+        .then(setEstimate)
+        .catch(() => {});
+    }, ESTIMATE_DEBOUNCE_MS);
+    return () => {
+      clearTimeout(t);
+      ctrl.abort();
+    };
+    // `key` covers text, mode, models and chat.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  return estimate;
+}
 
 export function useComposer({
   context,
@@ -61,10 +127,12 @@ export function useComposer({
   onSend,
   voiceText,
   placeholder,
-  estimate,
+  chatId,
+  initialModels,
   initial,
   initialSheet,
   initialValue = "",
+  busy = false,
 }: UseComposerOptions) {
   const t = useTranslations("composer");
   const tp = useTranslations("picker");
@@ -74,6 +142,7 @@ export function useComposer({
   // Between 768 and 1280px the Composer is narrower than Figma's 880px: keep its toolbar on one
   // line by dropping the estimate and using the short models label.
   const wide = useIsWide();
+  const presets = usePresets();
 
   const [value, setValue] = useState(
     initial === "voice-ready" ? voiceText : initialValue,
@@ -88,35 +157,84 @@ export function useComposer({
   const [files, setFiles] = useState<string[]>(
     initial === "files" ? DEMO_FILES.map((f) => f.id) : [],
   );
-  const [models, setModels] = useState<ModelId[]>(DEFAULT_MODELS);
+  // null: follow the chat's models or the preset in use.
+  const [picked, setPicked] = useState<ModelId[] | null>(null);
+  const models = picked ?? initialModels ?? presets.models;
   const [pickerOpen, setPickerOpen] = useState(initialSheet === "models");
   const [chooseOpen, setChooseOpen] = useState(initialSheet === "models");
   const [modeOpen, setModeOpen] = useState(initialSheet === "mode");
-  const [preset, setPreset] = useState("recommended");
   const [pickerTab, setPickerTab] = useState("chat");
   const [filter, setFilter] = useState("all");
+  const [sending, setSending] = useState(false);
+  // While the picker is open: the selection being edited, and what applying it does.
+  const [draft, setDraft] = useState<ModelId[] | null>(null);
+  const onPicked = useRef<((models: ModelId[]) => void) | null>(null);
 
-  const send = () => {
-    onSend(value);
-    setValue("");
-    setVoiceNote(false);
-    setFiles([]);
+  const estimate = useEstimate(value, mode, models, chatId);
+  const range = estimate
+    ? { min: estimate.minCredits, max: estimate.maxCredits }
+    : null;
+
+  const attached = DEMO_FILES.filter((f) => files.includes(f.id));
+  const send = async () => {
+    const text = value.trim();
+    if (!text || busy || sending || !models.length) return;
+    setSending(true);
+    try {
+      const ok = await onSend({
+        text,
+        models,
+        attachments: attached.map((f) => ({
+          name: f.name,
+          kind: f.kind,
+          size: sizeOf(f.size),
+        })),
+      });
+      if (ok !== false) {
+        setValue("");
+        setVoiceNote(false);
+        setFiles([]);
+      }
+    } finally {
+      setSending(false);
+    }
   };
   const finishVoice = () => {
     setListening(false);
     setValue(voiceText);
     setVoiceNote(true);
   };
-  const toggleModel = (id: ModelId, on: boolean) =>
-    setModels((list) =>
-      on
-        ? list.includes(id)
-          ? list
-          : [...list, id]
-        : list.filter((m) => m !== id),
-    );
 
-  const attached = DEMO_FILES.filter((f) => files.includes(f.id));
+  const selection = draft ?? models;
+  const toggle = (id: ModelId, on: boolean, max: number) =>
+    setDraft((list) => {
+      const l = list ?? models;
+      return on
+        ? l.includes(id) || l.length >= max
+          ? l
+          : [...l, id]
+        : l.filter((m) => m !== id);
+    });
+  const openPicker = (after?: (models: ModelId[]) => void) => {
+    onPicked.current = after ?? null;
+    setDraft(models);
+    (mobile ? setChooseOpen : setPickerOpen)(true);
+  };
+  const closePicker = () => {
+    setPickerOpen(false);
+    setChooseOpen(false);
+    setDraft(null);
+    onPicked.current = null;
+  };
+  const applyPicker = () => {
+    const next = draft ?? models;
+    if (!next.length) return;
+    const after = onPicked.current;
+    if (after) after(next);
+    else setPicked(next);
+    closePicker();
+  };
+
   const desktopFiles: ComposerAttachment[] = attached.map((f) => ({
     id: f.id,
     name: f.name,
@@ -135,10 +253,8 @@ export function useComposer({
     meta: t("fileReady", { type: f.type, size: f.size }),
   }));
 
-  const modelName = (id: ModelId) =>
-    PICKER_MODELS.find((m) => m.id === id)?.name ?? MODELS[id].name;
   const shortName = (id: ModelId) =>
-    id === "claude" || id === "gemini" ? MODELS[id].name : modelName(id);
+    id === "claude" || id === "gemini" ? MODELS[id].name : MODEL_SPECS[id].name;
 
   const modes = [
     { value: "best", label: t("modes.best") },
@@ -155,9 +271,10 @@ export function useComposer({
     mode,
     onModeChange: (m) => onModeChange(m as AnswerMode),
     models,
-    estimate: wide
-      ? t("estimate", { min: cr(estimate.min), max: cr(estimate.max) })
-      : undefined,
+    estimate:
+      wide && range
+        ? t("estimate", { min: cr(range.min), max: cr(range.max) })
+        : undefined,
     attachments: desktopFiles,
     voice: listening
       ? {
@@ -198,16 +315,16 @@ export function useComposer({
         {button}
       </ComposerMenu>
     ),
-    onPickModels: () => setPickerOpen(true),
+    onPickModels: () => openPicker(),
     onVoice: () => setListening(true),
-    onSend: send,
+    onSend: () => void send(),
     onRemoveAttachment: (id) => setFiles((l) => l.filter((f) => f !== id)),
     onCancelVoice: () => setListening(false),
     onDoneVoice: finishVoice,
     onKeyDown: (e) => {
       if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
         e.preventDefault();
-        send();
+        void send();
       }
     },
   };
@@ -231,42 +348,55 @@ export function useComposer({
       onAdd={() => setAttachOpen(true)}
       onMode={() => setModeOpen(true)}
       onVoice={() => setListening(true)}
-      onSend={send}
+      onSend={() => void send()}
       onRemoveFile={(id) => setFiles((l) => l.filter((f) => f !== id))}
     />
   );
 
-  const pickerModels: PickerModel[] = PICKER_MODELS.map((m) => ({
-    id: m.id,
-    model: m.id,
-    name: m.name,
-    provider: m.provider,
-    versions: [{ value: m.version, label: m.version }],
-    version: m.version,
-    tags: m.tags.map((tag) => tp(`tags.${tag}`)),
-    speed: m.speed,
-    cost: tp("cost", { credits: cr(m.cost) }),
-  }));
-  const perPrompt = PICKER_MODELS.filter((m) => models.includes(m.id)).reduce(
-    (s, m) => s + m.cost,
-    0,
-  );
+  const typical = (id: ModelId) => credits(typicalAnswerMcr(id));
+  const pickerModels: PickerModel[] = PICKER_ORDER.map((id) => {
+    const m = MODEL_SPECS[id];
+    return {
+      id,
+      model: id,
+      name: m.name,
+      provider: m.provider,
+      versions: [{ value: m.version, label: m.version }],
+      version: m.version,
+      tags: m.tags.map((tag) => tp(`tags.${tag}`)),
+      speed: m.speed,
+      cost: tp("cost", { credits: cr(Math.round(typical(id))) }),
+    };
+  });
+  const perPrompt = selection.reduce((s, id) => s + typical(id), 0);
+
+  // The mode sheet's presets: the built-in ones, by key.
+  const builtIn = (key: string) =>
+    presets.presets.find((p) => builtInKey(p) === key);
+  const presetKey =
+    (["recommended", "cheapest", "bangla"] as const).find(
+      (k) => JSON.stringify(builtIn(k)?.models) === JSON.stringify(models),
+    ) ?? "recommended";
 
   const overlays: ReactNode = (
     <>
       <ModelPickerModal
         open={pickerOpen && !mobile}
-        onOpenChange={setPickerOpen}
+        onOpenChange={(open) => (open ? setPickerOpen(true) : closePicker())}
         labels={{
           title: tp("title"),
           subtitle: tp("subtitle"),
           close: tp("close"),
-          selected: tp("selected", { count: models.length }),
-          estimate: tp("estimate", { credits: cr(perPrompt) }),
+          selected: tp("selected", { count: selection.length }),
+          estimate: tp("estimate", { credits: cr(Math.round(perPrompt)) }),
           remove: (name) => tp("remove", { name }),
           tabs: [
-            { value: "chat", label: tp("tabs.chat"), count: cr(11) },
-            { value: "image", label: tp("tabs.image"), count: cr(2) },
+            {
+              value: "chat",
+              label: tp("tabs.chat"),
+              count: cr(PICKER_ORDER.length),
+            },
+            { value: "image", label: tp("tabs.image"), count: cr(1) },
           ],
           search: tp("search"),
           preset: tp("preset"),
@@ -278,19 +408,19 @@ export function useComposer({
             speed: tp("columns.speed"),
             cost: tp("columns.cost"),
           },
-          selectedGroup: tp("selectedGroup", { count: models.length }),
+          selectedGroup: tp("selectedGroup", { count: selection.length }),
           moreGroup: tp("moreGroup", {
-            count: PICKER_MODELS.length - models.length,
+            count: PICKER_ORDER.length - selection.length,
           }),
           version: (name) => tp("version", { name }),
           reset: tp("reset"),
           hint: tp("hint"),
           savePreset: tp("savePreset"),
-          apply: tp("apply", { count: models.length }),
+          apply: tp("apply", { count: selection.length }),
         }}
         models={pickerModels}
-        selected={models}
-        onToggle={(id, on) => toggleModel(id as ModelId, on)}
+        selected={selection}
+        onToggle={(id, on) => toggle(id as ModelId, on, MAX_MODELS)}
         onVersionChange={() => {}}
         tab={pickerTab}
         onTabChange={setPickerTab}
@@ -307,8 +437,15 @@ export function useComposer({
         ).map((f) => ({ value: f, label: tp(`filters.${f}`) }))}
         filter={filter}
         onFilterChange={setFilter}
-        onReset={() => setModels(DEFAULT_MODELS)}
-        onApply={() => setPickerOpen(false)}
+        onReset={() => setDraft(presets.models ?? DEFAULT_MODELS)}
+        onSavePreset={() => {
+          if (!selection.length) return;
+          void presets.create(
+            commas(selection.map((m) => MODEL_SPECS[m].short)),
+            selection,
+          );
+        }}
+        onApply={applyPicker}
       />
       <AttachSheet
         open={attachOpen && mobile}
@@ -376,45 +513,50 @@ export function useComposer({
           value: p,
           label: tp(`mode.presets.${p}`),
         }))}
-        preset={preset}
-        onPresetChange={setPreset}
+        preset={presetKey}
+        onPresetChange={(key) => {
+          const p = builtIn(key);
+          if (p) setPicked(p.models);
+        }}
         models={models}
         modelNames={commas(models.map(shortName))}
         cost={tp("mode.cost", {
-          min: cr(6),
-          max: cr(14),
-          minMoney: money(6),
-          maxMoney: money(14),
+          min: cr(range?.min ?? 0),
+          max: cr(range?.max ?? 0),
+          minMoney: money(range?.min ?? 0),
+          maxMoney: money(range?.max ?? 0),
         })}
         changeLabel={tp("mode.change")}
         onChange={() => {
           setModeOpen(false);
-          setChooseOpen(true);
+          openPicker();
         }}
         doneLabel={tp("mode.done")}
       />
       <ChooseModelsSheet
         open={chooseOpen && mobile}
-        onOpenChange={setChooseOpen}
-        title={tp("mobile.title", { max: 3 })}
-        count={tp("mobile.count", { count: models.length, max: 3 })}
-        description={tp("mobile.body")}
-        options={MOBILE_PICKER_IDS.map((id) => {
-          const m = PICKER_MODELS.find((p) => p.id === id);
-          return {
-            id,
-            name: shortName(id),
-            description: tp("mobile.option", {
-              description: tp(`mobile.descriptions.${id as "gpt"}`),
-              credits: cr(m?.costMobile ?? 1),
-            }),
-          };
+        onOpenChange={(open) => (open ? setChooseOpen(true) : closePicker())}
+        title={tp("mobile.title", { max: MOBILE_MAX })}
+        count={tp("mobile.count", {
+          count: selection.length,
+          max: MOBILE_MAX,
         })}
-        selected={models}
-        onToggle={toggleModel}
+        description={tp("mobile.body")}
+        options={MOBILE_PICKER_ORDER.map((id) => ({
+          id,
+          name: shortName(id),
+          description: tp("mobile.option", {
+            description: tp(`mobile.descriptions.${id as "gpt"}`),
+            credits: cr(
+              Math.round(credits(typicalAnswerMcr(id, 100)) * 10) / 10,
+            ),
+          }),
+        }))}
+        selected={selection}
+        onToggle={(id, on) => toggle(id, on, MOBILE_MAX)}
         limitNote={tp("mobile.limit")}
-        applyLabel={tp("mobile.apply", { count: models.length })}
-        onApply={() => setChooseOpen(false)}
+        applyLabel={tp("mobile.apply", { count: selection.length })}
+        onApply={applyPicker}
       />
     </>
   );
@@ -423,11 +565,20 @@ export function useComposer({
     desktopProps,
     mobileComposer,
     overlays,
-    /** Opens the model picker (desktop) or Choose AIs (mobile), e.g. from "Swap model". */
-    openPicker: () => (mobile ? setChooseOpen : setPickerOpen)(true),
+    value,
+    setValue,
+    models,
+    setModels: (m: ModelId[]) => setPicked(m),
+    estimate,
+    sending,
+    /**
+     * Opens the model picker (desktop) or Choose AIs (mobile). With `after`, applying calls it
+     * with the chosen models instead of changing the composer's (e.g. "Swap model").
+     */
+    openPicker,
     /** Opens "How should we answer?" (M7). */
     openModeSheet: () => setModeOpen(true),
-    /** Puts the demo voice text in the composer, as after dictation (M18). */
+    /** Puts the stand-in voice text in the composer, as after dictation (M18). */
     prefillVoice: () => {
       setValue(voiceText);
       setVoiceNote(true);

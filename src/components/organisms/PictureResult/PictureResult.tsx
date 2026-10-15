@@ -27,6 +27,8 @@ export interface PictureResultProps {
   back: { label: string; link: ReactElement<{ className?: string }> };
   tone: PictureTone;
   caption?: string;
+  /** A generated image's URL; without it the gradient placeholder is drawn. */
+  src?: string;
   pending?: boolean;
   labels: {
     /** "Your picture is ready" (or "Making your picture…" while pending). */
@@ -93,6 +95,7 @@ export function PictureResult({
   back,
   tone,
   caption,
+  src,
   pending = false,
   labels,
   download,
@@ -122,6 +125,7 @@ export function PictureResult({
         <PicturePlaceholder
           tone={tone}
           caption={caption}
+          src={src}
           pending={pending}
           role="img"
           aria-label={title}

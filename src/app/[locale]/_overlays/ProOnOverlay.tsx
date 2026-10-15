@@ -6,24 +6,30 @@ import { Button } from "@/components/atoms/Button";
 import { ResultHero } from "@/components/molecules/ResultHero";
 import { ScreenDialog } from "@/components/organisms/ScreenDialog";
 import { useRouter } from "@/lib/i18n/navigation";
-import { PRO_PLAN } from "@/lib/mock/wallet";
+import { useMe } from "@/lib/me";
+import { PRO_PLAN } from "@/lib/payments/client";
 
 import type { OverlayProps } from "../_shell/overlays";
 
-// Figma: Overlay · Pro is on (desktop dialog) and M38 · Pro is on (mobile full screen).
+// Figma: Overlay · Pro is on (desktop dialog) and M38 · Pro is on (mobile full screen). The next
+// payment date is the plan's renewal date from the server (users.pro_renews_at).
 
 export function ProOnOverlay({ open, onOpenChange }: OverlayProps) {
   const t = useTranslations("pro.on");
   const format = useFormatter();
   const router = useRouter();
+  const { user } = useMe();
+  const renews = user?.proRenewsAt;
   const params = {
     credits: format.number(PRO_PLAN.credits),
     bdt: format.number(PRO_PLAN.bdt),
-    date: format.dateTime(new Date(PRO_PLAN.renews), {
-      month: "short",
-      day: "numeric",
-      timeZone: "Asia/Dhaka",
-    }),
+    date: renews
+      ? format.dateTime(new Date(renews), {
+          month: "short",
+          day: "numeric",
+          timeZone: "Asia/Dhaka",
+        })
+      : "",
   };
   const go = (href: "/" | "/wallet") => {
     onOpenChange(false);

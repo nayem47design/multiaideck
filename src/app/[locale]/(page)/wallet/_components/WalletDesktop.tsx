@@ -65,7 +65,8 @@ export function WalletDesktop({ className }: { className?: string }) {
     s.wallet?.balance.credits ?? null,
   );
   const balance = known ?? 0;
-  const avg = s.wallet?.averagePromptCredits ?? null;
+  // "About N chats" divides by the average spend per chat.
+  const avg = s.wallet?.averageChatCredits ?? null;
   const pro = (s.wallet?.plan ?? plan) === "pro";
   const spent = s.wallet?.spentThisMonth.credits ?? 0;
   const chats = s.wallet?.chatsThisMonth ?? 0;
@@ -301,7 +302,8 @@ export function WalletDesktop({ className }: { className?: string }) {
                       })
                     : t("order.chooseAmount")
                 }
-                payDisabled={!q || topUp.busy}
+                // Enabled once the wallet has loaded (and the page is interactive).
+                payDisabled={!q || topUp.busy || known === null}
                 onPay={pay}
                 trust={[
                   { icon: "square-lock-02", label: t("order.secured") },

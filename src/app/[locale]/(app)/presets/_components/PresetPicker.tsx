@@ -10,8 +10,21 @@ import {
   type PickerModel,
 } from "@/components/organisms/ModelPickerModal";
 import { useIsMobile } from "@/lib/hooks/useMedia";
+import { MAX_MODELS, MODEL_SPECS } from "@/lib/ai/catalog";
 import type { ModelId } from "@/lib/ai/models";
-import { MAX_MODELS, PICKER_MODELS } from "@/lib/mock/presets";
+import { typicalAnswerMcr } from "@/lib/billing/pricing";
+import { credits } from "@/lib/billing/units";
+import { PICKER_MODELS as PICKER_TAGS } from "@/lib/mock/presets";
+
+// Names, versions and costs come from the model catalog and pricing; the "good for" tags and
+// filters are this picker's own (presets.picker.tags).
+const PICKER_MODELS = PICKER_TAGS.map((m) => ({
+  ...m,
+  name: MODEL_SPECS[m.model].name,
+  provider: MODEL_SPECS[m.model].provider,
+  version: MODEL_SPECS[m.model].version,
+  credits: Math.round(credits(typicalAnswerMcr(m.model))),
+}));
 
 // Prototype › Presets: "Edit" and "New preset" open the Model picker overlay (Design system ›
 // Model picker modal). Below 768px the 1000px panel can't fit, so the "Choose AIs" sheet (M25)

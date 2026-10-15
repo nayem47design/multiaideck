@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const APP_URL = "http://localhost:3000";
+/** Cookies of the demo user, written by tests/e2e/auth.setup.ts (git-ignored). */
+export const DEMO_STATE = "playwright/.auth/demo.json";
 const STORYBOOK_URL = "http://localhost:6006";
 
 export default defineConfig({
@@ -13,6 +15,14 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
+    // Signs in as the demo user (POST /api/dev/sign-in-demo) once; the e2e projects start from
+    // that session. Tests that sign out or test sign-in start their own (see tests/e2e/auth.ts).
+    {
+      name: "e2e-setup",
+      testDir: "./tests/e2e",
+      testMatch: /auth\.setup\.ts/,
+      use: { baseURL: APP_URL },
+    },
     // User flows from the Figma prototype, against the app.
     {
       name: "desktop",
@@ -22,12 +32,19 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         viewport: { width: 1440, height: 900 },
         baseURL: APP_URL,
+        storageState: DEMO_STATE,
       },
+      dependencies: ["e2e-setup"],
     },
     {
       name: "mobile",
       testDir: "./tests/e2e",
-      use: { ...devices["Pixel 7"], baseURL: APP_URL },
+      use: {
+        ...devices["Pixel 7"],
+        baseURL: APP_URL,
+        storageState: DEMO_STATE,
+      },
+      dependencies: ["e2e-setup"],
     },
     // Components vs Figma references, against Storybook. Figma exports are 2×.
     {
@@ -55,7 +72,9 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         viewport: { width: 1440, height: 900 },
         baseURL: APP_URL,
+        storageState: DEMO_STATE,
       },
+      dependencies: ["e2e-setup"],
     },
   ],
   webServer: [

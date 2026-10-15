@@ -2,7 +2,8 @@
 
 import { useFormatter, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { z } from "zod";
 
 import { cx, focusRing } from "@/components/atoms/states";
 import { PicturePlaceholder } from "@/components/molecules/PicturePlaceholder";
@@ -13,17 +14,17 @@ import {
   BrowseColumn,
   useBrowseToast,
 } from "@/components/templates/BrowseColumn";
+import { api, ApiClientError } from "@/lib/api-client";
+import { IMAGE_MCR } from "@/lib/billing/pricing";
+import { credits as toCredits } from "@/lib/billing/units";
+import { invalidateChats } from "@/lib/chats";
+import { ImageSchema, type Image } from "@/lib/contracts/account";
 import { Link, useRouter } from "@/lib/i18n/navigation";
-import { CREDIT_IN_BDT } from "@/lib/mock/demo";
+import { me } from "@/lib/me";
 import {
   captionFrom,
   DEFAULT_PROMPT,
-  DEMO_PICTURES,
-  PICTURE_CREDITS,
-  PICTURE_DELAY_MS,
   PICTURE_STYLES,
-  titleFrom,
-  type DemoPicture,
   type PictureStyle,
   type PictureTone,
 } from "@/lib/mock/images";
@@ -32,21 +33,47 @@ import { downloadPicture } from "./download";
 
 // Figma: Prototype › Image studio and Image studio · Picture ready (desktop); M21 · Make a picture
 // and M22 · Picture ready (mobile). /images is the prompt form; /images?picture=<id> the picture.
-// "Create picture" simulates the image AI: the new picture (?picture=new) shimmers, then is ready.
+// "Create picture" is POST /api/images (about 40 credits, held first); the picture shimmers until
+// it's ready (polling GET /api/images/:id). Without an image provider the server makes a stand-in
+// and the screen draws it as Figma does (a gradient with the prompt's quoted text).
 // Prototype: Create picture / Picture 1 → Picture ready; back and Make another version → Image
 // studio; Use in a chat → Home; M22 back → Home.
 
-const NEW = "new";
+const POLL_MS = 1200;
 const TONE_FOR_STYLE: Record<PictureStyle, PictureTone> = {
   drawing: "warm",
   photo: "blue",
   poster: "green",
   logo: "pink",
 };
+const ImagesResponse = z.object({ images: z.array(ImageSchema) });
 
 /** Reads ?picture= (wrap in <Suspense>; the fallback renders the form). */
 export function ImageStudioFromParams() {
   return <ImageStudio pictureId={useSearchParams().get("picture")} />;
+}
+
+function usePictures() {
+  const [pictures, setPictures] = useState<Image[]>([]);
+  const reload = useCallback(async () => {
+    try {
+      const { images } = await api("/api/images", { schema: ImagesResponse });
+      setPictures(images);
+      return images;
+    } catch {
+      return null;
+    }
+  }, []);
+  useEffect(() => {
+    let live = true;
+    api("/api/images", { schema: ImagesResponse })
+      .then(({ images }) => live && setPictures(images))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
+  return { pictures, setPictures, reload };
 }
 
 export function ImageStudio({ pictureId }: { pictureId: string | null }) {
@@ -57,37 +84,61 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
   const { toast, show } = useBrowseToast();
   const [prompt, setPrompt] = useState(DEFAULT_PROMPT);
   const [style, setStyle] = useState<PictureStyle>("drawing");
-  const [created, setCreated] = useState<DemoPicture | null>(null);
   const [creating, setCreating] = useState(false);
+  const { pictures, setPictures } = usePictures();
   const pictureRef = useRef<HTMLDivElement>(null);
 
+  const priceCredits = toCredits(IMAGE_MCR);
   const money = tc("taka", {
-    amount: format.number(PICTURE_CREDITS * CREDIT_IN_BDT, {
-      minimumFractionDigits: 2,
-    }),
+    amount: format.number(priceCredits / 100, { minimumFractionDigits: 2 }),
   });
-  const credits = format.number(PICTURE_CREDITS);
-  const pictures = created ? [created, ...DEMO_PICTURES] : DEMO_PICTURES;
-  const picture =
-    pictureId === NEW ? created : DEMO_PICTURES.find((p) => p.id === pictureId);
+  const credits = format.number(priceCredits);
+  const picture = pictures.find((p) => p.id === pictureId);
 
-  const create = () => {
+  // Poll a picture that's still being made.
+  const generating = picture?.status === "generating";
+  useEffect(() => {
+    if (!generating || !pictureId) return;
+    const timer = setInterval(async () => {
+      try {
+        const next = await api(`/api/images/${pictureId}`, {
+          schema: ImageSchema,
+        });
+        if (next.status !== "generating") {
+          setPictures((list) => list.map((p) => (p.id === next.id ? next : p)));
+          void me.refresh();
+          invalidateChats();
+        }
+      } catch {
+        // try again on the next tick
+      }
+    }, POLL_MS);
+    return () => clearInterval(timer);
+  }, [generating, pictureId, setPictures]);
+
+  const create = async () => {
     const clean = prompt.trim();
-    setCreated({
-      id: NEW,
-      title: titleFrom(clean),
-      prompt: clean,
-      style,
-      tone: TONE_FOR_STYLE[style],
-      caption: captionFrom(clean),
-      credits: PICTURE_CREDITS,
-    });
+    if (!clean || creating) return;
     setCreating(true);
-    router.push(`/images?picture=${NEW}`);
-    setTimeout(() => setCreating(false), PICTURE_DELAY_MS);
+    try {
+      const image = await api("/api/images", {
+        method: "POST",
+        body: { prompt: clean, style },
+        schema: ImageSchema,
+      });
+      setPictures((list) => [image, ...list]);
+      void me.refresh();
+      invalidateChats();
+      router.push(`/images?picture=${image.id}`);
+    } catch (e) {
+      if (e instanceof ApiClientError && e.code === "insufficient_credits")
+        router.push("/wallet/top-up");
+    } finally {
+      setCreating(false);
+    }
   };
 
-  const share = async (p: DemoPicture) => {
+  const share = async (p: Image) => {
     const url = window.location.href;
     try {
       if (navigator.share) await navigator.share({ title: p.title, url });
@@ -100,8 +151,27 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
     }
   };
 
+  const download = async (p: Image) => {
+    if (p.placeholder || !p.fileUrl) {
+      const el = pictureRef.current?.querySelector<HTMLElement>("[data-tone]");
+      if (el && downloadPicture(el, p.title)) show(t("saved"));
+      return;
+    }
+    const link = document.createElement("a");
+    link.href = p.fileUrl;
+    link.download = `${
+      p.title
+        .trim()
+        .replace(/[^\p{L}\p{N}]+/gu, "-")
+        .toLowerCase() || "picture"
+    }.png`;
+    link.click();
+    show(t("saved"));
+  };
+
   if (picture) {
-    const pending = picture.id === NEW && creating;
+    const pending = picture.status === "generating";
+    const tone = TONE_FOR_STYLE[picture.style];
     return (
       <BrowseColumn
         toast={toast}
@@ -123,8 +193,15 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
           <PictureResult
             title={picture.title}
             back={{ label: t("back"), link: <Link href="/images" /> }}
-            tone={picture.tone}
-            caption={picture.caption}
+            tone={tone}
+            caption={
+              picture.placeholder ? captionFrom(picture.prompt) : undefined
+            }
+            src={
+              !picture.placeholder && picture.fileUrl
+                ? picture.fileUrl
+                : undefined
+            }
             pending={pending}
             labels={{
               status: pending ? t("making") : t("ready"),
@@ -138,11 +215,7 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
             download={{
               label: t("download"),
               mobileLabel: t("saveToPhone"),
-              onClick: () => {
-                const el =
-                  pictureRef.current?.querySelector<HTMLElement>("[data-tone]");
-                if (el && downloadPicture(el, picture.title)) show(t("saved"));
-              },
+              onClick: () => void download(picture),
             }}
             share={{ label: t("share"), onClick: () => share(picture) }}
             another={{
@@ -189,7 +262,7 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
           }))}
           style={style}
           onStyleChange={(s) => setStyle(s as PictureStyle)}
-          onCreate={create}
+          onCreate={() => void create()}
           labels={{
             prompt: t("prompt"),
             placeholder: t("placeholder"),
@@ -199,30 +272,37 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
             create: t("create"),
           }}
         />
-        <section
-          aria-labelledby="recent-pictures"
-          className="flex flex-col gap-browse-gap max-md:mt-4"
-        >
-          <h2 id="recent-pictures" className="type-ui-strong text-ink-2">
-            {t("recent")}
-          </h2>
-          <ul className="grid grid-cols-2 gap-3 md:grid-cols-4">
-            {pictures.map((p) => (
-              <li key={p.id}>
-                <Link
-                  href={`/images?picture=${p.id}`}
-                  aria-label={t("open", { title: p.title })}
-                  className={cx(
-                    "block rounded-images-tile transition-transform duration-fast ease-out hover:-translate-y-0-5",
-                    focusRing,
-                  )}
-                >
-                  <PicturePlaceholder tone={p.tone} size="sm" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {pictures.length > 0 && (
+          <section
+            aria-labelledby="recent-pictures"
+            className="flex flex-col gap-browse-gap max-md:mt-4"
+          >
+            <h2 id="recent-pictures" className="type-ui-strong text-ink-2">
+              {t("recent")}
+            </h2>
+            <ul className="grid grid-cols-2 gap-3 md:grid-cols-4">
+              {pictures.map((p) => (
+                <li key={p.id}>
+                  <Link
+                    href={`/images?picture=${p.id}`}
+                    aria-label={t("open", { title: p.title })}
+                    className={cx(
+                      "block rounded-images-tile transition-transform duration-fast ease-out hover:-translate-y-0-5",
+                      focusRing,
+                    )}
+                  >
+                    <PicturePlaceholder
+                      tone={TONE_FOR_STYLE[p.style]}
+                      size="sm"
+                      pending={p.status === "generating"}
+                      src={!p.placeholder && p.fileUrl ? p.fileUrl : undefined}
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </BrowseColumn>
   );

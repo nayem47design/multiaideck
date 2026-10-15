@@ -44,7 +44,8 @@ export async function seedDemo(db: Db) {
       userId: user.id,
       kind: "adjustment",
       amountMcr: diff,
-      idempotencyKey: `seed:demo-balance:${user.id}`,
+      // Keyed by the correction, so a seed that adds history later re-balances once.
+      idempotencyKey: `seed:demo-balance:${user.id}:${diff}`,
       note: "Demo seed: prototype balance",
     });
   return user;

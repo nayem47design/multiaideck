@@ -8,15 +8,17 @@ import {
   SearchChatsPanel,
   type SearchChatsResult,
 } from "@/components/organisms/SearchChatsPanel";
+import { IMAGE_MODEL } from "@/lib/ai/catalog";
+import { chatHref, dayOf, useChats, useDebounced } from "@/lib/chats";
+import type { ChatSummary } from "@/lib/contracts/chat";
 import { useRouter } from "@/lib/i18n/navigation";
-import { DEMO_CHATS, type DemoChat } from "@/lib/mock/demo";
-import { chatHref, chatModels } from "@/lib/mock/images";
 
 import type { OverlayProps } from "../_shell/overlays";
 
 // Figma: Prototype › "Overlay · Search chats" (166:27803), opened by ⌘K anywhere and the sidebar's
-// search field. Filters the chat list as you type (title and first prompt), ↑/↓ move, ↵ opens,
-// Esc closes. Prototype: Result · Coffee shop names → the chat; Golpo Coffee sign → Picture ready.
+// search field. Searches as you type (GET /api/chats?q=: titles and every prompt), ↑/↓ move,
+// ↵ opens, Esc closes. Prototype: Result · Coffee shop names → the chat; Golpo Coffee sign →
+// Picture ready.
 
 const EXCERPT_WORDS_BEFORE = 2;
 
@@ -54,30 +56,28 @@ function SearchChats({ onDone }: { onDone: () => void }) {
   const [active, setActive] = useState(0);
 
   const q = query.trim();
-  const matches = q
-    ? DEMO_CHATS.filter(
-        (c) =>
-          c.title.toLowerCase().includes(q.toLowerCase()) ||
-          c.snippet.toLowerCase().includes(q.toLowerCase()),
-      )
-    : DEMO_CHATS;
+  const debounced = useDebounced(q, 150);
+  const all = useChats();
+  const found = useChats({ q: debounced || undefined });
+  const matches = debounced ? found.chats : all.chats;
 
-  const detail = (c: DemoChat) => {
-    const found = q && c.kind !== "image" ? excerpt(c.snippet, q) : null;
+  const detail = (c: ChatSummary) => {
+    const hit = q && c.kind !== "image" ? excerpt(c.snippet, q) : null;
+    const day = dayOf(c.updatedAt);
     return t("detail", {
-      text: found ? t("excerpt", { text: found }) : t(`kind.${c.kind}`),
-      day: tn(c.day),
+      text: hit ? t("excerpt", { text: hit }) : t(`kind.${c.kind}`),
+      day: day === "earlier" ? t("earlier") : tn(day),
     });
   };
   const results: SearchChatsResult[] = matches.map((c) => ({
     id: c.id,
     title: c.title,
     detail: detail(c),
-    models: chatModels(c),
+    models: c.kind === "image" && !c.models.length ? [IMAGE_MODEL] : c.models,
   }));
 
   const open = (id: string) => {
-    const chat = DEMO_CHATS.find((c) => c.id === id);
+    const chat = matches.find((c) => c.id === id);
     if (!chat) return;
     onDone();
     router.push(chatHref(chat));

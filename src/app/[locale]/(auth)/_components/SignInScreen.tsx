@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useState, useSyncExternalStore } from "react";
+import { useLayoutEffect, useState, useSyncExternalStore } from "react";
 
 import { cx } from "@/components/atoms/states";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
@@ -87,6 +87,8 @@ export function SignInScreen({
     googleError ? { key: googleKey(googleError) } : undefined,
   );
   const [sending, setSending] = useState(false);
+  // Pages stay mounted (hidden) after navigation; coming back must not find it still sending.
+  useLayoutEffect(() => () => setSending(false), []);
   const waitFor = useCountdown(
     problem && "until" in problem ? problem.until : null,
   );

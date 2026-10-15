@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
@@ -11,69 +11,64 @@ import {
   useBrowseToast,
 } from "@/components/templates/BrowseColumn";
 import type { ModelId } from "@/lib/ai/models";
+import { estimatePrompt } from "@/lib/billing/pricing";
+import { credits } from "@/lib/billing/units";
+import { builtInKey, usePresets } from "@/lib/chats";
+import type { Preset } from "@/lib/contracts/account";
 import { Link, useRouter } from "@/lib/i18n/navigation";
-import {
-  DEFAULT_PRESET,
-  DEMO_PRESETS,
-  PICKER_MODELS,
-  presetInUse,
-  type DemoPreset,
-} from "@/lib/mock/presets";
 
 import { PresetPicker } from "./PresetPicker";
 
 // Figma: Prototype › Presets (desktop; no mobile screen, so below 768px the cards stack under a
-// top bar). Prototype: Use → Home; Edit and New preset → Model picker. Edits and new presets live
-// on this page (no backend until Phase 6); the preset in use is remembered on this device.
+// top bar). Prototype: Use → Home; Edit and New preset → Model picker. Presets are the user's
+// (/api/presets); "Use" puts one in use for the composer everywhere.
 
-const BUILT_IN = new Set(DEMO_PRESETS.map((p) => p.id));
+type DemoPreset = Preset;
+/** A short question's tokens, for the "≈ low–high cr a question" line. */
+const QUESTION_TOKENS = 30;
 
 export function PresetsScreen() {
   const t = useTranslations("presets");
   const format = useFormatter();
   const router = useRouter();
   const { toast, show } = useBrowseToast();
-  const inUse = useSyncExternalStore(
-    presetInUse.subscribe,
-    presetInUse.get,
-    () => DEFAULT_PRESET,
-  );
-  const [presets, setPresets] = useState<DemoPreset[]>(DEMO_PRESETS);
+  const store = usePresets();
+  const presets = store.presets;
+  const inUse = store.inUse?.id;
   // undefined: closed; null: new preset; otherwise the preset being edited.
   const [editing, setEditing] = useState<DemoPreset | null | undefined>();
   const n = (v: number) => format.number(v);
 
-  const name = (p: DemoPreset) =>
-    p.name ?? (BUILT_IN.has(p.id) ? t(`items.${p.id}.name`) : "");
-  const cost = (p: DemoPreset) =>
-    typeof p.cost === "number"
-      ? t("costOne", { credits: n(p.cost) })
-      : t("cost", { low: n(p.cost[0]), high: n(p.cost[1]) });
-  const estimate = (models: string[]) =>
-    PICKER_MODELS.filter((m) => models.includes(m.id)).reduce(
-      (sum, m) => sum + m.credits,
-      0,
-    );
-
-  const addPreset = (models: string[]) => {
-    const preset: DemoPreset = {
-      id: `custom-${presets.length + 1}`,
-      name: `${t("newName")} ${n(presets.length - DEMO_PRESETS.length + 1)}`,
-      models: models as ModelId[],
-      cost: estimate(models),
-    };
-    setPresets((list) => [...list, preset]);
+  const key = (p: DemoPreset) =>
+    builtInKey(p) as "recommended" | "cheapest" | "bangla" | "writing" | null;
+  const name = (p: DemoPreset) => {
+    const k = key(p);
+    return k ? t(`items.${k}.name`) : p.name;
   };
-  const save = (models: string[]) => {
+  const cost = (p: DemoPreset) => {
+    const e = estimatePrompt(
+      p.models.map((model) => ({
+        model,
+        inputTokens: QUESTION_TOKENS,
+        catchUpTokens: 0,
+      })),
+      { best: false },
+    );
+    const low = Math.round(credits(e.minMcr));
+    const high = Math.round(credits(e.maxMcr));
+    return low === high
+      ? t("costOne", { credits: n(low) })
+      : t("cost", { low: n(low), high: n(high) });
+  };
+
+  const addPreset = async (models: string[]) => {
+    const own = presets.filter((p) => !key(p)).length;
+    await store.create(`${t("newName")} ${n(own + 1)}`, models as ModelId[]);
+  };
+  const save = async (models: string[]) => {
     if (editing)
-      setPresets((list) =>
-        list.map((p) =>
-          p.id === editing.id
-            ? { ...p, models: models as ModelId[], cost: estimate(models) }
-            : p,
-        ),
-      );
-    else addPreset(models);
+      await store.update(editing.id, { models: models as ModelId[] });
+    else await addPreset(models);
     setEditing(undefined);
     show(t("saved"));
   };
@@ -114,16 +109,17 @@ export function PresetsScreen() {
             <PresetCard
               key={p.id}
               name={name(p)}
-              description={
-                BUILT_IN.has(p.id) ? t(`items.${p.id}.description`) : undefined
-              }
+              description={(() => {
+                const k = key(p);
+                return k ? t(`items.${k}.description`) : undefined;
+              })()}
               cost={cost(p)}
               models={p.models}
               inUseLabel={p.id === inUse ? t("inUse") : undefined}
               useLabel={t("use")}
               editLabel={t("edit")}
               onUse={() => {
-                presetInUse.set(p.id);
+                void store.update(p.id, { inUse: true });
                 router.push("/");
               }}
               onEdit={() => setEditing(p)}
@@ -135,12 +131,13 @@ export function PresetsScreen() {
         open={editing !== undefined}
         onOpenChange={(open) => !open && setEditing(undefined)}
         name={editing ? name(editing) : undefined}
-        initial={editing?.models ?? presets[0].models}
-        onSave={save}
+        initial={editing?.models ?? presets[0]?.models ?? []}
+        onSave={(models) => void save(models)}
         onSaveAsNew={(models) => {
-          addPreset(models);
-          setEditing(undefined);
-          show(t("saved"));
+          void addPreset(models).then(() => {
+            setEditing(undefined);
+            show(t("saved"));
+          });
         }}
       />
     </BrowseColumn>

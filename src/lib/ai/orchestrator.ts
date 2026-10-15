@@ -58,7 +58,7 @@ export const MODEL_TIMEOUT_MS = 30_000;
  * The demo model's timeout is shorter so the prototype's timeout state is quick to reproduce in
  * development and e2e (cue "#timeout"). Real providers always get MODEL_TIMEOUT_MS.
  */
-export const DEMO_TIMEOUT_MS = 8_000;
+export const DEMO_TIMEOUT_MS = 12_000;
 /** How often streamed text is written to the database. */
 const FLUSH_MS = 500;
 /** A "running" prompt with no live run this long after its last answer started was orphaned. */
@@ -424,7 +424,11 @@ interface RunArgs {
   merge: { reserveMcr: number } | null;
 }
 
-async function run(db: Db, args: RunArgs) {
+/**
+ * Registers the run as live at once (so Stop works straight away), then starts on the next tick,
+ * so callers can subscribe to the prompt's events first.
+ */
+function run(db: Db, args: RunArgs) {
   const live = openLivePrompt(args.promptId);
   for (const p of args.plans)
     live.answers.set(p.answerId, {
@@ -433,6 +437,12 @@ async function run(db: Db, args: RunArgs) {
       text: "",
       controller: new AbortController(),
     });
+  return new Promise((r) => setTimeout(r, 0)).then(() =>
+    runLive(db, live, args),
+  );
+}
+
+async function runLive(db: Db, live: LivePrompt, args: RunArgs) {
   try {
     await Promise.all(
       args.plans.map((p) =>
@@ -545,7 +555,9 @@ async function runAnswer(db: Db, live: LivePrompt, args: RunArgs, plan: Plan) {
         messages: plan.history.messages,
         maxOutputTokens: MAX_OUTPUT_TOKENS,
         abortSignal: la.controller.signal,
-        maxRetries: 1,
+        // Demo failures are cues: don't retry them. Providers get one quick retry.
+        maxRetries: plan.resolved.kind === "demo" ? 0 : 1,
+        onError: () => {}, // handled below, from the stream's error part
         ...(plan.resolved.kind === "demo"
           ? { providerOptions: { demo: { ...demo } } }
           : {}),

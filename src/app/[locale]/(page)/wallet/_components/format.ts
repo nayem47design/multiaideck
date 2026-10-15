@@ -19,7 +19,9 @@ const TZ = "Asia/Dhaka";
 export function useWalletFormat() {
   const format = useFormatter();
   const today = useToday();
-  const n = (v: number) => format.number(v);
+  // Whole numbers: balances can hold fractions of a credit (answers cost 0.9 cr), but the wallet
+  // shows whole credits as in Figma ("10,684 credits").
+  const n = (v: number) => format.number(v, { maximumFractionDigits: 0 });
   return {
     n,
     /** Credits → taka with two decimals ("106.84"). */
@@ -101,5 +103,14 @@ export function useIsDesktop() {
     subscribe,
     () => window.matchMedia(QUERY).matches,
     () => false,
+  );
+}
+
+/** Like useIsDesktop, but null until the browser has answered (during prerender and hydration). */
+export function useIsDesktopKnown(): boolean | null {
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => null,
   );
 }

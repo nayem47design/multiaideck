@@ -64,7 +64,7 @@ async function chargesBetween(db: Db, userId: string, start: Date, end: Date) {
     );
 }
 
-/** GET /api/wallet: balance, plan, this month's spend and chats, average per prompt. */
+/** GET /api/wallet: balance, plan, this month's spend and chats, averages per prompt and chat. */
 export async function walletSummary(
   db: Db,
   userId: string,
@@ -94,6 +94,7 @@ export async function walletSummary(
     .select({
       total: sql<string>`coalesce(-sum(${ledgerEntries.amountMcr}), 0)`,
       prompts: sql<number>`count(distinct ${answers.promptId})::int`,
+      chats: sql<number>`count(distinct ${answers.chatId})::int`,
     })
     .from(ledgerEntries)
     .innerJoin(answers, eq(answers.id, ledgerEntries.refId))
@@ -116,6 +117,8 @@ export async function walletSummary(
       avg && avg.prompts > 0
         ? toCredits(Number(avg.total) / avg.prompts)
         : null,
+    averageChatCredits:
+      avg && avg.chats > 0 ? toCredits(Number(avg.total) / avg.chats) : null,
   };
 }
 
@@ -242,6 +245,30 @@ export async function usageReport(
       );
   }
 
+  // Best answer's merge step is charged per prompt (ref "best_answer", id = prompt id).
+  const mergeByPrompt = new Map<string, number>();
+  if (promptIds.length) {
+    const rows = await db
+      .select({
+        refId: ledgerEntries.refId,
+        amountMcr: ledgerEntries.amountMcr,
+      })
+      .from(ledgerEntries)
+      .where(
+        and(
+          eq(ledgerEntries.userId, userId),
+          eq(ledgerEntries.kind, "charge"),
+          eq(ledgerEntries.refType, "best_answer"),
+          inArray(ledgerEntries.refId, promptIds),
+        ),
+      );
+    for (const r of rows)
+      mergeByPrompt.set(
+        r.refId!,
+        (mergeByPrompt.get(r.refId!) ?? 0) - r.amountMcr,
+      );
+  }
+
   const activity: UsageResponse["activity"] = promptRows.map((p) => {
     const mine = answerRows.filter((a) => a.promptId === p.id);
     const models: ModelId[] = [];
@@ -261,7 +288,9 @@ export async function usageReport(
               : "done";
         return { model, credits: toCredits(m), bdt: toBdt(m), status };
       });
-    const total = mine.reduce((s, a) => s + (chargeByAnswer.get(a.id) ?? 0), 0);
+    const total =
+      mine.reduce((s, a) => s + (chargeByAnswer.get(a.id) ?? 0), 0) +
+      (mergeByPrompt.get(p.id) ?? 0);
     return {
       chatId: p.chatId,
       promptId: p.id,

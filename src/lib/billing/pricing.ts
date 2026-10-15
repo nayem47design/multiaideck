@@ -32,15 +32,15 @@ export const RATES: Record<ModelId, Rate> = {
 };
 
 /** PLACEHOLDER: the Best answer merge step (reads every answer, writes the summary). */
-export const MERGE_RATE: Rate = { input: 4, output: 12 };
+export const MERGE_RATE: Rate = { input: 1, output: 6 };
 
 /** PLACEHOLDER: one picture, about 40 credits (৳0.40). */
 export const IMAGE_MCR = mcr(40);
 
 /** Output tokens a short answer usually has (estimate low end). */
-export const EST_MIN_OUTPUT = 250;
+export const EST_MIN_OUTPUT = 200;
 /** Output tokens a long answer usually has (estimate high end). */
-export const EST_MAX_OUTPUT = 600;
+export const EST_MAX_OUTPUT = 500;
 /**
  * Hard cap on output tokens per answer. The reserve covers it, so an answer never costs more
  * than what was held (charges are capped at the reserve).

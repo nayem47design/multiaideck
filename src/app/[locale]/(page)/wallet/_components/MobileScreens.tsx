@@ -1,7 +1,8 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, type ReactNode } from "react";
+import { Suspense, useEffect, useRef, type ReactNode } from "react";
 
 import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
@@ -20,38 +21,44 @@ import { MobilePackList } from "@/components/organisms/MobilePackList";
 import { MobilePayBar } from "@/components/organisms/MobilePayBar";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
 import { Link, useRouter } from "@/lib/i18n/navigation";
+import { useMe } from "@/lib/me";
 import {
-  balanceOf,
+  bonusPct,
   chatsFor,
-  DEMO_SPENT,
-  lastPayment,
+  customProblem,
+  history,
+  MAX_CUSTOM_BDT,
   MIN_CUSTOM_BDT,
   PACKS,
+  packQuote,
   PAYMENT_METHODS,
-  paymentsNewestFirst,
   PRO_PLAN,
-  quote,
+  reference,
   selectionQuote,
+  usePayment,
   useWallet,
-  wallet,
+  walletActions,
   type Payment,
-} from "@/lib/mock/wallet";
+} from "@/lib/payments/client";
 
 import { useOverlay } from "../../../_shell/overlays";
 
 import {
   downloadText,
-  useIsDesktop,
+  useIsDesktopKnown,
   usePaymentsCsv,
   useWalletFormat,
 } from "./format";
+import { useBalance, useStartTopUp } from "./pay";
+import { usePendingPayment } from "./usePendingPayment";
 
 // Below 768px the wallet is a set of M-screens, one route each (Figma: Prototype › 7 Mobile):
 //   /wallet           M10 · Wallet
 //   /wallet/top-up    M11 · Add credits: amount & bKash
-//   /wallet/pay       M34 · Finish payment in bKash (approves itself after a few seconds)
-//   /wallet/paid      M12 · Payment received
-//   /wallet/failed    M35 · Payment didn't go through
+//   /wallet/pay       M34 · Finish payment in bKash (?payment=<id>; the sandbox approves itself
+//                     after a few seconds, a PayStation payment is re-checked until it settles)
+//   /wallet/paid      M12 · Payment received (?payment=<id>)
+//   /wallet/failed    M35 · Payment didn't go through  (?payment=<id>)
 //   /wallet/payments  M36 · Payment history
 
 /** Simulated bKash approval time on M34 (the prototype's AFTER_TIMEOUT). */
@@ -75,18 +82,32 @@ function useCredits() {
   return (v: number) => tc("credits", { amount: f.n(v) });
 }
 
+/** The payment named by ?payment= (read behind Suspense, as cacheComponents requires). */
+function usePaymentParam() {
+  const id = useSearchParams().get("payment");
+  return { id, payment: usePayment(id) };
+}
+
 // ---------------------------------------------------------------------------
 // M10 · Wallet
 
 export function MobileWallet() {
   const t = useTranslations("wallet");
+  const tc = useTranslations("common");
   const f = useWalletFormat();
   const credits = useCredits();
   const s = useWallet();
   const router = useRouter();
   const { openOverlay } = useOverlay();
-  const balance = balanceOf(s);
-  const last = paymentsNewestFirst(s)[0];
+  const { balance: known, plan } = useBalance(
+    s.wallet?.balance.credits ?? null,
+  );
+  const balance = known ?? 0;
+  // "About N chats" divides by the average spend per chat.
+  const avg = s.wallet?.averageChatCredits ?? null;
+  const spent = s.wallet?.spentThisMonth.credits ?? 0;
+  const pro = (s.wallet?.plan ?? plan) === "pro";
+  const last = history(s.payments)[0];
 
   return (
     <Screen className="pb-tab-bar-height">
@@ -94,10 +115,10 @@ export function MobileWallet() {
       <div className="flex flex-col gap-m-content-gap px-mobile-gutter pt-2 pb-4">
         <MobileBalanceCard
           label={t("mobile.balance")}
-          value={credits(balance)}
+          value={known === null ? tc("loading") : credits(balance)}
           caption={t("mobile.balanceCaption", {
             bdt: f.taka(balance),
-            chats: f.n(chatsFor(balance)),
+            chats: f.n(chatsFor(balance, avg)),
           })}
           chip={t("stats.neverExpire")}
           action={{
@@ -110,8 +131,8 @@ export function MobileWallet() {
           icon="chart-histogram"
           title={t("mobile.spent")}
           caption={t("mobile.spentValue", {
-            credits: f.n(DEMO_SPENT.credits),
-            bdt: f.taka(DEMO_SPENT.credits),
+            credits: f.n(spent),
+            bdt: f.taka(spent),
           })}
           link={<Link href="/settings/usage" />}
         />
@@ -124,7 +145,7 @@ export function MobileWallet() {
                   amount: f.n(last.bdt),
                   method: f.method(last.method),
                   status:
-                    last.status === "succeeded"
+                    last.status === "paid"
                       ? t("mobile.lastAdded")
                       : t("mobile.lastNotCharged"),
                 })
@@ -132,13 +153,13 @@ export function MobileWallet() {
           }
           link={<Link href="/wallet/payments" />}
         />
-        {s.pro ? (
+        {pro ? (
           <TileRow
             icon="crown"
             title={t("mobile.pro")}
             caption={t("mobile.proCaption", {
               bdt: f.n(PRO_PLAN.bdt),
-              date: f.date(PRO_PLAN.renews),
+              date: s.wallet?.proRenewsAt ? f.date(s.wallet.proRenewsAt) : "",
             })}
           />
         ) : (
@@ -166,13 +187,11 @@ export function MobileTopUp() {
   const f = useWalletFormat();
   const credits = useCredits();
   const s = useWallet();
-  const router = useRouter();
+  const topUp = useStartTopUp();
+  const { balance } = useBalance(s.wallet?.balance.credits ?? null);
   const q = selectionQuote(s.selection);
   const custom = s.selection.pack === "custom";
-  const tooLow =
-    custom &&
-    s.selection.customBdt !== null &&
-    s.selection.customBdt < MIN_CUSTOM_BDT;
+  const problem = customProblem(s.selection);
 
   return (
     <Screen>
@@ -185,23 +204,23 @@ export function MobileTopUp() {
         <MobilePackList
           label={t("mobile.step1")}
           value={custom ? "" : s.selection.pack}
-          onValueChange={wallet.selectPack}
+          onValueChange={walletActions.selectPack}
           packs={PACKS.map((p) => {
-            const pq = quote(p.bdt, p.bonusPct);
+            const pq = packQuote(p.id);
             return {
               value: p.id,
               price: t("mobile.price", { amount: f.n(p.bdt) }),
               credits: credits(pq.credits),
-              bonus: p.bonusPct
-                ? t("mobile.bonus", { pct: f.n(p.bonusPct) })
+              bonus: p.bonusPercent
+                ? t("mobile.bonus", { pct: f.n(p.bonusPercent) })
                 : undefined,
-              tag: p.popular ? t("topUp.mostChosen") : undefined,
+              tag: p.mostChosen ? t("topUp.mostChosen") : undefined,
             };
           })}
         />
         <button
           type="button"
-          onClick={() => wallet.setCustom(s.selection.customBdt)}
+          onClick={() => walletActions.setCustom(s.selection.customBdt)}
           aria-expanded={custom}
           className={cx(
             "flex min-h-12 items-center self-start rounded-xs type-m-row-title text-blue",
@@ -217,9 +236,10 @@ export function MobileTopUp() {
             type="number"
             inputMode="numeric"
             min={MIN_CUSTOM_BDT}
+            max={MAX_CUSTOM_BDT}
             value={s.selection.customBdt ?? ""}
             onChange={(e) =>
-              wallet.setCustom(
+              walletActions.setCustom(
                 e.target.value === ""
                   ? null
                   : Math.floor(Number(e.target.value)),
@@ -227,9 +247,11 @@ export function MobileTopUp() {
             }
             help={t("topUp.customHelp", { min: f.n(MIN_CUSTOM_BDT) })}
             error={
-              tooLow
+              problem === "too_low"
                 ? t("topUp.customError", { min: f.n(MIN_CUSTOM_BDT) })
-                : undefined
+                : problem === "too_high"
+                  ? t("topUp.customMaxError", { max: f.n(MAX_CUSTOM_BDT) })
+                  : undefined
             }
           />
         )}
@@ -243,8 +265,13 @@ export function MobileTopUp() {
             name: f.method(m),
           }))}
           value={s.selection.method}
-          onValueChange={wallet.selectMethod}
+          onValueChange={walletActions.selectMethod}
         />
+        {topUp.failed && (
+          <p role="alert" className="type-ui text-error">
+            {t("order.startFailed")}
+          </p>
+        )}
       </div>
       <MobilePayBar
         className="sticky bottom-0"
@@ -254,8 +281,8 @@ export function MobileTopUp() {
             : to("chooseAmount")
         }
         detail={
-          q
-            ? t("mobile.newBalance", { credits: f.n(balanceOf(s) + q.credits) })
+          q && balance !== null
+            ? t("mobile.newBalance", { credits: f.n(balance + q.credits) })
             : undefined
         }
         payLabel={
@@ -266,10 +293,8 @@ export function MobileTopUp() {
               })
             : to("chooseAmount")
         }
-        disabled={!q}
-        onPay={() => {
-          if (wallet.startCheckout()) router.push("/wallet/pay");
-        }}
+        disabled={!q || topUp.busy || balance === null}
+        onPay={() => void topUp.start()}
         note={t("mobile.secure")}
       />
     </Screen>
@@ -280,51 +305,94 @@ export function MobileTopUp() {
 // M34 · Finish payment in bKash
 
 export function MobilePay() {
+  return (
+    <Suspense>
+      <MobilePayScreen />
+    </Suspense>
+  );
+}
+
+function MobilePayScreen() {
   const t = useTranslations("checkout.mobile");
   const f = useWalletFormat();
   const s = useWallet();
   const router = useRouter();
-  const desktop = useIsDesktop();
-  const q = s.pending?.quote ?? selectionQuote(s.selection);
-  const method = s.pending?.method ?? s.selection.method;
+  // null until known: a wide window shows the desktop dialog instead (WalletDialogs).
+  const desktop = useIsDesktopKnown() !== false;
+  const topUp = useStartTopUp();
+  const { id, payment } = usePaymentParam();
+  const fallback = selectionQuote(s.selection);
+  const bdt = payment?.bdt ?? fallback?.bdt ?? 0;
+  const method = payment?.method ?? s.selection.method;
   const name = f.method(method);
 
-  // Opened from a link with nothing pending: send the request for the current selection.
-  const settled = useRef(false);
+  // Opened from a link with no payment: start one for the current selection.
+  const started = useRef(false);
   useEffect(() => {
-    if (!desktop && !settled.current) wallet.ensureCheckout();
-  }, [desktop]);
+    if (desktop || id || started.current) return;
+    started.current = true;
+    void topUp.start("replace");
+  }, [desktop, id, topUp]);
 
-  const settle = (status: "succeeded" | "failed") => {
-    if (settled.current || !wallet.settle(status)) return;
-    settled.current = true;
-    router.replace(status === "succeeded" ? "/wallet/paid" : "/wallet/failed");
+  const show = (p: Payment) =>
+    router.replace(
+      `${p.status === "paid" ? "/wallet/paid" : "/wallet/failed"}?payment=${p.id}`,
+    );
+  const pending = usePendingPayment(desktop ? null : payment, show);
+  const sandbox = pending?.provider === "sandbox";
+
+  // Sandbox decisions; the result screen follows from usePendingPayment.
+  const deciding = useRef(false);
+  const decide = async (outcome: "paid" | "failed" | "cancelled") => {
+    if (!pending || deciding.current) return;
+    deciding.current = true;
+    try {
+      await walletActions.decide(pending.id, outcome);
+    } finally {
+      deciding.current = false;
+    }
   };
-  const approve = () => settle("succeeded");
-  const fail = () => settle("failed");
+  const approve = () => {
+    if (!pending) return;
+    if (sandbox) void decide("paid");
+    else void walletActions.get(pending.id).catch(() => {});
+  };
+  const cancel = () => {
+    if (sandbox) void decide("cancelled");
+    else router.push("/wallet/top-up");
+  };
 
   // The bKash app answers by itself after a while (the prototype's AFTER_TIMEOUT → M12).
   const approveRef = useRef(approve);
   useEffect(() => {
     approveRef.current = approve;
   });
+  const autoApprove = !desktop && sandbox;
   useEffect(() => {
-    if (desktop) return;
+    if (!autoApprove) return;
     const timer = window.setTimeout(
       () => approveRef.current(),
       APPROVE_AFTER_MS,
     );
     return () => window.clearTimeout(timer);
-  }, [desktop]);
+  }, [autoApprove]);
 
   return (
     <Screen>
       <MobileTopBar
-        title={t("paying", { amount: f.n(q?.bdt ?? 0) })}
+        title={t("paying", { amount: f.n(bdt) })}
         back={{
           label: t("cancel"),
           icon: "cancel-01",
-          link: <Link href="/wallet/top-up" onClick={wallet.cancelCheckout} />,
+          link: (
+            <Link
+              href="/wallet/top-up"
+              onClick={() => {
+                if (sandbox && pending)
+                  void walletActions.decide(pending.id, "cancelled");
+              }}
+            />
+          ),
         }}
       />
       <div className="flex flex-col items-center gap-go-pro-gap px-mobile-gutter pt-6 text-center">
@@ -352,12 +420,22 @@ export function MobilePay() {
       </div>
       <span className="flex-1" />
       <div className="flex flex-col items-center gap-m-content-gap-sm px-mobile-gutter pt-8 pb-6">
-        <Button size="touch-lg" className="w-full" onClick={approve}>
+        {topUp.failed && (
+          <p role="alert" className="text-center type-ui text-error">
+            {t("startFailed")}
+          </p>
+        )}
+        <Button
+          size="touch-lg"
+          className="w-full"
+          onClick={approve}
+          disabled={!pending}
+        >
           {t("openAgain", { method: name })}
         </Button>
         <button
           type="button"
-          onClick={fail}
+          onClick={cancel}
           className={cx(
             "flex h-12 w-full items-center justify-center rounded-pill type-m-button text-ink",
             stateLayer,
@@ -378,30 +456,58 @@ export function MobilePay() {
 // M12 · Payment received
 
 export function MobilePaid() {
+  return (
+    <Suspense>
+      <MobilePaidScreen />
+    </Suspense>
+  );
+}
+
+function MobilePaidScreen() {
   const t = useTranslations("checkout");
+  const tc = useTranslations("common");
   const f = useWalletFormat();
   const credits = useCredits();
   const s = useWallet();
   const router = useRouter();
-  const balance = balanceOf(s);
-  const last = lastPayment(s);
+  const { openOverlay } = useOverlay();
+  const { balance } = useMe();
+  const { payment } = usePaymentParam();
+  const mobile = useIsDesktopKnown() === false;
+
+  // Pro paid through PayStation lands here: show "Pro is on".
+  const isPro = payment?.kind === "pro" && payment.status === "paid";
+  useEffect(() => {
+    if (isPro && mobile) {
+      openOverlay("pro-on");
+      router.replace("/wallet");
+    }
+  }, [isPro, mobile, openOverlay, router]);
+
+  const last =
+    payment?.status === "paid"
+      ? payment
+      : history(s.payments).find((p) => p.status === "paid");
   const fallback = selectionQuote(s.selection);
-  const paid: Pick<
-    Payment,
-    "bdt" | "method" | "credits" | "bonus" | "bonusPct"
-  > & {
-    reference?: string;
-    at?: string;
-  } =
-    last?.status === "succeeded"
-      ? last
-      : {
-          bdt: fallback?.bdt ?? 0,
-          method: s.selection.method,
-          credits: fallback?.credits ?? 0,
-          bonus: fallback?.bonus ?? 0,
-          bonusPct: fallback?.bonusPct ?? 0,
-        };
+  const paid = last
+    ? {
+        bdt: last.bdt,
+        method: last.method,
+        credits: last.credits,
+        bonus: last.bonusCredits,
+        bonusPct: bonusPct(last),
+        reference: reference(last),
+        at: last.createdAt,
+      }
+    : {
+        bdt: fallback?.bdt ?? 0,
+        method: s.selection.method,
+        credits: fallback?.credits ?? 0,
+        bonus: fallback?.bonus ?? 0,
+        bonusPct: fallback?.bonusPct ?? 0,
+        reference: undefined,
+        at: undefined,
+      };
 
   const details = [
     {
@@ -446,12 +552,14 @@ export function MobilePaid() {
           [
             {
               label: t("mobile.newBalance"),
-              value: credits(balance),
+              value: balance ? credits(balance.credits) : tc("loading"),
               strong: true,
             },
             {
               label: t("mobile.inTaka"),
-              value: t("mobile.inTakaValue", { amount: f.taka(balance) }),
+              value: t("mobile.inTakaValue", {
+                amount: f.taka(balance?.credits ?? 0),
+              }),
             },
           ],
           details,
@@ -485,17 +593,30 @@ export function MobilePaid() {
 // M35 · Payment didn't go through
 
 export function MobileFailed() {
+  return (
+    <Suspense>
+      <MobileFailedScreen />
+    </Suspense>
+  );
+}
+
+function MobileFailedScreen() {
   const t = useTranslations("checkout");
   const f = useWalletFormat();
   const s = useWallet();
   const router = useRouter();
-  const last = lastPayment(s);
-  const method = last?.status === "failed" ? last.method : s.selection.method;
+  const topUp = useStartTopUp();
+  const { payment } = usePaymentParam();
+  const last =
+    payment && payment.status !== "paid"
+      ? payment
+      : history(s.payments).find((p) => p.status !== "paid");
+  const method = last?.method ?? s.selection.method;
   const name = f.method(method);
 
   const retry = () => {
-    if (last) wallet.repeat(last);
-    if (wallet.startCheckout()) router.push("/wallet/pay");
+    if (last) walletActions.repeat(last);
+    void topUp.start();
   };
 
   return (
@@ -523,6 +644,7 @@ export function MobileFailed() {
           iconSize="lg"
           className="w-full"
           onClick={retry}
+          disabled={topUp.busy}
         >
           {t("mobile.tryAgain")}
         </Button>
@@ -574,9 +696,9 @@ export function MobilePayments() {
         back={{ label: t("title"), link: <Link href="/wallet" /> }}
       />
       <div className="flex flex-col gap-m-content-gap-sm px-mobile-gutter pt-2 pb-6">
-        {paymentsNewestFirst(s).map((p) => {
-          const ok = p.status === "succeeded";
-          const time = f.time(p.at);
+        {history(s.payments).map((p) => {
+          const ok = p.status === "paid";
+          const time = f.time(p.createdAt);
           return (
             <PaymentHistoryCard
               key={p.id}
@@ -593,9 +715,9 @@ export function MobilePayments() {
                   : { label: t("mobile.statusNotCharged"), tone: "error" }
               }
               date={
-                f.isToday(p.at)
+                f.isToday(p.createdAt)
                   ? t("mobile.today", { time })
-                  : t("mobile.dateTime", { date: f.date(p.at), time })
+                  : t("mobile.dateTime", { date: f.date(p.createdAt), time })
               }
               action={
                 ok
@@ -605,7 +727,7 @@ export function MobilePayments() {
                       onClick: () =>
                         downloadText(
                           t("payments.csv.receiptFile", {
-                            reference: p.reference,
+                            reference: reference(p),
                           }),
                           csv([p], header),
                         ),
@@ -614,7 +736,7 @@ export function MobilePayments() {
                       icon: "reload",
                       label: t("mobile.tryAgain"),
                       onClick: () => {
-                        wallet.repeat(p);
+                        walletActions.repeat(p);
                         router.push("/wallet/top-up");
                       },
                     }

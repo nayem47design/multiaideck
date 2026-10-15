@@ -1,25 +1,36 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CheckoutDialogPanel } from "@/components/organisms/CheckoutDialog";
 import { PaymentResultDialogPanel } from "@/components/organisms/PaymentResultDialog";
 import { ModalOverApp } from "@/components/templates/ModalOverApp";
 import { usePathname, useRouter } from "@/lib/i18n/navigation";
+import { useMe } from "@/lib/me";
 import {
-  balanceOf,
-  lastPayment,
+  history,
   selectionQuote,
+  usePayment,
   useWallet,
-  wallet,
-} from "@/lib/mock/wallet";
+  walletActions,
+  type Payment,
+} from "@/lib/payments/client";
 
-import { useIsDesktop, useWalletFormat } from "./format";
+import { useOverlay } from "../../../_shell/overlays";
+
+import { useIsDesktopKnown, useWalletFormat } from "./format";
+import { useStartTopUp } from "./pay";
+import { usePendingPayment } from "./usePendingPayment";
 
 // Figma: Overlay · Checkout (simulated) 28:11535, Overlay · Payment received 28:11563 and
 // Overlay · Payment failed 28:11583, over the desktop wallet. Prototype taps: approved → received,
 // simulate failure → failed, failed "Try again" → checkout, others close.
+//
+// The routes carry the payment: /wallet/pay?payment=<id> is the checkout for a pending payment (the
+// sandbox decides it here; a PayStation payment is re-checked until it settles), and
+// /wallet/paid?payment= and /wallet/failed?payment= show its result.
 
 const DIALOGS = {
   "/wallet/pay": "checkout",
@@ -32,112 +43,153 @@ export function WalletDialogs() {
   const tc = useTranslations("common");
   const f = useWalletFormat();
   const s = useWallet();
+  const { balance } = useMe();
   const router = useRouter();
   const pathname = usePathname();
-  const desktop = useIsDesktop();
+  const desktop = useIsDesktopKnown() === true;
+  const { openOverlay } = useOverlay();
+  const id = useSearchParams().get("payment");
+  const payment = usePayment(id);
+  const topUp = useStartTopUp();
+  const [busy, setBusy] = useState(false);
   const dialog = desktop
     ? DIALOGS[pathname as keyof typeof DIALOGS]
     : undefined;
 
   const close = () => router.replace("/wallet", { scroll: false });
   const credits = (v: number) => tc("credits", { amount: f.n(v) });
+  const show = (p: Payment) =>
+    router.replace(
+      `${p.status === "paid" ? "/wallet/paid" : "/wallet/failed"}?payment=${p.id}`,
+      { scroll: false },
+    );
 
-  // What is being paid: the pending checkout, else the current selection (a direct link).
-  const pendingQuote = s.pending?.quote ?? selectionQuote(s.selection);
-  const pendingMethod = s.pending?.method ?? s.selection.method;
-  const last = lastPayment(s);
-
-  // Opened from a link with nothing pending: send the request for the current selection. Not
-  // right after settling, while the route is still /wallet/pay.
-  const settled = useRef(false);
+  // Opened from a link with no payment: start one for the current selection.
+  const started = useRef(false);
   useEffect(() => {
-    if (dialog !== "checkout") settled.current = false;
-    else if (!s.pending && !settled.current) wallet.ensureCheckout();
-  }, [dialog, s.pending]);
+    if (dialog !== "checkout") started.current = false;
+    else if (!id && !started.current) {
+      started.current = true;
+      void topUp.start("replace");
+    }
+  }, [dialog, id, topUp]);
 
-  const settle = (status: "succeeded" | "failed") => {
-    if (!wallet.settle(status)) return;
-    settled.current = true;
-    router.replace(status === "succeeded" ? "/wallet/paid" : "/wallet/failed", {
-      scroll: false,
-    });
+  // A payment that finished elsewhere (PayStation, a reload, the back button) shows its result.
+  // Decisions made in this dialog navigate themselves.
+  const decided = useRef<string | null>(null);
+  const pending = usePendingPayment(
+    dialog === "checkout" ? payment : null,
+    (p) => {
+      if (decided.current !== p.id) show(p);
+    },
+  );
+
+  // Pro paid through PayStation comes back here: show "Pro is on" over the wallet.
+  useEffect(() => {
+    if (
+      dialog === "received" &&
+      payment?.kind === "pro" &&
+      payment.status === "paid"
+    ) {
+      close();
+      openOverlay("pro-on");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dialog, payment?.kind, payment?.status]);
+
+  const decide = async (outcome: "paid" | "failed" | "cancelled") => {
+    if (!pending || busy) return;
+    decided.current = pending.id;
+    setBusy(true);
+    try {
+      const p = await walletActions.decide(pending.id, outcome);
+      if (outcome === "cancelled") close();
+      else show(p);
+    } finally {
+      setBusy(false);
+    }
   };
+  const recheck = async () => {
+    if (!pending) return;
+    const p = await walletActions.get(pending.id);
+    if (p.status !== "pending") show(p);
+  };
+  const sandbox = pending?.provider === "sandbox";
+
+  const paid =
+    payment?.status === "paid"
+      ? payment
+      : history(s.payments).find(
+          (p) => p.status === "paid" && p.kind === "topup",
+        );
+  const fallback = selectionQuote(s.selection);
+  const received = paid
+    ? { bdt: paid.bdt, method: paid.method, credits: paid.credits }
+    : fallback
+      ? {
+          bdt: fallback.bdt,
+          method: s.selection.method,
+          credits: fallback.credits,
+        }
+      : null;
+  const failedPayment =
+    payment && payment.status !== "paid"
+      ? payment
+      : history(s.payments).find((p) => p.status !== "paid");
+  const failedMethod = failedPayment?.method ?? s.selection.method;
   const retry = () => {
-    if (last) wallet.repeat(last);
-    if (wallet.startCheckout())
-      router.replace("/wallet/pay", { scroll: false });
+    if (failedPayment) walletActions.repeat(failedPayment);
+    void topUp.start("replace");
   };
 
-  const received =
-    last?.status === "succeeded"
-      ? { bdt: last.bdt, method: last.method, credits: last.credits }
-      : pendingQuote
-        ? {
-            bdt: pendingQuote.bdt,
-            method: pendingMethod,
-            credits: pendingQuote.credits,
-          }
-        : null;
-  const failedMethod = last?.status === "failed" ? last.method : pendingMethod;
+  const method = pending?.method ?? s.selection.method;
 
   return (
     <>
       <ModalOverApp
-        open={dialog === "checkout" && !!pendingQuote}
+        open={dialog === "checkout" && !!pending}
         onOpenChange={(open) => {
           if (!open) {
-            wallet.cancelCheckout();
-            close();
+            if (sandbox) void decide("cancelled");
+            else close();
           }
         }}
-        label={t("dialog.title", {
-          kind: pendingMethod,
-          method: f.method(pendingMethod),
-        })}
+        label={t("dialog.title", { kind: method, method: f.method(method) })}
       >
-        {pendingQuote && (
+        {pending && (
           <CheckoutDialogPanel
-            head={t("dialog.head")}
+            head={sandbox ? t("dialog.head") : t("dialog.headLive")}
             title={t("dialog.title", {
-              kind: pendingMethod,
-              method: f.method(pendingMethod),
+              kind: method,
+              method: f.method(method),
             })}
-            body={t("dialog.body", {
-              kind: pendingMethod,
-              method: f.method(pendingMethod),
-            })}
+            body={t("dialog.body", { kind: method, method: f.method(method) })}
             summary={[
               {
                 label: t("dialog.amount"),
-                value: t("dialog.amountValue", {
-                  amount: f.n(pendingQuote.bdt),
-                }),
+                value: t("dialog.amountValue", { amount: f.n(pending.bdt) }),
               },
-              {
-                label: t("dialog.youGet"),
-                value: credits(pendingQuote.credits),
-              },
+              { label: t("dialog.youGet"), value: credits(pending.credits) },
               {
                 label: t("dialog.method"),
-                value: f.method(pendingMethod),
+                value: f.method(method),
                 text: true,
               },
             ]}
             approvedLabel={t("dialog.approved")}
-            simulateFailureLabel={t("dialog.simulateFailure")}
+            simulateFailureLabel={
+              sandbox ? t("dialog.simulateFailure") : undefined
+            }
             cancelLabel={t("dialog.cancel")}
-            onApproved={() => settle("succeeded")}
-            onSimulateFailure={() => settle("failed")}
-            onCancel={() => {
-              wallet.cancelCheckout();
-              close();
-            }}
+            onApproved={() => (sandbox ? void decide("paid") : void recheck())}
+            onSimulateFailure={() => void decide("failed")}
+            onCancel={() => (sandbox ? void decide("cancelled") : close())}
           />
         )}
       </ModalOverApp>
 
       <ModalOverApp
-        open={dialog === "received" && !!received}
+        open={dialog === "received" && !!received && payment?.kind !== "pro"}
         onOpenChange={(open) => !open && close()}
         label={t("received.title")}
       >
@@ -156,7 +208,10 @@ export function WalletDialogs() {
                 text: true,
               },
               { label: t("received.added"), value: credits(received.credits) },
-              { label: t("received.newBalance"), value: credits(balanceOf(s)) },
+              {
+                label: t("received.newBalance"),
+                value: balance ? credits(balance.credits) : tc("loading"),
+              },
             ]}
             primaryLabel={t("received.backToChat")}
             secondaryLabel={t("received.viewReceipt")}

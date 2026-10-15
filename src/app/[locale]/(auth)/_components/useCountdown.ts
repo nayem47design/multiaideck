@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 
 /** Whole seconds left until `until` (epoch ms), ticking every second; 0 when past or unset. */
 export function useCountdown(until: number | null) {
-  const [now, setNow] = useState(() => Date.now());
+  // Read the clock only on the client, after the first render (prerendering must not see it).
+  const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
     if (!until) return;
     const tick = () => setNow(Date.now());
@@ -19,7 +20,7 @@ export function useCountdown(until: number | null) {
       clearInterval(id);
     };
   }, [until]);
-  return until ? Math.max(0, Math.ceil((until - now) / 1000)) : 0;
+  return until && now ? Math.max(0, Math.ceil((until - now) / 1000)) : 0;
 }
 
 /** 75 → "1:15", 4000 → "1:06:40", in the page's digits. */

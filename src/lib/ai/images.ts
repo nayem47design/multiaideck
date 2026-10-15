@@ -24,7 +24,7 @@ import { resolveImageModel } from "./providers";
 export type ImageStyle = "photo" | "drawing" | "logo" | "poster";
 
 /** Media type marking the stand-in PNG (served as image/png). */
-const PLACEHOLDER_MEDIA = "image/png;placeholder=1";
+export const PLACEHOLDER_MEDIA = "image/png;placeholder=1";
 /** How long the stand-in "takes", so the making-it state shows (Figma: shimmer). */
 const PLACEHOLDER_DELAY_MS = 2400;
 

@@ -3,9 +3,10 @@
 import {
   type DateTimeFormatOptions,
   useFormatter,
+  useLocale,
   useTranslations,
 } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { FilterPill } from "@/components/atoms/FilterPill";
 import { Icon } from "@/components/atoms/Icon";
@@ -21,26 +22,47 @@ import { DailySpendCard } from "@/components/organisms/DailySpendCard";
 import { ModelSpendCard } from "@/components/organisms/ModelSpendCard";
 import { RecentUsageCard } from "@/components/organisms/RecentUsageCard";
 import { UsageCard } from "@/components/organisms/UsageCard";
+import { MODEL_SPECS } from "@/lib/ai/catalog";
+import { api } from "@/lib/api-client";
+import { UsageResponse } from "@/lib/contracts/account";
 import { Link } from "@/lib/i18n/navigation";
-import { CREDIT_IN_BDT } from "@/lib/mock/demo";
-import {
-  DEMO_DAILY_SPEND,
-  DEMO_TIME_ZONE,
-  DEMO_TODAY,
-  DEMO_USAGE_ACTIVITY,
-  DEMO_USAGE_BY_MODEL,
-  DEMO_USAGE_SUMMARY,
-  type UsageMode,
-} from "@/lib/mock/settings";
+
+import { useWalletFormat } from "../../wallet/_components/format";
 
 import { downloadFile } from "./download";
 import { MobileHeader, ScreenBody, SectionHeading } from "./ScreenParts";
 import { useSettings } from "./SettingsState";
 
-// Figma: Settings · Usage (147:38126). Below 768px: M13 · Usage. "Last month" has no data in the
-// demo (the person joined this month), so it shows an empty state.
+// Figma: Settings · Usage (147:38126). Below 768px: M13 · Usage. Data: GET /api/usage?period=
+// (from the credits ledger); Export CSV: GET /api/usage/export. A month with nothing spent and no
+// questions (e.g. last month for a new account) shows the empty state.
 
 type Period = "this" | "last";
+type UsageMode = "best" | "compare" | "image";
+const PERIODS = { this: "this-month", last: "last-month" } as const;
+/** 1 credit = BDT 0.01. */
+const CREDIT_IN_BDT = 0.01;
+const TIME_ZONE = "Asia/Dhaka";
+
+/** The usage report for a period, loaded once per period per visit. */
+function useUsage(period: Period) {
+  const [reports, setReports] = useState<
+    Partial<Record<Period, UsageResponse | "error">>
+  >({});
+  useEffect(() => {
+    let live = true;
+    api(`/api/usage?period=${PERIODS[period]}`, { schema: UsageResponse })
+      .then((r) => live && setReports((all) => ({ ...all, [period]: r })))
+      .catch(
+        () => live && setReports((all) => ({ ...all, [period]: "error" })),
+      );
+    return () => {
+      live = false;
+    };
+  }, [period]);
+  const r = reports[period];
+  return r && r !== "error" ? r : null;
+}
 const FILTERS = ["all", "best", "compare", "image"] as const;
 type Filter = (typeof FILTERS)[number];
 
@@ -48,14 +70,24 @@ export function UsageScreen() {
   const t = useTranslations("settings.usage");
   const tc = useTranslations("common");
   const format = useFormatter();
+  const locale = useLocale();
+  const { isToday } = useWalletFormat();
   const { showToast } = useSettings();
   const [period, setPeriod] = useState<Period>("this");
   const [filter, setFilter] = useState<Filter>("all");
-  const [openId, setOpenId] = useState<string | undefined>(
-    DEMO_USAGE_ACTIVITY[0]?.id,
-  );
+  const report = useUsage(period);
+  const [openId, setOpenId] = useState<string | undefined>();
+  const firstId = report?.activity[0]?.promptId;
+  const [opened, setOpened] = useState<string | undefined>();
+  // The newest prompt starts open, as in Figma.
+  if (firstId && opened !== firstId && openId === undefined) {
+    setOpened(firstId);
+    setOpenId(firstId);
+  }
 
-  const num = (n: number) => format.number(n);
+  // Answers cost fractions of a credit: one decimal below 10 credits, whole credits above.
+  const num = (n: number) =>
+    format.number(n, { maximumFractionDigits: Math.abs(n) < 10 ? 1 : 0 });
   const bdt = (credits: number) =>
     format.number(credits * CREDIT_IN_BDT, {
       minimumFractionDigits: 2,
@@ -64,45 +96,46 @@ export function UsageScreen() {
   const credits = (n: number) => tc("credits", { amount: num(n) });
   const money = (n: number) => tc("money", { amount: bdt(n) });
   const date = (iso: string, opts: DateTimeFormatOptions) =>
-    format.dateTime(new Date(iso), { ...opts, timeZone: DEMO_TIME_ZONE });
+    format.dateTime(new Date(iso), { ...opts, timeZone: TIME_ZONE });
   const day = (iso: string) => date(iso, { month: "short", day: "numeric" });
   const time = (iso: string) =>
     date(iso, { hour: "numeric", minute: "2-digit" });
 
-  const total = DEMO_USAGE_SUMMARY.credits;
-  const share = (n: number) => Math.round((n / total) * 100);
-  const average = total / DEMO_USAGE_SUMMARY.prompts;
-  const activity = DEMO_USAGE_ACTIVITY.filter(
-    (a) => filter === "all" || a.mode === filter,
+  const loading = (v: string) => (report ? v : tc("loading"));
+  const total = report?.spent.credits ?? 0;
+  const prompts = report?.prompts ?? 0;
+  const chats = report?.chats ?? 0;
+  const byModel = (report?.byModel ?? []).map((m) => ({
+    ...m,
+    name: MODEL_SPECS[m.model].name,
+    short: MODEL_SPECS[m.model].short,
+    pct: Math.round(m.share * 100),
+  }));
+  const all = (report?.activity ?? []).map((a) => ({
+    ...a,
+    id: a.promptId,
+    mode: (a.mode ?? "compare") as UsageMode,
+  }));
+  const daily = report?.daily ?? [];
+  const refunds = all.reduce(
+    (n, a) => n + a.breakdown.filter((b) => b.status !== "done").length,
+    0,
   );
-  const modeLabel = (mode: UsageMode) => t(`activity.filters.${mode}`);
+  const average = report?.averagePromptCredits ?? 0;
+  const activity = all.filter((a) => filter === "all" || a.mode === filter);
 
-  const exportCsv = () => {
-    const header = (
-      ["date", "chat", "mode", "model", "credits", "taka"] as const
-    )
-      .map((k) => t(`csv.${k}`))
-      .join(",");
-    const lines = DEMO_USAGE_ACTIVITY.flatMap((a) =>
-      a.breakdown.map((b) =>
-        [
-          a.at,
-          a.chat,
-          modeLabel(a.mode),
-          b.name,
-          b.credits,
-          (b.credits * CREDIT_IN_BDT).toFixed(2),
-        ]
-          .map((v) => `"${String(v).replaceAll('"', '""')}"`)
-          .join(","),
-      ),
-    );
-    downloadFile(
-      "multiai-usage.csv",
-      "text/csv",
-      [header, ...lines].join("\n"),
-    );
-    showToast(t("exported"));
+  const exportCsv = async () => {
+    try {
+      const res = await fetch(
+        `/api/usage/export?period=${PERIODS[period]}&locale=${locale}`,
+        { credentials: "same-origin" },
+      );
+      if (!res.ok) throw new Error(`export ${res.status}`);
+      downloadFile("multiai-usage.csv", "text/csv", await res.text());
+      showToast(t("exported"));
+    } catch {
+      showToast(t("exportFailed"));
+    }
   };
 
   const periodSelect = (
@@ -117,13 +150,16 @@ export function UsageScreen() {
     />
   );
 
-  const empty = period === "last" && (
-    <EmptyState
-      icon="chart-histogram"
-      title={t("lastMonth.title")}
-      body={t("lastMonth.body")}
-    />
-  );
+  const empty = report &&
+    report.spent.credits === 0 &&
+    report.prompts === 0 &&
+    period === "last" && (
+      <EmptyState
+        icon="chart-histogram"
+        title={t("lastMonth.title")}
+        body={t("lastMonth.body")}
+      />
+    );
 
   return (
     <div className="flex flex-col">
@@ -138,7 +174,7 @@ export function UsageScreen() {
               {periodSelect}
               <button
                 type="button"
-                onClick={exportCsv}
+                onClick={() => void exportCsv()}
                 className={cx(
                   "inline-flex h-usage-period-height items-center gap-1-5 rounded-xs type-settings-link text-blue hover:underline",
                   focusRing,
@@ -158,19 +194,17 @@ export function UsageScreen() {
                 stats={[
                   {
                     label: t("stats.spent"),
-                    value: credits(total),
+                    value: loading(credits(total)),
                     caption: t("stats.spentCaption", { money: money(total) }),
                   },
                   {
                     label: t("stats.prompts"),
-                    value: num(DEMO_USAGE_SUMMARY.prompts),
-                    caption: t("stats.promptsCaption", {
-                      chats: DEMO_USAGE_SUMMARY.chats,
-                    }),
+                    value: loading(num(prompts)),
+                    caption: t("stats.promptsCaption", { chats }),
                   },
                   {
                     label: t("stats.average"),
-                    value: credits(average),
+                    value: loading(credits(average)),
                     caption: t("stats.averageCaption"),
                   },
                   {
@@ -189,13 +223,13 @@ export function UsageScreen() {
                     credits: credits(total),
                     money: money(total),
                   })}
-                  rows={DEMO_USAGE_BY_MODEL.map((m) => ({
+                  rows={byModel.map((m) => ({
                     model: m.model,
                     name: m.name,
                     credits: credits(m.credits),
                     money: money(m.credits),
-                    share: share(m.credits),
-                    shareLabel: format.number(share(m.credits) / 100, {
+                    share: m.pct,
+                    shareLabel: format.number(m.pct / 100, {
                       style: "percent",
                     }),
                   }))}
@@ -203,22 +237,24 @@ export function UsageScreen() {
                     label: t("byModel.insightLabel"),
                     title: t("byModel.insightTitle"),
                     body: t("byModel.insightBody"),
-                    footnote: t("byModel.insightFootnote", {
-                      prompts: DEMO_USAGE_SUMMARY.prompts,
-                    }),
+                    footnote: t("byModel.insightFootnote", { prompts }),
                   }}
                 />
               </section>
               <section className="flex flex-col gap-4">
                 <SectionHeading>{t("daily.heading")}</SectionHeading>
                 <DailySpendCard
-                  label={t("daily.label", {
-                    from: day(`${DEMO_DAILY_SPEND[0].day}T12:00:00+06:00`),
-                    to: day(`${DEMO_DAILY_SPEND.at(-1)!.day}T12:00:00+06:00`),
-                  })}
-                  days={DEMO_DAILY_SPEND.map((d, i, all) => ({
-                    key: d.day,
-                    label: day(`${d.day}T12:00:00+06:00`),
+                  label={
+                    daily.length
+                      ? t("daily.label", {
+                          from: day(`${daily[0].date}T12:00:00+06:00`),
+                          to: day(`${daily.at(-1)!.date}T12:00:00+06:00`),
+                        })
+                      : tc("loading")
+                  }
+                  days={daily.map((d, i, all) => ({
+                    key: d.date,
+                    label: day(`${d.date}T12:00:00+06:00`),
                     showLabel:
                       i === 0 ||
                       i === all.length - 1 ||
@@ -279,8 +315,8 @@ export function UsageScreen() {
                     rows={activity.map((a) => ({
                       id: a.id,
                       date: t("activity.date", {
-                        date: day(a.at),
-                        time: time(a.at),
+                        date: day(a.date),
+                        time: time(a.date),
                       }),
                       chat: a.chat,
                       models: a.breakdown.map((b) => b.model),
@@ -291,7 +327,7 @@ export function UsageScreen() {
                       money: money(a.credits),
                       breakdown: a.breakdown.map((b) => ({
                         model: b.model,
-                        name: b.name,
+                        name: MODEL_SPECS[b.model].name,
                         credits: credits(b.credits),
                         money: money(b.credits),
                       })),
@@ -322,23 +358,20 @@ export function UsageScreen() {
             <div className="flex flex-col gap-3 md:hidden">
               <SpendTotalCard
                 label={t("mobile.spent")}
-                value={credits(total)}
+                value={loading(credits(total))}
                 secondary={t("mobile.about", {
                   taka: tc("taka", { amount: bdt(total) }),
                 })}
-                caption={t("mobile.summary", {
-                  prompts: DEMO_USAGE_SUMMARY.prompts,
-                  refunds: DEMO_USAGE_SUMMARY.refunds,
-                })}
+                caption={t("mobile.summary", { prompts, refunds })}
               />
               <ModelSpendCard
                 title={t("mobile.byAi")}
-                rows={DEMO_USAGE_BY_MODEL.map((m) => ({
+                rows={byModel.map((m) => ({
                   model: m.model,
                   name: m.short,
                   credits: credits(m.credits),
-                  share: share(m.credits),
-                  shareLabel: format.number(share(m.credits) / 100, {
+                  share: m.pct,
+                  shareLabel: format.number(m.pct / 100, {
                     style: "percent",
                   }),
                 }))}
@@ -349,18 +382,18 @@ export function UsageScreen() {
               <RecentUsageCard
                 title={t("mobile.recent")}
                 emptyLabel={t("mobile.empty")}
-                items={DEMO_USAGE_ACTIVITY.map((a) => ({
+                items={all.map((a) => ({
                   id: a.id,
                   title: a.chat,
                   meta: t("mobile.itemMeta", {
-                    when: a.at.startsWith(DEMO_TODAY)
-                      ? t("mobile.today", { time: time(a.at) })
-                      : day(a.at),
+                    when: isToday(a.date)
+                      ? t("mobile.today", { time: time(a.date) })
+                      : day(a.date),
                     count: a.breakdown.length,
                   }),
                   amount: tc("creditsShort", { amount: num(a.credits) }),
                   models: a.breakdown.map((b) => b.model),
-                  link: <Link href={`/c/${a.chatId}`} />,
+                  link: <Link href={a.chatId ? `/c/${a.chatId}` : "/images"} />,
                 }))}
                 footnote={t("mobile.refunds")}
               />

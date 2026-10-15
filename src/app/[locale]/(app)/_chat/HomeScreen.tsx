@@ -11,17 +11,19 @@ import { AiOrbGroup } from "@/components/molecules/AiOrbGroup";
 import { StarterRow } from "@/components/molecules/StarterRow";
 import { HomeHero } from "@/components/organisms/HomeHero";
 import { AppMain } from "@/components/templates/AppShell";
+import { ApiClientError } from "@/lib/api-client";
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
-import { COFFEE_CHAT_ID, DEMO_VOICE } from "@/lib/mock/chat";
-import { CREDIT_IN_BDT, DEMO_BALANCE, DEMO_USER } from "@/lib/mock/demo";
+import { useMe } from "@/lib/me";
+import { DEMO_VOICE } from "@/lib/mock/chat";
 
-import { parseParams, stepQuery } from "./state";
+import { sendPrompt } from "./api";
+import { parseParams } from "./state";
 import { useComposer, type AnswerMode } from "./useComposer";
 import { useChatFormat } from "./useFormat";
 
 // Home (new chat). Desktop: the Home hero with the Composer inside it. Below 768px: M2 (credits,
 // language, greeting, starters) with the Mobile composer docked above the tab bar.
-// Sending goes to the coffee-shop chat's thinking step (the prototype's "Send" target).
+// Send creates the chat (POST /api/chats) and opens it, where the answers stream in.
 
 type Greeting = "morning" | "afternoon" | "evening";
 
@@ -36,7 +38,7 @@ function greetingFor(hour: number): Greeting {
 /** Reads the deep-link params (?composer=…, ?sheet=…); render inside <Suspense>. */
 export function HomeRoute() {
   const sp = useSearchParams();
-  const p = parseParams(new URLSearchParams(sp.toString()), "best");
+  const p = parseParams(new URLSearchParams(sp.toString()));
   return (
     <HomeScreen
       key={sp.toString()}
@@ -68,27 +70,34 @@ export function HomeScreen({
     () => "evening",
   );
 
-  const chat = (step: Parameters<typeof stepQuery>[0]) =>
-    router.push(`/c/${COFFEE_CHAT_ID}${stepQuery(step)}`);
-  const send = () =>
-    chat(mode === "best" ? "thinking-best" : "thinking-compare");
+  const { user, balance, refresh } = useMe();
 
   const composer = useComposer({
     context: "home",
     mode,
     onModeChange: setMode,
-    onSend: send,
+    onSend: async ({ text, models, attachments }) => {
+      try {
+        const sent = await sendPrompt({ text, mode, models, attachments });
+        void refresh(); // the hold shows in the balance right away
+        router.push(`/c/${sent.chatId}`);
+      } catch (e) {
+        if (e instanceof ApiClientError && e.code === "insufficient_credits")
+          router.push("/wallet/top-up");
+        return false;
+      }
+    },
     voiceText: DEMO_VOICE.home,
     placeholder: {
       desktop: tco("placeholder.home"),
       mobile: tco("placeholder.home"),
     },
-    estimate: { min: 6, max: 14 },
     initial,
     initialSheet,
   });
 
-  const name = DEMO_USER.firstName;
+  const name = user?.name.trim().split(/\s+/)[0] ?? "";
+  const credits = balance?.credits ?? 0;
   return (
     <AppMain
       className="max-md:pt-0"
@@ -116,13 +125,13 @@ export function HomeScreen({
               icon: "layers-01",
               title: t("starters.compare.title"),
               description: t("starters.compare.description"),
-              onClick: () => chat("compare"),
+              onClick: () => setMode("compare"),
             },
             {
               icon: "globe-02",
               title: t("starters.bangla.title"),
               description: t("starters.bangla.description"),
-              onClick: () => chat("thinking-best"),
+              onClick: () => composer.setValue(t("banglaPrompt")),
             },
             {
               icon: "image-01",
@@ -138,9 +147,9 @@ export function HomeScreen({
       <div className="flex flex-col px-4 md:hidden">
         <div className="flex h-mobile-top-bar-height items-center justify-between gap-2">
           <CreditsPill
-            credits={tc("credits", { amount: n(DEMO_BALANCE.credits) })}
+            credits={tc("credits", { amount: n(Math.floor(credits)) })}
             money={tc("taka", {
-              amount: n(Math.floor(DEMO_BALANCE.credits * CREDIT_IN_BDT)),
+              amount: n(Math.floor(balance?.bdt ?? 0)),
             })}
             link={<Link href="/wallet" aria-label={t("mobile.balance")} />}
           />

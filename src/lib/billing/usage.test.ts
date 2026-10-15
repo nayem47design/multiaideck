@@ -125,6 +125,7 @@ describe("usage", () => {
     expect(w.spentThisMonth).toEqual({ credits: 21, bdt: 0.21 });
     expect(w.chatsThisMonth).toBe(1);
     expect(w.averagePromptCredits).toBe(21);
+    expect(w.averageChatCredits).toBe(21);
     const [u] = await db.select().from(users).where(eq(users.id, userId));
     expect(w.plan).toBe(u.plan);
   });

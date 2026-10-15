@@ -17,6 +17,8 @@ export interface PicturePlaceholderProps extends HTMLAttributes<HTMLDivElement> 
   size?: "sm" | "md" | "lg";
   /** Shimmers while the picture is being made. */
   pending?: boolean;
+  /** A generated image to show instead of the gradient (covers the frame). */
+  src?: string;
   ref?: Ref<HTMLDivElement>;
 }
 
@@ -45,7 +47,9 @@ export function PicturePlaceholder({
   caption,
   size = "lg",
   pending = false,
+  src,
   className,
+  style,
   ref,
   ...props
 }: PicturePlaceholderProps) {
@@ -57,10 +61,16 @@ export function PicturePlaceholder({
         "relative flex aspect-square w-full flex-col justify-end overflow-hidden bg-linear-135",
         tones[tone],
         sizes[size],
+        src && "bg-cover bg-center",
         pending &&
           "animate-pulse [animation-duration:var(--duration-ambient)] motion-reduce:animate-none",
         className,
       )}
+      style={
+        src
+          ? { ...style, backgroundImage: `url(${JSON.stringify(src)})` }
+          : style
+      }
       {...props}
     >
       {caption && !pending && (
