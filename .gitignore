@@ -35,3 +35,6 @@ npm-debug.log*
 
 # local embedded database
 /.data
+
+# QA reports
+/lighthouse-report.html

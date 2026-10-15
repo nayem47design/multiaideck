@@ -87,6 +87,15 @@ export async function compareWithFigma(
     await locator.screenshot({ omitBackground: true, animations: "disabled" }),
   );
 
+  return diffAndAttach(figma, code, testInfo);
+}
+
+/** Pixel-diff two images (padded to the larger size) and attach figma, code and diff PNGs. */
+export async function diffAndAttach(
+  figma: PNG,
+  code: PNG,
+  testInfo: TestInfo,
+): Promise<Comparison> {
   const size: Comparison["size"] = {
     figma: [figma.width, figma.height],
     code: [code.width, code.height],

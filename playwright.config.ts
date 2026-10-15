@@ -33,10 +33,28 @@ export default defineConfig({
     {
       name: "visual",
       testDir: "./tests/visual",
+      testIgnore: "screens.spec.ts",
       use: {
         ...devices["Desktop Chrome"],
         baseURL: STORYBOOK_URL,
         deviceScaleFactor: 2,
+      },
+    },
+    // Whole screens vs Figma Prototype frames, against the app (each test sets its own viewport).
+    {
+      name: "screens",
+      testDir: "./tests/visual",
+      testMatch: "screens.spec.ts",
+      use: { baseURL: APP_URL },
+    },
+    // Accessibility, keyboard and reduced-motion checks, against the app.
+    {
+      name: "a11y",
+      testDir: "./tests/a11y",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1440, height: 900 },
+        baseURL: APP_URL,
       },
     },
   ],

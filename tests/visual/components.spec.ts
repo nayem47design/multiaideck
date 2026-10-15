@@ -10,7 +10,7 @@ import { compareWithFigma, MAX_DIFF_RATIO, openStory } from "./support/compare";
 // that holds the component. Model orb uses one story with args.
 
 const ROOT = "tests/visual/figma";
-const SKIP = new Set(["button"]); // has its own spec
+const SKIP = new Set(["button", "screens"]); // own specs
 
 // Figma component frames that are narrower than their own content, so Figma's export overlaps
 // itself. They are checked inside their screens instead.

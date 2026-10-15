@@ -1,0 +1,62 @@
+# Every pull request: types, lint, unit tests, a production build, e2e flows, accessibility,
+# and the visual checks against Figma (components in Storybook, whole screens in the app).
+# A failing visual test fails the PR; its diff images are uploaded as an artifact.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - { name: e2e, projects: --project=desktop --project=mobile }
+          - { name: a11y, projects: --project=a11y }
+          - { name: components, projects: --project=visual }
+          - { name: screens, projects: --project=screens }
+    name: ${{ matrix.suite.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # Local stand-ins for every service (embedded database, sandbox payments, demo AI).
+      - run: npx playwright test ${{ matrix.suite.projects }}
+        env:
+          NODE_ENV: development
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.suite.name }}-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14

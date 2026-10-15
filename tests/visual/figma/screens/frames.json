@@ -1,0 +1,906 @@
+{
+  "best-answer-files-attached__dark__1440.png": {
+    "id": "157:10189",
+    "name": "Dark · Best answer · Files attached",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer-files-attached__light__1440.png": {
+    "id": "157:7634",
+    "name": "Best answer · Files attached",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer-menu__dark__1440.png": {
+    "id": "157:10139",
+    "name": "Dark · Best answer · “+” menu",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer-menu__light__1440.png": {
+    "id": "157:7586",
+    "name": "Best answer · “+” menu",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer-voice-listening__dark__1440.png": {
+    "id": "157:10157",
+    "name": "Dark · Best answer · Voice listening",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer-voice-listening__light__1440.png": {
+    "id": "157:7602",
+    "name": "Best answer · Voice listening",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer-voice-text-ready__dark__1440.png": {
+    "id": "157:10173",
+    "name": "Dark · Best answer · Voice text ready",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer-voice-text-ready__light__1440.png": {
+    "id": "157:7618",
+    "name": "Best answer · Voice text ready",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer__dark__1440.png": {
+    "id": "28:13831",
+    "name": "Dark · Best answer",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "best-answer__light__1440.png": {
+    "id": "28:11170",
+    "name": "Best answer",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "chats__light__1440.png": {
+    "id": "166:27473",
+    "name": "Chats",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-files-attached__dark__1440.png": {
+    "id": "157:10267",
+    "name": "Dark · Compare · Files attached",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-files-attached__light__1440.png": {
+    "id": "157:8690",
+    "name": "Compare · Files attached",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-menu__dark__1440.png": {
+    "id": "157:10205",
+    "name": "Dark · Compare · “+” menu",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-menu__light__1440.png": {
+    "id": "157:8630",
+    "name": "Compare · “+” menu",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-prompt-2-1-of-3-answered__light__1440.png": {
+    "id": "166:28838",
+    "name": "Compare · Prompt 2: 1 of 3 answered",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-prompt-2-gpt-5-answered-on-retry-2__light__1440.png": {
+    "id": "166:30462",
+    "name": "Compare · Prompt 2: GPT-5 answered on retry",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-prompt-2-gpt-5-answered-on-retry__light__1440.png": {
+    "id": "166:29348",
+    "name": "Compare · Prompt 2: GPT-5 answered on retry",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-prompt-3-all-3-answered__light__1440.png": {
+    "id": "166:30876",
+    "name": "Compare · Prompt 3: all 3 answered",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-voice-listening__dark__1440.png": {
+    "id": "157:10227",
+    "name": "Dark · Compare · Voice listening",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-voice-listening__light__1440.png": {
+    "id": "157:8650",
+    "name": "Compare · Voice listening",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-voice-text-ready__dark__1440.png": {
+    "id": "157:10247",
+    "name": "Dark · Compare · Voice text ready",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-voice-text-ready__light__1440.png": {
+    "id": "157:8670",
+    "name": "Compare · Voice text ready",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare-writing-prompt-3-who-gets-it__light__1440.png": {
+    "id": "166:29754",
+    "name": "Compare · Writing prompt 3: who gets it?",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare__dark__1440.png": {
+    "id": "28:14031",
+    "name": "Dark · Compare",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "compare__light__1440.png": {
+    "id": "28:9596",
+    "name": "Compare",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "desktop-enter-code__light__1440.png": {
+    "id": "166:26754",
+    "name": "Desktop · Enter code",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "desktop-sign-in__light__1440.png": {
+    "id": "166:26700",
+    "name": "Desktop · Sign in",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-files-attached__dark__1440.png": {
+    "id": "147:40939",
+    "name": "Dark · Home · Files attached",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-files-attached__light__1440.png": {
+    "id": "147:39923",
+    "name": "Home · Files attached",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-menu__dark__1440.png": {
+    "id": "147:40914",
+    "name": "Dark · Home · “+” menu",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-menu__light__1440.png": {
+    "id": "147:39898",
+    "name": "Home · “+” menu",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-voice-listening__dark__1440.png": {
+    "id": "147:40923",
+    "name": "Dark · Home · Voice listening",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-voice-listening__light__1440.png": {
+    "id": "147:39907",
+    "name": "Home · Voice listening",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-voice-text-ready__dark__1440.png": {
+    "id": "147:40931",
+    "name": "Dark · Home · Voice text ready",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home-voice-text-ready__light__1440.png": {
+    "id": "147:39915",
+    "name": "Home · Voice text ready",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home__dark__1440.png": {
+    "id": "28:13630",
+    "name": "Dark · Home",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "home__light__1440.png": {
+    "id": "28:9395",
+    "name": "Home",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "image-studio-picture-ready__light__1440.png": {
+    "id": "166:28077",
+    "name": "Image studio · Picture ready",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "image-studio__light__1440.png": {
+    "id": "166:27840",
+    "name": "Image studio",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "m1-welcome-language__light__360.png": {
+    "id": "166:21095",
+    "name": "M1 · Welcome & language",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m10-wallet__light__360.png": {
+    "id": "166:22151",
+    "name": "M10 · Wallet",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m11-add-credits-amount-bkash__light__360.png": {
+    "id": "166:22246",
+    "name": "M11 · Add credits: amount & bKash",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m12-payment-received__light__360.png": {
+    "id": "166:22321",
+    "name": "M12 · Payment received",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m13-usage__light__360.png": {
+    "id": "166:22365",
+    "name": "M13 · Usage",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m14-chats__light__360.png": {
+    "id": "166:22450",
+    "name": "M14 · Chats",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m15-account-settings__light__360.png": {
+    "id": "166:22553",
+    "name": "M15 · Account & settings",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m16-sign-in-phone-number__light__360.png": {
+    "id": "166:22750",
+    "name": "M16 · Sign in: phone number",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m17-enter-the-code__light__360.png": {
+    "id": "166:22844",
+    "name": "M17 · Enter the code",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m18-voice-check-your-words__light__360.png": {
+    "id": "166:22939",
+    "name": "M18 · Voice: check your words",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m19-file-attached__light__360.png": {
+    "id": "166:23075",
+    "name": "M19 · File attached",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m2-home__light__360.png": {
+    "id": "166:21142",
+    "name": "M2 · Home",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m20-ais-are-thinking__light__360.png": {
+    "id": "166:23218",
+    "name": "M20 · AIs are thinking",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m21-make-a-picture__light__360.png": {
+    "id": "166:23349",
+    "name": "M21 · Make a picture",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m22-picture-ready__light__360.png": {
+    "id": "166:23471",
+    "name": "M22 · Picture ready",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m23-compare-gpt-5-answer__light__360.png": {
+    "id": "166:23616",
+    "name": "M23 · Compare: GPT-5 answer",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m24-compare-gemini-answer__light__360.png": {
+    "id": "166:23722",
+    "name": "M24 · Compare: Gemini answer",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m25-choose-ais__light__360.png": {
+    "id": "166:23832",
+    "name": "M25 · Choose AIs",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m26-follow-up-thinking-2-ais-slow__light__360.png": {
+    "id": "166:24664",
+    "name": "M26 · Follow-up: thinking (2 AIs slow)",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m27-follow-up-claude-s-answer__light__360.png": {
+    "id": "166:24381",
+    "name": "M27 · Follow-up: Claude’s answer",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m28-follow-up-gemini-unavailable__light__360.png": {
+    "id": "166:24485",
+    "name": "M28 · Follow-up: Gemini unavailable",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m29-follow-up-gpt-5-answered-on-retry__light__360.png": {
+    "id": "166:24571",
+    "name": "M29 · Follow-up: GPT-5 answered on retry",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m3-sheet-add-photos-files__light__360.png": {
+    "id": "166:21272",
+    "name": "M3 · “+” sheet: add photos & files",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m30-prompt-3-thinking-catching-up__light__360.png": {
+    "id": "166:24757",
+    "name": "M30 · Prompt 3: thinking (catching up)",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m31-prompt-3-claude__light__360.png": {
+    "id": "166:24852",
+    "name": "M31 · Prompt 3: Claude",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m32-prompt-3-gpt-5__light__360.png": {
+    "id": "166:24956",
+    "name": "M32 · Prompt 3: GPT-5",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m33-prompt-3-gemini__light__360.png": {
+    "id": "166:25049",
+    "name": "M33 · Prompt 3: Gemini",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m34-finish-payment-in-bkash__light__360.png": {
+    "id": "166:25153",
+    "name": "M34 · Finish payment in bKash",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m35-payment-didn-t-go-through__light__360.png": {
+    "id": "166:25251",
+    "name": "M35 · Payment didn’t go through",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m36-payment-history__light__360.png": {
+    "id": "166:25351",
+    "name": "M36 · Payment history",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m37-go-pro__light__360.png": {
+    "id": "166:25456",
+    "name": "M37 · Go Pro",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m38-pro-is-on__light__360.png": {
+    "id": "166:25567",
+    "name": "M38 · Pro is on",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m39-language__light__360.png": {
+    "id": "166:25645",
+    "name": "M39 · Language",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m4-voice-listening__light__360.png": {
+    "id": "166:21401",
+    "name": "M4 · Voice: listening",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m40-notifications__light__360.png": {
+    "id": "166:25742",
+    "name": "M40 · Notifications",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m41-privacy-security__light__360.png": {
+    "id": "166:25967",
+    "name": "M41 · Privacy & security",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m42-help-support__light__360.png": {
+    "id": "166:26079",
+    "name": "M42 · Help & support",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m43-sign-out__light__360.png": {
+    "id": "166:26193",
+    "name": "M43 · Sign out?",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m5-best-answer__light__360.png": {
+    "id": "166:21516",
+    "name": "M5 · Best answer",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m6-compare-one-answer-at-a-time__light__360.png": {
+    "id": "166:21632",
+    "name": "M6 · Compare: one answer at a time",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m7-how-should-we-answer-mode-ais__light__360.png": {
+    "id": "166:21736",
+    "name": "M7 · How should we answer? (mode & AIs)",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m8-compare-an-ai-couldn-t-answer__light__360.png": {
+    "id": "166:21910",
+    "name": "M8 · Compare: an AI couldn’t answer",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "m9-follow-up-who-should-get-it__light__360.png": {
+    "id": "166:22023",
+    "name": "M9 · Follow-up: who should get it?",
+    "theme": "light",
+    "width": 360,
+    "height": 800,
+    "scale": 2
+  },
+  "overlay-checkout-simulated__dark__480.png": {
+    "id": "28:15116",
+    "name": "Dark · Overlay · Checkout (simulated)",
+    "theme": "dark",
+    "width": 480,
+    "height": 558,
+    "scale": 1
+  },
+  "overlay-checkout-simulated__light__480.png": {
+    "id": "28:11535",
+    "name": "Overlay · Checkout (simulated)",
+    "theme": "light",
+    "width": 480,
+    "height": 558,
+    "scale": 1
+  },
+  "overlay-delete-account__dark__520.png": {
+    "id": "28:15631",
+    "name": "Dark · Overlay · Delete account",
+    "theme": "dark",
+    "width": 520,
+    "height": 526,
+    "scale": 1
+  },
+  "overlay-delete-account__light__520.png": {
+    "id": "28:11138",
+    "name": "Overlay · Delete account",
+    "theme": "light",
+    "width": 520,
+    "height": 526,
+    "scale": 1
+  },
+  "overlay-go-pro__light__560.png": {
+    "id": "166:28764",
+    "name": "Overlay · Go Pro",
+    "theme": "light",
+    "width": 560,
+    "height": 457,
+    "scale": 1
+  },
+  "overlay-model-picker__dark__1000.png": {
+    "id": "28:14358",
+    "name": "Dark · Overlay · Model picker",
+    "theme": "dark",
+    "width": 1000,
+    "height": 820,
+    "scale": 1
+  },
+  "overlay-model-picker__light__1000.png": {
+    "id": "28:10801",
+    "name": "Overlay · Model picker",
+    "theme": "light",
+    "width": 1000,
+    "height": 820,
+    "scale": 1
+  },
+  "overlay-payment-failed__dark__480.png": {
+    "id": "28:15164",
+    "name": "Dark · Overlay · Payment failed",
+    "theme": "dark",
+    "width": 480,
+    "height": 346,
+    "scale": 1
+  },
+  "overlay-payment-failed__light__480.png": {
+    "id": "28:11583",
+    "name": "Overlay · Payment failed",
+    "theme": "light",
+    "width": 480,
+    "height": 346,
+    "scale": 1
+  },
+  "overlay-payment-received__dark__480.png": {
+    "id": "28:15144",
+    "name": "Dark · Overlay · Payment received",
+    "theme": "dark",
+    "width": 480,
+    "height": 446,
+    "scale": 1
+  },
+  "overlay-payment-received__light__480.png": {
+    "id": "28:11563",
+    "name": "Overlay · Payment received",
+    "theme": "light",
+    "width": 480,
+    "height": 446,
+    "scale": 1
+  },
+  "overlay-pro-is-on__light__480.png": {
+    "id": "166:28814",
+    "name": "Overlay · Pro is on",
+    "theme": "light",
+    "width": 480,
+    "height": 380,
+    "scale": 1
+  },
+  "overlay-search-chats__light__640.png": {
+    "id": "166:27803",
+    "name": "Overlay · Search chats",
+    "theme": "light",
+    "width": 640,
+    "height": 258,
+    "scale": 1
+  },
+  "overlay-sign-out__light__480.png": {
+    "id": "166:28826",
+    "name": "Overlay · Sign out",
+    "theme": "light",
+    "width": 480,
+    "height": 212,
+    "scale": 1
+  },
+  "presets__light__1440.png": {
+    "id": "166:28328",
+    "name": "Presets",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "settings-help-support__light__1440.png": {
+    "id": "166:28617",
+    "name": "Settings · Help & support",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "settings-notifications__dark__1440.png": {
+    "id": "28:15309",
+    "name": "Dark · Settings · Notifications",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "settings-notifications__light__1440.png": {
+    "id": "28:10479",
+    "name": "Settings · Notifications",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "settings-privacy-security__dark__1440.png": {
+    "id": "28:15475",
+    "name": "Dark · Settings · Privacy & security",
+    "theme": "dark",
+    "width": 1440,
+    "height": 980,
+    "scale": 1
+  },
+  "settings-privacy-security__light__1440.png": {
+    "id": "28:10645",
+    "name": "Settings · Privacy & security",
+    "theme": "light",
+    "width": 1440,
+    "height": 980,
+    "scale": 1
+  },
+  "settings-profile__dark__1440.png": {
+    "id": "28:15174",
+    "name": "Dark · Settings · Profile",
+    "theme": "dark",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "settings-profile__light__1440.png": {
+    "id": "28:10344",
+    "name": "Settings · Profile",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "settings-usage__dark__1440.png": {
+    "id": "147:38564",
+    "name": "Dark · Settings · Usage",
+    "theme": "dark",
+    "width": 1440,
+    "height": 1511,
+    "scale": 1
+  },
+  "settings-usage__light__1440.png": {
+    "id": "147:38126",
+    "name": "Settings · Usage",
+    "theme": "light",
+    "width": 1440,
+    "height": 1511,
+    "scale": 1
+  },
+  "thinking-best-answer__light__1440.png": {
+    "id": "166:26808",
+    "name": "Thinking · Best answer",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "thinking-compare__light__1440.png": {
+    "id": "166:27077",
+    "name": "Thinking · Compare",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "thinking-prompt-2-2-ais-slow__light__1440.png": {
+    "id": "166:31235",
+    "name": "Thinking · Prompt 2 (2 AIs slow)",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "thinking-prompt-3-catching-up__light__1440.png": {
+    "id": "166:30170",
+    "name": "Thinking · Prompt 3 (catching up)",
+    "theme": "light",
+    "width": 1440,
+    "height": 900,
+    "scale": 1
+  },
+  "wallet__dark__1440.png": {
+    "id": "28:14695",
+    "name": "Dark · Wallet",
+    "theme": "dark",
+    "width": 1440,
+    "height": 1808,
+    "scale": 1
+  },
+  "wallet__light__1440.png": {
+    "id": "28:9923",
+    "name": "Wallet",
+    "theme": "light",
+    "width": 1440,
+    "height": 1808,
+    "scale": 1
+  }
+}
