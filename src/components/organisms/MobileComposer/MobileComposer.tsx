@@ -28,6 +28,8 @@ export interface MobileComposerProps extends Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   "onChange" | "value"
 > {
+  /** Animated glowing border (effects.css › glow-border): light travels around the border. */
+  glow?: boolean;
   value: string;
   onValueChange: (value: string) => void;
   /** Current mode, e.g. "Best answer". */
@@ -62,15 +64,18 @@ export function MobileComposer({
   onSend,
   onRemoveFile,
   className,
+  glow = false,
   ...textarea
 }: MobileComposerProps) {
   return (
     <div
       className={cx(
         "flex w-full flex-col gap-chat-m-composer-gap rounded-xl border border-glass-rim glass-strong px-chat-m-composer-pad-x py-3 shadow-composer",
+        glow && "glow-border [--glow-radius:var(--radius-xl)]",
         className,
       )}
     >
+      {glow && <span className="glow-border__halo" aria-hidden />}
       {voiceNote && (
         <p className="flex min-h-chat-m-voice-note-h items-center gap-1-5 rounded-chat-m-file bg-blue-soft px-chat-m-voice-note-pad py-1 type-chat-m-voice-note text-blue">
           <Icon name="mic-01" className="size-select-icon shrink-0" />
