@@ -5,9 +5,12 @@ import { useFormatter, useTranslations } from "next-intl";
 import { Sidebar } from "@/components/organisms/Sidebar";
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
 import { displayName, initialsOf, useMe } from "@/lib/me";
-import { SIDEBAR_CHATS } from "@/lib/mock/demo";
+import { dayOf, useChats } from "@/lib/chats";
 
 import { useOverlay } from "./overlays";
+
+/** Recent chats shown in the sidebar; the rest are in Chats. */
+const SIDEBAR_LIMIT = 30;
 
 // The Figma Sidebar with real links, the current route selected, and the prototype's actions:
 // search opens ⌘K, Top up goes to Wallet, Go Pro opens the Go Pro overlay (prototype-flows.json).
@@ -37,10 +40,22 @@ export function AppSidebar({
     router.push(href);
   };
   const link = (href: string) => <Link href={href} onClick={onNavigate} />;
-  const sections = (["today", "yesterday"] as const)
-    .map((day) => ({
+  // The user's chats (pictures live in Image studio): pinned first, then by day, newest first.
+  const { chats } = useChats();
+  const textChats = chats
+    .filter((c) => c.kind !== "image")
+    .slice(0, SIDEBAR_LIMIT);
+  const groups = [
+    { label: t("pinned"), chats: textChats.filter((c) => c.pinned) },
+    ...(["today", "yesterday", "earlier"] as const).map((day) => ({
       label: t(day),
-      chats: SIDEBAR_CHATS.filter((c) => c.day === day).map((c) => ({
+      chats: textChats.filter((c) => !c.pinned && dayOf(c.updatedAt) === day),
+    })),
+  ];
+  const sections = groups
+    .map((g) => ({
+      label: g.label,
+      chats: g.chats.map((c) => ({
         id: c.id,
         title: c.title,
         meta:

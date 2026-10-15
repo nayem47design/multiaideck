@@ -653,7 +653,9 @@
       "account": "অ্যাকাউন্ট"
     },
     "expand": "সাইডবার বড় করুন",
-    "toggleShortcut": "⌘\\"
+    "toggleShortcut": "⌘\\",
+    "pinned": "পিন করা",
+    "earlier": "আগের"
   },
   "picker": {
     "title": "মডেল বাছুন",

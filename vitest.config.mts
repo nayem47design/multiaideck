@@ -13,5 +13,8 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.test.{ts,tsx}"],
     passWithNoTests: true,
+    // Server tests migrate an in-memory Postgres (PGlite) per file; that can take longer than
+    // the 10 s default on a busy machine.
+    hookTimeout: 60_000,
   },
 });

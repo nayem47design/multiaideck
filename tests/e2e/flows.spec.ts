@@ -40,41 +40,7 @@ test.describe("signed out", () => {
   });
 });
 
-test("ask, get the best answer, then compare all three", async ({ page }) => {
-  await page.goto("/");
-  const box = v(page.getByPlaceholder("Ask anything, in English or Bangla…"));
-  await box.fill("Give me 3 name ideas for a small coffee shop in Dhaka");
-  await v(page.getByRole("button", { name: "Send", exact: true })).click();
-
-  await expect(page).toHaveURL(/\/c\/coffee-shop-names/);
-  await expect(v(page.getByText("Asking 3 AIs…")).first()).toBeVisible();
-  await expect(
-    v(page.getByText("Best answer", { exact: true })).first(),
-  ).toBeVisible({
-    timeout: 10_000,
-  });
-
-  await page
-    .getByRole("button", {
-      name: isMobile(page)
-        ? "See all 3 answers"
-        : "See all 3 answers side by side",
-    })
-    .or(page.getByRole("link", { name: /See all 3 answers/ }))
-    .first()
-    .click();
-  await expect(page).toHaveURL(/state=compare/);
-});
-
-test("a failed answer costs nothing and can be retried", async ({ page }) => {
-  test.skip(isMobile(page), "desktop Compare layout");
-  await page.goto("/c/coffee-shop-names?state=prompt-2");
-  await expect(v(page.getByText(/Nothing was charged/)).first()).toBeVisible();
-  await v(page.getByRole("button", { name: /Retry/ }))
-    .first()
-    .click();
-  await expect(page).toHaveURL(/state=prompt-2-retry|retried=1/);
-});
+// Asking, comparing, failures, retry and follow-ups run on real data: tests/e2e/chat.spec.ts.
 
 test("top up with bKash", async ({ page }) => {
   test.skip(
@@ -153,7 +119,8 @@ test("⌘K finds a chat", async ({ page }) => {
   await page.waitForLoadState("networkidle"); // the shortcut listens after hydration
   await page.keyboard.press("ControlOrMeta+k");
   const search = page.getByRole("dialog").getByRole("combobox");
-  await search.fill("coffee");
+  // Other tests add chats with the same coffee prompt; only the seeded chat has this title.
+  await search.fill("coffee shop names");
   await expect(
     page.getByRole("dialog").getByText("Coffee shop names"),
   ).toBeVisible();

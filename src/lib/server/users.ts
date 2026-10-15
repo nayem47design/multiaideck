@@ -28,7 +28,11 @@ export function toUser(u: UserRow): User {
 }
 
 export function toBalance(mcr: number): Balance {
-  return { credits: credits(mcr), bdt: bdt(paisaForMcr(mcr)) };
+  // Exact to the millicredit (1 mcr = BDT 0.00001); rounding drops float noise like 1.8969999.
+  return {
+    credits: credits(mcr),
+    bdt: Math.round(bdt(paisaForMcr(mcr)) * 100_000) / 100_000,
+  };
 }
 
 export async function userBalance(db: Db, userId: string): Promise<Balance> {

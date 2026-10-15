@@ -59,7 +59,19 @@ function SearchChats({ onDone }: { onDone: () => void }) {
   const debounced = useDebounced(q, 150);
   const all = useChats();
   const found = useChats({ q: debounced || undefined });
-  const matches = debounced ? found.chats : all.chats;
+  // Until the server search for exactly this text has answered, filter the chats already loaded
+  // locally, so the list (and ↵) always match what was typed.
+  const settled = debounced === q && found.status !== "loading";
+  const lower = q.toLowerCase();
+  const matches = !q
+    ? all.chats
+    : settled
+      ? found.chats
+      : all.chats.filter(
+          (c) =>
+            c.title.toLowerCase().includes(lower) ||
+            c.snippet.toLowerCase().includes(lower),
+        );
 
   const detail = (c: ChatSummary) => {
     const hit = q && c.kind !== "image" ? excerpt(c.snippet, q) : null;

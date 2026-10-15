@@ -653,7 +653,9 @@
       "account": "Account"
     },
     "expand": "Expand sidebar",
-    "toggleShortcut": "⌘\\"
+    "toggleShortcut": "⌘\\",
+    "pinned": "Pinned",
+    "earlier": "Earlier"
   },
   "picker": {
     "title": "Choose models",

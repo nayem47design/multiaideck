@@ -11,10 +11,9 @@ const SIGNED_OUT_ROUTES = ["/sign-in", "/sign-in?step=phone", "/sign-in/code"];
 const ROUTES = [
   "/",
   "/c/coffee-shop-names",
-  "/c/coffee-shop-names?state=best",
-  "/c/coffee-shop-names?state=compare",
-  "/c/coffee-shop-names?state=prompt-2",
-  "/c/coffee-shop-names?state=thinking-best&hold=1",
+  "/c/hellow",
+  "/c/who-are-you",
+  "/c/coffee-shop-names?composer=menu",
   "/chats",
   "/images",
   "/presets",
