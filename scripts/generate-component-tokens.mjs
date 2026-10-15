@@ -17,7 +17,8 @@ const stylesDir = join(root, "src/styles");
 const read = (f) => JSON.parse(readFileSync(join(stylesDir, f), "utf8"));
 const { components } = read("figma/components.json");
 const variables = read("figma/luminous.tokens.json");
-const { textStyles } = read("figma/luminous.styles.json");
+const styles = read("figma/luminous.styles.json");
+const { textStyles } = styles;
 
 // ---------------------------------------------------------------------------
 // Which values each component needs. Selectors name Figma layers; values come from Figma.
@@ -287,6 +288,513 @@ const TOKENS = [
   T("save-bar-discard-height", "size", ["Save bar", "Pill/Discard"], "h"),
   T("save-bar-message", "text", ["Save bar", "You changed your display name"]),
   T("save-bar-save", "text", ["Save bar", "Save (black pill)", "Save changes"]),
+  // ---- Organisms · group 1
+  T("answer-card-width", "size", ["Answer card", "State=Default"], "w"),
+  T("answer-card-height", "size", ["Answer card", "State=Default"], "h"),
+  T("answer-card", "radius", ["Answer card", "State=Default"], "radius"),
+  T("answer-card", "shadow", ["Answer card", "State=Default"]),
+  T(
+    "answer-card-border-suggested",
+    "stroke",
+    ["Answer card", "State=Suggested"],
+    "strokeWeight",
+  ),
+  T("answer-card-model", "text", [
+    "Answer card",
+    "State=Default",
+    "Header",
+    "name",
+    "nr",
+    "Model name",
+  ]),
+  T("answer-card-answer", "text", [
+    "Answer card",
+    "State=Default",
+    "Answer body",
+    "Answer",
+  ]),
+  T(
+    "answer-card-failure",
+    "radius",
+    ["Answer card", "State=Failed", "Answer body", "Failure icon"],
+    "radius",
+  ),
+
+  T("composer", "radius", ["Composer", "State=Default"], "radius"),
+  T("composer", "shadow", ["Composer", "State=Default"]),
+  T("composer-input", "text", ["Composer", "State=Default", "Placeholder"]),
+  T(
+    "composer-orb-overlap",
+    "size",
+    ["Composer", "State=Default", "Toolbar", "Model picker", "model dots"],
+    "gap",
+  ),
+  T(
+    "composer-file-tile",
+    "radius",
+    [
+      "Composer",
+      "State=Attachment",
+      "Attachments",
+      "File · Menu-draft.pdf",
+      "type tile",
+    ],
+    "radius",
+  ),
+  T(
+    "composer-file-width",
+    "size",
+    ["Composer", "State=Attachment", "Attachments", "File · Menu-draft.pdf"],
+    "w",
+  ),
+  T(
+    "composer-file-text",
+    "size",
+    [
+      "Composer",
+      "State=Attachment",
+      "Attachments",
+      "File · Menu-draft.pdf",
+      "text",
+    ],
+    "w",
+  ),
+  T(
+    "composer-wave-bar",
+    "size",
+    ["Composer", "State=Voice listening", "Toolbar", "Waveform", "bar"],
+    "w",
+  ),
+
+  T("composer-menu-width", "size", ["Composer menu"], "w"),
+
+  T("suggestion-bar", "shadow", ["Suggestion bar"]),
+  T(
+    "suggestion-bar-orb",
+    "size",
+    ["Suggestion bar", "mini constellation", "Model orb"],
+    "w",
+  ),
+  T("suggestion-bar-why-height", "size", ["Suggestion bar", "Pill/Why?"], "h"),
+
+  T("page-top-bar", "shadow", ["Page top bar"]),
+  T("page-top-bar-height", "size", ["Page top bar"], "h"),
+  T("page-top-bar-title", "text", ["Page top bar", "Wallet"]),
+
+  T("sidebar-width", "size", ["Sidebar"], "w"),
+  T("sidebar", "shadow", ["Sidebar"]),
+  T(
+    "sidebar-brand-orb",
+    "size",
+    ["Sidebar", "Brand row", "brand", "AI orb"],
+    "w",
+  ),
+  T("sidebar-brand", "text", ["Sidebar", "Brand row", "brand", "MultiAI"]),
+  T("sidebar-new-chat", "shadow", ["Sidebar", "New chat"]),
+  T("sidebar-section", "text", ["Sidebar", "label", "Today"]),
+  T("sidebar-chat", "radius", ["Sidebar", "Coffee shop names"], "radius"),
+  T("sidebar-chat", "shadow", ["Sidebar", "Coffee shop names"]),
+  T("sidebar-chat-title", "text", ["Sidebar", "Hellow", "Hellow"]),
+  T("sidebar-chat-title-active", "text", [
+    "Sidebar",
+    "Coffee shop names",
+    "Coffee shop names",
+  ]),
+  T(
+    "sidebar-chat-orb-overlap",
+    "size",
+    ["Sidebar", "Coffee shop names", "meta", "dots"],
+    "gap",
+  ),
+  T("sidebar-credits", "shadow", ["Sidebar", "Credits card"]),
+  T("sidebar-credits-amount", "text", [
+    "Sidebar",
+    "Credits card",
+    "r",
+    "t",
+    "10,684 credits",
+  ]),
+  T(
+    "answer-card-receipt-gap-failed",
+    "size",
+    ["Answer card", "State=Failed", "Receipt row"],
+    "gap",
+  ),
+  T(
+    "composer-file-gap",
+    "size",
+    ["Composer", "State=Attachment", "Attachments", "File · Menu-draft.pdf"],
+    "gap",
+  ),
+  T(
+    "composer-wave-gap",
+    "size",
+    ["Composer", "State=Voice listening", "Toolbar", "Waveform"],
+    "gap",
+  ),
+  T(
+    "composer-wave-max",
+    "size",
+    ["Composer", "State=Voice listening", "Toolbar", "Waveform"],
+    "h",
+  ),
+  T(
+    "composer-file-pad-right",
+    "size",
+    ["Composer", "State=Attachment", "Attachments", "File · Menu-draft.pdf"],
+    "padX",
+  ),
+  T(
+    "composer-language-pad-x",
+    "size",
+    ["Composer", "State=Voice listening", "Toolbar", "Language"],
+    "padX",
+  ),
+  T(
+    "composer-menu-item-pad",
+    "size",
+    ["Composer menu", "Item/Add photos & files"],
+    "padX",
+  ),
+  // ---- Organisms · group 2
+  T("order-summary", "shadow", ["Order summary"]),
+  T("order-summary-width", "size", ["Order summary"], "w"),
+  T("overline", "text", ["Order summary", "ORDER SUMMARY"]),
+  T("order-summary-total", "text", ["Order summary", "line", "BDT 699"]),
+  T("order-summary-label", "text", ["Order summary", "line#1", "Credits"]),
+  T("order-summary-label-strong", "text", ["Order summary", "line", "You pay"]),
+  T("order-summary-value", "text", ["Order summary", "line#1", "69,900"]),
+  T("order-summary-pay", "text", [
+    "Order summary",
+    "Pay (black pill)",
+    "Pay BDT 699 with bKash",
+  ]),
+  T(
+    "order-summary-trust-icon",
+    "size",
+    ["Order summary", "trust", "Icon/square-lock-02"],
+    "w",
+  ),
+
+  T("settings-nav", "shadow", ["Settings nav"]),
+  T("settings-nav-width", "size", ["Settings nav"], "w"),
+
+  T("dialog", "shadow", ["Delete dialog"]),
+  T("dialog-width", "size", ["Delete dialog"], "w"),
+  T("dialog-icon", "radius", ["Delete dialog", "icon"], "radius"),
+  T(
+    "dialog-icon-glyph",
+    "size",
+    ["Delete dialog", "icon", "Icon/delete-02"],
+    "w",
+  ),
+  T("dialog-title", "text", ["Delete dialog", "Delete your account?"]),
+  T("dialog-body", "text", [
+    "Delete dialog",
+    "This can’t be undone. You will lose:",
+  ]),
+  T("dialog-list-label", "size", ["Delete dialog", "Loss list", "r", "c"], "w"),
+  T("dialog-list", "text", [
+    "Delete dialog",
+    "Loss list",
+    "r",
+    "4 chats and their history",
+  ]),
+  T("dialog-list-strong", "text", [
+    "Delete dialog",
+    "Loss list",
+    "r#1",
+    "10,684 credits (≈ BDT 106.84)",
+  ]),
+  T(
+    "dialog-link-icon",
+    "size",
+    ["Delete dialog", "Download first", "Icon/download-01"],
+    "w",
+  ),
+  T("dialog-confirm-input", "text", [
+    "Delete dialog",
+    "Confirm field",
+    "input",
+    "DELETE",
+  ]),
+  T("dialog-cta", "text", [
+    "Delete dialog",
+    "actions",
+    "Delete (red)",
+    "Delete account",
+  ]),
+
+  T("stat-card", "shadow", ["Stat summary row", "Stat/BALANCE"]),
+  T("stat-value", "text", [
+    "Stat summary row",
+    "Stat/BALANCE",
+    "10,684 credits",
+  ]),
+  T("stat-caption", "text", [
+    "Stat summary row",
+    "Stat/BALANCE",
+    "≈ BDT 106.84 · about 410 chats at your average",
+  ]),
+  T("stat-chip", "text", [
+    "Stat summary row",
+    "Stat/BALANCE",
+    "chip",
+    "Credits never expire",
+  ]),
+  // ---- Organisms · group 2b
+  T("step-title", "text", ["Top-up table", "h", "1 Choose an amount"]),
+  T("top-up-col-pay", "size", ["Top-up table", "Table head", "c"], "w"),
+  T("top-up-col-get", "size", ["Top-up table", "Table head", "c#1"], "w"),
+  T("top-up-col-bonus", "size", ["Top-up table", "Table head", "c#2"], "w"),
+  T("top-up-col-chats", "size", ["Top-up table", "Table head", "c#3"], "w"),
+  T("top-up-price", "text", ["Top-up table", "Pack BDT 99", "c", "BDT 99"]),
+  T("top-up-custom-height", "size", ["Top-up table", "Custom amount"], "h"),
+
+  T(
+    "payment-method-radio",
+    "size",
+    ["Payment method selector", "methods", "Method bKash", "radio"],
+    "w",
+  ),
+  T(
+    "payment-method-radio-ring",
+    "stroke",
+    ["Payment method selector", "methods", "Method bKash", "radio"],
+    "strokeWeight",
+  ),
+  T(
+    "payment-method-radio-border",
+    "stroke",
+    ["Payment method selector", "methods", "Method Nagad", "radio"],
+    "strokeWeight",
+  ),
+  T("payment-method-name", "text", [
+    "Payment method selector",
+    "methods",
+    "Method bKash",
+    "t",
+    "bKash",
+  ]),
+
+  T("dialog-sm-width", "size", ["Checkout dialog"], "w"),
+  T("dialog-hero-title", "text", [
+    "Checkout dialog",
+    "Approve in your bKash app",
+  ]),
+  T("dialog-hero-body", "text", [
+    "Checkout dialog",
+    "We sent a payment request. Open bKash, check the amount, and approve.",
+  ]),
+  T("dialog-summary-label", "text", [
+    "Checkout dialog",
+    "summary",
+    "r",
+    "Amount",
+  ]),
+  T("dialog-summary-value", "text", [
+    "Checkout dialog",
+    "summary",
+    "r",
+    "BDT 699",
+  ]),
+
+  T("usage-insight-width", "size", ["Usage card", "Insight"], "w"),
+  T("usage-bar-height", "size", ["Usage card", "By model", "Stacked bar"], "h"),
+  T("usage-orb", "size", ["Usage card", "By model", "row GPT-5", "orb"], "w"),
+  T("usage-row-height", "size", ["Usage card", "By model", "row GPT-5"], "h"),
+  T(
+    "usage-col-credits",
+    "size",
+    ["Usage card", "By model", "row GPT-5", "c"],
+    "w",
+  ),
+  T(
+    "usage-col-money",
+    "size",
+    ["Usage card", "By model", "row GPT-5", "c#1"],
+    "w",
+  ),
+  T(
+    "usage-col-share",
+    "size",
+    ["Usage card", "By model", "row GPT-5", "c#2"],
+    "w",
+  ),
+  T("usage-insight-title", "text", [
+    "Usage card",
+    "Insight",
+    "Gemini cost about half as much as GPT-5 on the same prompt.",
+  ]),
+  T("usage-insight-body", "text", [
+    "Usage card",
+    "Insight",
+    "If quality is close, picking Gemini for quick questions makes your credits last longer.",
+  ]),
+
+  T("table-row", "radius", ["Activity table", "row"], "radius"),
+  T("table-row-height", "size", ["Activity table", "row"], "h"),
+  T("table-subrow-height", "size", ["Activity table", "row#1"], "h"),
+  T("activity-col-date", "size", ["Activity table", "head", "c"], "w"),
+  T("activity-col-chat", "size", ["Activity table", "head", "c#1"], "w"),
+  T("activity-col-models", "size", ["Activity table", "head", "c#2"], "w"),
+  T("activity-col-credits", "size", ["Activity table", "head", "c#3"], "w"),
+  T("activity-col-money", "size", ["Activity table", "head", "c#4"], "w"),
+  T("table-number", "text", ["Activity table", "row", "c#3", "26 credits"]),
+  T("payments-col-date", "size", ["Payments table", "head", "c"], "w"),
+  T("payments-col-top-up", "size", ["Payments table", "head", "c#1"], "w"),
+  T("payments-col-status", "size", ["Payments table", "head", "c#2"], "w"),
+  T("payments-col-action", "size", ["Payments table", "head", "c#3"], "w"),
+  // ---- Organisms · group 3a
+  T("best-answer-text", "text", [
+    "Best answer card",
+    "Merged answer",
+    "Here are the strongest name ideas from all three models:",
+  ]),
+  T("identity-initials", "text", [
+    "Identity card",
+    "avatar row",
+    "Avatar",
+    "AH",
+  ]),
+  T("data-tile", "radius", ["Data card", "Row/Chat history", "tile"], "radius"),
+  // ---- Organisms · group 3b
+  T("notif-col", "size", ["Notification matrix", "Head", "col"], "w"),
+  T("group-label", "text", ["Notification matrix", "Group MONEY", "MONEY"]),
+  T("toggle-knob", "shadow", [
+    "Notification matrix",
+    "Row/Low balance alert",
+    "top",
+    "cell",
+    "Toggle on",
+    "knob",
+  ]),
+  T(
+    "toggle-locked",
+    "opacity",
+    ["Notification matrix", "Row/Payment receipts", "top", "cell", "Toggle on"],
+    "opacity",
+  ),
+  T("password", "text", [
+    "Sign-in methods card",
+    "Set password (expanded)",
+    "Field/New password",
+    "input",
+    "••••••••••",
+  ]),
+  T(
+    "set-password-indent",
+    "size",
+    ["Sign-in methods card", "Set password (expanded)"],
+    "padLeft",
+  ),
+  // ---- Organisms · group 4
+  T("picker-width", "size", ["Model picker modal"], "w"),
+  T("picker-height", "size", ["Model picker modal"], "h"),
+  T(
+    "picker-col-model",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Head", "c#1"],
+    "w",
+  ),
+  T(
+    "picker-col-version",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Head", "c#2"],
+    "w",
+  ),
+  T(
+    "picker-col-tags",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Head", "c#3"],
+    "w",
+  ),
+  T(
+    "picker-col-speed",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Head", "c#4"],
+    "w",
+  ),
+  T(
+    "picker-col-cost",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Head", "c#5"],
+    "w",
+  ),
+  T(
+    "picker-version-width",
+    "size",
+    [
+      "Model picker modal",
+      "Model list (scrolls)",
+      "Row/GPT-5",
+      "c#2",
+      "Version",
+    ],
+    "w",
+  ),
+  T(
+    "picker-version-height",
+    "size",
+    [
+      "Model picker modal",
+      "Model list (scrolls)",
+      "Row/GPT-5",
+      "c#2",
+      "Version",
+    ],
+    "h",
+  ),
+  T(
+    "picker-speed-bar-width",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Row/GPT-5", "c#4", "bar"],
+    "w",
+  ),
+  T(
+    "picker-speed-bar-height",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Row/GPT-5", "c#4", "bar"],
+    "h",
+  ),
+  T(
+    "picker-row-height",
+    "size",
+    ["Model picker modal", "Model list (scrolls)", "Row/GPT-5"],
+    "h",
+  ),
+  ...[
+    ["o3", "Row/o3"],
+    ["perplexity", "Row/Perplexity"],
+    ["llama", "Row/Llama"],
+    ["qwen", "Row/Qwen"],
+  ].map(([m, row]) =>
+    T(
+      `orb-${m}`,
+      "gradient",
+      ["Model picker modal", "Model list (scrolls)", row, "c#1", "Model orb"],
+      "fill",
+    ),
+  ),
+
+  T("hero-subtitle", "text", [
+    "Home hero",
+    "Ask once. Get the best answer from up to three models.",
+  ]),
+  T("starter-card", "shadow", [
+    "Home hero",
+    "Starters",
+    "Card/Compare three models",
+  ]),
+  T("starter-card-text", "text", [
+    "Home hero",
+    "Starters",
+    "Card/Compare three models",
+    "t",
+    "See GPT, Claude and Gemini by side",
+  ]),
+  T("hero-art-width", "size", ["Home hero", "Model constellation"], "w"),
+  T("hero-art-height", "size", ["Home hero", "Model constellation"], "h"),
 ];
 
 // ---------------------------------------------------------------------------
@@ -481,12 +989,50 @@ for (const t of TOKENS) {
           `${e.offset.x}px ${e.offset.y}px ${e.radius}px ${e.spread ?? 0}px ${e.color}`,
       )
       .join(", ");
+    // Equal to a Luminous effect style (just not applied in Figma)? Alias it.
+    const sameStyle = styles.effectStyles.find((st) => {
+      const drops = st.effects.filter((e) => e.type === "DROP_SHADOW");
+      return (
+        drops.length === shadows.length &&
+        drops.every((e, i) => {
+          const o = shadows[i];
+          const alpha = Math.round(e.color.a * 255)
+            .toString(16)
+            .padStart(2, "0");
+          const rgb = [e.color.r, e.color.g, e.color.b]
+            .map((c) =>
+              Math.round(c * 255)
+                .toString(16)
+                .padStart(2, "0"),
+            )
+            .join("");
+          return (
+            e.offset.x === o.offset.x &&
+            e.offset.y === o.offset.y &&
+            e.radius === o.radius &&
+            `#${rgb}${alpha}` === o.color
+          );
+        })
+      );
+    });
+    if (sameStyle) {
+      const [group, variant] = sameStyle.name.toLowerCase().split("/");
+      const key =
+        group === "elevation"
+          ? variant
+          : variant === "default"
+            ? group
+            : `${group}-${variant}`;
+      value = `var(--shadow-${key})`;
+    }
     report.push({
       token: cssVar,
       where,
-      figma: value,
-      result: node.effectStyle
-        ? `= ${node.effectStyle}`
+      figma: shadows
+        .map((e) => `${e.offset.y}/${e.radius} ${e.color}`)
+        .join(", "),
+      result: sameStyle
+        ? `= ${sameStyle.name} (effect style not applied in Figma)`
         : "new shadow (no effect style)",
     });
     theme.push(`  --shadow-${t.name}: var(${cssVar});`);
@@ -526,6 +1072,10 @@ for (const t of TOKENS) {
       x: node.pos?.[0],
       radius: node.radius,
       strokeWeight: node.strokeWeight,
+      gap: node.gap,
+      padX: node.pad?.[1],
+      padLeft: node.pad?.[3],
+      padY: node.pad?.[0],
     }[t.prop];
     if (typeof raw !== "number")
       throw new Error(`${where}: no numeric ${t.prop}`);

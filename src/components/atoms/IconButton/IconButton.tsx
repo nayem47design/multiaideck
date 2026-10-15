@@ -13,6 +13,8 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   icon?: IconName;
   /** Accessible name; the button shows no text. */
   label: string;
+  /** Replaces the variant's size (a size-* class), for molecules where Figma resizes the instance. */
+  sizeClassName?: string;
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -25,18 +27,26 @@ const DEFAULT_ICON: Record<IconButtonVariant, IconName> = {
 };
 
 const variants: Record<IconButtonVariant, string> = {
-  plain: "size-control-md text-ink-2",
-  outline: "size-control-md border border-line text-ink-2",
-  glass:
-    "size-control-md border border-glass-rim text-ink-2 glass-strong shadow-glass-strong",
-  send: "size-control-lg bg-cta text-on-cta",
-  stop: "size-control-lg bg-cta text-on-cta",
+  plain: "text-ink-2",
+  outline: "border border-line text-ink-2",
+  glass: "border border-glass-rim text-ink-2 glass-strong shadow-glass-strong",
+  send: "bg-cta text-on-cta",
+  stop: "bg-cta text-on-cta",
+};
+
+const sizes: Record<IconButtonVariant, string> = {
+  plain: "size-control-md",
+  outline: "size-control-md",
+  glass: "size-control-md",
+  send: "size-control-lg",
+  stop: "size-control-lg",
 };
 
 export function IconButton({
   variant = "plain",
   icon,
   label,
+  sizeClassName,
   type = "button",
   className,
   ref,
@@ -54,6 +64,7 @@ export function IconButton({
         focusRing,
         "disabled:cursor-not-allowed disabled:text-ink-3",
         variants[variant],
+        sizeClassName ?? sizes[variant],
         className,
       )}
       {...props}

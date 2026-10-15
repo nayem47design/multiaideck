@@ -360,6 +360,22 @@ const themeCss = [
   "",
   decl("--font-sans", "var(--font-sans)"),
   decl("--font-mono", "var(--font-mono)"),
+  "",
+  "  /* Font weights used by the Luminous text styles (for mixed-weight text such as a bold lead-in). */",
+  ...[
+    ...new Map(
+      styles.textStyles
+        .filter((t) => t.name.startsWith("Luminous/"))
+        .map((t) => [t.fontStyle, FONT_WEIGHT[t.fontStyle]]),
+    ).entries(),
+  ]
+    .sort((a, b) => a[1] - b[1])
+    .map(([style, weight]) =>
+      decl(
+        `--font-weight-${style.toLowerCase().replace(/\s+/g, "")}`,
+        String(weight),
+      ),
+    ),
   "}",
   "",
   "/* Motion durations (Tailwind has no theme namespace for these). */",

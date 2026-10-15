@@ -53,3 +53,17 @@
     }
   }
 }
+
+/* Theme-specific artwork (e.g. Figma illustrations exported for Light and Dark). */
+@utility dark-hidden {
+  [data-theme="dark"] & {
+    display: none;
+  }
+}
+@utility light-hidden {
+  display: none;
+
+  [data-theme="dark"] & {
+    display: block;
+  }
+}

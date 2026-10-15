@@ -12,18 +12,21 @@ import { compareWithFigma, MAX_DIFF_RATIO, openStory } from "./support/compare";
 const ROOT = "tests/visual/figma";
 const SKIP = new Set(["button"]); // has its own spec
 
-// Glass is translucent and blurs what is behind it; Figma exports it over nothing, which Figma
-// renders almost opaque. Pixels are comparable only over a real background (needs a Figma frame
-// for it), so for these only the rendered size is checked.
-const GLASS = "glass blurs what is behind it; Figma exports it over nothing";
-const SIZE_ONLY: Record<string, string> = {
-  "icon-button/glass": GLASS,
-  "toast/success": GLASS,
-  "toast/error": GLASS,
-  "prompt-bubble/default": GLASS,
-  "chat-title-pill/default": GLASS,
-  "save-bar/default": GLASS,
+// Figma component frames that are narrower than their own content, so Figma's export overlaps
+// itself. They are checked inside their screens instead.
+const NOT_COMPARABLE: Record<string, string> = {
+  "preferences-card/default": "Figma frame (301px) is narrower than its rows",
+  "data-card/default": "Figma frame (287px) is narrower than its rows",
+  "sign-in-methods-card/default":
+    "Figma clips its password-strength row (505px in a 436px column)",
+  "notification-matrix/default":
+    "Figma: the Failed answers help text (307px) overflows its 277px column under the toggle",
+  "identity-card/default":
+    "Figma frame (420px): help texts and the email field overflow their 177px columns",
 };
+
+// Variants whose pixels cannot be compared with their Figma export; only the size is checked.
+const SIZE_ONLY: Record<string, string> = {};
 
 const LAYERS = ["atoms", "molecules", "organisms", "templates"];
 const pascal = (slug: string) =>
@@ -64,6 +67,7 @@ for (const component of readdirSync(ROOT).filter((d) => !SKIP.has(d))) {
         page,
       }, testInfo) => {
         const key = `${component}/${variant}`;
+        test.skip(key in NOT_COMPARABLE, NOT_COMPARABLE[key]);
         const { id, args } = storyFor(component, variant);
         await openStory(page, id, args, theme);
         const result = await compareWithFigma(

@@ -31,6 +31,10 @@ export async function openStory(
   await page.addStyleTag({
     content: `
       html, body { background: transparent !important; margin: 0 !important; padding: 0 !important; }
+      /* Figma exports glass over nothing: its background blur renders the fill fully opaque. */
+      .glass, .glass-strong { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+      .glass { background-color: rgb(from var(--glass-fill) r g b / 1) !important; }
+      .glass-strong { background-color: rgb(from var(--glass-fill-strong) r g b / 1) !important; }
       #storybook-root { position: absolute !important; inset: 0 auto auto 0 !important; padding: 0 !important; margin: 0 !important; display: flex !important; align-items: flex-start !important; }
     `,
   });

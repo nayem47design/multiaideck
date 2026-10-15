@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, Ref } from "react";
 
+import { Icon, type IconName } from "../Icon/Icon";
 import { cx, focusRing, stateLayer } from "../states";
 
 // Figma: Design system › Button (28:8200). Variant × Size mirror the Figma properties.
@@ -15,6 +16,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   /** Shows a spinner, keeps the button's width and blocks clicks. */
   loading?: boolean;
+  /**
+   * Leading icon. Not a Figma Button property, but organisms use the Button with an icon (e.g.
+   * "Change photo", "Download"); Figma's Button gap (space/1-5) is the icon gap.
+   */
+  icon?: IconName;
+  /** sm = 14px, md = 16px. */
+  iconSize?: "sm" | "md";
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -50,6 +58,8 @@ export function Button({
   variant = "primary",
   size = "md",
   loading = false,
+  icon,
+  iconSize = "md",
   disabled,
   type = "button",
   className,
@@ -73,7 +83,18 @@ export function Button({
       )}
       {...props}
     >
-      <span className={loading ? "invisible" : "contents"}>{children}</span>
+      <span className={loading ? "invisible" : "contents"}>
+        {icon && (
+          <Icon
+            name={icon}
+            className={cx(
+              iconSize === "sm" ? "size-select-icon" : "size-icon-sm",
+              (variant === "secondary" || variant === "ghost") && "text-ink-2",
+            )}
+          />
+        )}
+        {children}
+      </span>
       {loading && (
         <span
           aria-hidden

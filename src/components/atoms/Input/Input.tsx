@@ -7,15 +7,23 @@ import { cx } from "../states";
 // so the thicker focus/error stroke does not move the text.
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  /** Replaces the height (an h-* class), where Figma resizes the instance (e.g. Identity card). */
+  heightClassName?: string;
   ref?: Ref<HTMLInputElement>;
 }
 
-export function Input({ className, ref, ...props }: InputProps) {
+export function Input({
+  heightClassName,
+  className,
+  ref,
+  ...props
+}: InputProps) {
   return (
     <input
       ref={ref}
       className={cx(
-        "h-input-height w-full min-w-0 rounded-md bg-surface px-4 type-input text-ink placeholder:text-ink-3",
+        heightClassName ?? "h-input-height",
+        "w-full min-w-0 rounded-md bg-surface px-4 type-input text-ink placeholder:text-ink-3",
         "ring-(length:--input-border-width) ring-line ring-inset",
         "transition-shadow duration-fast ease-out outline-none",
         "focus:ring-(length:--input-border-focus-width) focus:ring-blue",

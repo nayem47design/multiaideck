@@ -103,6 +103,134 @@
   --save-bar-shadow: 0px 12px 40px 0px #1f336129; /* Save bar */
   --save-bar-height: 60px; /* Save bar */
   --save-bar-discard-height: var(--space-10); /* Save bar › Pill/Discard */
+  --answer-card-width: 360px; /* Answer card › State=Default */
+  --answer-card-height: 520px; /* Answer card › State=Default */
+  --answer-card-radius: 22px; /* Answer card › State=Default */
+  --answer-card-shadow: 0px 8px 24px 0px #1f33610f; /* Answer card › State=Default */
+  --answer-card-border-suggested-width: 1.5px; /* Answer card › State=Suggested */
+  --answer-card-failure-radius: 12px; /* Answer card › State=Failed › Answer body › Failure icon */
+  --composer-radius: 26px; /* Composer › State=Default */
+  --composer-shadow: var(--shadow-glass-strong); /* Composer › State=Default */
+  --composer-orb-overlap: -6px; /* Composer › State=Default › Toolbar › Model picker › model dots */
+  --composer-file-tile-radius: 8px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf › type tile */
+  --composer-file-width: 242px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf */
+  --composer-file-text: 150px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf › text */
+  --composer-wave-bar: 3px; /* Composer › State=Voice listening › Toolbar › Waveform › bar */
+  --composer-menu-width: 312px; /* Composer menu */
+  --suggestion-bar-shadow: 0px 12px 40px 0px #1f33610d; /* Suggestion bar */
+  --suggestion-bar-orb: 22px; /* Suggestion bar › mini constellation › Model orb */
+  --suggestion-bar-why-height: var(
+    --size-control-sm
+  ); /* Suggestion bar › Pill/Why? */
+  --page-top-bar-shadow: var(--shadow-glass); /* Page top bar */
+  --page-top-bar-height: var(--space-14); /* Page top bar */
+  --sidebar-width: 268px; /* Sidebar */
+  --sidebar-shadow: var(--shadow-glass); /* Sidebar */
+  --sidebar-brand-orb: 26px; /* Sidebar › Brand row › brand › AI orb */
+  --sidebar-new-chat-shadow: 0px 12px 40px 0px #1f33610d; /* Sidebar › New chat */
+  --sidebar-chat-radius: 16px; /* Sidebar › Coffee shop names */
+  --sidebar-chat-shadow: 0px 12px 40px 0px #1f33610d; /* Sidebar › Coffee shop names */
+  --sidebar-chat-orb-overlap: -4px; /* Sidebar › Coffee shop names › meta › dots */
+  --sidebar-credits-shadow: 0px 12px 40px 0px #1f33610f; /* Sidebar › Credits card */
+  --answer-card-receipt-gap-failed: 10px; /* Answer card › State=Failed › Receipt row */
+  --composer-file-gap: 10px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf */
+  --composer-wave-gap: 3px; /* Composer › State=Voice listening › Toolbar › Waveform */
+  --composer-wave-max: 26px; /* Composer › State=Voice listening › Toolbar › Waveform */
+  --composer-file-pad-right: 10px; /* Composer › State=Attachment › Attachments › File · Menu-draft.pdf */
+  --composer-language-pad-x: 10px; /* Composer › State=Voice listening › Toolbar › Language */
+  --composer-menu-item-pad: 10px; /* Composer menu › Item/Add photos & files */
+  --order-summary-shadow: 0px 12px 40px 0px #1f33611a; /* Order summary */
+  --order-summary-width: 376px; /* Order summary */
+  --order-summary-trust-icon: 14px; /* Order summary › trust › Icon/square-lock-02 */
+  --settings-nav-shadow: var(--shadow-glass); /* Settings nav */
+  --settings-nav-width: 248px; /* Settings nav */
+  --dialog-shadow: var(--shadow-modal); /* Delete dialog */
+  --dialog-width: 520px; /* Delete dialog */
+  --dialog-icon-radius: var(--radius-md); /* Delete dialog › icon */
+  --dialog-icon-glyph: 22px; /* Delete dialog › icon › Icon/delete-02 */
+  --dialog-list-label: 90px; /* Delete dialog › Loss list › r › c */
+  --dialog-link-icon: 15px; /* Delete dialog › Download first › Icon/download-01 */
+  --stat-card-shadow: var(--shadow-card); /* Stat summary row › Stat/BALANCE */
+  --top-up-col-pay: 140px; /* Top-up table › Table head › c */
+  --top-up-col-get: 170px; /* Top-up table › Table head › c#1 */
+  --top-up-col-bonus: 110px; /* Top-up table › Table head › c#2 */
+  --top-up-col-chats: 110px; /* Top-up table › Table head › c#3 */
+  --top-up-custom-height: 52px; /* Top-up table › Custom amount */
+  --payment-method-radio: 18px; /* Payment method selector › methods › Method bKash › radio */
+  --payment-method-radio-ring-width: 5px; /* Payment method selector › methods › Method bKash › radio */
+  --payment-method-radio-border-width: 1.5px; /* Payment method selector › methods › Method Nagad › radio */
+  --dialog-sm-width: 480px; /* Checkout dialog */
+  --usage-insight-width: 264px; /* Usage card › Insight */
+  --usage-bar-height: var(--space-3); /* Usage card › By model › Stacked bar */
+  --usage-orb: var(
+    --size-icon-sm
+  ); /* Usage card › By model › row GPT-5 › orb */
+  --usage-row-height: var(
+    --size-control-md
+  ); /* Usage card › By model › row GPT-5 */
+  --usage-col-credits: 92px; /* Usage card › By model › row GPT-5 › c */
+  --usage-col-money: 96px; /* Usage card › By model › row GPT-5 › c#1 */
+  --usage-col-share: var(
+    --space-10
+  ); /* Usage card › By model › row GPT-5 › c#2 */
+  --table-row-radius: 12px; /* Activity table › row */
+  --table-row-height: 52px; /* Activity table › row */
+  --table-subrow-height: var(--space-10); /* Activity table › row#1 */
+  --activity-col-date: 150px; /* Activity table › head › c */
+  --activity-col-chat: 220px; /* Activity table › head › c#1 */
+  --activity-col-models: 170px; /* Activity table › head › c#2 */
+  --activity-col-credits: 120px; /* Activity table › head › c#3 */
+  --activity-col-money: 110px; /* Activity table › head › c#4 */
+  --payments-col-date: 200px; /* Payments table › head › c */
+  --payments-col-top-up: 340px; /* Payments table › head › c#1 */
+  --payments-col-status: 220px; /* Payments table › head › c#2 */
+  --payments-col-action: 200px; /* Payments table › head › c#3 */
+  --data-tile-radius: 12px; /* Data card › Row/Chat history › tile */
+  --notif-col: 84px; /* Notification matrix › Head › col */
+  --toggle-knob-shadow: 0px 1px 2px 0px #00000026; /* Notification matrix › Row/Low balance alert › top › cell › Toggle on › knob */
+  --toggle-locked: 0.55; /* Notification matrix › Row/Payment receipts › top › cell › Toggle on */
+  --set-password-indent: var(
+    --space-14
+  ); /* Sign-in methods card › Set password (expanded) */
+  --picker-width: 1000px; /* Model picker modal */
+  --picker-height: 820px; /* Model picker modal */
+  --picker-col-model: 280px; /* Model picker modal › Model list (scrolls) › Head › c#1 */
+  --picker-col-version: 190px; /* Model picker modal › Model list (scrolls) › Head › c#2 */
+  --picker-col-tags: 230px; /* Model picker modal › Model list (scrolls) › Head › c#3 */
+  --picker-col-speed: 80px; /* Model picker modal › Model list (scrolls) › Head › c#4 */
+  --picker-col-cost: 110px; /* Model picker modal › Model list (scrolls) › Head › c#5 */
+  --picker-version-width: 170px; /* Model picker modal › Model list (scrolls) › Row/GPT-5 › c#2 › Version */
+  --picker-version-height: 34px; /* Model picker modal › Model list (scrolls) › Row/GPT-5 › c#2 › Version */
+  --picker-speed-bar-width: 14px; /* Model picker modal › Model list (scrolls) › Row/GPT-5 › c#4 › bar */
+  --picker-speed-bar-height: var(
+    --space-1-5
+  ); /* Model picker modal › Model list (scrolls) › Row/GPT-5 › c#4 › bar */
+  --picker-row-height: 60px; /* Model picker modal › Model list (scrolls) › Row/GPT-5 */
+  --orb-o3-fill: linear-gradient(
+    135deg,
+    #a5b4fc 8.33%,
+    #4f46e5 91.67%
+  ); /* Model picker modal › Model list (scrolls) › Row/o3 › c#1 › Model orb */
+  --orb-perplexity-fill: linear-gradient(
+    135deg,
+    #99f6e4 8.33%,
+    #0f766e 91.67%
+  ); /* Model picker modal › Model list (scrolls) › Row/Perplexity › c#1 › Model orb */
+  --orb-llama-fill: linear-gradient(
+    135deg,
+    #bfdbfe 8.33%,
+    #1d4ed8 91.67%
+  ); /* Model picker modal › Model list (scrolls) › Row/Llama › c#1 › Model orb */
+  --orb-qwen-fill: linear-gradient(
+    135deg,
+    #ddd6fe 8.33%,
+    #6d28d9 91.67%
+  ); /* Model picker modal › Model list (scrolls) › Row/Qwen › c#1 › Model orb */
+  --starter-card-shadow: var(
+    --shadow-float
+  ); /* Home hero › Starters › Card/Compare three models */
+  --hero-art-width: 150px; /* Home hero › Model constellation */
+  --hero-art-height: 80px; /* Home hero › Model constellation */
 }
 
 @theme inline reference {
@@ -162,6 +290,98 @@
   --shadow-save-bar: var(--save-bar-shadow);
   --spacing-save-bar-height: var(--save-bar-height);
   --spacing-save-bar-discard-height: var(--save-bar-discard-height);
+  --spacing-answer-card-width: var(--answer-card-width);
+  --spacing-answer-card-height: var(--answer-card-height);
+  --radius-answer-card: var(--answer-card-radius);
+  --shadow-answer-card: var(--answer-card-shadow);
+  --radius-answer-card-failure: var(--answer-card-failure-radius);
+  --radius-composer: var(--composer-radius);
+  --shadow-composer: var(--composer-shadow);
+  --spacing-composer-orb-overlap: var(--composer-orb-overlap);
+  --radius-composer-file-tile: var(--composer-file-tile-radius);
+  --spacing-composer-file-width: var(--composer-file-width);
+  --spacing-composer-file-text: var(--composer-file-text);
+  --spacing-composer-wave-bar: var(--composer-wave-bar);
+  --spacing-composer-menu-width: var(--composer-menu-width);
+  --shadow-suggestion-bar: var(--suggestion-bar-shadow);
+  --spacing-suggestion-bar-orb: var(--suggestion-bar-orb);
+  --spacing-suggestion-bar-why-height: var(--suggestion-bar-why-height);
+  --shadow-page-top-bar: var(--page-top-bar-shadow);
+  --spacing-page-top-bar-height: var(--page-top-bar-height);
+  --spacing-sidebar-width: var(--sidebar-width);
+  --shadow-sidebar: var(--sidebar-shadow);
+  --spacing-sidebar-brand-orb: var(--sidebar-brand-orb);
+  --shadow-sidebar-new-chat: var(--sidebar-new-chat-shadow);
+  --radius-sidebar-chat: var(--sidebar-chat-radius);
+  --shadow-sidebar-chat: var(--sidebar-chat-shadow);
+  --spacing-sidebar-chat-orb-overlap: var(--sidebar-chat-orb-overlap);
+  --shadow-sidebar-credits: var(--sidebar-credits-shadow);
+  --spacing-answer-card-receipt-gap-failed: var(
+    --answer-card-receipt-gap-failed
+  );
+  --spacing-composer-file-gap: var(--composer-file-gap);
+  --spacing-composer-wave-gap: var(--composer-wave-gap);
+  --spacing-composer-wave-max: var(--composer-wave-max);
+  --spacing-composer-file-pad-right: var(--composer-file-pad-right);
+  --spacing-composer-language-pad-x: var(--composer-language-pad-x);
+  --spacing-composer-menu-item-pad: var(--composer-menu-item-pad);
+  --shadow-order-summary: var(--order-summary-shadow);
+  --spacing-order-summary-width: var(--order-summary-width);
+  --spacing-order-summary-trust-icon: var(--order-summary-trust-icon);
+  --shadow-settings-nav: var(--settings-nav-shadow);
+  --spacing-settings-nav-width: var(--settings-nav-width);
+  --shadow-dialog: var(--dialog-shadow);
+  --spacing-dialog-width: var(--dialog-width);
+  --radius-dialog-icon: var(--dialog-icon-radius);
+  --spacing-dialog-icon-glyph: var(--dialog-icon-glyph);
+  --spacing-dialog-list-label: var(--dialog-list-label);
+  --spacing-dialog-link-icon: var(--dialog-link-icon);
+  --shadow-stat-card: var(--stat-card-shadow);
+  --spacing-top-up-col-pay: var(--top-up-col-pay);
+  --spacing-top-up-col-get: var(--top-up-col-get);
+  --spacing-top-up-col-bonus: var(--top-up-col-bonus);
+  --spacing-top-up-col-chats: var(--top-up-col-chats);
+  --spacing-top-up-custom-height: var(--top-up-custom-height);
+  --spacing-payment-method-radio: var(--payment-method-radio);
+  --spacing-dialog-sm-width: var(--dialog-sm-width);
+  --spacing-usage-insight-width: var(--usage-insight-width);
+  --spacing-usage-bar-height: var(--usage-bar-height);
+  --spacing-usage-orb: var(--usage-orb);
+  --spacing-usage-row-height: var(--usage-row-height);
+  --spacing-usage-col-credits: var(--usage-col-credits);
+  --spacing-usage-col-money: var(--usage-col-money);
+  --spacing-usage-col-share: var(--usage-col-share);
+  --radius-table-row: var(--table-row-radius);
+  --spacing-table-row-height: var(--table-row-height);
+  --spacing-table-subrow-height: var(--table-subrow-height);
+  --spacing-activity-col-date: var(--activity-col-date);
+  --spacing-activity-col-chat: var(--activity-col-chat);
+  --spacing-activity-col-models: var(--activity-col-models);
+  --spacing-activity-col-credits: var(--activity-col-credits);
+  --spacing-activity-col-money: var(--activity-col-money);
+  --spacing-payments-col-date: var(--payments-col-date);
+  --spacing-payments-col-top-up: var(--payments-col-top-up);
+  --spacing-payments-col-status: var(--payments-col-status);
+  --spacing-payments-col-action: var(--payments-col-action);
+  --radius-data-tile: var(--data-tile-radius);
+  --spacing-notif-col: var(--notif-col);
+  --shadow-toggle-knob: var(--toggle-knob-shadow);
+  --spacing-set-password-indent: var(--set-password-indent);
+  --spacing-picker-width: var(--picker-width);
+  --spacing-picker-height: var(--picker-height);
+  --spacing-picker-col-model: var(--picker-col-model);
+  --spacing-picker-col-version: var(--picker-col-version);
+  --spacing-picker-col-tags: var(--picker-col-tags);
+  --spacing-picker-col-speed: var(--picker-col-speed);
+  --spacing-picker-col-cost: var(--picker-col-cost);
+  --spacing-picker-version-width: var(--picker-version-width);
+  --spacing-picker-version-height: var(--picker-version-height);
+  --spacing-picker-speed-bar-width: var(--picker-speed-bar-width);
+  --spacing-picker-speed-bar-height: var(--picker-speed-bar-height);
+  --spacing-picker-row-height: var(--picker-row-height);
+  --shadow-starter-card: var(--starter-card-shadow);
+  --spacing-hero-art-width: var(--hero-art-width);
+  --spacing-hero-art-height: var(--hero-art-height);
 }
 
 /* Filter pill › State=Default › Label: Geist Medium 12/16 ls 0 */
@@ -431,4 +651,284 @@
 /* Save bar › Save (black pill) › Save changes: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
 @utility type-save-bar-save {
   @apply type-nav-item-selected;
+}
+
+/* Answer card › State=Default › Header › name › nr › Model name: Geist Medium 15/20 ls -0.2 */
+@utility type-answer-card-model {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+/* Answer card › State=Default › Answer body › Answer: Geist Regular 15/24 ls -0.1 */
+@utility type-answer-card-answer {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* Composer › State=Default › Placeholder: Geist Regular 15/22 ls -0.1, same as type-prompt-bubble */
+@utility type-composer-input {
+  @apply type-prompt-bubble;
+}
+
+/* Page top bar › Wallet: Geist Medium 15/20 ls 0 */
+@utility type-page-top-bar-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Sidebar › Brand row › brand › MultiAI: Geist SemiBold 17/22 ls -0.4 */
+@utility type-sidebar-brand {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+/* Sidebar › label › Today: Geist Medium 11/16 ls 0.4 */
+@utility type-sidebar-section {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
+
+/* Sidebar › Hellow › Hellow: Geist Regular 14/20 ls -0.1, same as type-ui */
+@utility type-sidebar-chat-title {
+  @apply type-ui;
+}
+
+/* Sidebar › Coffee shop names › Coffee shop names: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-sidebar-chat-title-active {
+  @apply type-ui-strong;
+}
+
+/* Sidebar › Credits card › r › t › 10,684 credits: Geist Medium 15/20 ls -0.2, same as type-answer-card-model */
+@utility type-sidebar-credits-amount {
+  @apply type-answer-card-model;
+}
+
+/* Order summary › ORDER SUMMARY: Geist Medium 12/16 ls 0.3 */
+@utility type-overline {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Order summary › line › BDT 699: Geist Medium 20/26 ls 0 */
+@utility type-order-summary-total {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Order summary › line#1 › Credits: Geist Regular 14/20 ls 0, same as type-search-field */
+@utility type-order-summary-label {
+  @apply type-search-field;
+}
+
+/* Order summary › line › You pay: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-order-summary-label-strong {
+  @apply type-nav-item-selected;
+}
+
+/* Order summary › line#1 › 69,900: Geist Mono Regular 14/20 ls 0 */
+@utility type-order-summary-value {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Order summary › Pay (black pill) › Pay BDT 699 with bKash: Geist Medium 15/20 ls 0, same as type-page-top-bar-title */
+@utility type-order-summary-pay {
+  @apply type-page-top-bar-title;
+}
+
+/* Delete dialog › Delete your account?: Geist Light 28/34 ls -0.8 */
+@utility type-dialog-title {
+  font-family: var(--font-sans);
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 300;
+  letter-spacing: -0.8px;
+}
+
+/* Delete dialog › This can’t be undone. You will lose:: Geist Regular 15/22 ls 0 */
+@utility type-dialog-body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Delete dialog › Loss list › r › 4 chats and their history: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+@utility type-dialog-list {
+  @apply type-setting-row-help;
+}
+
+/* Delete dialog › Loss list › r#1 › 10,684 credits (≈ BDT 106.84): Geist Medium 13/18 ls 0, same as type-label */
+@utility type-dialog-list-strong {
+  @apply type-label;
+}
+
+/* Delete dialog › Confirm field › input › DELETE: Geist Mono Regular 15/20 ls 0 */
+@utility type-dialog-confirm-input {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Delete dialog › actions › Delete (red) › Delete account: Geist Medium 14/20 ls 0, same as type-nav-item-selected */
+@utility type-dialog-cta {
+  @apply type-nav-item-selected;
+}
+
+/* Stat summary row › Stat/BALANCE › 10,684 credits: Geist Light 36/42 ls -1 */
+@utility type-stat-value {
+  font-family: var(--font-sans);
+  font-size: 36px;
+  line-height: 42px;
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+
+/* Stat summary row › Stat/BALANCE › ≈ BDT 106.84 · about 410 chats at your average: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+@utility type-stat-caption {
+  @apply type-setting-row-help;
+}
+
+/* Stat summary row › Stat/BALANCE › chip › Credits never expire: Geist Medium 12/16 ls 0, same as type-filter-pill */
+@utility type-stat-chip {
+  @apply type-filter-pill;
+}
+
+/* Top-up table › h › 1 Choose an amount: Geist Medium 16/22 ls -0.2 */
+@utility type-step-title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+/* Top-up table › Pack BDT 99 › c › BDT 99: Geist Medium 16/22 ls -0.2, same as type-step-title */
+@utility type-top-up-price {
+  @apply type-step-title;
+}
+
+/* Payment method selector › methods › Method bKash › t › bKash: Geist Medium 15/20 ls 0, same as type-page-top-bar-title */
+@utility type-payment-method-name {
+  @apply type-page-top-bar-title;
+}
+
+/* Checkout dialog › Approve in your bKash app: Geist Light 26/32 ls -0.6 */
+@utility type-dialog-hero-title {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 300;
+  letter-spacing: -0.6px;
+}
+
+/* Checkout dialog › We sent a payment request. Open bKash, check the amount, and approve.: Geist Regular 14/20 ls 0, same as type-search-field */
+@utility type-dialog-hero-body {
+  @apply type-search-field;
+}
+
+/* Checkout dialog › summary › r › Amount: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+@utility type-dialog-summary-label {
+  @apply type-setting-row-help;
+}
+
+/* Checkout dialog › summary › r › BDT 699: Geist Mono Regular 13/18 ls 0, same as type-stepper */
+@utility type-dialog-summary-value {
+  @apply type-stepper;
+}
+
+/* Usage card › Insight › Gemini cost about half as much as GPT-5 on the same prompt.: Geist Light 20/27 ls -0.4 */
+@utility type-usage-insight-title {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 27px;
+  font-weight: 300;
+  letter-spacing: -0.4px;
+}
+
+/* Usage card › Insight › If quality is close, picking Gemini for quick questions makes your credits last longer.: Geist Regular 13/19 ls 0, same as type-empty-state-body */
+@utility type-usage-insight-body {
+  @apply type-empty-state-body;
+}
+
+/* Activity table › row › c#3 › 26 credits: Geist Mono Regular 13/20 ls 0, same as type-mono */
+@utility type-table-number {
+  @apply type-mono;
+}
+
+/* Best answer card › Merged answer › Here are the strongest name ideas from all three models:: Geist Regular 16/26 ls -0.1 */
+@utility type-best-answer-text {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  letter-spacing: -0.1px;
+}
+
+/* Identity card › avatar row › Avatar › AH: Geist Medium 20/24 ls 0 */
+@utility type-identity-initials {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Notification matrix › Group MONEY › MONEY: Geist Medium 11/16 ls 0.6 */
+@utility type-group-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+}
+
+/* Sign-in methods card › Set password (expanded) › Field/New password › input › ••••••••••: Geist Medium 18/20 ls 2 */
+@utility type-password {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+/* Home hero › Ask once. Get the best answer from up to three models.: Geist Light 22/30 ls -0.5 */
+@utility type-hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
+
+/* Home hero › Starters › Card/Compare three models › t › See GPT, Claude and Gemini by side: Geist Regular 13/18 ls 0, same as type-setting-row-help */
+@utility type-starter-card-text {
+  @apply type-setting-row-help;
 }

@@ -17,6 +17,8 @@ export interface ModelOrbProps extends HTMLAttributes<HTMLSpanElement> {
    * where Figma resizes an orb instance, e.g. Model chip.
    */
   sizeClassName?: string;
+  /** Draws the white ring outside the orb (Figma "outside" stroke, e.g. Usage card rows). */
+  ringOutside?: boolean;
 }
 
 const fills: Record<ModelId, string> = {
@@ -25,6 +27,10 @@ const fills: Record<ModelId, string> = {
   gemini: "bg-(image:--orb-gemini-fill)",
   deepseek: "bg-(image:--orb-deepseek-fill)",
   grok: "bg-(image:--orb-grok-fill)",
+  o3: "bg-(image:--orb-o3-fill)",
+  perplexity: "bg-(image:--orb-perplexity-fill)",
+  llama: "bg-(image:--orb-llama-fill)",
+  qwen: "bg-(image:--orb-qwen-fill)",
 };
 
 const dimensions: Record<ModelOrbSize, string> = {
@@ -42,6 +48,7 @@ export function ModelOrb({
   model,
   size = "lg",
   sizeClassName,
+  ringOutside = false,
   className,
   ...props
 }: ModelOrbProps) {
@@ -53,7 +60,8 @@ export function ModelOrb({
       className={cx(
         "inline-flex shrink-0 items-center justify-center rounded-pill bg-origin-border text-orb-initial select-none",
         // Inset ring, not a border: Chrome rounds 1.5px borders down to 1px.
-        "ring-(length:--orb-ring-width) ring-orb-ring ring-inset",
+        "ring-(length:--orb-ring-width) ring-orb-ring",
+        !ringOutside && "ring-inset",
         fills[model],
         sizeClassName ?? dimensions[size],
         text[size],

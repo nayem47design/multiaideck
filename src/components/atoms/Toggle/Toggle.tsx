@@ -14,7 +14,7 @@ export function Toggle({ className, ...props }: ToggleProps) {
         "group inline-flex h-toggle-height w-toggle-width shrink-0 items-center rounded-pill bg-line",
         "transition-colors duration-fast ease-out data-[state=checked]:bg-blue",
         focusRing,
-        "disabled:cursor-not-allowed disabled:bg-canvas-deep",
+        "disabled:cursor-not-allowed disabled:opacity-(--toggle-locked)",
         className,
       )}
       {...props}

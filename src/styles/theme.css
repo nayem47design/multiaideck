@@ -92,6 +92,12 @@
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+
+  /* Font weights used by the Luminous text styles (for mixed-weight text such as a bold lead-in). */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 }
 
 /* Motion durations (Tailwind has no theme namespace for these). */
