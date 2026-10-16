@@ -101,6 +101,7 @@ export function WalletDesktop({ className }: { className?: string }) {
   return (
     <div className={cx("px-shell-pad pt-shell-pad pb-16", className)}>
       <PageTopBar
+        className="sticky top-shell-pad z-20"
         title={t("title")}
         back={{
           label: t("backToChat"),

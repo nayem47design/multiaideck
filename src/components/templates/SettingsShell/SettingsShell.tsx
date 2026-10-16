@@ -34,7 +34,10 @@ export function SettingsShell({
         className,
       )}
     >
-      <div data-region="top-bar" className={cx(r && "max-md:hidden")}>
+      <div
+        data-region="top-bar"
+        className={cx("sticky top-shell-pad z-20", r && "max-md:hidden")}
+      >
         {topBar}
       </div>
       <div
@@ -45,7 +48,11 @@ export function SettingsShell({
       >
         <div
           data-region="nav"
-          className={cx("sticky top-shell-pad shrink-0", r && "max-md:hidden")}
+          className={cx(
+            // Sticks below the sticky top bar.
+            "sticky top-[calc(2*var(--shell-pad)+var(--page-top-bar-height))] shrink-0",
+            r && "max-md:hidden",
+          )}
         >
           {nav}
         </div>

@@ -15,11 +15,20 @@ Never create, rename, move, edit or delete anything in Figma. Do not use `figma_
 
 ### Main pages
 
+The file is organised for developer handoff (cover → foundations → system → flows → screens → rules → gaps). Sections marked *Ready for development* are the source of truth.
+
 | Page | Node ID |
 | --- | --- |
-| Tokens (Luminous variables, text styles) | `28:7489` |
-| Design system (atoms → templates) | `28:7490` |
-| Prototype (desktop + mobile screens, flows) | `28:7492` |
+| 00 · Cover & handoff guide | (first page) |
+| 01 · Foundations (Luminous variables, text styles) | `28:7489` |
+| 02 · Design system (atoms → templates, Patterns, Brand logos) | `28:7490` |
+| 03 · Flows (Desktop flows board `28:11681`, Mobile flows board `291:52410`) | `28:7491` |
+| 04 · Desktop screens (sections Desktop · Light / Desktop · Dark) | `28:7492` |
+| 04b · Tablet screens (768px; sections Tablet · Light `292:53537` / Tablet · Dark `292:58329`) | `292:53223` |
+| 05 · Mobile screens (sections Mobile · Light / Mobile · Dark, M1–M43) | `291:47567` |
+| 06 · Rules · Do & don't | (page) |
+| 07 · Gaps · Not designed yet (with build-until-designed guidance) | (page) |
+| 08 · Redlines & spacing | `65:15725` |
 
 ### Key nodes
 
@@ -45,9 +54,8 @@ Never create, rename, move, edit or delete anything in Figma. Do not use `figma_
 | Overlay · New project (light / dark) | `245:36384` / `245:36921` |
 | Desktop journey start (Sign in): light / dark | `166:26700` / `245:36739` |
 | Mobile screens M1–M43 (start) | `166:21095` |
-| Compare boards R12 · R13 · R14 (6 models) · R15 (failed follow-up) | `119:33304` · `147:39063` · `158:16110` · `158:21664` |
 
-Prototype flows: "0 · Desktop · Full journey (start here)", "8 · Dark · Full journey (start here)", "9 · Projects & account menu" and "7 Mobile (Android)" cover every screen with no dead ends. Use them as the source for routes and e2e tests.
+Prototype flows: on 04 · Desktop screens, "0 · Desktop · Full journey (start here)", "8 · Dark · Full journey (start here)" and "9 · Projects & account menu"; on 04b · Tablet screens, "4 · Tablet · Light (start here)" and "4b · Tablet · Dark (start here)" (core screens only; the rest are listed on 07 · Gaps); on 05 · Mobile screens, "7 · Mobile · Light (start here)" and "7b · Mobile · Dark (start here)". Desktop and mobile flows cover every screen with no dead ends. Use them as the source for routes and e2e tests.
 
 Sidebar behaviour (R17/R18): Settings is no longer reached from the account row directly — ⋯ or the account row opens the Account menu (Settings → Settings · Profile, Usage & billing → Settings · Usage, Language → Settings · Profile, Help & support, Sign out → sign-out dialog). Credits fold/unfold with the chevron; "Top up" goes to Wallet, "Go Pro" opens the Go Pro dialog. "＋" next to Projects opens New project; Create project goes to the project page.
 
