@@ -1,15 +1,15 @@
 {
   "$note": "Offsets of the component inside the Figma export (effects such as shadows extend the export), from absoluteRenderBounds vs absoluteBoundingBox, CSS px.",
   "light": {
-    "x": 16,
-    "y": 16,
+    "x": 60,
+    "y": 36,
     "width": 480,
-    "height": 446
+    "height": 454
   },
   "dark": {
-    "x": 0,
-    "y": 0,
+    "x": 60,
+    "y": 36,
     "width": 480,
-    "height": 446
+    "height": 454
   }
 }
