@@ -1020,6 +1020,14 @@ function fromScreen(n) {
   return o;
 }
 
+/** "Variant=Primary, Size=md" → { Variant: "Primary", Size: "md" }; null for a plain layer name. */
+function variantProps(name) {
+  if (!name.includes("=")) return null;
+  return Object.fromEntries(
+    name.split(/,\s*/).map((p) => p.split("=").map((s) => s.trim())),
+  );
+}
+
 function find(path, screen = false) {
   const [componentName, ...rest] = path;
   if (screen) {
@@ -1039,7 +1047,21 @@ function find(path, screen = false) {
   const trail = [componentName];
   for (const step of rest) {
     const [name, index = "0"] = step.split("#");
-    const matches = (node.children ?? []).filter((c) => c.name === name);
+    let matches = (node.children ?? []).filter((c) => c.name === name);
+    // A variant path ("State=Default") also matches variants with more properties, e.g. the
+    // Interaction states added later ("State=Default, Interaction=Default"); the resting one first.
+    const want = variantProps(name);
+    if (!matches.length && want)
+      matches = (node.children ?? [])
+        .filter((c) => {
+          const have = variantProps(c.name);
+          return have && Object.entries(want).every(([k, v]) => have[k] === v);
+        })
+        .sort(
+          (a, b) =>
+            Number(variantProps(a.name).Interaction !== "Default") -
+            Number(variantProps(b.name).Interaction !== "Default"),
+        );
     node = matches[Number(index)];
     trail.push(step);
     if (!node) throw new Error(`No layer "${trail.join(" › ")}"`);

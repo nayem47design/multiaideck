@@ -27,6 +27,7 @@ Never create, rename, move, edit or delete anything in Figma. Do not use `figma_
 | --- | --- |
 | Composer set (Default `28:8564`, Voice listening `147:38927`, Attachment `147:39000`) | `147:39061` |
 | Composer "+" menu (Add photos & files) | `147:38907` |
+| Patterns section (mobile & chat components taken from the screens; code-only effects note) | `288:45232` |
 | Brand logos section (AI + payments) | `268:41859` |
 | AI logo set: 23 brands × Style (Color, App icon, Black, White) → `AiLogo`, `npm run ai-logos` | `268:41860` |
 | AI wordmark (21 products) · Company logo (11 companies) | `268:41861` · `268:41862` |
