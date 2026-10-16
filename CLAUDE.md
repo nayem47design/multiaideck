@@ -21,7 +21,7 @@ The file is organised for developer handoff (cover → foundations → system �
 | --- | --- |
 | 00 · Cover & handoff guide | (first page) |
 | 01 · Foundations (Luminous variables, text styles) | `28:7489` |
-| 02 · Design system (atoms → templates, Patterns, Brand logos) | `28:7490` |
+| 02 · Design system (sections 0 Overview → 1 Atoms, 2 Icons, 3 Molecules, 4 Organisms, 5 Patterns, 6 Templates, 7 Pages, 8 Brand logos; Light left, Dark right) | `28:7490` |
 | 03 · Flows (Desktop flows board `28:11681`, Mobile flows board `291:52410`) | `28:7491` |
 | 04 · Desktop screens (sections Desktop · Light / Desktop · Dark) | `28:7492` |
 | 04b · Tablet screens (768px; sections Tablet · Light `292:53537` / Tablet · Dark `292:58329`) | `292:53223` |
@@ -36,14 +36,16 @@ The file is organised for developer handoff (cover → foundations → system �
 | --- | --- |
 | Composer set (Default `28:8564`, Voice listening `147:38927`, Attachment `147:39000`) | `147:39061` |
 | Composer "+" menu (Add photos & files) | `147:38907` |
-| Patterns section (mobile & chat components taken from the screens; code-only effects note) | `288:45232` |
+| Patterns section (mobile & chat components taken from the screens; code-only effects note) | `297:47290` |
+| Merged variant sets (Platform = Desktop / Mobile): Top bar · Answer card · Best answer card · Prompt bubble · Composer | `296:7594` · `103:25291` · `296:7727` · `296:8673` · `147:39061` |
+| Merged variant sets (Type): Template · Settings card · Dialog · Table card | `296:7593` · `296:9192` · `103:21324` · `296:10351` |
 | Brand logos section (AI + payments) | `268:41859` |
 | AI logo set: 23 brands × Style (Color, App icon, Black, White) → `AiLogo`, `npm run ai-logos` | `268:41860` |
 | AI wordmark (21 products) · Company logo (11 companies) | `268:41861` · `268:41862` |
 | Payment logo (bKash, Nagad) → `public/logos/payment` · Payment logo slot (white tile, used by Wallet, Checkout dialog, M11, M34) | `276:52024` · `103:20611` |
 | Model orb (the model's App icon in a circle; 9 models × lg/md/sm) · Model logo (Brand/Mono) | `28:8269` · `255:40944` |
 | Answer card: Suggested / Default / Failed | `28:8619` / `103:25245` / `158:17872` |
-| Usage card · Activity table · Settings nav | `103:20960` · `103:21035` · `28:8735` |
+| Usage card · Activity table (Table card, Type=Activity) · Settings nav | `103:20960` · `103:21035` · `28:8735` |
 | Sidebar set (Expanded `28:8525`, Collapsed rail `227:32794`) — option A (R17) | `227:32985` |
 | Sidebar section header · Project row · Chat row | `245:28609` · `245:28699` · `245:28743` |
 | Credits (collapsible: Collapsed `245:28779` / Expanded `245:28789`) | `245:28812` |
