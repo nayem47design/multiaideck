@@ -3,12 +3,12 @@
  * Source: Figma file fCrR78u1aj0DQjzpaEhrIY, Tokens page 28:7489 (snapshots in src/styles/figma/).
  */
 
-/* Line heights are absolute pixels, as in Figma, times --type-scale (the Text size setting). */
-/* Luminous/Display · Geist Light · 48px/54px */
+/* Line heights are absolute pixels, as in Figma, times --type-scale (the Text size setting) and --leading-script (Bangla). */
+/* Luminous/Display · Geist Light · 48px/56px */
 @utility type-display {
   font-family: var(--font-sans);
   font-size: calc(48px * var(--type-scale, 1));
-  line-height: calc(54px * var(--type-scale, 1));
+  line-height: calc(56px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 300;
   letter-spacing: calc(-1.6px * var(--type-scale, 1));
 }
@@ -17,25 +17,25 @@
 @utility type-title {
   font-family: var(--font-sans);
   font-size: calc(30px * var(--type-scale, 1));
-  line-height: calc(36px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 300;
   letter-spacing: calc(-0.8px * var(--type-scale, 1));
 }
 
-/* Luminous/Heading · Geist SemiBold · 19px/28px */
+/* Luminous/Heading · Geist SemiBold · 19px/24px */
 @utility type-heading {
   font-family: var(--font-sans);
   font-size: calc(19px * var(--type-scale, 1));
-  line-height: calc(28px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 600;
   letter-spacing: calc(-0.2px * var(--type-scale, 1));
 }
 
-/* Luminous/Body · Geist Regular · 16px/27px */
+/* Luminous/Body · Geist Regular · 16px/24px */
 @utility type-body {
   font-family: var(--font-sans);
   font-size: calc(16px * var(--type-scale, 1));
-  line-height: calc(27px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
@@ -44,7 +44,7 @@
 @utility type-ui {
   font-family: var(--font-sans);
   font-size: calc(14px * var(--type-scale, 1));
-  line-height: calc(20px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
@@ -53,7 +53,7 @@
 @utility type-ui-strong {
   font-family: var(--font-sans);
   font-size: calc(14px * var(--type-scale, 1));
-  line-height: calc(20px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
@@ -62,7 +62,7 @@
 @utility type-label {
   font-family: var(--font-sans);
   font-size: calc(13px * var(--type-scale, 1));
-  line-height: calc(18px * var(--type-scale, 1));
+  line-height: calc(18px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
@@ -71,7 +71,7 @@
 @utility type-caption {
   font-family: var(--font-sans);
   font-size: calc(12px * var(--type-scale, 1));
-  line-height: calc(16px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -80,16 +80,16 @@
 @utility type-mono {
   font-family: var(--font-mono);
   font-size: calc(13px * var(--type-scale, 1));
-  line-height: calc(20px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
 
-/* Luminous/Body Small · Geist Regular · 13px/18px */
+/* Luminous/Body Small · Geist Regular · 13px/20px */
 @utility type-body-small {
   font-family: var(--font-sans);
   font-size: calc(13px * var(--type-scale, 1));
-  line-height: calc(18px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -98,7 +98,7 @@
 @utility type-mono-small {
   font-family: var(--font-mono);
   font-size: calc(13px * var(--type-scale, 1));
-  line-height: calc(18px * var(--type-scale, 1));
+  line-height: calc(18px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -107,7 +107,7 @@
 @utility type-tag {
   font-family: var(--font-sans);
   font-size: calc(11px * var(--type-scale, 1));
-  line-height: calc(14px * var(--type-scale, 1));
+  line-height: calc(14px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
@@ -116,7 +116,7 @@
 @utility type-caption-strong {
   font-family: var(--font-sans);
   font-size: calc(12px * var(--type-scale, 1));
-  line-height: calc(16px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
@@ -125,16 +125,16 @@
 @utility type-overline {
   font-family: var(--font-sans);
   font-size: calc(12px * var(--type-scale, 1));
-  line-height: calc(16px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: calc(0.3px * var(--type-scale, 1));
 }
 
-/* Luminous/Subtitle · Geist Medium · 16px/22px */
+/* Luminous/Subtitle · Geist Medium · 16px/24px */
 @utility type-subtitle {
   font-family: var(--font-sans);
   font-size: calc(16px * var(--type-scale, 1));
-  line-height: calc(22px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: calc(-0.2px * var(--type-scale, 1));
 }
@@ -143,7 +143,7 @@
 @utility type-section {
   font-family: var(--font-sans);
   font-size: calc(11px * var(--type-scale, 1));
-  line-height: calc(16px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: calc(0.6px * var(--type-scale, 1));
 }
@@ -152,34 +152,34 @@
 @utility type-title-small {
   font-family: var(--font-sans);
   font-size: calc(15px * var(--type-scale, 1));
-  line-height: calc(20px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
 
-/* Luminous/Badge · Geist Medium · 11px/15px */
+/* Luminous/Badge · Geist Medium · 11px/16px */
 @utility type-badge {
   font-family: var(--font-sans);
   font-size: calc(11px * var(--type-scale, 1));
-  line-height: calc(15px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: 0px;
 }
 
-/* Luminous/Input · Geist Regular · 15px/20px */
+/* Luminous/Input · Geist Regular · 16px/24px */
 @utility type-input {
   font-family: var(--font-sans);
-  font-size: calc(15px * var(--type-scale, 1));
-  line-height: calc(20px * var(--type-scale, 1));
+  font-size: calc(16px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
 
-/* Luminous/Mono XS · Geist Mono Regular · 11px/15px */
+/* Luminous/Mono XS · Geist Mono Regular · 11px/16px */
 @utility type-mono-xs {
   font-family: var(--font-mono);
   font-size: calc(11px * var(--type-scale, 1));
-  line-height: calc(15px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -188,7 +188,7 @@
 @utility type-mono-caption {
   font-family: var(--font-mono);
   font-size: calc(12px * var(--type-scale, 1));
-  line-height: calc(16px * var(--type-scale, 1));
+  line-height: calc(16px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
@@ -197,16 +197,16 @@
 @utility type-mono-body {
   font-family: var(--font-mono);
   font-size: calc(14px * var(--type-scale, 1));
-  line-height: calc(20px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: 0px;
 }
 
-/* Luminous/Body Compact · Geist Regular · 15px/22px */
+/* Luminous/Body Compact · Geist Regular · 15px/24px */
 @utility type-body-compact {
   font-family: var(--font-sans);
   font-size: calc(15px * var(--type-scale, 1));
-  line-height: calc(22px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
@@ -215,25 +215,115 @@
 @utility type-answer {
   font-family: var(--font-sans);
   font-size: calc(15px * var(--type-scale, 1));
-  line-height: calc(24px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 400;
   letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
-/* Luminous/Stat · Geist Light · 36px/42px */
+/* Luminous/Stat · Geist Light · 36px/44px */
 @utility type-stat {
   font-family: var(--font-sans);
   font-size: calc(36px * var(--type-scale, 1));
-  line-height: calc(42px * var(--type-scale, 1));
+  line-height: calc(44px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 300;
   letter-spacing: calc(-1px * var(--type-scale, 1));
 }
 
-/* Luminous/Dialog Title · Geist Light · 28px/34px */
+/* Luminous/Dialog Title · Geist Light · 28px/36px */
 @utility type-dialog-title {
   font-family: var(--font-sans);
   font-size: calc(28px * var(--type-scale, 1));
-  line-height: calc(34px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 300;
   letter-spacing: calc(-0.8px * var(--type-scale, 1));
+}
+
+/* Luminous/Footnote · Geist Regular · 12px/18px */
+@utility type-footnote {
+  font-family: var(--font-sans);
+  font-size: calc(12px * var(--type-scale, 1));
+  line-height: calc(18px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Label Strong · Geist Medium · 13px/18px */
+@utility type-label-strong {
+  font-family: var(--font-sans);
+  font-size: calc(13px * var(--type-scale, 1));
+  line-height: calc(18px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Page lead · Geist Regular · 15px/24px */
+@utility type-page-lead {
+  font-family: var(--font-sans);
+  font-size: calc(15px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+/* Luminous/Section title · Geist Light · 28px/36px */
+@utility type-section-title {
+  font-family: var(--font-sans);
+  font-size: calc(28px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 300;
+  letter-spacing: calc(-0.6px * var(--type-scale, 1));
+}
+
+/* Luminous/Mobile/UI Strong · Geist Medium · 15px/20px */
+@utility type-mobile-ui-strong {
+  font-family: var(--font-sans);
+  font-size: calc(15px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* Luminous/Mobile/Button · Geist Medium · 16px/20px */
+@utility type-mobile-button {
+  font-family: var(--font-sans);
+  font-size: calc(16px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* Luminous/Mobile/Tab · Geist Medium · 13px/20px */
+@utility type-mobile-tab {
+  font-family: var(--font-sans);
+  font-size: calc(13px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* Luminous/Mobile/Amount · Geist Medium · 17px/20px */
+@utility type-mobile-amount {
+  font-family: var(--font-sans);
+  font-size: calc(17px * var(--type-scale, 1));
+  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* Luminous/Mobile/Title · Geist Light · 28px/36px */
+@utility type-mobile-title {
+  font-family: var(--font-sans);
+  font-size: calc(28px * var(--type-scale, 1));
+  line-height: calc(36px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 300;
+  letter-spacing: calc(-0.8px * var(--type-scale, 1));
+}
+
+/* Luminous/Mobile/Bangla UI · Noto Sans Bengali Regular · 14px/24px */
+@utility type-mobile-bangla-ui {
+  font-family: var(--font-noto-sans-bengali), var(--font-sans);
+  font-size: calc(14px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 400;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }

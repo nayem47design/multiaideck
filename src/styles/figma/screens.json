@@ -8243,7 +8243,7 @@
       "lum/ink-2"
      ],
      "c": "Your balance, top-ups and payments. Spending detail is in Settings → Usage.",
-     "ts": "raw Geist Regular 15/22 ls0"
+     "ts": "Luminous/Page lead"
     },
     {
      "n": "Stat summary row",
@@ -8569,7 +8569,7 @@
       "lum/ink"
      ],
      "c": "Top up",
-     "ts": "raw Geist Light 28/34 ls-0.6"
+     "ts": "Luminous/Section title"
     },
     {
      "n": "Pay in taka with bKash, Nagad or card. Bigger packs include bonus credits.",
@@ -11542,7 +11542,7 @@
       "lum/ink"
      ],
      "c": "Payments",
-     "ts": "raw Geist Light 28/34 ls-0.6"
+     "ts": "Luminous/Section title"
     },
     {
      "n": "Export",
@@ -12788,7 +12788,7 @@
       "lum/ink"
      ],
      "c": "Profile",
-     "ts": "raw Geist Light 36/42 ls-1"
+     "ts": "Luminous/Stat"
     },
     {
      "n": "How you appear, and how MultiAI talks to you.",
@@ -12801,7 +12801,7 @@
       "lum/ink-2"
      ],
      "c": "How you appear, and how MultiAI talks to you.",
-     "ts": "raw Geist Regular 15/22 ls0"
+     "ts": "Luminous/Page lead"
     },
     {
      "n": "Content",
@@ -14712,7 +14712,7 @@
       "lum/ink"
      ],
      "c": "Notifications",
-     "ts": "raw Geist Light 36/42 ls-1"
+     "ts": "Luminous/Stat"
     },
     {
      "n": "Choose what you hear about, and where.",
@@ -14725,7 +14725,7 @@
       "lum/ink-2"
      ],
      "c": "Choose what you hear about, and where.",
-     "ts": "raw Geist Regular 15/22 ls0"
+     "ts": "Luminous/Page lead"
     },
     {
      "n": "Content",
@@ -17109,7 +17109,7 @@
       "lum/ink"
      ],
      "c": "Privacy & security",
-     "ts": "raw Geist Light 36/42 ls-1"
+     "ts": "Luminous/Stat"
     },
     {
      "n": "How you sign in, and what happens to your data.",
@@ -17122,7 +17122,7 @@
       "lum/ink-2"
      ],
      "c": "How you sign in, and what happens to your data.",
-     "ts": "raw Geist Regular 15/22 ls0"
+     "ts": "Luminous/Page lead"
     },
     {
      "n": "Content",
@@ -29508,7 +29508,7 @@
       "lum/ink"
      ],
      "c": "Usage",
-     "ts": "raw Geist Light 36/42 ls-1"
+     "ts": "Luminous/Stat"
     },
     {
      "n": "Subtitle",
@@ -29521,7 +29521,7 @@
       "lum/ink-2"
      ],
      "c": "Where your credits go, prompt by prompt. Top-ups and payments stay in Wallet.",
-     "ts": "raw Geist Regular 15/22 ls0"
+     "ts": "Luminous/Page lead"
     },
     {
      "n": "Period",
@@ -29908,7 +29908,7 @@
       "lum/ink"
      ],
      "c": "Where your credits went",
-     "ts": "raw Geist Light 28/34 ls-0.6"
+     "ts": "Luminous/Section title"
     },
     {
      "n": "Usage card",
@@ -30669,7 +30669,7 @@
       "lum/ink"
      ],
      "c": "Daily spend",
-     "ts": "raw Geist Light 28/34 ls-0.6"
+     "ts": "Luminous/Section title"
     },
     {
      "n": "Daily spend card",
@@ -30983,7 +30983,7 @@
       "lum/ink"
      ],
      "c": "Activity",
-     "ts": "raw Geist Light 28/34 ls-0.6"
+     "ts": "Luminous/Section title"
     },
     {
      "n": "Mode filter",
@@ -102337,7 +102337,7 @@
       "lum/ink"
      ],
      "c": "Help & support",
-     "ts": "raw Geist Light 36/42 ls-1"
+     "ts": "Luminous/Stat"
     },
     {
      "n": "Talk to a person, or find a quick answer.",
@@ -102350,7 +102350,7 @@
       "lum/ink-2"
      ],
      "c": "Talk to a person, or find a quick answer.",
-     "ts": "raw Geist Regular 15/22 ls0"
+     "ts": "Luminous/Page lead"
     },
     {
      "n": "Content",

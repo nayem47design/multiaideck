@@ -108,3 +108,11 @@
 :root[data-text-size="larger"] {
   --type-scale: 1.2;
 }
+
+/*
+ * Bangla needs more line height than Latin: vowel signs sit above and below the letters (ি ু ৃ)
+ * and conjuncts stack. Every line height is multiplied by --leading-script (Figma: 06 · Rules).
+ */
+:root:lang(bn) {
+  --leading-script: 1.15;
+}

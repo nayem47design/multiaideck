@@ -39,6 +39,8 @@ The file is organised for developer handoff (cover → foundations → system �
 | Patterns section (mobile & chat components taken from the screens; code-only effects note) | `297:47290` |
 | Merged variant sets (Platform = Desktop / Mobile): Top bar · Answer card · Best answer card · Prompt bubble · Composer | `296:7594` · `103:25291` · `296:7727` · `296:8673` · `147:39061` |
 | Merged variant sets (Type): Template · Settings card · Dialog · Table card | `296:7593` · `296:9192` · `103:21324` · `296:10351` |
+| Responsive grid board (breakpoints, columns, examples) in 6 · Templates. Grid styles on every screen: Mobile · 4 col, Tablet · App/Page · 8 col, Desktop · App / App (rail) / Page · 12 col; gutter 16 | `297:55472` |
+| Empty, loading and error states: 04 · Desktop screens row 10 (Chats, Project, Presets, Image studio, Usage, Wallet › Payments; light first frame, dark mirror below) · Empty state set (Tone=Empty/Error) · Skeleton set (Lines, Row, Table row, Card, Tile) | `298:56254` · `298:56067` · `298:56113` |
 | Brand logos section (AI + payments) | `268:41859` |
 | AI logo set: 23 brands × Style (Color, App icon, Black, White) → `AiLogo`, `npm run ai-logos` | `268:41860` |
 | AI wordmark (21 products) · Company logo (11 companies) | `268:41861` · `268:41862` |

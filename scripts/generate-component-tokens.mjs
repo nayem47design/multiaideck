@@ -39,6 +39,11 @@ const scaled = (v) =>
   /^-?[\d.]+px$/.test(v) && v !== "0px"
     ? `calc(${v} * var(--type-scale, 1))`
     : v;
+/** Line heights also grow with --leading-script (1.15 in Bangla, see styles/effects.css). */
+const leading = (v) =>
+  /^-?[\d.]+px$/.test(v) && v !== "0px"
+    ? `calc(${v} * var(--type-scale, 1) * var(--leading-script, 1))`
+    : v;
 /** A layout size measured from the template snapshot: fn(template children) at Figma's scale. */
 const TL = (name, path, fn) => ({ name, kind: "size", template: path[0], fn });
 /** A value read from a screen layer (screens.json / screens-mobile.json); path starts with the screen name. */
@@ -1120,7 +1125,10 @@ const luminousText = new Map(
         s.lineHeight.value,
         Number(s.letterSpacing.value.toFixed(2)),
       ),
-      `type-${s.name.slice(9).toLowerCase().replace(/\s+/g, "-")}`,
+      `type-${s.name
+        .slice(9)
+        .toLowerCase()
+        .replace(/[\s/]+/g, "-")}`,
     ]),
 );
 
@@ -1184,7 +1192,10 @@ for (const t of TOKENS) {
   if (t.kind === "text") {
     // The layer has a Luminous text style in Figma: the component token is just that style.
     if (node.textStyle?.startsWith("Luminous/")) {
-      const style = `type-${node.textStyle.slice(9).toLowerCase().replace(/\s+/g, "-")}`;
+      const style = `type-${node.textStyle
+        .slice(9)
+        .toLowerCase()
+        .replace(/[\s/]+/g, "-")}`;
       report.push({
         token: `type-${t.name}`,
         where,
@@ -1257,7 +1268,7 @@ for (const t of TOKENS) {
 @utility type-${t.name} {
   font-family: ${FAMILY[node.font.family]};
   font-size: ${scaled(px(node.fontSize))};
-  line-height: ${scaled(px(node.lineHeight.value))};
+  line-height: ${leading(px(node.lineHeight.value))};
   font-weight: ${WEIGHT[node.font.style]};
   letter-spacing: ${scaled(px(ls))};
 }

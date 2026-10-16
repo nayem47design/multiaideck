@@ -217,6 +217,7 @@ for (const s of shadows) {
 const FONT_FAMILY = {
   Geist: "var(--font-sans)",
   "Geist Mono": "var(--font-mono)",
+  "Noto Sans Bengali": "var(--font-noto-sans-bengali), var(--font-sans)",
 };
 const FONT_WEIGHT = {
   Light: 300,
@@ -246,7 +247,7 @@ const typography = styles.textStyles
     const key = s.name
       .slice("Luminous/".length)
       .toLowerCase()
-      .replace(/\s+/g, "-");
+      .replace(/[\s/]+/g, "-");
     return {
       name: s.name,
       utility: `type-${key}`,
@@ -394,16 +395,22 @@ const scaled = (v) =>
   /^-?[\d.]+px$/.test(v) && v !== "0px"
     ? `calc(${v} * var(--type-scale, 1))`
     : v;
+// Line heights also grow with --leading-script: 1.15 in Bangla (styles/effects.css), whose vowel
+// signs sit above and below the letters.
+const leading = (v) =>
+  /^-?[\d.]+px$/.test(v) && v !== "0px"
+    ? `calc(${v} * var(--type-scale, 1) * var(--leading-script, 1))`
+    : v;
 
 const typographyCss = [
   HEADER,
-  "/* Line heights are absolute pixels, as in Figma, times --type-scale (the Text size setting). */",
+  "/* Line heights are absolute pixels, as in Figma, times --type-scale (the Text size setting) and --leading-script (Bangla). */",
   ...typography.map(
     (t) => `/* ${t.name} · ${t.figmaFont} · ${t.fontSize}/${t.lineHeight} */
 @utility ${t.utility} {
   font-family: ${t.fontFamily};
   font-size: ${scaled(t.fontSize)};
-  line-height: ${scaled(t.lineHeight)};
+  line-height: ${leading(t.lineHeight)};
   font-weight: ${t.fontWeight};
   letter-spacing: ${scaled(t.letterSpacing)};
 }
