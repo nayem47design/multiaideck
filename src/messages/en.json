@@ -211,6 +211,11 @@
       "googleNotConfigured": "Google sign-in isn’t available yet. Use your phone number instead.",
       "google": "Google sign-in didn’t work. Try again or use your phone number.",
       "googleCancelled": "Google sign-in was cancelled."
+    },
+    "demo": {
+      "text": "Demo: look around without a phone number.",
+      "button": "Try the demo",
+      "failed": "The demo didn’t open. Try again."
     }
   },
   "chat": {

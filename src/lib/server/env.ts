@@ -52,6 +52,15 @@ const schema = z.object({
 
 export type Env = z.infer<typeof schema>;
 
+/**
+ * A demo deployment (NEXT_PUBLIC_DEMO_MODE=1, e.g. the Vercel preview): production, but with the
+ * shared demo account (POST /api/dev/sign-in-demo), the scripted AI models and the sandbox
+ * checkout, so it can be tried without SMS, AI or PayStation keys. Off unless set.
+ */
+export function demoMode() {
+  return process.env.NEXT_PUBLIC_DEMO_MODE === "1";
+}
+
 export const env: Env = schema.parse(process.env);
 
 const DEV_SECRET = "dev-only-secret-change-me-dev-only-secret";
@@ -75,8 +84,12 @@ export function assertProductionEnv() {
   const missing = [
     !env.DATABASE_URL && "DATABASE_URL",
     !env.AUTH_SECRET && "AUTH_SECRET",
-    !has.sms() && "SMS_PROVIDER=http + SMS_API_URL + SMS_API_KEY",
-    !has.paystation() && "PAYSTATION_MERCHANT_ID + PAYSTATION_PASSWORD",
+    !demoMode() &&
+      !has.sms() &&
+      "SMS_PROVIDER=http + SMS_API_URL + SMS_API_KEY",
+    !demoMode() &&
+      !has.paystation() &&
+      "PAYSTATION_MERCHANT_ID + PAYSTATION_PASSWORD",
   ].filter(Boolean);
   if (missing.length)
     throw new Error(`Production is missing: ${missing.join(", ")}`);

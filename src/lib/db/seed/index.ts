@@ -45,8 +45,11 @@ export async function seedUser(
   db: Db,
   { phone, email, prefix = "", stage }: SeedUserOptions,
 ) {
-  if (process.env.NODE_ENV === "production")
-    throw new Error("No demo seed in production");
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.NEXT_PUBLIC_DEMO_MODE !== "1"
+  )
+    throw new Error("No demo seed in production (except a demo deployment)");
 
   let [user] = await db.select().from(users).where(eq(users.phone, phone));
   if (!user)

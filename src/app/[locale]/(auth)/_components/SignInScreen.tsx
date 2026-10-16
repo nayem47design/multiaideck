@@ -22,6 +22,7 @@ import { SendCodeResponse } from "@/lib/contracts/auth";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 
 import { AuthFrame } from "./AuthFrame";
+import { DemoEntry } from "./DemoEntry";
 import { useClock, useCountdown } from "./useCountdown";
 import { Welcome } from "./Welcome";
 
@@ -155,6 +156,7 @@ export function SignInScreen({
 
   return (
     <AuthFrame>
+      <DemoEntry next={next} />
       {step === "welcome" && <Welcome className="md:hidden" />}
       <div
         className={cx(

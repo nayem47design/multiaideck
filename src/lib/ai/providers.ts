@@ -7,7 +7,7 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { createXai } from "@ai-sdk/xai";
 import type { ImageModel, LanguageModel } from "ai";
 
-import { env } from "@/lib/server/env";
+import { demoMode, env } from "@/lib/server/env";
 
 import {
   IMAGE_PROVIDER_MODEL,
@@ -68,7 +68,8 @@ export function resolveModel(id: ModelId): ResolvedModel {
       model: languageModel(spec.providerKey, spec.providerModelId),
       version: spec.providerModelId,
     };
-  if (env.NODE_ENV === "production")
+  // A demo deployment answers from the scripted demo model, like development.
+  if (env.NODE_ENV === "production" && !demoMode())
     return { kind: "unavailable", version: spec.providerModelId ?? id };
   return { kind: "demo", model: createDemoModel(id), version: DEMO_VERSION };
 }

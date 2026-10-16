@@ -8,7 +8,7 @@ import type { CreatePaymentRequest, Payment } from "@/lib/contracts/wallet";
 import type { Db } from "@/lib/db";
 import { paymentEvents, payments, users } from "@/lib/db/schema";
 import { ApiError } from "@/lib/server/api";
-import { env } from "@/lib/server/env";
+import { env, demoMode } from "@/lib/server/env";
 
 import {
   quoteCustom,
@@ -37,8 +37,10 @@ type Executor = Db | Tx;
 type UserRow = typeof users.$inferSelect;
 
 /** At most this many unfinished payments per user per hour (stops request floods). Relaxed outside
- *  production, where e2e runs open many sandbox checkouts for the demo user. */
-const MAX_PENDING_PER_HOUR = env.NODE_ENV === "production" ? 10 : 500;
+ *  production, where e2e runs open many sandbox checkouts for the demo user, and on a demo
+ *  deployment, where every visitor shares the demo account. */
+const MAX_PENDING_PER_HOUR =
+  env.NODE_ENV === "production" && !demoMode() ? 10 : 500;
 
 export function toPayment(row: PaymentRow): Payment {
   return {
