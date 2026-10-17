@@ -8,6 +8,7 @@ import { TEXT_SIZE_SCRIPT } from "@/lib/text-size";
 import { THEME_SCRIPT } from "@/lib/theme";
 
 import { fontVariables } from "../fonts";
+import { ConnectionNotice } from "./_shell/ConnectionNotice";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -31,7 +32,10 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: TEXT_SIZE_SCRIPT }} />
       </head>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          {children}
+          <ConnectionNotice />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

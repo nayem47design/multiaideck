@@ -49,6 +49,7 @@ import { DEMO_VOICE } from "@/lib/mock/chat";
 
 import { parseParams, type ChatParams } from "./state";
 import { isRunning, useChat } from "./useChat";
+import { LowBalanceBanner } from "./LowBalanceBanner";
 import { useComposer, type AnswerMode, type SendPayload } from "./useComposer";
 import { useChatFormat } from "./useFormat";
 import {
@@ -925,6 +926,12 @@ export function ChatScreen({
   const recipientOptions = answered.map((a) => a.model);
   const composerSlot = (
     <>
+      {!thinking && (
+        <LowBalanceBanner
+          className="mb-2"
+          estimateMax={composer.estimate?.maxCredits}
+        />
+      )}
       {thinking ? (
         <ThinkingStop
           className="md:hidden"

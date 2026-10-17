@@ -7,8 +7,10 @@ import { Suspense, useEffect, useRef, type ReactNode } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
 import { PaymentLogoSlot } from "@/components/atoms/PaymentLogoSlot";
+import { Skeleton } from "@/components/atoms/Skeleton";
 import { cx, focusRing, stateLayer } from "@/components/atoms/states";
 import { ChecklistCard } from "@/components/molecules/ChecklistCard";
+import { EmptyState } from "@/components/molecules/EmptyState";
 import { Field } from "@/components/molecules/Field";
 import { HintCard } from "@/components/molecules/HintCard";
 import { KeyValueCard } from "@/components/molecules/KeyValueCard";
@@ -683,6 +685,7 @@ function MobileFailedScreen() {
 
 export function MobilePayments() {
   const t = useTranslations("wallet");
+  const tc = useTranslations("common");
   const f = useWalletFormat();
   const s = useWallet();
   const router = useRouter();
@@ -703,6 +706,44 @@ export function MobilePayments() {
         back={{ label: t("title"), link: <Link href="/wallet" /> }}
       />
       <div className="flex flex-col gap-m-content-gap-sm px-mobile-gutter pt-2 pb-6">
+        {/* Loading, error and empty: the desktop row 10 states, at phone width (no M-screen yet). */}
+        {!s.payments && s.status !== "error" && (
+          <div
+            role="status"
+            aria-label={tc("loading")}
+            className="flex flex-col gap-m-content-gap-sm"
+          >
+            {Array.from({ length: 3 }, (_, i) => (
+              <Skeleton
+                key={i}
+                className="rounded-lg border border-line bg-surface p-4"
+              />
+            ))}
+          </div>
+        )}
+        {!s.payments && s.status === "error" && (
+          <EmptyState
+            tone="error"
+            title={t("payments.loadError")}
+            body={t("payments.loadErrorBody")}
+            action={
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => void walletActions.refresh()}
+              >
+                {tc("tryAgain")}
+              </Button>
+            }
+          />
+        )}
+        {s.payments && history(s.payments).length === 0 && (
+          <EmptyState
+            icon="wallet-01"
+            title={t("payments.empty.title")}
+            body={t("payments.empty.body")}
+          />
+        )}
         {history(s.payments).map((p) => {
           const ok = p.status === "paid";
           const time = f.time(p.createdAt);
@@ -751,7 +792,9 @@ export function MobilePayments() {
             />
           );
         })}
-        <p className="type-ui text-ink-2">{t("mobile.historyNote")}</p>
+        {history(s.payments).length > 0 && (
+          <p className="type-ui text-ink-2">{t("mobile.historyNote")}</p>
+        )}
       </div>
     </Screen>
   );

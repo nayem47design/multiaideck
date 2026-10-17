@@ -18,6 +18,7 @@ import { invalidateProjects } from "@/lib/projects";
 
 import { sendPrompt } from "./api";
 import { parseParams } from "./state";
+import { LowBalanceBanner } from "./LowBalanceBanner";
 import { useComposer, type AnswerMode } from "./useComposer";
 import { useChatFormat } from "./useFormat";
 
@@ -118,6 +119,10 @@ export function HomeScreen({
       composer={
         <>
           <div className="max-md:mb-tab-bar-height md:hidden">
+            <LowBalanceBanner
+              className="mb-2"
+              estimateMax={composer.estimate?.maxCredits}
+            />
             {composer.mobileComposer}
           </div>
           <p className="text-center type-caption text-ink-3 max-md:hidden">
@@ -127,7 +132,11 @@ export function HomeScreen({
       }
     >
       {/* Desktop and tablet: the Home hero */}
-      <div className="flex min-h-full items-center justify-center px-6 pb-6 max-md:hidden lg:px-0">
+      <div className="flex min-h-full flex-col items-center justify-center gap-4 px-6 pb-6 max-md:hidden lg:px-0">
+        <LowBalanceBanner
+          className="max-w-composer-width"
+          estimateMax={composer.estimate?.maxCredits}
+        />
         <HomeHero
           startersLayout="pills"
           className="max-w-composer-width"

@@ -522,7 +522,15 @@
       "home": "Go to a new chat"
     },
     "loadErrorBody": "Check your connection and try again. Nothing was charged.",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "connection": {
+      "offline": "You’re offline. Your chats and credits are safe; we’ll carry on when you’re back.",
+      "back": "Back online"
+    },
+    "crash": {
+      "title": "Something went wrong",
+      "body": "This page didn’t load. Nothing was charged. Try again, or come back in a minute."
+    }
   },
   "composer": {
     "label": "Message",
@@ -582,6 +590,13 @@
       "pause": "Pause",
       "resume": "Resume",
       "hint": "Speak naturally. Tap Done, check the words, then send."
+    },
+    "lowBalance": {
+      "lowTitle": "You’re running low: {credits} credits left",
+      "lowBody": "Top up with bKash, Nagad or card so your next questions don’t stop.",
+      "shortTitle": "Not enough credits for this question",
+      "shortBody": "You have {credits} credits; this question may cost up to {max}. Top up to send it.",
+      "topUp": "Top up"
     }
   },
   "home": {

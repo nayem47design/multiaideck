@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { Icon, type IconName } from "@/components/atoms/Icon";
 import { cx } from "@/components/atoms/states";
 
@@ -9,6 +11,8 @@ export interface BannerProps {
   tone: BannerTone;
   title: string;
   body?: string;
+  /** A short action at the end, e.g. a "Top up" link (not in Figma's Banner yet). */
+  action?: ReactNode;
   className?: string;
 }
 
@@ -31,7 +35,7 @@ const tones: Record<BannerTone, { box: string; icon: string; name: IconName }> =
     },
   };
 
-export function Banner({ tone, title, body, className }: BannerProps) {
+export function Banner({ tone, title, body, action, className }: BannerProps) {
   const t = tones[tone];
   return (
     <div
@@ -47,6 +51,7 @@ export function Banner({ tone, title, body, className }: BannerProps) {
         <p className="type-banner-title text-ink">{title}</p>
         {body && <p className="type-banner-body text-ink-2">{body}</p>}
       </div>
+      {action && <div className="shrink-0">{action}</div>}
     </div>
   );
 }
