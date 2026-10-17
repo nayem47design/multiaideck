@@ -395,7 +395,7 @@
     --space-14
   ); /* M20 · AIs are thinking › Thinking › Progress › AI · GPT-5 */
   --chat-m-button: 52px; /* M20 · AIs are thinking › Stop › Button · Stop */
-  --chat-m-composer-gap: 10px; /* M2 · Home › Mobile composer */
+  --chat-m-composer-gap: var(--space-2); /* M2 · Home › Mobile composer */
   --chat-m-composer-pad-x: 14px; /* M2 · Home › Mobile composer */
   --chat-m-voice-note-h: 28px; /* M18 · Voice: check your words › Mobile composer › From voice */
   --chat-m-voice-note-pad: 10px; /* M18 · Voice: check your words › Mobile composer › From voice */
@@ -520,7 +520,9 @@
   --acct-text-size-option-height: var(
     --space-10
   ); /* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Large */
-  --acct-usage-card-pad: 18px; /* M13 · Usage › Content › Total */
+  --acct-usage-card-pad: var(
+    --size-icon-sm
+  ); /* M13 · Usage › Content › Total */
   --acct-usage-track: var(
     --space-2
   ); /* M13 · Usage › Content › By AI › AI · GPT-5 › track */

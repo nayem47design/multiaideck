@@ -4,7 +4,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useState, useSyncExternalStore } from "react";
 
-import { cx } from "@/components/atoms/states";
 import { CreditsPill } from "@/components/molecules/CreditsPill";
 import { LanguageSwitch } from "@/components/molecules/LanguageSwitch";
 import { AiOrbGroup } from "@/components/molecules/AiOrbGroup";
@@ -187,26 +186,28 @@ export function HomeScreen({
           </h1>
           <p className="type-body text-ink-2">{t("subtitleMobile")}</p>
         </div>
-        <section className={cx("mt-10 flex flex-col gap-2 pb-4")}>
+        <section className="mt-10 flex flex-col gap-1 pb-4">
           <h2 className="type-ui-strong text-ink-2">{t("mobile.tryOne")}</h2>
-          <StarterRow
-            icon="globe-02"
-            title={t("mobile.bangla.title")}
-            description={t("mobile.bangla.description")}
-            onClick={composer.prefillVoice}
-          />
-          <StarterRow
-            icon="layers-01"
-            title={t("mobile.compare.title")}
-            description={t("mobile.compare.description")}
-            onClick={composer.openModeSheet}
-          />
-          <StarterRow
-            icon="image-01"
-            title={t("mobile.image.title")}
-            description={t("mobile.image.description")}
-            onClick={() => router.push("/images")}
-          />
+          <div className="flex flex-col gap-2">
+            <StarterRow
+              icon="globe-02"
+              title={t("mobile.bangla.title")}
+              description={t("mobile.bangla.description")}
+              onClick={composer.prefillVoice}
+            />
+            <StarterRow
+              icon="layers-01"
+              title={t("mobile.compare.title")}
+              description={t("mobile.compare.description")}
+              onClick={composer.openModeSheet}
+            />
+            <StarterRow
+              icon="image-01"
+              title={t("mobile.image.title")}
+              description={t("mobile.image.description")}
+              onClick={() => router.push("/images")}
+            />
+          </div>
         </section>
       </div>
       {composer.overlays}

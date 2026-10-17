@@ -59,7 +59,7 @@ function invalidateAll() {
 
 /** The list card (Figma: Chats › Main › List); loading, empty and error states sit in it too. */
 export const CHAT_LIST_CARD =
-  "flex flex-col gap-1 md:gap-0 md:rounded-xl md:bg-surface md:p-chats-list-pad md:ring-1 md:ring-line md:ring-inset";
+  "flex flex-col gap-4 md:gap-0 md:rounded-xl md:bg-surface md:p-chats-list-pad md:ring-1 md:ring-line md:ring-inset";
 
 /** A state shown inside the list card instead of rows (Empty state, Error). */
 export function ChatListState({ children }: { children: ReactNode }) {

@@ -806,7 +806,7 @@ export function ChatScreen({
       )}
       {!thinking && showBest && best && (
         <MobileBestAnswer
-          className="mt-5"
+          className="mt-4"
           models={bestModels}
           title={t("best.title")}
           subtitle={t("best.fromCount", { count: n(answered.length) })}

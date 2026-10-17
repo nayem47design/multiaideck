@@ -29,7 +29,7 @@ export function MobileBalanceCard({
   return (
     <section
       className={cx(
-        "flex flex-col gap-m-card-gap rounded-lg border border-line bg-surface p-5",
+        "flex flex-col gap-m-card-gap rounded-lg border border-line bg-surface p-4",
         className,
       )}
     >
