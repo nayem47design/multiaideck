@@ -262,7 +262,7 @@ export function ChatScreen({
       refund: failed ? t("card.refunded", { credits: n(0) }) : undefined,
       sizeClassName: cx(
         height,
-        "w-answer-card-width shrink-0 snap-start xl:w-auto",
+        "w-answer-card-width shrink-0 snap-start md:max-xl:w-[calc((100%-var(--space-4))/2)] xl:w-auto",
       ),
       labels: {
         close: t("card.close"),
@@ -502,6 +502,16 @@ export function ChatScreen({
   // scrolling, so they start open.
   const grid =
     "flex snap-x gap-4 overflow-x-auto pb-1 xl:grid xl:grid-cols-3 xl:overflow-visible";
+  // Tablet: which answer is first on screen in the sideways-scrolling row (for the pager).
+  const [firstShown, setFirstShown] = useState(0);
+  const onGridScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const row = e.currentTarget;
+    const card = row.firstElementChild as HTMLElement | null;
+    if (!card) return;
+    const step =
+      card.offsetWidth + parseFloat(getComputedStyle(row).columnGap || "0");
+    setFirstShown(Math.round(row.scrollLeft / step));
+  };
   const [folded, setFolded] = useState<string[]>([]);
   const [allFor, setAllFor] = useState<string[]>([]);
   const summaries = earlier.map((p) => {
@@ -625,7 +635,7 @@ export function ChatScreen({
                     modelName={spec(a.model).name}
                     provider={spec(a.model).provider}
                     status={rowLabel(row.status)}
-                    sizeClassName="h-chat-card-tall w-answer-card-width shrink-0 snap-start xl:w-auto"
+                    sizeClassName="h-chat-card-tall w-answer-card-width shrink-0 snap-start md:max-xl:w-[calc((100%-var(--space-4))/2)] xl:w-auto"
                   />
                 );
               })}
@@ -635,11 +645,35 @@ export function ChatScreen({
         {!thinking && !showBest && (
           <>
             {suggestion && <div className="flex">{suggestion}</div>}
-            <div className={grid}>
+            <div className={grid} onScroll={onGridScroll}>
               {answers.map((a) => (
                 <AnswerCard key={a.id} {...cardProps(a, cardHeight)} />
               ))}
             </div>
+            {answers.length > 2 && (
+              // Tablet (Figma 04b · Compare): two answers on screen, a pager for the rest.
+              <div className="hidden md:max-xl:block">
+                <AnswerPager
+                  count={answers.length - 1}
+                  index={firstShown}
+                  hint={
+                    firstShown + 2 < answers.length
+                      ? t("tablet.pager", {
+                          name: spec(answers[firstShown + 2].model).short,
+                          total: n(answers.length),
+                        })
+                      : t("tablet.pagerBack", {
+                          name: spec(answers[0].model).short,
+                          total: n(answers.length),
+                        })
+                  }
+                  label={t("mobile.page", {
+                    n: n(firstShown + 1),
+                    total: n(answers.length - 1),
+                  })}
+                />
+              </div>
+            )}
             {!running && (
               <PromptReceipt
                 summary={receipt.summary}
@@ -961,7 +995,7 @@ export function ChatScreen({
         ]}
       />
       <AppMain className="max-md:pt-1" composer={chat ? composerSlot : null}>
-        <div className="w-full px-4 pb-6 md:px-6 lg:px-0">
+        <div className="w-full px-4 pb-6 md:px-0">
           {load === "error" ? (
             <EmptyState
               icon="bubble-chat"

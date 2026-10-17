@@ -374,7 +374,11 @@
     "and": "{rest} and {last}",
     "loadError": "Couldn’t load this chat",
     "loadErrorBody": "Check your connection and try again.",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "tablet": {
+      "pager": "Swipe for {name} · 2 of {total} on screen",
+      "pagerBack": "Swipe back for {name} · 2 of {total} on screen"
+    }
   },
   "chats": {
     "title": "Chats",

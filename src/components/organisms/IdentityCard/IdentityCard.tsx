@@ -26,7 +26,8 @@ export interface IdentityCardProps {
     change: { label: string; onClick?: () => void };
     help: string;
   };
-  /** Screens: below 768px, stack the fields and wrap the photo row (no Figma frame yet). */
+  /** Screens: below 1024px, stack the fields (Figma 04b · Settings · Profile); below 768px also wrap
+   * the photo row. */
   responsive?: boolean;
   className?: string;
 }
@@ -74,7 +75,7 @@ export function IdentityCard({
         </Button>
         <span className="type-caption text-ink-3">{photoHint}</span>
       </div>
-      <div className={cx("flex gap-4", responsive && "max-md:flex-col")}>
+      <div className={cx("flex gap-4", responsive && "max-lg:flex-col")}>
         <label className="flex min-w-0 flex-1 flex-col gap-2">
           <span className="type-field-label text-ink-2">
             {displayName.label}

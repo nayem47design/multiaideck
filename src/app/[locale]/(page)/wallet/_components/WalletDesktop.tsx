@@ -117,12 +117,12 @@ export function WalletDesktop({ className }: { className?: string }) {
           link: <Link href="/settings/profile" />,
         }}
       />
-      <main className="mx-auto mt-page-top flex w-full max-w-page-width flex-col">
+      <main className="mx-auto mt-page-top flex w-full max-w-page-width flex-col md:max-lg:px-3">
         <h2 className="type-wallet-title text-ink">{t("title")}</h2>
         <p className="mt-2 type-wallet-lede text-ink-2">{t("lede")}</p>
 
         <StatSummaryRow
-          className="mt-6 max-lg:flex-col"
+          className="mt-6 max-md:flex-col md:max-lg:flex-wrap md:max-lg:[&>*]:basis-[calc(50%-var(--space-2))] md:max-lg:[&>*:last-child]:basis-full"
           stats={[
             {
               label: t("stats.balance"),
