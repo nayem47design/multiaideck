@@ -21,6 +21,20 @@ const NOT_COMPARABLE: Record<string, string> = {
     "Code shows the animated thinking orb (thinking-orbs), a product decision listed under Figma's Code-only effects; the Figma component is a static placeholder.",
 };
 
+// Components whose box is sized by their text (hug width or wrapped lines). Figma and Chrome
+// measure Geist text a little differently, so these may differ from Figma by up to 2 CSS px on
+// each side; everything else must match exactly.
+const TEXT_SIZED = new Set([
+  "cost-estimate",
+  "delete-dialog",
+  "payment-method-selector",
+  "segmented-control",
+  "shortcut-chip",
+  "suggestion-bar",
+  "toast",
+]);
+const TEXT_SIZE_TOLERANCE = 2; // CSS px
+
 // Variants whose pixels cannot be compared with their Figma export; only the size is checked.
 const SIZE_ONLY: Record<string, string> = {};
 
@@ -75,7 +89,18 @@ for (const component of readdirSync(ROOT).filter((d) => !SKIP.has(d))) {
           type: "diff",
           description: `${(result.diffRatio * 100).toFixed(2)}% · figma ${result.size.figma} · code ${result.size.code}`,
         });
-        expect(result.size.code, "rendered size").toEqual(result.size.figma);
+        if (TEXT_SIZED.has(component)) {
+          // Sizes are device pixels (2×), the tolerance is in CSS px.
+          const scale = testInfo.project.use.deviceScaleFactor ?? 1;
+          result.size.code.forEach((v, i) =>
+            expect(
+              Math.abs(v - result.size.figma[i]),
+              `rendered size ${i ? "height" : "width"} (±${TEXT_SIZE_TOLERANCE}px for text-sized components)`,
+            ).toBeLessThanOrEqual(TEXT_SIZE_TOLERANCE * scale),
+          );
+        } else {
+          expect(result.size.code, "rendered size").toEqual(result.size.figma);
+        }
         if (key in SIZE_ONLY) {
           testInfo.annotations.push({
             type: "size only",
