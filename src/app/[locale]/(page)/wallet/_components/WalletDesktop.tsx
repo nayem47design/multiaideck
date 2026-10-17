@@ -4,9 +4,12 @@ import { useLocale, useTranslations } from "next-intl";
 import { Suspense, useEffect } from "react";
 
 import { Field } from "@/components/molecules/Field";
+import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
+import { Skeleton } from "@/components/atoms/Skeleton";
 import { cx, focusRing } from "@/components/atoms/states";
 import { CalloutLink } from "@/components/molecules/CalloutLink";
+import { EmptyState } from "@/components/molecules/EmptyState";
 import { OrderSummary } from "@/components/organisms/OrderSummary";
 import { PageTopBar } from "@/components/organisms/PageTopBar";
 import { PaymentMethodSelector } from "@/components/organisms/PaymentMethodSelector";
@@ -373,65 +376,108 @@ export function WalletDesktop({ className }: { className?: string }) {
             <h2 className="type-wallet-section text-ink">
               {t("payments.title")}
             </h2>
-            <button
-              type="button"
-              onClick={() =>
-                downloadText(t("payments.csv.file"), csv(payments, csvHeader))
-              }
-              className={cx(
-                "inline-flex min-h-pro-compare-pill-h items-center gap-1-5 rounded-xs type-wallet-link text-blue hover:underline",
-                focusRing,
-              )}
-            >
-              <Icon name="download-01" className="size-icon-sm" />
-              {t("payments.export")}
-            </button>
+            {payments.length > 0 && (
+              <button
+                type="button"
+                onClick={() =>
+                  downloadText(t("payments.csv.file"), csv(payments, csvHeader))
+                }
+                className={cx(
+                  "inline-flex min-h-pro-compare-pill-h items-center gap-1-5 rounded-xs type-wallet-link text-blue hover:underline",
+                  focusRing,
+                )}
+              >
+                <Icon name="download-01" className="size-icon-sm" />
+                {t("payments.export")}
+              </button>
+            )}
           </div>
-          <div className="mt-4 w-full overflow-x-auto">
-            <PaymentsTable
-              className="min-w-max"
-              columns={{
-                date: t("payments.columns.date"),
-                topUp: t("payments.columns.topUp"),
-                status: t("payments.columns.status"),
-              }}
-              rows={payments.map((p) => ({
-                id: p.id,
-                date: t("payments.date", {
-                  date: f.date(p.createdAt),
-                  time: f.time(p.createdAt),
-                }),
-                topUp: t(p.kind === "pro" ? "payments.pro" : "payments.topUp", {
-                  amount: f.n(p.bdt),
-                  method: f.method(p.method),
-                }),
-                status:
-                  p.status === "paid"
-                    ? { label: t("payments.added"), tone: "success" }
-                    : { label: t("payments.failed"), tone: "error" },
-                action:
-                  p.status === "paid"
-                    ? {
-                        label: t("payments.receipt"),
-                        icon: "download-01",
-                        onClick: () =>
-                          downloadText(
-                            t("payments.csv.receiptFile", {
-                              reference: reference(p),
-                            }),
-                            csv([p], csvHeader),
-                          ),
-                      }
-                    : p.kind === "topup"
-                      ? {
-                          label: t("payments.tryAgain"),
-                          onClick: () => retry(p),
-                        }
-                      : undefined,
-              }))}
-              footnote={t("payments.footnote")}
+          {/* Empty, loading and error: 04 · Desktop screens, row 10 (Wallet · Payments · …). */}
+          {s.status !== "ready" && !s.payments ? (
+            s.status === "error" ? (
+              <EmptyState
+                tone="error"
+                className="mt-4"
+                title={t("payments.loadError")}
+                body={t("payments.loadErrorBody")}
+                action={
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => void walletActions.refresh()}
+                  >
+                    {tc("tryAgain")}
+                  </Button>
+                }
+              />
+            ) : (
+              <div
+                role="status"
+                aria-label={tc("loading")}
+                className="mt-4 rounded-xl border border-line bg-surface py-3"
+              >
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Skeleton key={i} variant="table-row" />
+                ))}
+              </div>
+            )
+          ) : !payments.length ? (
+            <EmptyState
+              icon="wallet-01"
+              className="mt-4"
+              title={t("payments.empty.title")}
+              body={t("payments.empty.body")}
             />
-          </div>
+          ) : (
+            <div className="mt-4 w-full overflow-x-auto">
+              <PaymentsTable
+                className="min-w-max"
+                columns={{
+                  date: t("payments.columns.date"),
+                  topUp: t("payments.columns.topUp"),
+                  status: t("payments.columns.status"),
+                }}
+                rows={payments.map((p) => ({
+                  id: p.id,
+                  date: t("payments.date", {
+                    date: f.date(p.createdAt),
+                    time: f.time(p.createdAt),
+                  }),
+                  topUp: t(
+                    p.kind === "pro" ? "payments.pro" : "payments.topUp",
+                    {
+                      amount: f.n(p.bdt),
+                      method: f.method(p.method),
+                    },
+                  ),
+                  status:
+                    p.status === "paid"
+                      ? { label: t("payments.added"), tone: "success" }
+                      : { label: t("payments.failed"), tone: "error" },
+                  action:
+                    p.status === "paid"
+                      ? {
+                          label: t("payments.receipt"),
+                          icon: "download-01",
+                          onClick: () =>
+                            downloadText(
+                              t("payments.csv.receiptFile", {
+                                reference: reference(p),
+                              }),
+                              csv([p], csvHeader),
+                            ),
+                        }
+                      : p.kind === "topup"
+                        ? {
+                            label: t("payments.tryAgain"),
+                            onClick: () => retry(p),
+                          }
+                        : undefined,
+                }))}
+                footnote={t("payments.footnote")}
+              />
+            </div>
+          )}
         </section>
       </main>
       {/* The dialogs read ?payment= from the URL. */}

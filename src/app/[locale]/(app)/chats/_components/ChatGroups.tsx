@@ -3,6 +3,7 @@
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+import { Skeleton } from "@/components/atoms/Skeleton";
 import { cx, focusRing } from "@/components/atoms/states";
 import { ChatListRow } from "@/components/molecules/ChatListRow";
 import type { useBrowseToast } from "@/components/templates/BrowseColumn";
@@ -54,6 +55,30 @@ function patchAll(update: (chats: ChatSummary[]) => ChatSummary[]) {
 function invalidateAll() {
   invalidateChats();
   invalidateProjects();
+}
+
+/** The list card (Figma: Chats › Main › List); loading, empty and error states sit in it too. */
+export const CHAT_LIST_CARD =
+  "flex flex-col gap-1 md:gap-0 md:rounded-xl md:bg-surface md:p-chats-list-pad md:ring-1 md:ring-line md:ring-inset";
+
+/** A state shown inside the list card instead of rows (Empty state, Error). */
+export function ChatListState({ children }: { children: ReactNode }) {
+  return (
+    <div className={CHAT_LIST_CARD}>
+      <div className="md:[&>*]:bg-transparent">{children}</div>
+    </div>
+  );
+}
+
+/** Loading: placeholder rows in the list card. */
+export function ChatListSkeleton({ label }: { label: string }) {
+  return (
+    <div role="status" aria-label={label} className={CHAT_LIST_CARD}>
+      {Array.from({ length: 6 }, (_, i) => (
+        <Skeleton key={i} variant="row" />
+      ))}
+    </div>
+  );
 }
 
 export function ChatGroups({ chats, empty, toast }: ChatGroupsProps) {
@@ -203,7 +228,7 @@ export function ChatGroups({ chats, empty, toast }: ChatGroupsProps) {
   return (
     <>
       {groups.length ? (
-        <div className="flex flex-col gap-1 md:gap-0 md:rounded-xl md:bg-surface md:p-chats-list-pad md:ring-1 md:ring-line md:ring-inset">
+        <div className={CHAT_LIST_CARD}>
           {groups.map((g) => (
             <section
               key={g.key}
@@ -263,7 +288,7 @@ export function ChatGroups({ chats, empty, toast }: ChatGroupsProps) {
           ))}
         </div>
       ) : (
-        empty
+        <ChatListState>{empty}</ChatListState>
       )}
       <MoveToProjectDialog
         chat={moving}

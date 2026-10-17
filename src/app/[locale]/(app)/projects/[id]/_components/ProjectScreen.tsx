@@ -11,7 +11,6 @@ import { ChoicePill } from "@/components/molecules/ChoicePill";
 import { EmptyState } from "@/components/molecules/EmptyState";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
 import { NewProjectDialog } from "@/components/organisms/NewProjectDialog";
-import { AppMain } from "@/components/templates/AppShell";
 import {
   BrowseColumn,
   useBrowseToast,
@@ -20,11 +19,13 @@ import { ApiClientError } from "@/lib/api-client";
 import type { ChatSummary } from "@/lib/contracts/chat";
 import { PROJECT_NAME_MAX } from "@/lib/contracts/projects";
 import { Link, useRouter } from "@/lib/i18n/navigation";
-import { projectActions, useProject } from "@/lib/projects";
+import { projectActions, useProject, useProjects } from "@/lib/projects";
 
 import {
   CHAT_DELETE_AFTER_MS,
   ChatGroups,
+  ChatListSkeleton,
+  ChatListState,
 } from "../../../chats/_components/ChatGroups";
 import { ChatRowMoreMenu } from "../../../chats/_components/ChatRowMenu";
 import { DeleteProjectDialog } from "./DeleteProjectDialog";
@@ -33,7 +34,8 @@ import { DeleteProjectDialog } from "./DeleteProjectDialog";
 // 245:38534; Dark 245:36659 · 245:38304 · 245:38764). The Chats page's layout for one project:
 // folder icon + name, "N chats · …", New chat, a search field that filters this project's chats
 // (⌘K still opens the global search), the filters, the grouped list (shared ChatGroups) and the tip.
-// Not in Figma: the project menu (rename, delete), the empty state and the no-results state.
+// Empty, loading and error: 04 · Desktop screens, row 10 (Project · Empty / Loading / Error).
+// Not in Figma: the project menu (rename, delete) and the no-results state.
 // Below 768px: a top bar with back to /chats, no tab bar (as other sub-screens).
 
 type Filter = "all" | ChatSummary["kind"];
@@ -44,7 +46,9 @@ export function ProjectScreen({ id }: { id: string }) {
   const tc = useTranslations("chats");
   const router = useRouter();
   const format = useFormatter();
-  const { project, status } = useProject(id);
+  const tcommon = useTranslations("common");
+  const { project, status, refresh } = useProject(id);
+  const { projects } = useProjects();
   const { toast, show, hide } = useBrowseToast(CHAT_DELETE_AFTER_MS);
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
@@ -55,7 +59,51 @@ export function ProjectScreen({ id }: { id: string }) {
   const [deleting, setDeleting] = useState(false);
 
   if (status === "not-found") notFound();
-  if (!project) return <AppMain>{null}</AppMain>;
+  if (!project) {
+    // Loading or failed: the name from the sidebar's project list, then placeholder rows or Error.
+    const known = projects.find((p) => p.id === id)?.name ?? "";
+    return (
+      <BrowseColumn
+        mobileTopBar={
+          <MobileTopBar
+            title={known}
+            back={{ label: t("back"), link: <Link href="/chats" /> }}
+          />
+        }
+      >
+        <div className="flex flex-col gap-4">
+          <header className="flex h-control-lg items-center gap-project-title-gap max-md:hidden">
+            <Icon
+              name="folder-01"
+              className="size-project-title-icon shrink-0 text-blue"
+            />
+            <h1 className="truncate type-title text-ink">{known}</h1>
+          </header>
+          {status === "error" ? (
+            <ChatListState>
+              <EmptyState
+                tone="error"
+                title={t("loadError")}
+                body={tcommon("loadErrorBody")}
+                action={
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => void refresh()}
+                  >
+                    {tcommon("tryAgain")}
+                  </Button>
+                }
+              />
+            </ChatListState>
+          ) : (
+            <ChatListSkeleton label={tcommon("loading")} />
+          )}
+        </div>
+      </BrowseColumn>
+    );
+  }
+  const none = project.chats.length === 0;
 
   const newChat = () => router.push(`/?project=${encodeURIComponent(id)}`);
   const q = query.trim().toLowerCase();
@@ -157,44 +205,48 @@ export function ProjectScreen({ id }: { id: string }) {
           <span className="md:hidden">{projectMenu}</span>
         </div>
 
-        <label
-          className={cx(
-            "flex h-browse-search-h w-full items-center gap-search-query-gap rounded-pill bg-surface px-4 ring-1 ring-line ring-inset",
-            "transition-shadow duration-fast ease-out focus-within:ring-(length:--input-border-focus-width) focus-within:ring-blue hover:ring-ink-3",
-          )}
-        >
-          <Icon
-            name="search-01"
-            className="size-icon-button-icon shrink-0 text-ink-2 max-md:size-icon-md"
-          />
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.currentTarget.value)}
-            placeholder={t("search", { name: project.name })}
-            aria-label={t("search", { name: project.name })}
-            className="min-w-0 flex-1 bg-transparent type-body text-ink outline-none placeholder:text-ink-3 [&::-webkit-search-cancel-button]:hidden"
-          />
-          <kbd className="type-mono text-ink-2 max-md:hidden">
-            {t("searchShortcut")}
-          </kbd>
-        </label>
+        {!none && (
+          <label
+            className={cx(
+              "flex h-browse-search-h w-full items-center gap-search-query-gap rounded-pill bg-surface px-4 ring-1 ring-line ring-inset",
+              "transition-shadow duration-fast ease-out focus-within:ring-(length:--input-border-focus-width) focus-within:ring-blue hover:ring-ink-3",
+            )}
+          >
+            <Icon
+              name="search-01"
+              className="size-icon-button-icon shrink-0 text-ink-2 max-md:size-icon-md"
+            />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.currentTarget.value)}
+              placeholder={t("search", { name: project.name })}
+              aria-label={t("search", { name: project.name })}
+              className="min-w-0 flex-1 bg-transparent type-body text-ink outline-none placeholder:text-ink-3 [&::-webkit-search-cancel-button]:hidden"
+            />
+            <kbd className="type-mono text-ink-2 max-md:hidden">
+              {t("searchShortcut")}
+            </kbd>
+          </label>
+        )}
 
-        <div
-          role="group"
-          aria-label={tc("filters.label")}
-          className="flex flex-wrap gap-2 max-md:hidden"
-        >
-          {FILTERS.map((f) => (
-            <ChoicePill
-              key={f}
-              selected={filter === f}
-              onClick={() => setFilter(f)}
-            >
-              {tc(`filters.${f}`)}
-            </ChoicePill>
-          ))}
-        </div>
+        {!none && (
+          <div
+            role="group"
+            aria-label={tc("filters.label")}
+            className="flex flex-wrap gap-2 max-md:hidden"
+          >
+            {FILTERS.map((f) => (
+              <ChoicePill
+                key={f}
+                selected={filter === f}
+                onClick={() => setFilter(f)}
+              >
+                {tc(`filters.${f}`)}
+              </ChoicePill>
+            ))}
+          </div>
+        )}
 
         <ChatGroups
           chats={visible}
@@ -221,11 +273,15 @@ export function ProjectScreen({ id }: { id: string }) {
           }
         />
 
-        <p className="type-ui text-ink-2 max-md:hidden">{t("tip")}</p>
-        <p className="flex items-center gap-2 type-ui text-ink-2 md:hidden">
-          <Icon name="information-circle" className="size-icon-sm" />
-          {t("mobileTip")}
-        </p>
+        {!none && (
+          <>
+            <p className="type-ui text-ink-2 max-md:hidden">{t("tip")}</p>
+            <p className="flex items-center gap-2 type-ui text-ink-2 md:hidden">
+              <Icon name="information-circle" className="size-icon-sm" />
+              {t("mobileTip")}
+            </p>
+          </>
+        )}
       </div>
 
       <NewProjectDialog

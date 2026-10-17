@@ -417,7 +417,12 @@
       "body": "Chats of this kind will show up here.",
       "action": "New chat"
     },
-    "earlier": "Earlier"
+    "earlier": "Earlier",
+    "loadError": "Couldn’t load your chats",
+    "first": {
+      "title": "No chats yet",
+      "body": "Ask your first question. Try two models and see which you prefer."
+    }
   },
   "checkout": {
     "dialog": {
@@ -511,7 +516,9 @@
       "title": "This page doesn’t exist",
       "body": "The link may be old, or the chat was deleted.",
       "home": "Go to a new chat"
-    }
+    },
+    "loadErrorBody": "Check your connection and try again. Nothing was charged.",
+    "tryAgain": "Try again"
   },
   "composer": {
     "label": "Message",
@@ -648,7 +655,12 @@
     "back": "Back",
     "more": "More",
     "saved": "Picture saved",
-    "linkCopied": "Link copied"
+    "linkCopied": "Link copied",
+    "empty": {
+      "title": "No pictures yet",
+      "body": "Describe a picture above. It will show up here when it’s ready."
+    },
+    "loadError": "Couldn’t load your pictures"
   },
   "nav": {
     "collapse": "Collapse sidebar",
@@ -852,7 +864,12 @@
         "openSource": "Open source",
         "bangla": "Bangla"
       }
-    }
+    },
+    "empty": {
+      "title": "No presets yet",
+      "body": "Save a set of AIs you use often, then pick it in the composer in one tap."
+    },
+    "loadError": "Couldn’t load your presets"
   },
   "pro": {
     "name": "MultiAI Pro",
@@ -954,7 +971,8 @@
       "renamed": "Project renamed",
       "deleted": "Project deleted. Its chats are still in your chat list.",
       "failed": "That didn’t work. Try again."
-    }
+    },
+    "loadError": "Couldn’t load this project"
   },
   "search": {
     "title": "Search chats",
@@ -1275,7 +1293,13 @@
         "empty": "No questions in this period.",
         "refunds": "If an AI fails or you stop it, those credits come back and show here as “Refunded”."
       },
-      "exportFailed": "Couldn’t export your usage. Please try again."
+      "exportFailed": "Couldn’t export your usage. Please try again.",
+      "empty": {
+        "title": "No questions in this period",
+        "body": "Ask something, or pick another period to see where your credits went.",
+        "action": "New chat"
+      },
+      "loadError": "Couldn’t load your usage"
     },
     "help": {
       "title": "Help & support",
@@ -1430,7 +1454,13 @@
         "status": "Status",
         "credits": "Credits added",
         "reference": "Transaction ID"
-      }
+      },
+      "empty": {
+        "title": "No payments yet",
+        "body": "Top-ups you make with bKash, Nagad or card show here, with a receipt for each."
+      },
+      "loadError": "Couldn’t load your payments",
+      "loadErrorBody": "Your balance is safe. Check your connection and try again."
     },
     "mobile": {
       "balance": "Your balance",

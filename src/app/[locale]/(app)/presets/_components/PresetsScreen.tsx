@@ -4,6 +4,8 @@ import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
+import { Skeleton } from "@/components/atoms/Skeleton";
+import { EmptyState } from "@/components/molecules/EmptyState";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
 import { PresetCard } from "@/components/organisms/PresetCard";
 import {
@@ -21,7 +23,8 @@ import { PresetPicker } from "./PresetPicker";
 
 // Figma: Prototype › Presets (desktop; no mobile screen, so below 768px the cards stack under a
 // top bar). Prototype: Use → Home; Edit and New preset → Model picker. Presets are the user's
-// (/api/presets); "Use" puts one in use for the composer everywhere.
+// (/api/presets); "Use" puts one in use for the composer everywhere. Empty, loading and error:
+// 04 · Desktop screens, row 10 (Presets · Empty / Loading / Error).
 
 type DemoPreset = Preset;
 /** A short question's tokens, for the "≈ low–high cr a question" line. */
@@ -29,6 +32,7 @@ const QUESTION_TOKENS = 30;
 
 export function PresetsScreen() {
   const t = useTranslations("presets");
+  const tc = useTranslations("common");
   const format = useFormatter();
   const router = useRouter();
   const { toast, show } = useBrowseToast();
@@ -104,28 +108,72 @@ export function PresetsScreen() {
           </div>
           <p className="type-body text-ink-2">{t("intro")}</p>
         </header>
-        <div className="grid gap-4 md:grid-cols-2">
-          {presets.map((p) => (
-            <PresetCard
-              key={p.id}
-              name={name(p)}
-              description={(() => {
-                const k = key(p);
-                return k ? t(`items.${k}.description`) : undefined;
-              })()}
-              cost={cost(p)}
-              models={p.models}
-              inUseLabel={p.id === inUse ? t("inUse") : undefined}
-              useLabel={t("use")}
-              editLabel={t("edit")}
-              onUse={() => {
-                void store.update(p.id, { inUse: true });
-                router.push("/");
-              }}
-              onEdit={() => setEditing(p)}
+        {store.status === "loading" && !presets.length ? (
+          <div
+            role="status"
+            aria-label={tc("loading")}
+            className="grid gap-4 md:grid-cols-2"
+          >
+            {Array.from({ length: 4 }, (_, i) => (
+              <Skeleton key={i} variant="card" />
+            ))}
+          </div>
+        ) : !presets.length ? (
+          store.status === "error" ? (
+            <EmptyState
+              tone="error"
+              title={t("loadError")}
+              body={tc("loadErrorBody")}
+              action={
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => void store.refresh()}
+                >
+                  {tc("tryAgain")}
+                </Button>
+              }
             />
-          ))}
-        </div>
+          ) : (
+            <EmptyState
+              icon="bookmark-02"
+              title={t("empty.title")}
+              body={t("empty.body")}
+              action={
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => setEditing(null)}
+                >
+                  {t("newPreset")}
+                </Button>
+              }
+            />
+          )
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2">
+            {presets.map((p) => (
+              <PresetCard
+                key={p.id}
+                name={name(p)}
+                description={(() => {
+                  const k = key(p);
+                  return k ? t(`items.${k}.description`) : undefined;
+                })()}
+                cost={cost(p)}
+                models={p.models}
+                inUseLabel={p.id === inUse ? t("inUse") : undefined}
+                useLabel={t("use")}
+                editLabel={t("edit")}
+                onUse={() => {
+                  void store.update(p.id, { inUse: true });
+                  router.push("/");
+                }}
+                onEdit={() => setEditing(p)}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <PresetPicker
         open={editing !== undefined}

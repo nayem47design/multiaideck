@@ -5,7 +5,10 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 
+import { Button } from "@/components/atoms/Button";
+import { Skeleton } from "@/components/atoms/Skeleton";
 import { cx, focusRing } from "@/components/atoms/states";
+import { EmptyState } from "@/components/molecules/EmptyState";
 import { PicturePlaceholder } from "@/components/molecules/PicturePlaceholder";
 import { MobileTopBar } from "@/components/organisms/MobileTopBar";
 import { PicturePromptBox } from "@/components/organisms/PicturePromptBox";
@@ -55,25 +58,38 @@ export function ImageStudioFromParams() {
 
 function usePictures() {
   const [pictures, setPictures] = useState<Image[]>([]);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">(
+    "loading",
+  );
   const reload = useCallback(async () => {
     try {
       const { images } = await api("/api/images", { schema: ImagesResponse });
       setPictures(images);
+      setStatus("ready");
       return images;
     } catch {
+      setStatus((s) => (s === "ready" ? s : "error"));
       return null;
     }
   }, []);
   useEffect(() => {
     let live = true;
     api("/api/images", { schema: ImagesResponse })
-      .then(({ images }) => live && setPictures(images))
-      .catch(() => {});
+      .then(({ images }) => {
+        if (!live) return;
+        setPictures(images);
+        setStatus("ready");
+      })
+      .catch(() => live && setStatus("error"));
     return () => {
       live = false;
     };
   }, []);
-  return { pictures, setPictures, reload };
+  const retry = useCallback(() => {
+    setStatus("loading");
+    void reload();
+  }, [reload]);
+  return { pictures, setPictures, reload, status, retry };
 }
 
 export function ImageStudio({ pictureId }: { pictureId: string | null }) {
@@ -85,7 +101,7 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
   const [prompt, setPrompt] = useState(DEFAULT_PROMPT);
   const [style, setStyle] = useState<PictureStyle>("drawing");
   const [creating, setCreating] = useState(false);
-  const { pictures, setPictures } = usePictures();
+  const { pictures, setPictures, status, retry } = usePictures();
   const pictureRef = useRef<HTMLDivElement>(null);
 
   const priceCredits = toCredits(IMAGE_MCR);
@@ -272,14 +288,41 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
             create: t("create"),
           }}
         />
-        {pictures.length > 0 && (
-          <section
-            aria-labelledby="recent-pictures"
-            className="flex flex-col gap-browse-gap max-md:mt-4"
-          >
-            <h2 id="recent-pictures" className="type-ui-strong text-ink-2">
-              {t("recent")}
-            </h2>
+        <section
+          aria-labelledby="recent-pictures"
+          className="flex flex-col gap-browse-gap max-md:mt-4"
+        >
+          <h2 id="recent-pictures" className="type-ui-strong text-ink-2">
+            {t("recent")}
+          </h2>
+          {status === "loading" && !pictures.length ? (
+            <div
+              role="status"
+              aria-label={tc("loading")}
+              className="grid grid-cols-2 gap-3 md:grid-cols-4"
+            >
+              {Array.from({ length: 4 }, (_, i) => (
+                <Skeleton key={i} variant="tile" />
+              ))}
+            </div>
+          ) : status === "error" && !pictures.length ? (
+            <EmptyState
+              tone="error"
+              title={t("loadError")}
+              body={tc("loadErrorBody")}
+              action={
+                <Button variant="secondary" size="sm" onClick={retry}>
+                  {tc("tryAgain")}
+                </Button>
+              }
+            />
+          ) : !pictures.length ? (
+            <EmptyState
+              icon="image-01"
+              title={t("empty.title")}
+              body={t("empty.body")}
+            />
+          ) : (
             <ul className="grid grid-cols-2 gap-3 md:grid-cols-4">
               {pictures.map((p) => (
                 <li key={p.id}>
@@ -301,8 +344,8 @@ export function ImageStudio({ pictureId }: { pictureId: string | null }) {
                 </li>
               ))}
             </ul>
-          </section>
-        )}
+          )}
+        </section>
       </div>
     </BrowseColumn>
   );

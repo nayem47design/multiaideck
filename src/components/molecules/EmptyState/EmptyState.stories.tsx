@@ -21,7 +21,8 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: "Figma: Design system › Empty state (103:20667).",
+        component:
+          "Figma: Design system › Empty state (298:56067): Tone=Empty and Tone=Error.",
       },
     },
   },
@@ -41,3 +42,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+export const Error: Story = {
+  args: {
+    tone: "error",
+    title: "Couldn’t load this",
+    body: "Check your connection and try again.",
+    action: (
+      <Button variant="secondary" size="sm">
+        Try again
+      </Button>
+    ),
+  },
+};

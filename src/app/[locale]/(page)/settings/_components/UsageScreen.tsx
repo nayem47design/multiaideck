@@ -8,8 +8,10 @@ import {
 } from "next-intl";
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/atoms/Button";
 import { FilterPill } from "@/components/atoms/FilterPill";
 import { Icon } from "@/components/atoms/Icon";
+import { Skeleton } from "@/components/atoms/Skeleton";
 import { cx, focusRing } from "@/components/atoms/states";
 import { EmptyState } from "@/components/molecules/EmptyState";
 import { PeriodSelect } from "@/components/molecules/PeriodSelect";
@@ -25,7 +27,7 @@ import { UsageCard } from "@/components/organisms/UsageCard";
 import { MODEL_SPECS } from "@/lib/ai/catalog";
 import { api } from "@/lib/api-client";
 import { UsageResponse } from "@/lib/contracts/account";
-import { Link } from "@/lib/i18n/navigation";
+import { Link, useRouter } from "@/lib/i18n/navigation";
 
 import { useWalletFormat } from "../../wallet/_components/format";
 
@@ -49,6 +51,7 @@ function useUsage(period: Period) {
   const [reports, setReports] = useState<
     Partial<Record<Period, UsageResponse | "error">>
   >({});
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let live = true;
     api(`/api/usage?period=${PERIODS[period]}`, { schema: UsageResponse })
@@ -59,10 +62,15 @@ function useUsage(period: Period) {
     return () => {
       live = false;
     };
-  }, [period]);
+  }, [period, attempt]);
   const r = reports[period];
-  return r && r !== "error" ? r : null;
+  const retry = () => {
+    setReports((all) => ({ ...all, [period]: undefined }));
+    setAttempt((n) => n + 1);
+  };
+  return { report: r && r !== "error" ? r : null, error: r === "error", retry };
 }
+
 const FILTERS = ["all", "best", "compare", "image"] as const;
 type Filter = (typeof FILTERS)[number];
 
@@ -75,7 +83,8 @@ export function UsageScreen() {
   const { showToast } = useSettings();
   const [period, setPeriod] = useState<Period>("this");
   const [filter, setFilter] = useState<Filter>("all");
-  const report = useUsage(period);
+  const { report, error, retry } = useUsage(period);
+  const router = useRouter();
   const [openId, setOpenId] = useState<string | undefined>();
   const firstId = report?.activity[0]?.promptId;
   const [opened, setOpened] = useState<string | undefined>();
@@ -150,16 +159,40 @@ export function UsageScreen() {
     />
   );
 
-  const empty = report &&
-    report.spent.credits === 0 &&
-    report.prompts === 0 &&
-    period === "last" && (
-      <EmptyState
-        icon="chart-histogram"
-        title={t("lastMonth.title")}
-        body={t("lastMonth.body")}
-      />
-    );
+  // Empty, loading and error: 04 · Desktop screens, row 10 (Settings · Usage · Empty / Loading /
+  // Error). Last month gets its own message for people who started this month.
+  const blank = report && report.spent.credits === 0 && report.prompts === 0;
+  const state = error ? (
+    <EmptyState
+      tone="error"
+      title={t("loadError")}
+      body={tc("loadErrorBody")}
+      action={
+        <Button variant="secondary" size="sm" onClick={retry}>
+          {tc("tryAgain")}
+        </Button>
+      }
+    />
+  ) : !report ? (
+    <UsageSkeleton label={tc("loading")} />
+  ) : blank && period === "last" ? (
+    <EmptyState
+      icon="chart-histogram"
+      title={t("lastMonth.title")}
+      body={t("lastMonth.body")}
+    />
+  ) : blank ? (
+    <EmptyState
+      icon="chart-histogram"
+      title={t("empty.title")}
+      body={t("empty.body")}
+      action={
+        <Button variant="secondary" size="sm" onClick={() => router.push("/")}>
+          {t("empty.action")}
+        </Button>
+      }
+    />
+  ) : null;
 
   return (
     <div className="flex flex-col">
@@ -172,21 +205,23 @@ export function UsageScreen() {
           actions={
             <>
               {periodSelect}
-              <button
-                type="button"
-                onClick={() => void exportCsv()}
-                className={cx(
-                  "inline-flex h-usage-period-height items-center gap-1-5 rounded-xs type-settings-link text-blue hover:underline",
-                  focusRing,
-                )}
-              >
-                <Icon name="download-01" className="size-icon-sm" />
-                {t("export")}
-              </button>
+              {!state && (
+                <button
+                  type="button"
+                  onClick={() => void exportCsv()}
+                  className={cx(
+                    "inline-flex h-usage-period-height items-center gap-1-5 rounded-xs type-settings-link text-blue hover:underline",
+                    focusRing,
+                  )}
+                >
+                  <Icon name="download-01" className="size-icon-sm" />
+                  {t("export")}
+                </button>
+              )}
             </>
           }
         />
-        {empty || (
+        {state || (
           <>
             {/* Desktop (Settings · Usage) */}
             <div className="flex flex-col gap-12 max-md:hidden">
@@ -401,6 +436,28 @@ export function UsageScreen() {
           </>
         )}
       </ScreenBody>
+    </div>
+  );
+}
+
+/** Loading: the page's cards with placeholder rows (Figma: Settings · Usage · Loading). */
+function UsageSkeleton({ label }: { label: string }) {
+  const card = "rounded-xl border border-line bg-surface";
+  return (
+    <div role="status" aria-label={label} className="flex flex-col gap-12">
+      <div className={cx(card, "grid grid-cols-2 md:grid-cols-4")}>
+        {Array.from({ length: 4 }, (_, i) => (
+          <Skeleton key={i} className="p-5" />
+        ))}
+      </div>
+      <div className={cx(card, "py-3")}>
+        {Array.from({ length: 4 }, (_, i) => (
+          <Skeleton key={i} variant="table-row" />
+        ))}
+      </div>
+      <div className={cx(card, "p-6")}>
+        <span className="block aspect-[5/1] w-full rounded-images-tile bg-canvas-deep" />
+      </div>
     </div>
   );
 }

@@ -3,9 +3,11 @@ import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/atoms/Icon";
 import { cx } from "@/components/atoms/states";
 
-// Figma: Design system › Empty state (103:20667). The action is a Button (Secondary, sm) in Figma.
+// Figma: Design system › Empty state (298:56067): Tone=Empty (nothing to show yet, one next
+// action) and Tone=Error (couldn't load, "Try again"). The action is a Button (Secondary, sm).
 
 export interface EmptyStateProps {
+  tone?: "empty" | "error";
   icon?: IconName;
   title: string;
   body?: string;
@@ -14,7 +16,8 @@ export interface EmptyStateProps {
 }
 
 export function EmptyState({
-  icon = "bubble-chat",
+  tone = "empty",
+  icon = tone === "error" ? "alert-circle" : "bubble-chat",
   title,
   body,
   action,
@@ -22,12 +25,20 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <div
+      role={tone === "error" ? "alert" : undefined}
       className={cx(
         "flex w-full flex-col items-center gap-3 rounded-lg bg-canvas p-8 text-center",
         className,
       )}
     >
-      <span className="flex size-empty-state-icon-circle items-center justify-center rounded-pill bg-blue-soft text-blue">
+      <span
+        className={cx(
+          "flex size-empty-state-icon-circle items-center justify-center rounded-pill",
+          tone === "error"
+            ? "bg-status-error-soft text-error"
+            : "bg-blue-soft text-blue",
+        )}
+      >
         <Icon name={icon} className="size-empty-state-icon" />
       </span>
       <p className="type-empty-state-title text-ink">{title}</p>
