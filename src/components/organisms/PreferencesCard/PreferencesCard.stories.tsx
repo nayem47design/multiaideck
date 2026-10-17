@@ -16,14 +16,11 @@ function frame(width: number, height?: number) {
   };
 }
 
-const segmented = (label: string, a: string, b: string) => (
+const segmented = (label: string, ...labels: string[]) => (
   <SegmentedControl
     label={label}
-    value="a"
-    options={[
-      { value: "a", label: a },
-      { value: "b", label: b },
-    ]}
+    value="0"
+    options={labels.map((l, i) => ({ value: String(i), label: l }))}
   />
 );
 
@@ -44,6 +41,16 @@ const meta = {
         title: "App language",
         help: "Menus, buttons and messages.",
         control: segmented("App language", "English", "Bangla"),
+      },
+      {
+        title: "Theme",
+        help: "System follows your device's light or dark setting.",
+        control: segmented("Theme", "System", "Light", "Dark"),
+      },
+      {
+        title: "Text size",
+        help: "Makes all text bigger: answers, menus and buttons. Saved on this device.",
+        control: segmented("Text size", "Normal", "Large", "Larger"),
       },
       {
         title: "Answer language",

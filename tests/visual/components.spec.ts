@@ -17,6 +17,8 @@ const SKIP = new Set(["button", "screens"]); // own specs
 const NOT_COMPARABLE: Record<string, string> = {
   "model-picker-modal/default":
     "Intentionally smaller than Figma (product owner): 88% of its width, at most 85% of the window's height. Figma frame to be updated.",
+  "thinking-dots/default":
+    "Code shows the animated thinking orb (thinking-orbs), a product decision listed under Figma's Code-only effects; the Figma component is a static placeholder.",
 };
 
 // Variants whose pixels cannot be compared with their Figma export; only the size is checked.
