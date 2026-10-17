@@ -95,7 +95,7 @@ export function PicturePromptBox({
           ))}
         </div>
         <span className="flex-1 max-md:hidden" />
-        <span className="type-mono text-ink-2 max-md:hidden">
+        <span className="type-mono whitespace-nowrap text-ink-2 max-md:hidden">
           {labels.cost}
         </span>
         <span className="flex items-center gap-2 type-ui text-ink-2 md:hidden">

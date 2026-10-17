@@ -22,12 +22,12 @@ export function AuthFrame({
     <main
       className={cx(
         "mx-auto flex min-h-dvh w-full max-w-screen-desktop flex-col",
-        "md:flex-row md:items-center md:justify-center md:gap-8 md:px-8 lg:justify-between xl:px-auth-pad",
+        "md:items-center md:justify-center md:gap-10 md:px-8 lg:flex-row lg:justify-between lg:gap-8 xl:px-auth-pad",
         className,
       )}
     >
       <AuthPromise
-        className="min-w-0 shrink max-lg:hidden"
+        className="min-w-0 shrink max-md:hidden md:max-lg:w-auth-card-w md:max-lg:[&_ul]:hidden"
         title={t("title")}
         body={t("body")}
         points={[

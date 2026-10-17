@@ -47,7 +47,7 @@ export function BrowseColumn({
       {mobileTopBar && <div className="md:hidden">{mobileTopBar}</div>}
       <div
         className={cx(
-          "mx-auto box-content max-w-browse-main-w px-mobile-gutter pt-2 pb-8 md:px-8 md:pt-0",
+          "mx-auto box-content max-w-browse-main-w px-mobile-gutter pt-2 pb-8 md:pt-0 lg:px-8",
           tabBar && "max-md:pb-[calc(var(--tab-bar-height)+var(--space-8))]",
           className,
         )}

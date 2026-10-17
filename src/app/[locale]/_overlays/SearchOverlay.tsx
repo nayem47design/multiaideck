@@ -38,7 +38,7 @@ export function SearchOverlay({ open, onOpenChange }: OverlayProps) {
         <Dialog.Overlay className="fixed inset-0 z-40 bg-overlay-scrim" />
         <Dialog.Content
           aria-describedby={undefined}
-          className="fixed top-1/2 left-1/2 z-50 max-h-full w-search-overlay-w max-w-[calc(100%-2*var(--mobile-gutter))] -translate-1/2 overflow-y-auto outline-none"
+          className="fixed top-1/2 left-1/2 z-50 max-h-[calc(100%-2*var(--space-12))] w-search-overlay-w max-w-[calc(100%-2*var(--mobile-gutter))] -translate-1/2 overflow-y-auto outline-none"
         >
           {/* Mounted only while open, so each opening starts with an empty query. */}
           <SearchChats onDone={() => onOpenChange(false)} />
