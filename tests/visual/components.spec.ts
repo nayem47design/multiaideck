@@ -56,6 +56,9 @@ function storyFor(
   component: string,
   variant: string,
 ): { id: string; args?: Record<string, string> } {
+  // Settings card › Type=Preferences › Row/Text size: the row's own stories under PreferencesCard.
+  if (component === "text-size-row")
+    return { id: `organisms-preferences-card-text-size-row--${variant}` };
   if (component === "model-orb") {
     const [model, size] = variant.split("-");
     return { id: "atoms-model-orb--orb", args: { model, size } };

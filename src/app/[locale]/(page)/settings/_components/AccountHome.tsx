@@ -7,6 +7,7 @@ import { Icon } from "@/components/atoms/Icon";
 import { cx, focusRing } from "@/components/atoms/states";
 import { AccountProfileRow } from "@/components/molecules/AccountProfileRow";
 import { AccountMenuList } from "@/components/organisms/AccountMenuList";
+import { TextSizePicker } from "@/components/molecules/TextSizePicker";
 import { EasyReadingCard } from "@/components/organisms/EasyReadingCard";
 import type { ThemePreference } from "@/lib/theme";
 import { useThemePreference } from "@/lib/use-theme";
@@ -16,7 +17,7 @@ import { api } from "@/lib/api-client";
 import { WalletResponse } from "@/lib/contracts/wallet";
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
 import { displayName, initialsOf, me, nationalPhone, useMe } from "@/lib/me";
-import type { TextSize } from "@/lib/mock/settings";
+import { TEXT_SIZES, type TextSize } from "@/lib/text-size";
 
 import { useOverlay } from "../../../_shell/overlays";
 import { useTextSize } from "./textSize";
@@ -75,17 +76,18 @@ export function AccountHome({ className }: { className?: string }) {
           detail={user?.phone ? maskPhone(user.phone) : (user?.email ?? "")}
           link={<Link href="/settings/privacy" aria-label={t("openProfile")} />}
         />
-        <EasyReadingCard
-          title={t("reading.title")}
-          label={t("reading.textSize")}
-          options={(["normal", "large", "larger"] as const).map((v) => ({
-            value: v,
-            label: t(`reading.${v}`),
-          }))}
-          value={textSize}
-          onValueChange={(v) => setTextSize(v as TextSize)}
-          help={t("reading.help")}
-        />
+        <EasyReadingCard title={t("reading.title")} help={t("reading.help")}>
+          <TextSizePicker
+            label={t("reading.textSize")}
+            sample={t("reading.sample")}
+            options={TEXT_SIZES.map((v) => ({
+              value: v,
+              name: t(`reading.${v}`),
+            }))}
+            value={textSize}
+            onValueChange={(v) => setTextSize(v as TextSize)}
+          />
+        </EasyReadingCard>
         <EasyReadingCard
           title={t("appearance.title")}
           label={t("appearance.theme")}

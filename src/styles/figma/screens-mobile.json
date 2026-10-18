@@ -18876,17 +18876,59 @@
          ],
          "k": [
           {
-           "n": "Text size",
-           "t": "TEXT",
+           "n": "Header",
+           "t": "FRAME",
            "x": 0,
            "y": 0,
-           "w": 66,
+           "w": 296,
            "h": 20,
-           "f": [
-            "lum/ink"
+           "al": [
+            "H",
+            0,
+            0,
+            0,
+            0,
+            0,
+            "MIN",
+            "CENTER"
            ],
-           "c": "Text size",
-           "ts": "raw Geist Medium 16/20 ls-0.1"
+           "k": [
+            {
+             "n": "Text size",
+             "t": "TEXT",
+             "x": 0,
+             "y": 0,
+             "w": 66,
+             "h": 20,
+             "f": [
+              "lum/ink"
+             ],
+             "c": "Text size",
+             "ts": "Luminous/Mobile/Button"
+            },
+            {
+             "n": "spacer",
+             "t": "FRAME",
+             "x": 66,
+             "y": 9.5,
+             "w": 192,
+             "h": 1,
+             "k": []
+            },
+            {
+             "n": "Current size",
+             "t": "TEXT",
+             "x": 258,
+             "y": 0,
+             "w": 38,
+             "h": 20,
+             "f": [
+              "lum/ink-2"
+             ],
+             "c": "Large",
+             "ts": "raw Geist Medium 14/20 ls-0.1"
+            }
+           ]
           },
           {
            "n": "Size options",
@@ -18911,11 +18953,11 @@
            ],
            "k": [
             {
-             "n": "Size · Normal",
+             "n": "Size · Extra small",
              "t": "FRAME",
              "x": 4,
              "y": 4,
-             "w": 96,
+             "w": 57.6,
              "h": 40,
              "al": [
               "H",
@@ -18930,26 +18972,94 @@
              "r": 999,
              "k": [
               {
-               "n": "Default",
+               "n": "Extra small",
                "t": "TEXT",
-               "x": 24.5,
-               "y": 10,
-               "w": 47,
-               "h": 20,
+               "x": 25.3,
+               "y": 8,
+               "w": 7,
+               "h": 24,
                "f": [
                 "lum/ink-2"
                ],
-               "c": "Normal",
-               "ts": "raw Geist Medium 14/20 ls-0.1"
+               "c": "A",
+               "ts": "raw Geist Medium 10/24 ls-0.1"
+              }
+             ]
+            },
+            {
+             "n": "Size · Small",
+             "t": "FRAME",
+             "x": 61.6,
+             "y": 4,
+             "w": 57.6,
+             "h": 40,
+             "al": [
+              "H",
+              0,
+              0,
+              0,
+              0,
+              0,
+              "CENTER",
+              "CENTER"
+             ],
+             "r": 999,
+             "k": [
+              {
+               "n": "Small",
+               "t": "TEXT",
+               "x": 24.3,
+               "y": 8,
+               "w": 9,
+               "h": 24,
+               "f": [
+                "lum/ink-2"
+               ],
+               "c": "A",
+               "ts": "raw Geist Medium 12/24 ls-0.1"
+              }
+             ]
+            },
+            {
+             "n": "Size · Normal",
+             "t": "FRAME",
+             "x": 119.2,
+             "y": 4,
+             "w": 57.6,
+             "h": 40,
+             "al": [
+              "H",
+              0,
+              0,
+              0,
+              0,
+              0,
+              "CENTER",
+              "CENTER"
+             ],
+             "r": 999,
+             "k": [
+              {
+               "n": "Normal",
+               "t": "TEXT",
+               "x": 23.8,
+               "y": 8,
+               "w": 10,
+               "h": 24,
+               "f": [
+                "lum/ink-2"
+               ],
+               "c": "A",
+               "ts": "raw Geist Medium 14/24 ls-0.1"
               }
              ]
             },
             {
              "n": "Size · Large",
              "t": "FRAME",
-             "x": 100,
+             "x": 176.8,
              "y": 4,
-             "w": 96,
+             "w": 57.6,
              "h": 40,
              "al": [
               "H",
@@ -18969,24 +19079,24 @@
               {
                "n": "Large",
                "t": "TEXT",
-               "x": 26.5,
-               "y": 10,
-               "w": 43,
-               "h": 20,
+               "x": 22.8,
+               "y": 8,
+               "w": 12,
+               "h": 24,
                "f": [
                 "lum/ink"
                ],
-               "c": "Large",
-               "ts": "raw Geist Medium 16/20 ls-0.1"
+               "c": "A",
+               "ts": "raw Geist Medium 16/24 ls-0.1"
               }
              ]
             },
             {
              "n": "Size · Larger",
              "t": "FRAME",
-             "x": 196,
+             "x": 234.4,
              "y": 4,
-             "w": 96,
+             "w": 57.6,
              "h": 40,
              "al": [
               "H",
@@ -19001,17 +19111,17 @@
              "r": 999,
              "k": [
               {
-               "n": "Extra large",
+               "n": "Larger",
                "t": "TEXT",
-               "x": 19,
-               "y": 10,
-               "w": 58,
-               "h": 20,
+               "x": 21.8,
+               "y": 8,
+               "w": 14,
+               "h": 24,
                "f": [
                 "lum/ink-2"
                ],
-               "c": "Larger",
-               "ts": "raw Geist Medium 19/20 ls-0.1"
+               "c": "A",
+               "ts": "raw Geist Medium 19/24 ls-0.1"
               }
              ]
             }

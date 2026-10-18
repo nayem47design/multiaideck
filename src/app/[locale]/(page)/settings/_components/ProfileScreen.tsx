@@ -160,6 +160,7 @@ export function ProfileScreen({ className }: { className?: string }) {
                   })),
                   (v) => setTextSize(v as TextSize),
                 ),
+                wrap: true,
               },
               {
                 title: t("preferences.answerLanguage"),

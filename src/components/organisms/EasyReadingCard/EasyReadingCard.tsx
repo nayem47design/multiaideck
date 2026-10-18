@@ -1,7 +1,7 @@
 "use client";
 
 import { RadioGroup } from "radix-ui";
-import { useId } from "react";
+import { useId, type ReactNode } from "react";
 
 import { cx, focusRing } from "@/components/atoms/states";
 
@@ -17,11 +17,13 @@ export interface EasyReadingCardProps {
   /** e.g. "Easy reading". */
   title: string;
   /** e.g. "Text size". */
-  label: string;
+  label?: string;
   /** Three options, smallest first. */
-  options: EasyReadingOption[];
-  value: string;
-  onValueChange: (value: string) => void;
+  options?: EasyReadingOption[];
+  value?: string;
+  onValueChange?: (value: string) => void;
+  /** A custom picker in place of the three options (e.g. TextSizePicker, five sizes). */
+  children?: ReactNode;
   help: string;
   className?: string;
 }
@@ -38,6 +40,7 @@ export function EasyReadingCard({
   options,
   value,
   onValueChange,
+  children,
   help,
   className,
 }: EasyReadingCardProps) {
@@ -50,34 +53,36 @@ export function EasyReadingCard({
       )}
     >
       <h2 className="type-ui-strong text-ink-2">{title}</h2>
-      <div className="flex flex-col gap-2">
-        <p id={labelId} className="type-acct-row-label text-ink">
-          {label}
-        </p>
-        <RadioGroup.Root
-          aria-labelledby={labelId}
-          value={value}
-          onValueChange={onValueChange}
-          orientation="horizontal"
-          className="flex h-acct-text-size-options-height items-center rounded-pill bg-canvas p-1"
-        >
-          {options.map((option, i) => (
-            <RadioGroup.Item
-              key={option.value}
-              value={option.value}
-              className={cx(
-                "flex h-acct-text-size-option-height min-w-0 flex-1 items-center justify-center rounded-pill text-ink-2",
-                "transition-colors duration-fast ease-out hover:text-ink",
-                "data-[state=checked]:bg-surface data-[state=checked]:text-ink",
-                optionText[i] ?? optionText[0],
-                focusRing,
-              )}
-            >
-              {option.label}
-            </RadioGroup.Item>
-          ))}
-        </RadioGroup.Root>
-      </div>
+      {children ?? (
+        <div className="flex flex-col gap-2">
+          <p id={labelId} className="type-acct-row-label text-ink">
+            {label}
+          </p>
+          <RadioGroup.Root
+            aria-labelledby={labelId}
+            value={value}
+            onValueChange={onValueChange}
+            orientation="horizontal"
+            className="flex h-acct-text-size-options-height items-center rounded-pill bg-canvas p-1"
+          >
+            {(options ?? []).map((option, i) => (
+              <RadioGroup.Item
+                key={option.value}
+                value={option.value}
+                className={cx(
+                  "flex h-acct-text-size-option-height min-w-0 flex-1 items-center justify-center rounded-pill text-ink-2",
+                  "transition-colors duration-fast ease-out hover:text-ink",
+                  "data-[state=checked]:bg-surface data-[state=checked]:text-ink",
+                  optionText[i] ?? optionText[0],
+                  focusRing,
+                )}
+              >
+                {option.label}
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup.Root>
+        </div>
+      )}
       <p className="type-ui text-ink-2">{help}</p>
     </section>
   );

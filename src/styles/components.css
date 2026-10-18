@@ -2039,18 +2039,54 @@ The best answer: Geist Light 30/38 ls -0.8 */
   @apply type-mobile-button;
 }
 
-/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Normal › Default: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
-@utility type-acct-text-size-normal {
-  @apply type-ui-strong;
+/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Extra small › Extra small: Geist Medium 10/24 ls -0.1 */
+@utility type-acct-text-size-xsmall {
+  font-family: var(--font-sans);
+  font-size: calc(10px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
 }
 
-/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Larger › Extra large: Geist Medium 19/20 ls -0.1 */
+/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Small › Small: Geist Medium 12/24 ls -0.1 */
+@utility type-acct-text-size-small {
+  font-family: var(--font-sans);
+  font-size: calc(12px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Normal › Normal: Geist Medium 14/24 ls -0.1 */
+@utility type-acct-text-size-normal {
+  font-family: var(--font-sans);
+  font-size: calc(14px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Large › Large: Geist Medium 16/24 ls -0.1 */
+@utility type-acct-text-size-large {
+  font-family: var(--font-sans);
+  font-size: calc(16px * var(--type-scale, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
+  font-weight: 500;
+  letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* M15 · Account & settings › Content › Reading › Text size › Size options › Size · Larger › Larger: Geist Medium 19/24 ls -0.1 */
 @utility type-acct-text-size-larger {
   font-family: var(--font-sans);
   font-size: calc(19px * var(--type-scale, 1));
-  line-height: calc(20px * var(--type-scale, 1) * var(--leading-script, 1));
+  line-height: calc(24px * var(--type-scale, 1) * var(--leading-script, 1));
   font-weight: 500;
   letter-spacing: calc(-0.1px * var(--type-scale, 1));
+}
+
+/* M15 · Account & settings › Content › Reading › Text size › Header › Current size: Geist Medium 14/20 ls -0.1, same as type-ui-strong */
+@utility type-acct-text-size-current {
+  @apply type-ui-strong;
 }
 
 /* M13 · Usage › Content › Total › t › 26 credits: Geist Light 30/36 ls -0.8, same as type-title */

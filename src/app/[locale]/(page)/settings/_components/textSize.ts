@@ -3,8 +3,9 @@
 import { useSyncExternalStore } from "react";
 
 import {
+  applyTextSize,
+  DEFAULT_TEXT_SIZE,
   readTextSize,
-  TEXT_SIZE_STORAGE_KEY,
   type TextSize,
 } from "@/lib/text-size";
 
@@ -26,14 +27,10 @@ export function useTextSize() {
   const size = useSyncExternalStore(
     subscribe,
     readTextSize,
-    () => "normal" as const,
+    () => DEFAULT_TEXT_SIZE,
   );
   const setSize = (next: TextSize) => {
-    try {
-      localStorage.setItem(TEXT_SIZE_STORAGE_KEY, next);
-    } catch {}
-    if (next === "normal") delete document.documentElement.dataset.textSize;
-    else document.documentElement.dataset.textSize = next;
+    applyTextSize(next);
     window.dispatchEvent(new Event(EVENT));
   };
   return [size, setSize] as const;

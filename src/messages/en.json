@@ -8,7 +8,10 @@
       "normal": "Normal",
       "large": "Large",
       "larger": "Larger",
-      "help": "Answers and buttons get bigger. Works with your phone’s font size too."
+      "help": "Answers and buttons get bigger. Works with your phone’s font size too.",
+      "xsmall": "Extra small",
+      "small": "Small",
+      "sample": "A"
     },
     "rows": {
       "language": "Language",
@@ -1070,8 +1073,10 @@
           "dark": "Dark"
         },
         "textSize": "Text size",
-        "textSizeHelp": "Makes all text bigger: answers, menus and buttons. Saved on this device.",
+        "textSizeHelp": "Changes the size of all text: answers, menus and buttons. Saved on this device.",
         "textSizes": {
+          "xsmall": "Extra small",
+          "small": "Small",
           "normal": "Normal",
           "large": "Large",
           "larger": "Larger"

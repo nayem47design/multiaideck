@@ -99,14 +99,26 @@
 }
 
 /*
- * Text size (Settings › Profile, Account › Easy reading): every text style is Figma's size times
- * --type-scale. Normal is Figma (1). Large and Larger are not in Figma yet; product decision.
+ * Text size (Settings › Profile, Account › Easy reading): a root scale. Every text style is Figma's
+ * size times --type-scale, and the root font-size follows so rem-based and browser-default text
+ * (form controls, the browser's own UI text) scale too. Normal is Figma (1). The steps are a
+ * product decision; Figma shows the five options, not their scales.
  */
+:root[data-text-size="xsmall"] {
+  --type-scale: 0.875;
+  font-size: 87.5%;
+}
+:root[data-text-size="small"] {
+  --type-scale: 0.9375;
+  font-size: 93.75%;
+}
 :root[data-text-size="large"] {
   --type-scale: 1.1;
+  font-size: 110%;
 }
 :root[data-text-size="larger"] {
   --type-scale: 1.2;
+  font-size: 120%;
 }
 
 /*

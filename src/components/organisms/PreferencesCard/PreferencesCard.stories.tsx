@@ -19,7 +19,7 @@ function frame(width: number, height?: number) {
 const segmented = (label: string, ...labels: string[]) => (
   <SegmentedControl
     label={label}
-    value="0"
+    value={label === "Text size" ? "2" : "0"}
     options={labels.map((l, i) => ({ value: String(i), label: l }))}
   />
 );
@@ -49,8 +49,16 @@ const meta = {
       },
       {
         title: "Text size",
-        help: "Makes all text bigger: answers, menus and buttons. Saved on this device.",
-        control: segmented("Text size", "Normal", "Large", "Larger"),
+        help: "Changes the size of all text: answers, menus and buttons. Saved on this device.",
+        control: segmented(
+          "Text size",
+          "Extra small",
+          "Small",
+          "Normal",
+          "Large",
+          "Larger",
+        ),
+        wrap: true,
       },
       {
         title: "Answer language",
